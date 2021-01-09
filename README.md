@@ -27,7 +27,7 @@ discussed in the iobroker forum in the corresponding thread
 The adapter can currently only be installed via github. This can be done in the iobroker in the "adapter" tab, 
 with the expert view via the github button (cat symbol).
 
-Then enter the url of the github repository xxx in the "any" tab and install it.
+Then enter the url of the github repository https://github.com/oweitman/iobroker.tvprogram in the "any" tab and install it.
 
 ### Adapter Configuration
 
