@@ -1,0 +1,104 @@
+{
+    "common": {
+        "name": "tvprogram",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "TV Programm",
+        "titleLang": {
+            "en": "TV Programm",
+            "de": "Fernsehprogramm",
+            "ru": "Телепрограмма",
+            "pt": "Programa de TV",
+            "nl": "Tv-programma",
+            "fr": "Programme TV",
+            "it": "Programma TV",
+            "es": "Programa de televisión",
+            "pl": "Program telewizyjny",
+            "zh-cn": "电视节目"
+        },
+        "desc": {
+            "en": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
+            "de": "Dieser Adapter fragt in regelmäßigen Abständen Informationen über das Fernsehprogramm ab. ",
+            "ru": "Этот адаптер регулярно запрашивает информацию о телевизионной программе. ",
+            "pt": "Este adaptador pesquisa informações sobre o programa de televisão em intervalos regulares. ",
+            "nl": "Deze adapter vraagt ​​regelmatig informatie over het televisieprogramma. ",
+            "fr": "Cet adaptateur interroge les informations sur le programme de télévision à intervalles réguliers. ",
+            "it": "Questo adattatore esegue il polling delle informazioni sul programma televisivo a intervalli regolari. ",
+            "es": "Este adaptador recopila información sobre el programa de televisión a intervalos regulares. ",
+            "pl": "Ten adapter odpytuje informacje o programie telewizyjnym w regularnych odstępach czasu. ",
+            "zh-cn": "该适配器定期轮询有关电视节目的信息。"
+        },
+        "authors": [
+            "oweitman <oweitman@gmx.de>"
+        ],
+        "keywords": [
+            "TV",
+            "programm"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "tvprogram.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/master/admin/tvprogram.png",
+        "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
+        "loglevel": "info",
+        "restartAdapters": [
+            "vis"
+        ],
+        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+        "mode": "daemon",
+        "type": "visualization",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=2.0.0"
+            },
+            "vis"
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "cli": true,
+    "adapterName": "tvprogram",
+    "title": "TV Programm",
+    "description": "TV Program",
+    "keywords": [
+        "TV",
+        "programm"
+    ],
+    "expert": "yes",
+    "features": [
+        "adapter",
+        "vis"
+    ],
+    "adminFeatures": [],
+    "type": "visualization",
+    "startMode": "daemon",
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "connectionIndicator": "yes",
+    "language": "JavaScript",
+    "adminReact": "yes",
+    "tools": [
+        "ESLint",
+        "type checking"
+    ],
+    "indentation": "Space (4)",
+    "quotes": "double",
+    "es6class": "yes",
+    "authorName": "oweitman",
+    "authorGithub": "oweitman",
+    "authorEmail": "oweitman@gmx.de",
+    "gitRemoteProtocol": "SSH",
+    "gitCommit": "no",
+    "license": "MIT License",
+    "ci": "travis",
+    "dependabot": "yes",
+    "creatorVersion": "1.31.0"
+}
