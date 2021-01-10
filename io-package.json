@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "news": {
+            "0.0.5": {
+                "en": "see git log"
+            },
             "0.0.4": {
                 "en": "bug fixes"
             },
