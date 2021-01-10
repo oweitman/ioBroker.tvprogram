@@ -77,9 +77,14 @@ vis.binds["tvprogram"] = {
                         ],this.onChange);
                 }
             }
-            var tvprogram  = vis.states.attr( tvprogram_oid + '.program.'+this.getDate(d,+0) + '.val') ? JSON.parse(vis.states.attr( tvprogram_oid + '.program.'+this.getDate(d,+0) + '.val')):{};
-            var channels  = vis.states.attr( tvprogram_oid + '.channels.val')!=="null" ? JSON.parse(vis.states.attr( tvprogram_oid + '.channels.val')).channels:{};
-            var categories  = vis.states.attr( tvprogram_oid + '.categories.val')!=="null" ? JSON.parse(vis.states.attr( tvprogram_oid + '.categories.val')).category:{};
+            try {
+                var tvprogram  = JSON.parse(vis.states.attr( tvprogram_oid + '.program.'+this.getDate(d,+0) + '.val'));
+                var channels  = JSON.parse(vis.states.attr( tvprogram_oid + '.channels.val')).channels;
+                var categories  = JSON.parse(vis.states.attr( tvprogram_oid + '.categories.val')).category;
+            } catch {
+                $('#' + widgetID+' .tv-container').html("Datapoints loading...");
+                return;
+            }
             if (Object.keys(tvprogram).length==0 || Object.keys(channels).length==0 || Object.keys(categories).length==0) return;
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
