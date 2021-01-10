@@ -56,13 +56,15 @@ vis.binds["tvprogram"] = {
             console.log("createWidget start");
             var tvprogram_oid;
             if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim()))==false) return;
-            if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]=false;
+            if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
+            if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
+
             var d = this.calcDate();
 
-            if (this.onChange.name=="onChange") this.onChange = this.onChange.bind(this,widgetID, view, data, style);
-            if (tvprogram_oid && !this.bound[tvprogram_oid]) {
+            if (this.onChange.name=="onChange") this.onChange = this.onChange.bind(this, widgetID, view, data, style);
+            if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
                 if (1 || !vis.editMode) {
-                    this.bound[tvprogram_oid]=true;
+                    this.bound[tvprogram_oid][widgetID]=true;
                     vis.binds["tvprogram"].bindStates($div,[
                         tvprogram_oid + '.categories',
                         tvprogram_oid + '.channels',
@@ -102,7 +104,7 @@ vis.binds["tvprogram"] = {
             var channelfilter = config[widgetID].channelfilter;
             if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
             
-            var widthitem = 140;
+            var widthitem = 120;
             var widthchannel = 35;
             var heightrow = 35;
             var widthtvrow = (48*widthitem)+widthchannel;
@@ -140,10 +142,10 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + ' .time {\n';
-            text += '   width: 140px; \n';
+            text += '   width: 120px; \n';
             text += '   height: 35px; \n';
             text += '   font-weight: 700; \n';
-            text += '   font-size: 20px; \n';
+            text += '   font-size: 125%; \n';
             text += '   padding: 5px 5px; \n';
             text += '} \n';
 
@@ -166,7 +168,7 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcast {\n';
             text += '   height: 35px; \n';
             text += '   padding: 3px; \n';
-            text += '   font-size: x-small; \n';
+            text += '   font-size: 75%; \n';
             text += '   overflow: hidden; \n';
             text += '} \n';
 
@@ -174,7 +176,7 @@ vis.binds["tvprogram"] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   top:0; \n';
-            text += '   z-index:10001; \n';
+            text += '   z-index:11; \n';
             text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
@@ -182,7 +184,7 @@ vis.binds["tvprogram"] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   left:0; \n';
-            text += '   z-index:10000; \n';
+            text += '   z-index:10; \n';
             text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
@@ -190,16 +192,16 @@ vis.binds["tvprogram"] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   top:0; \n';
-            text += '   z-index:10002; \n';
+            text += '   z-index:12; \n';
             text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
             text += '.ui-dialog.'+widgetID + ' {\n';
-            text += '   z-index:10002; \n';
+            text += '   z-index:12; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'broadcastdlg  {\n';
-            text += '   z-index:10002; \n';
+            text += '   z-index:12; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'broadcastdlg .dialogcolumn {\n';
@@ -211,7 +213,7 @@ vis.binds["tvprogram"] = {
             text += '   height:100%; \n';
             text += '   display:flex; \n';
             text += '   overflow:hidden; \n';
-            text += '   font-size:x-small; \n';
+            text += '   font-size:75%; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'broadcastdlg .event-picture {\n';
@@ -224,8 +226,10 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + 'broadcastdlg .event-picture img {\n';
-            text += '   width:100%; \n';
+            text += '   width:auto; \n';
             text += '   height:auto; \n';
+            text += '   max-width:100%; \n';
+            text += '   max-height:100%; \n';
             text += '   display:block; \n';
             text += '   margin:auto; \n';
             text += '} \n';
@@ -270,7 +274,7 @@ vis.binds["tvprogram"] = {
             text += '   width: 2px; \n';
             text += '   background-color: red; \n';
             text += '   opacity: 0.8; \n';
-            text += '   z-index: 10002; \n';
+            text += '   z-index: 12; \n';
             text += '   height: '+((channelfilter.length+1)*heightrow)+'px; \n';
             text += '   float: left; \n';
             text += '} \n';
@@ -341,7 +345,7 @@ vis.binds["tvprogram"] = {
             return d;
         },
         updateMarker: function(widgetID,d) {
-            var wItem=140;//2 border, 4 padding
+            var wItem=120;//2 border, 4 padding
             var tItem=30;
             var wChannel=35;
             var sTime=new Date(this.calcDate());
@@ -434,7 +438,7 @@ vis.binds["tvprogram"] = {
             $( "#"+widgetID+"channeldlg" ).dialog( "open" );
         },        
         getBroadcasts4Channel: function(el,widgetID) {
-            var wItem=140;//2 border, 4 padding
+            var wItem=120;//2 border, 4 padding
             var wBorder=2;
             var wPadding=0;
             var tItem=30;
@@ -542,7 +546,7 @@ vis.binds["tvprogram"] = {
             return [].concat(tt.slice(10),tt.slice(0,10));
         },
         onChange: function(widgetID, view, data, style,e, newVal, oldVal) {
-            console.log("changed "+e.type );
+            console.log("changed "+widgetID+" type:"+e.type );
             this.createWidget(widgetID, view, data, style);
         },
         getDate: function(d,add) {
@@ -564,7 +568,7 @@ vis.binds["tvprogram"] = {
         },
     },
             
-    time: {
+    timex: {
         tvprogram:  {},
         channels:   {},
         categories: {},
