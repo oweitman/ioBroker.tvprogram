@@ -154,6 +154,10 @@ vis.binds["tvprogram"] = {
             text += '   padding: 7px; \n';
             text += '} \n';
 
+            text += '#'+widgetID + ' svg rect {\n';
+            text += '   fill: '+$("#"+widgetID).css("color")+'; \n';
+            text += '} \n';
+
             text += '#'+widgetID + ' .broadcast {\n';
             text += '   height: 35px; \n';
             text += '   padding: 3px; \n';
@@ -260,6 +264,7 @@ vis.binds["tvprogram"] = {
             text += '   top: 0; \n';
             text += '   width: 2px; \n';
             text += '   background-color: red; \n';
+            text += '   opacity: 0.8; \n';
             text += '   z-index: 10002; \n';
             text += '   height: '+((channelfilter.length+1)*heightrow)+'px; \n';
             text += '   float: left; \n';
@@ -290,7 +295,7 @@ vis.binds["tvprogram"] = {
             if (!$( "#"+widgetID+"broadcastdlg" ).hasClass('ui-dialog-content')) {
                 $( "#"+widgetID+"broadcastdlg" ).dialog({
                     autoOpen: false,
-                    modal: true,
+                    modal: false,
                     position: { of: $("#"+widgetID) },
                     width: $("#"+widgetID).width()*0.9,
                     height: $("#"+widgetID).height()*0.9,
@@ -302,7 +307,7 @@ vis.binds["tvprogram"] = {
             if (!$( "#"+widgetID+"channeldlg" ).hasClass('ui-dialog-content')) {
                 $( "#"+widgetID+"channeldlg" ).dialog({
                     autoOpen: false,
-                    modal: true,
+                    modal: false,
                     position: { of: $("#"+widgetID) },
                     width: $("#"+widgetID).width()*0.9,
                     height: $("#"+widgetID).height()*0.9,
@@ -510,7 +515,6 @@ vis.binds["tvprogram"] = {
             text += '  </div>';
             $( "#"+widgetID+"broadcastdlg" ).html(text);
             $( "#"+widgetID+"broadcastdlg" ).dialog( "open" );
-
         },        
         getEvents: function(tvprogram,filter) {
             var tv=[],i;
@@ -553,9 +557,6 @@ vis.binds["tvprogram"] = {
                 return bg;
             }
         },
-        
-    
-    
     },
             
     time: {
