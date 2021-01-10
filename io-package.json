@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
+            "0.0.3": {
+                "en": "bug fixes"
+            },
             "0.0.2": {
                 "en": "bug fixes"
             },
@@ -62,7 +65,6 @@
         "restartAdapters": [
             "vis"
         ],
-        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
         "mode": "daemon",
         "type": "visualization",
         "compact": true,
@@ -77,8 +79,6 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
     },
     "objects": [],
     "instanceObjects": [
