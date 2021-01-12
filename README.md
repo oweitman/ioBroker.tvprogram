@@ -38,8 +38,8 @@ No configuration currently required
 #### Time
 Currently only the widget "time" exists. This shows the current TV program on a timeline by TV channel.
 
-To set it up, the adapter must have already accessed and filled the necessary data points. 
-In the configuration, the widget only needs to be filled with any data point of the adapter. 
+To set it up, the adapter must have already accessed and filled the necessary data. 
+In the configuration, the widget only needs to be filled with any data point of the adapter (e.g.config).
 The widget searches for all remaining data points automatically.
 
 Functions:
@@ -47,7 +47,7 @@ Functions:
 - show tv data on timeline by tv channel
 - show details about a tv broadcast if available
 - show a marker of actual position with automatic scrolling
-- configure displayed tv channels and order
+- configure displayed tv channels and order, reordering ist possible via dragNdrop.
 
 ### Todo
 
