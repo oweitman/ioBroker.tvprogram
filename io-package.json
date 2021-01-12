@@ -1,10 +1,13 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "introduce client/server data handling / remove dead code / implement file caching / implement old caching file removal"
+            },
             "0.0.5": {
-                "en": "see git logxx"
+                "en": "see git log"
             },
             "0.0.4": {
                 "en": "bug fixes"
