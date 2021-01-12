@@ -62,15 +62,15 @@ vis.binds["tvprogram"] = {
 
             $('#' + widgetID+' .tv-container').html("Datapoints loading...");
 
-            if (Object.keys(this.categories).length==0) this.getServerData(tvprogram_oid,'categories',function(widgetID, view, data, style, serverdata){
+            if (Object.keys(this.categories).length==0) this.getServerData(tvprogram_oid,widgetID,'categories',function(widgetID, view, data, style, serverdata){
                 this.categories=serverdata.category;
                 this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
-            if (Object.keys(this.channels).length==0) this.getServerData(tvprogram_oid,'channels',function(widgetID, view, data, style,serverdata){
+            if (Object.keys(this.channels).length==0) this.getServerData(tvprogram_oid,widgetID,'channels',function(widgetID, view, data, style,serverdata){
                 this.channels=serverdata.channels;
                 this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
-            if (Object.keys(this.genres).length==0) this.getServerData(tvprogram_oid,'genres',function(widgetID, view, data, style,serverdata){
+            if (Object.keys(this.genres).length==0) this.getServerData(tvprogram_oid,widgetID,'genres',function(widgetID, view, data, style,serverdata){
                 this.genres=serverdata.genres;
                 this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
@@ -85,7 +85,7 @@ vis.binds["tvprogram"] = {
             var d = this.calcDate();
             var datestring = this.getDate(d,0);
             var viewdate = this.getDate(d,0);
-            if (check(this.tvprogram[datestring])) this.getServerData(tvprogram_oid,'program.'+datestring,function(widgetID, view, data, style,datestring,serverdata){
+            if (check(this.tvprogram[datestring])) this.getServerData(tvprogram_oid,widgetID,'program.'+datestring,function(widgetID, view, data, style,datestring,serverdata){
                 if (serverdata!="error") {
                     this.tvprogram[datestring]=serverdata.events;
                     this.createWidget(widgetID, view, data, style);
@@ -112,7 +112,7 @@ vis.binds["tvprogram"] = {
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
-            if (this.updateMarker.name=="updateMarker")             this.updateMarker = this.updateMarker.bind(this,widgetID,d);
+            //if (this.updateMarker.name=="updateMarker")             this.updateMarker = this.updateMarker.bind(this,widgetID,d);
 
             var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
             if (!config[widgetID]) config[widgetID]={};
@@ -346,10 +346,10 @@ vis.binds["tvprogram"] = {
             
             this.updateMarker(widgetID,d);
             if (!this.timer[widgetID]) {
-                this.timer[widgetID] = setInterval(this.updateMarker,15000);
+                this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,d),15000);
             } else {
                 clearInterval(this.timer[widgetID]);
-                this.timer[widgetID] = setInterval(this.updateMarker,15000);
+                this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,d),15000);
             }
         },
         calcDate: function() {
@@ -585,14 +585,15 @@ vis.binds["tvprogram"] = {
                 return bg;
             }
         },
-        getServerData: function(instance,dataname,callback) {
+        getServerData: function(instance,widgetID,dataname,callback) {
             if (!this.pending[instance]) this.pending[instance]={};
-            if (!this.pending[instance][dataname]) { 
-                this.pending[instance][dataname]=true;
+            if (!this.pending[instance][widgetID]) this.pending[instance][widgetID]={};
+            if (!this.pending[instance][widgetID][dataname]) { 
+                this.pending[instance][widgetID][dataname]=true;
                 console.log("getServerData request "+instance+"."+dataname);
                 vis.conn._socket.emit('sendTo', instance, 'getServerData', dataname,function (data) {
                     console.log("getServerData received "+instance+"."+dataname);
-                    this.pending[instance][dataname]=false;
+                    this.pending[instance][widgetID][dataname]=false;
                     if (callback) callback(data);
                 }.bind(this));
             }
