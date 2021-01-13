@@ -45,6 +45,7 @@ vis.binds["tvprogram"] = {
         bound:      {},
         timer:      {},
         pending:    {},
+        measures:   {},
         today:null,
         createWidget: function (widgetID, view, data, style) {
             console.log("createWidget init");
@@ -59,6 +60,13 @@ vis.binds["tvprogram"] = {
             var tvprogram_oid;
             
             if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim()))==false) return;
+
+            this.measures[widgetID]= {
+                widthItem:parseInt(data.widthItem)||120,
+                timeItem:30,
+                heightRow:parseInt(data.heightRow)||35,
+                scrollbarWidth:this.getScrollbarWidth(),
+            }
 
             $('#' + widgetID+' .tv-container').html("Datapoints loading...");
 
@@ -89,6 +97,8 @@ vis.binds["tvprogram"] = {
                 if (serverdata!="error") {
                     this.tvprogram[datestring]=serverdata.events;
                     this.createWidget(widgetID, view, data, style);
+                } else {
+                    $('#' + widgetID+' .tv-container').html("Error: Problem to load tvdata for "+datestring);
                 }
             }.bind(this, widgetID, view, data, style,datestring));
 
@@ -110,7 +120,7 @@ vis.binds["tvprogram"] = {
             }
 
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
-            if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
+            //if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             //if (this.updateMarker.name=="updateMarker")             this.updateMarker = this.updateMarker.bind(this,widgetID,d);
 
@@ -120,11 +130,19 @@ vis.binds["tvprogram"] = {
             var channelfilter = config[widgetID].channelfilter;
             if (channelfilter.length==0) channelfilter = this.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
             
-            var widthitem = 120;
+/*            var widthitem = 120;
             var widthchannel = 35;
             var heightrow = 35;
             var widthtvrow = (48*widthitem)+widthchannel;
             var backgroundColor = this.realBackgroundColor($("#"+widgetID)[0]);
+            var scrollbarWidth= this.getScrollbarWidth();
+*/
+            var widthitem = this.measures[widgetID].widthItem;
+            var widthchannel = this.measures[widgetID].heightRow;
+            var heightrow = this.measures[widgetID].heightRow;
+
+            var backgroundColor = this.realBackgroundColor($("#"+widgetID)[0]);
+            var widthtvrow = (48*widthitem)+widthchannel;
             var scrollbarWidth= this.getScrollbarWidth();
 
             var text ='';
@@ -157,22 +175,47 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + ' .time {\n';
-            text += '   width: 120px; \n';
-            text += '   height: 35px; \n';
+            text += '   width: '+widthitem+'px; \n';
+            text += '   height: '+heightrow+'px; \n';
             text += '   font-weight: 700; \n';
             text += '   font-size: 125%; \n';
             text += '   padding: 5px 5px; \n';
             text += '} \n';
 
+            text += '#'+widgetID + ' .time:after {\n';
+            text += '   content:""; \n';
+            text += '   display: inline-block; \n';
+            text += '   vertical-align:middle; \n';
+            text += '   height: 100%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .time span {\n';
+            text += '   vertical-align:middle; \n';
+            text += '} \n';
+
             text += '#'+widgetID + ' .channel {\n';
-            text += '   width: 35px; \n';
-            text += '   height: 35px; \n';
+            text += '   width: '+heightrow+'px; \n';
+            text += '   height: '+heightrow+'px; \n';
             text += '   padding: 1px; \n';
             text += '} \n';
 
+            text += '#'+widgetID + ' ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n';
+            text += '   background-color: rgba(128, 128, 128, 0.65); \n';
+            text += '} \n';
+            text += '#'+widgetID + ' ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(even) {\n';
+            text += '   background-color: rgba(128, 128, 128, 0.55); \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' ul.tv-row:nth-child(even)> li.broadcast:nth-child(odd) {\n';
+            text += '   background-color: rgba(128, 128, 128, 0.45); \n';
+            text += '} \n';
+            text += '#'+widgetID + ' ul.tv-row:nth-child(even)> li.broadcast:nth-child(even) {\n';
+            text += '   background-color: rgba(128, 128, 128, 0.35); \n';
+            text += '} \n';
+
             text += '#'+widgetID + ' .burger {\n';
-            text += '   width: 35px; \n';
-            text += '   height: 35px; \n';
+            text += '   width: '+heightrow+'px; \n';
+            text += '   height: '+heightrow+'px; \n';
             text += '   padding: 7px; \n';
             text += '} \n';
 
@@ -181,7 +224,7 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + ' .broadcast {\n';
-            text += '   height: 35px; \n';
+            text += '   height: '+heightrow+'px; \n';
             text += '   padding: 3px; \n';
             text += '   font-size: 75%; \n';
             text += '   overflow: hidden; \n';
@@ -191,7 +234,7 @@ vis.binds["tvprogram"] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   top:0; \n';
-            text += '   z-index:11; \n';
+            text += '   z-index:10; \n';
             text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
@@ -199,7 +242,7 @@ vis.binds["tvprogram"] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   left:0; \n';
-            text += '   z-index:10; \n';
+            text += '   z-index:12; \n';
             text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
@@ -289,7 +332,7 @@ vis.binds["tvprogram"] = {
             text += '   width: 2px; \n';
             text += '   background-color: red; \n';
             text += '   opacity: 0.8; \n';
-            text += '   z-index: 12; \n';
+            text += '   z-index: 11; \n';
             text += '   height: '+((channelfilter.length+1)*heightrow)+'px; \n';
             text += '   float: left; \n';
             text += '} \n';
@@ -299,7 +342,8 @@ vis.binds["tvprogram"] = {
             text += '  <div class="line"></div>';
             text += '  <ul class="tv-row tv-head-top">';
 
-            text += '    <li class="tv-item tv-head-topleft tv-head-left burger" onclick="vis.binds.tvprogram.time1.onclickChannel(this)">';
+            //text += '    <li class="tv-item tv-head-topleft tv-head-left burger" onclick="vis.binds.tvprogram.time1.onclickChannel(this)">';
+            text += '    <li class="tv-item tv-head-topleft tv-head-left burger">';
             text += '      <svg width="100%" height="100%" viewBox="0 0 25 25">';
             text += '        <rect width="25" height="5" fill="white" y="0"></rect>';
             text += '        <rect y="10" width="25" height="5" fill="white"></rect>';
@@ -316,6 +360,11 @@ vis.binds["tvprogram"] = {
             });
 
             $('#' + widgetID+' .tv-container').html(text);
+            $( "#"+widgetID+" .burger" ).click(function(widgetID,tvprogram_oid,el){
+                vis.binds.tvprogram.time1.onclickChannel(widgetID,tvprogram_oid,el);
+            }.bind(this,widgetID,tvprogram_oid));
+
+
             if (!$( "#"+widgetID+"broadcastdlg" ).hasClass('ui-dialog-content')) {
                 $( "#"+widgetID+"broadcastdlg" ).dialog({
                     autoOpen: false,
@@ -359,9 +408,15 @@ vis.binds["tvprogram"] = {
             return d;
         },
         updateMarker: function(widgetID,d) {
-            var wItem=120;//2 border, 4 padding
+/*
+            var wItem=120;
             var tItem=30;
             var wChannel=35;
+*/
+            var wItem=this.measures[widgetID].widthItem;
+            var tItem=this.measures[widgetID].timeItem;
+            var wChannel=this.measures[widgetID].heightRow;
+
             var sTime=new Date(this.calcDate());
             sTime.setHours(5);
             sTime.setMinutes(0);
@@ -374,7 +429,7 @@ vis.binds["tvprogram"] = {
             if (startTime<=sTime) var a=0; //hidden
             var left = (wChannel+Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10);
             $('#'+widgetID+' .line').css('left',left+'px');
-            $('#'+widgetID+' .tv-container').scrollLeft(left-$('#'+widgetID+' .tv-container').width()/2);
+            $('#'+widgetID+' .tv-container').scrollLeft(left-$('#'+widgetID+' .tv-container').width()/4);
             
         },
         getScrollbarWidth: function() {
@@ -388,7 +443,6 @@ vis.binds["tvprogram"] = {
         },        
         getChannels: function(channels,filter=[]) {
             var cc=[];
-            //channels.sort((a, b) => a.order - b.order).map( el=> {
             channels.sort((a, b) => (a.order+(filter.indexOf(a.id)==-1)*100000) - (b.order+(filter.indexOf(b.id)==-1)*100000)).map( el=> {
                 var selected=(filter.findIndex(el1=>el1==el.id)>-1) ? " selected":"";
                 cc.push('<ul class="listitem channel" data-order="'+el.order+'" data-id="'+el.id+'"'+selected+'><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+el.channelId+'.png" alt="" class="channel-logo"></li></ul>');
@@ -453,11 +507,14 @@ vis.binds["tvprogram"] = {
             $( "#"+widgetID+"channeldlg" ).dialog( "open" );
         },        
         getBroadcasts4Channel: function(el,widgetID,viewdate,tvprogram_oid) {
-            var wItem=120;//2 border, 4 padding
-            var wBorder=2;
-            var wPadding=0;
+/*
+            var wItem=120;
             var tItem=30;
-            var min=1*60*1000;
+*/            //var min=1*60*1000;
+
+            var wItem=this.measures[widgetID].widthItem;
+            var tItem=this.measures[widgetID].timeItem;
+
             var sTime=new Date(el.events[0].airDate);
             sTime.setHours(5);
             sTime.setMinutes(0);
@@ -477,7 +534,9 @@ vis.binds["tvprogram"] = {
                 var startTime= new Date(event.startTime);
                 var endTime= new Date(event.endTime);
                 if (startTime>=eTime) continue;
+                if (endTime<=sTime) continue;
                 if (i==0 && startTime > sTime) aa.push('<li class="tv-item broadcast" style="left:0px; width:'+   ((Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10))+'px;"></li>');
+                if (i==0 && startTime < sTime) startTime=sTime;
                 if (endTime>eTime) endTime=eTime;
                 text="";
                 text+='<li class="tv-item broadcast" style="';
@@ -559,8 +618,8 @@ vis.binds["tvprogram"] = {
         getTimetable: function() {
             var tt=[];
             for(var i=0;i<24;i++) {
-                tt.push('<li class="tv-item time">'+("0"+i).slice(-2)+":00</li>");
-                tt.push('<li class="tv-item time">'+("0"+i).slice(-2)+":30</li>");
+                tt.push('<li class="tv-item time"><span>'+("0"+i).slice(-2)+":00</span></li>");
+                tt.push('<li class="tv-item time"><span>'+("0"+i).slice(-2)+":30</span></li>");
             }
             return [].concat(tt.slice(10),tt.slice(0,10));
         },
