@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
+            "0.0.7": {
+                "en": "resolve 2 or more same widgets problem / improve readme / add widget icon / add alternating colors to widget / implement variable width and height / improve loading logic for past values / fix display for edge case / implement navigation logic / implement zomm logic"
+            },
             "0.0.6": {
                 "en": "introduce client/server data handling / remove dead code / implement file caching / implement old caching file removal"
             },
