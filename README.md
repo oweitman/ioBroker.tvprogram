@@ -42,6 +42,8 @@ To set it up, the adapter must have already accessed and filled the necessary da
 In the configuration, the widget only needs to be filled with any data point of the adapter (e.g.config).
 The widget searches for all remaining data points automatically.
 
+If the text behind the channel logos shows through, a background color must be selected in the widget
+
 Functions:
 
 - show tv data on timeline by tv channel
