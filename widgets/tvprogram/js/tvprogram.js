@@ -525,7 +525,8 @@ vis.binds["tvprogram"] = {
             this.today[widgetID]["today"]=new Date(this.today[widgetID]["today"].setDate(this.today[widgetID]["today"].getDate() + day));
             this.createWidget(widgetID, view, data, style);
         },
-        calcDate: function(d) {
+        calcDate: function(datum) {
+            var d = new Date(datum);
             var time = d.getHours()+d.getMinutes()/60;
             if (time>=0 && time <5) d.setDate(d.getDate()-1);
             return d;

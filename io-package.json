@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.7",
+        "version": "0.0.8",
         "news": {
+            "0.0.8": {
+                "en": "fix date calc"
+            },
             "0.0.7": {
                 "en": "resolve 2 or more same widgets problem / improve readme / add widget icon / add alternating colors to widget / implement variable width and height / improve loading logic for past values / fix display for edge case / implement navigation logic / implement zomm logic"
             },
