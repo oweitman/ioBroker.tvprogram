@@ -172,6 +172,9 @@ vis.binds["tvprogram"] = {
             var widthtvrow = (48*widthitem)+widthchannel;
             var scrollbarWidth= this.getScrollbarWidth();
             var zoompos = (Math.min(Math.floor($("#"+widgetID).height()/heightrow)-1,channelfilter.length))*heightrow;
+            
+            var headerfontpercent=data.headerfontpercent||125;
+            var broadcastfontpercent=data.broadcastfontpercent||75;
 
             var text ='';
             text += '<style> \n';
@@ -206,7 +209,7 @@ vis.binds["tvprogram"] = {
             text += '   width: '+widthitem+'px; \n';
             text += '   height: '+heightrow+'px; \n';
             text += '   font-weight: 700; \n';
-            text += '   font-size: 125%; \n';
+            text += '   font-size: '+headerfontpercent+'%; \n';
             text += '   padding: 5px 5px; \n';
             text += '} \n';
 
@@ -244,7 +247,7 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .burger {\n';
             text += '   width: '+heightrow+'px; \n';
             text += '   height: '+heightrow+'px; \n';
-            text += '   padding: 7px; \n';
+            text += '   padding: 5px; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' svg rect {\n';
@@ -254,7 +257,7 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcast {\n';
             text += '   height: '+heightrow+'px; \n';
             text += '   padding: 3px; \n';
-            text += '   font-size: 75%; \n';
+            text += '   font-size: '+broadcastfontpercent+'%; \n';
             text += '   overflow: hidden; \n';
             text += '} \n';
 
@@ -433,10 +436,16 @@ vis.binds["tvprogram"] = {
 
             //text += '    <li class="tv-item tv-head-topleft tv-head-left burger" onclick="vis.binds.tvprogram.time1.onclickChannel(this)">';
             text += '    <li class="tv-item tv-head-topleft tv-head-left burger">';
-            text += '      <svg width="100%" height="100%" viewBox="0 0 25 25">';
-            text += '        <rect width="25" height="5" fill="white" y="0"></rect>';
-            text += '        <rect y="10" width="25" height="5" fill="white"></rect>';
-            text += '        <rect y="20" width="25" height="5" fill="white"></rect>';
+            text += '      <svg width="100%" height="100%" viewBox="0 0 24 24">';
+            text += '          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />';
+            text += '      </svg>';
+
+            
+            
+            //text += '      <svg width="100%" height="100%" viewBox="0 0 25 25">';
+            //text += '        <rect width="25" height="5" fill="white" y="0"></rect>';
+            //text += '        <rect y="10" width="25" height="5" fill="white"></rect>';
+            //text += '        <rect y="20" width="25" height="5" fill="white"></rect>';
             text += '      </svg>';
             text += '    </li>'; 
             text += this.getTimetable().join(""); 
