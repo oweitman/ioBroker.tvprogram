@@ -49,6 +49,7 @@ vis.binds["tvprogram"] = {
         scroll:     {},
         today:      {},
         viewday:    {},
+        olddata:    {},
         createWidget: function (widgetID, view, data, style) {
             console.log("createWidget init");
             var $div = $('#' + widgetID);
@@ -63,7 +64,8 @@ vis.binds["tvprogram"] = {
             
             if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim()))==false) return;
 
-            if (!this.measures[widgetID]) this.measures[widgetID]= {
+            if (!this.olddata[widgetID]) this.olddata[widgetID] = data;
+            if (!this.measures[widgetID] || (JSON.stringify(this.olddata[widgetID])!=JSON.stringify(data)) ) this.measures[widgetID]= {
                 origwidthItem:parseInt(data.widthItem)||120,
                 //widthItem:parseInt(data.widthItem)||120,
                 timeItem:30,
@@ -107,20 +109,20 @@ vis.binds["tvprogram"] = {
                 this.getServerData(tvprogram_oid,widgetID,'program.'+datestring,function(widgetID, view, data, style,datestring,serverdata){
                     if (serverdata!="error") {
                         this.tvprogram[datestring]=serverdata.events;
-                        $('#'+widgetID + ' .overlay').html(datestring);
+                        $('#'+widgetID + ' .overlay').html(new Date(datestring).toLocaleDateString());
                         this.createWidget(widgetID, view, data, style);
                         return;
                     } else {
                         this.today[widgetID]["today"]=new Date(this.today[widgetID]["prevday"]);
                         this.viewday[widgetID]["viewday"]=new Date(this.viewday[widgetID]["prevday"]);
-                        $('#'+widgetID + ' .overlay').html("no data for "+datestring);
+                        $('#'+widgetID + ' .overlay').html("no data for "+new Date(datestring).toLocaleDateString());
                         this.createWidget(widgetID, view, data, style);
                         return;
                         //$('#' + widgetID+' .tv-container').html("Error: Problem to load tvdata for "+datestring);
                     }
                 }.bind(this, widgetID, view, data, style,datestring));
             } else {
-                $('#'+widgetID + ' .overlay').html(datestring);
+                $('#'+widgetID + ' .overlay').html(new Date(datestring).toLocaleDateString());
             }
             if (Object.keys(this.categories).length==0 || Object.keys(this.channels).length==0 || Object.keys(this.categories).length==0) return;
             if (check(this.tvprogram[datestring])) return;
