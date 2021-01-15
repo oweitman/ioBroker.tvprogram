@@ -341,11 +341,6 @@ vis.binds["tvprogram"] = {
             text += '   z-index:12; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn {\n';
-            text += '   flex:50%; \n';
-            text += '   padding:5px; \n';
-            text += '} \n';
-
             text += '#'+widgetID + 'broadcastdlg .event-container {\n';
             text += '   height:100%; \n';
             text += '   display:flex; \n';
@@ -369,6 +364,11 @@ vis.binds["tvprogram"] = {
             text += '   max-height:100%; \n';
             text += '   display:block; \n';
             text += '   margin:auto; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn {\n';
+            text += '   flex:50%; \n';
+            text += '   padding:5px; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n';
