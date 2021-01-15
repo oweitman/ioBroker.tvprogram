@@ -50,18 +50,22 @@ Functions:
 - show details about a tv broadcast if available
 - show a marker of actual position with automatic scrolling
 - configure displayed tv channels and order, reordering ist possible via dragNdrop.
+- switch command via datapoint after click on logo
+- zoomin/zoomout
+- navigation next and prev days
 
 ### Todo
 
 widget tvprogram: 
-- zoomin/zoomout
 - favorite broadcasts
-- navigation next days
-
 - Ideas for further widgets based on the existing TV program script
 - broadcast reminders
-- switch command via datapoint after click on logo
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
+- responsive design for detail view
+- play button to switchchannel datapoint
+- center zoom in next days
+- return to today
+- reset zoom
 
 ## Changelog
 

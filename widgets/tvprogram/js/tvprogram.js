@@ -97,6 +97,7 @@ vis.binds["tvprogram"] = {
             }
 
             if (!this.today[widgetID]) this.today[widgetID] = {today:new Date(),prevday:null};
+            if (!this.scroll[widgetID]) this.scroll[widgetID] = {time:new Date(0),position:0,marker:0};
 
             var d = this.calcDate(this.today[widgetID].today);
             var datestring = this.getDate(d,0);
@@ -149,7 +150,8 @@ vis.binds["tvprogram"] = {
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             //if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
-            //if (this.updateMarker.name=="updateMarker")             this.updateMarker = this.updateMarker.bind(this,widgetID,d);
+            if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
+
 
             var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
             if (!config[widgetID]) config[widgetID]={};
@@ -728,12 +730,15 @@ vis.binds["tvprogram"] = {
 
             $( "#"+widgetID+" .nav.prevD" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
             $( "#"+widgetID+" .nav.nextD" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .nav.center" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
 
             $( "#"+widgetID+" .zoom.minus" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
             $( "#"+widgetID+" .zoom.plus" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .zoom.center" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
 
-            $( "#"+widgetID+" .scrollcontainer" ).scroll(function(a,b,c) {
-                this.scroll[widgetID]=new Date();
+            $( "#"+widgetID+" .scrollcontainer" ).scroll(function(widgetID,el) {
+                this.scroll[widgetID].time=new Date();
+                this.calcScroll(widgetID);
             }.bind(this,widgetID));
 
 
@@ -767,11 +772,24 @@ vis.binds["tvprogram"] = {
             
             this.updateMarker(widgetID,this.today[widgetID].today);
             if (!this.timer[widgetID]) {
-                this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,this.today[widgetID].today),15000);
+                //this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,this.today[widgetID].today),15000);
             } else {
                 clearInterval(this.timer[widgetID]);
-                this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,this.today[widgetID].today),15000);
+                //this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,this.today[widgetID].today),15000);
             }
+
+            if (this.scroll[widgetID].position==0) {
+                this.calcScroll(widgetID);
+                this.setScroll(widgetID);
+            } else {
+                this.setScroll(widgetID);
+            }
+
+            //if (this.scroll[widgetID] && (new Date(this.scroll[widgetID].time.getTime() + 90*1000)>new Date())) return;
+            //this.scroll[widgetID].time=new Date();
+            //this.scroll[widgetID].position=(left-$('#'+widgetID+' .scrollcontainer').width()/4)/$('#'+widgetID+' .scrollcontainer')[0].scrollWidth;
+
+            
         },
 
         onClickZoom: function(widgetID, view, data, style,el) {
@@ -779,8 +797,10 @@ vis.binds["tvprogram"] = {
             var day=0;
             if ($(el.currentTarget).hasClass("plus")) this.measures[widgetID].widthItem = this.measures[widgetID].widthItem+(this.measures[widgetID].origwidthItem/4);
             if ($(el.currentTarget).hasClass("minus")) this.measures[widgetID].widthItem = this.measures[widgetID].widthItem-(this.measures[widgetID].origwidthItem/4);
+            if ($(el.currentTarget).hasClass("center")) this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
             if (this.measures[widgetID].widthItem < 20) this.measures[widgetID].widthItem=this.measures[widgetID].origwidthItem;
-            this.scroll[widgetID]= new Date(new Date().getTime() - 180*1000);
+            this.calcScroll(widgetID);
+            //this.scroll[widgetID].time= new Date(0);
             this.createWidget(widgetID, view, data, style);
         },
         onClickDay: function(widgetID, view, data, style,el) {
@@ -788,8 +808,14 @@ vis.binds["tvprogram"] = {
             var day=0;
             if ($(el.currentTarget).hasClass("prevD")) day=-1;
             if ($(el.currentTarget).hasClass("nextD")) day=1;
-            this.today[widgetID]["prevday"]=new Date(this.today[widgetID]["today"]);
-            this.today[widgetID]["today"]=new Date(this.today[widgetID]["today"].setDate(this.today[widgetID]["today"].getDate() + day));
+            if (!$(el.currentTarget).hasClass("center")) {
+                this.today[widgetID]["prevday"]=new Date(this.today[widgetID]["today"]);
+                this.today[widgetID]["today"]=new Date(this.today[widgetID]["today"].setDate(this.today[widgetID]["today"].getDate() + day));
+            } else {
+                this.today[widgetID]["today"]=new Date();
+                this.scroll[widgetID].position=0;
+            }
+            this.scroll[widgetID].time=new Date(0);
             this.createWidget(widgetID, view, data, style);
         },
         calcDate: function(datum) {
@@ -798,11 +824,23 @@ vis.binds["tvprogram"] = {
             if (time>=0 && time <5) d.setDate(d.getDate()-1);
             return d;
         },
+        calcScroll: function(widgetID) {
+            var el = $('#'+widgetID+' .scrollcontainer').get(0);
+            if (el.scrollLeft==0) {
+                this.scroll[widgetID].position=(this.scroll[widgetID].marker)/el.scrollWidth;
+            } else {
+                this.scroll[widgetID].position=(el.scrollLeft+(el.clientWidth/4))/el.scrollWidth;
+            }
+        },
+        setScroll: function(widgetID) {
+            var el = $('#'+widgetID+' .scrollcontainer').get(0);
+            el.scrollLeft = (this.scroll[widgetID].position*el.scrollWidth)-(el.clientWidth/4);
+        },
         updateMarker: function(widgetID,today) {
 
             if (this.calcDate(today).toLocaleDateString() != this.calcDate(new Date()).toLocaleDateString()) {
                 $('#'+widgetID+' .line').hide();
-                return;
+                //return;
             } else {
                 $('#'+widgetID+' .line').show();
             }
@@ -810,7 +848,8 @@ vis.binds["tvprogram"] = {
             var tItem=this.measures[widgetID].timeItem;
             var wChannel=this.measures[widgetID].heightRow;
 
-            var sTime=new Date(this.calcDate(today));
+            //var sTime=new Date(this.calcDate(today));
+            var sTime=new Date(this.calcDate(new Date()));
             sTime.setHours(5);
             sTime.setMinutes(0);
             sTime.setSeconds(0);
@@ -822,12 +861,14 @@ vis.binds["tvprogram"] = {
             if (startTime<=sTime) var a=0; //hidden
             var left = (wChannel+Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10);
             $('#'+widgetID+' .line').css('left',left+'px');
+            this.scroll[widgetID].marker=left;
 
-            if (this.scroll[widgetID] && (new Date(this.scroll[widgetID].getTime() + 90*1000)>new Date())) return;
-            this.scroll[widgetID]=new Date();
-            $('#'+widgetID+' .scrollcontainer').scrollLeft(left-$('#'+widgetID+' .scrollcontainer').width()/4);
-            setTimeout(()=>$('#'+widgetID+' .scrollcontainer').scrollLeft(left-$('#'+widgetID+' .scrollcontainer').width()/4),0);
-            
+            //if (this.scroll[widgetID] && (new Date(this.scroll[widgetID].time.getTime() + 90*1000)>new Date())) return;
+            //this.scroll[widgetID].time=new Date();
+            //this.scroll[widgetID].position=(left-$('#'+widgetID+' .scrollcontainer').width()/4)/$('#'+widgetID+' .scrollcontainer')[0].scrollWidth;
+            //$('#'+widgetID+' .scrollcontainer').scrollLeft(left-$('#'+widgetID+' .scrollcontainer').width()/4);
+            //this.setScroll(widgetID);
+            //setTimeout(()=>$(this.setScroll(widgetID),0));
         },
         getScrollbarWidth: function() {
             var scrollDiv = document.createElement("div");
@@ -848,6 +889,10 @@ vis.binds["tvprogram"] = {
                 if (filter.findIndex(el1=>el1==el.id)==-1) cc.push('<ul class="listitem channel" data-order="'+el.order+'" data-id="'+el.id+'"><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+el.channelId+'.png" alt="" class="channel-logo"></li></ul>');
             });
             return cc;
+        },
+        onclickChannelSwitch: function(tvprogram_oid,el) {
+            var channelid = el.dataset.channelid||"";
+            vis.setValue(tvprogram_oid+".selectchannel",channelid);
         },
         onclickChannelSave: function(widgetID,tvprogram_oid,el,save) {
             if (save) {
@@ -920,7 +965,7 @@ vis.binds["tvprogram"] = {
             var aa=[];
             var text="";
             text += '    <li class="tv-item tv-head-left channel">';
-            text += '      <img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+channel.channelId+'.png" alt="" class="channel-logo">';
+            text += '      <img width="100%" height="100%" data-channelid="'+channel.channelId+'" src="https://tvfueralle.de/channel-logos/'+channel.channelId+'.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)">';
             text += '    </li>'; 
             aa.push(text);
 
@@ -1022,10 +1067,12 @@ vis.binds["tvprogram"] = {
             var hh=[];
                 hh.push('<li class="tv-item tv-head-topleft tv-head-left button burger"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></svg></li>');
                 hh.push('<li class="tv-item button nav prevD"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" /></svg></li>');
+                hh.push('<li class="tv-item button nav center"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg></svg></li>');
                 hh.push('<li class="tv-item button nav nextD"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" /></svg></li>');
                 hh.push('<li class="tv-item button zoom minus"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" /></svg></li>');
+                hh.push('<li class="tv-item button zoom center"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M19,19H15V21H19A2,2 0 0,0 21,19V15H19M19,3H15V5H19V9H21V5A2,2 0 0,0 19,3M5,5H9V3H5A2,2 0 0,0 3,5V9H5M5,15H3V19A2,2 0 0,0 5,21H9V19H5V15Z" /></svg></svg></li>');
                 hh.push('<li class="tv-item button zoom plus"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" /></svg></li>');
-                hh.push('<li class="tv-item dateinfo">'+new Date(datestring).toLocaleDateString(navigator.language,{weekday:"long"})+", "+new Date(datestring).toLocaleDateString()+'</li>');
+                hh.push('<li class="tv-item dateinfo">'+new Date(datestring).toLocaleDateString(navigator.language,{weekday:"short"})+", "+new Date(datestring).toLocaleDateString()+' / ' +new Date(new Date(new Date(datestring).setDate(new Date(datestring).getDate()+1))).toLocaleDateString(navigator.language,{weekday:"short"})+", "+new Date(new Date(new Date(datestring).setDate(new Date(datestring).getDate()+1))).toLocaleDateString()+'</li>');
             return hh;
         },
         onChange: function(widgetID, view, data, style,e, newVal, oldVal) {
