@@ -153,6 +153,7 @@ vis.binds["tvprogram"] = {
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
 
 
+
             var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
             if (!config[widgetID]) config[widgetID]={};
             if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
