@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.9",
+        "version": "0.0.10",
         "news": {
+            "0.0.10": {
+                "en": "introduce center buttons for zoom and navigation / new datapoint selectchannel / click on channel logo trigger this datapoint / icon for selectchannel in broadcast detail view / datapoint handling in adapter"
+            },
             "0.0.9": {
                 "en": "fix dynamic config of width/height / fix invisible overlay color / new burger icon / configurable header and broadcast font-size / add header navigation with date info"
             },

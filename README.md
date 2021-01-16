@@ -53,6 +53,10 @@ Functions:
 - switch command via datapoint after click on logo
 - zoomin/zoomout
 - navigation next and prev days
+- play button to switchchannel datapoint
+- center zoom in next days
+- return to today
+- reset zoom
 
 ### Todo
 
@@ -62,10 +66,6 @@ widget tvprogram:
 - broadcast reminders
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
 - responsive design for detail view
-- play button to switchchannel datapoint
-- center zoom in next days
-- return to today
-- reset zoom
 
 ## Changelog
 
