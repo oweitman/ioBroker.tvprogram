@@ -373,6 +373,15 @@ vis.binds["tvprogram"] = {
             text += '   padding:5px; \n';
             text += '} \n';
 
+            text += '#'+widgetID + 'broadcastdlg .button {\n';
+            text += '   display:inline-block; \n';
+            text += '   width: 35px; \n';
+            text += '   height: 35px; \n';
+            text += '   vertical-align: middle; \n';
+            text += '   position: relative; \n';
+            text += '   float: right; \n';
+            text += '} \n';
+
             text += '#'+widgetID + ' .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n';
             text += '   background-color: rgba(128, 128, 128, 0.65); \n';
             text += '} \n';
@@ -1032,10 +1041,11 @@ vis.binds["tvprogram"] = {
                 text += '    <img src="'+photourl+'">';
                 text += '    </div>';
                 text += '    <div class="event-data dialogcolumn">';
-                text += '    <div style="padding: 0px 0px 5px;">'+channeltime+'</div>';
-                text += '    <div style="font-weight: bold;padding: 0px 0px 5px;">'+event.title+'</div>';
-                text += '    <div style="padding: 0px 0px 5px;">'+meta+'</div>';
-                text += '    <div>'+content+'</div>';
+                text += '      <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
+                text += '      <div style="padding: 0px 0px 5px;">'+channeltime+'</div>';
+                text += '      <div style="font-weight: bold;padding: 0px 0px 5px;">'+event.title+'</div>';
+                text += '      <div style="padding: 0px 0px 5px;">'+meta+'</div>';
+                text += '      <div>'+content+'</div>';
                 text += '    </div>';
                 text += '  </div>';
                 text += '  </div>';

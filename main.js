@@ -76,13 +76,14 @@ class Tvprogram extends utils.Adapter {
     onStateChange(id, state) {
         if (state) {
             // The state was changed
-            //this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            if (tvprogramserver) tvprogramserver.doStateChange(id,state);
         } else {
             // The state was deleted
-            //this.log.info(`state ${id} deleted`);
+            this.log.info(`state ${id} deleted`);
         }
     }
-    
+
      onMessage(obj) {
      	if (typeof obj === 'object' && obj.message) {
             tvprogramserver.processMessages(obj);
