@@ -112,7 +112,7 @@
     <div class="vis-widget <%== this.data.attr('class') %>" style="overflow:hidden; width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.time1.createWidget(this.data.wid, this.view, this.data, this.style);
     %>
-    <div class="tv-container"></div>
+    <div class="tv-container disable-select"></div>
     <div class="overlay"></div>
 <!--
     <div class="navcontainer" style="visibility:hidden">
@@ -126,3 +126,4 @@
     <div class="dialog" id="<%== this.data.wid %>channeldlg"></div>
     </div>
 </script>
+   

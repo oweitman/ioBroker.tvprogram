@@ -228,7 +228,7 @@ vis.binds["tvprogram"] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   left:0; \n';
-            text += '   z-index:10; \n';
+            text += '   z-index:11; \n';
             text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
@@ -404,9 +404,16 @@ vis.binds["tvprogram"] = {
             text += '   opacity: 0.8; \n';
             text += '   z-index: 10; \n';
             text += '   height: '+((channelfilter.length+1)*heightrow)+'px; \n';
-            //text += '   height: '+Math.min(((channelfilter.length+1)*heightrow),$("#"+widgetID).height())+'px; \n';
             text += '   float: left; \n';
             text += '} \n';
+            
+           text += '#'+widgetID + ' .disable-select {\n';
+            text += '   -webkit-user-select: none; \n';
+            text += '   -moz-user-select: none; \n';
+            text += '   -ms-user-select: none; \n';
+            text += '   -user-select: none; \n';
+            text += '} \n';
+            
 /*
             text += '#'+widgetID + ' .tv-container {\n';
             text += '   width: 100%; \n';
