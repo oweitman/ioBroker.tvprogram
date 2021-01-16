@@ -1049,7 +1049,7 @@ vis.binds["tvprogram"] = {
                 text += '    <img src="'+photourl+'">';
                 text += '    </div>';
                 text += '    <div class="event-data dialogcolumn">';
-                text += '      <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
+                if (startTime<new Date() && new Date()<endTime) text += '      <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
                 text += '      <div style="padding: 0px 0px 5px;">'+channeltime+'</div>';
                 text += '      <div style="font-weight: bold;padding: 0px 0px 5px;">'+event.title+'</div>';
                 text += '      <div style="padding: 0px 0px 5px;">'+meta+'</div>';
