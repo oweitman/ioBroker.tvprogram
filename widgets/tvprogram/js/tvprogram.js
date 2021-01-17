@@ -72,7 +72,8 @@ vis.binds["tvprogram"] = {
                 timeItem:30,
                 heightRow:parseInt(data.heightRow)||35,
                 scrollbarWidth:this.getScrollbarWidth(),
-            }
+                markerpositionpercent:data.markerpositionpercent/100||0.25
+            };
             if (!this.measures[widgetID].widthItem) this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
 
             if (!((this.today||{})[widgetID]||{}).prevday) $('#' + widgetID+' .tv-container').html("Datapoints loading...");
@@ -876,12 +877,12 @@ vis.binds["tvprogram"] = {
             if (el.scrollLeft==0) {
                 this.scroll[widgetID].position=(this.scroll[widgetID].marker)/el.scrollWidth;
             } else {
-                this.scroll[widgetID].position=(el.scrollLeft+(el.clientWidth/4))/el.scrollWidth;
+                this.scroll[widgetID].position=(el.scrollLeft+(el.clientWidth*this.measures[widgetID].markerpositionpercent))/el.scrollWidth;
             }
         },
         setScroll: function(widgetID) {
             var el = $('#'+widgetID+' .scrollcontainer').get(0);
-            el.scrollLeft = (this.scroll[widgetID].position*el.scrollWidth)-(el.clientWidth/4);
+            el.scrollLeft = (this.scroll[widgetID].position*el.scrollWidth)-(el.clientWidth*this.measures[widgetID].markerpositionpercent);
         },
         updateMarker: function(widgetID,today) {
 
