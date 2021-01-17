@@ -57,15 +57,21 @@ Functions:
 - center zoom in next days
 - return to today
 - reset zoom
+- favorite broadcasts
 
 ### Todo
 
 widget tvprogram: 
-- favorite broadcasts
-- Ideas for further widgets based on the existing TV program script
-- broadcast reminders
-- Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
+- widget for next Favorites
+- broadcast reminders (Favorites widget?)
 - responsive design for detail view
+- copy text from Detailview
+- to be discussed: dont want to see, broadcasts should be hidden
+- Datenpunkt, der nach drcuk auf knopf mit aufnahmedaten gefüllt wird
+- to be discussed: Datenpunkt, mit allen Aufnahmedaten
+- Problem: endless scroll in firefox
+- Ideas for further widgets based on the existing TV program script
+- Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
 
 ## Changelog
 

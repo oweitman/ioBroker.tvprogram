@@ -278,7 +278,7 @@ vis.binds["tvprogram"] = {
             text += '   height: 100%; \n';
             text += '} \n';
 
-            text += '#'+widgetID + ' .broadcastelement .star {\n';
+            text += '#'+widgetID + ' .broadcastelement .star  {\n';
             text += '   display: inline-block; \n';
             text += '   margin: 0px 2px; \n';
             text += '} \n';
@@ -290,7 +290,11 @@ vis.binds["tvprogram"] = {
             text += '   top: .125em; \n';
             text += '} \n';
 
-            text += '#'+widgetID + ' .broadcastelement.selected .star svg path {\n';
+            text += '#'+widgetID + 'broadcastdlg .star.selected svg  {\n';
+            text += '   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.selected .star svg path, #'+widgetID + 'broadcastdlg .star.selected svg path {\n';
             text += '   fill: '+highlightcolor+'; \n';
             text += '} \n';
 
@@ -407,6 +411,7 @@ vis.binds["tvprogram"] = {
             text += '   float: right; \n';
             text += '} \n';
 
+
             text += '#'+widgetID + ' .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n';
             text += '   background-color: rgba(128, 128, 128, 0.65); \n';
             text += '} \n';
@@ -422,7 +427,7 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + ' .line {\n';
-            text += '   position: relative; \n';
+            text += '   position: absolute; \n';
             text += '   top: 0; \n';
             text += '   width: 2px; \n';
             text += '   background-color: red; \n';
@@ -431,7 +436,7 @@ vis.binds["tvprogram"] = {
             text += '   height: '+((channelfilter.length+1)*heightrow)+'px; \n';
             text += '   float: left; \n';
             text += '} \n';
-            
+
            text += '#'+widgetID + ' .disable-select {\n';
             text += '   -webkit-user-select: none; \n';
             text += '   -moz-user-select: none; \n';
@@ -1050,17 +1055,19 @@ vis.binds["tvprogram"] = {
             var eventid = el.dataset.eventid||0;
             var viewdate = el.dataset.viewdate||0;
             if (eventid ==0||viewdate==0) return;
-            this.getServerEvent(tvprogram_oid,eventid,viewdate,function(serverdata) {
+            this.getServerEvent(tvprogram_oid,eventid,viewdate,function(el,serverdata) {
                 event=serverdata;
                 var favorites = this.getFavorites(tvprogram_oid);
                 var index = favorites.indexOf(event.title);
                 if (index>-1) {
                     favorites.splice(index, 1);
+                    if ($(el).hasClass("button")) $(el).removeClass("selected");
                 } else {
                     favorites.push(event.title);
+                    if ($(el).hasClass("button")) $(el).addClass("selected");
                 }
                 this.setFavorites(tvprogram_oid,favorites);
-            }.bind(this));
+            }.bind(this,el));
             evt.stopPropagation();
         },
         getConfig: function(tvprogram_oid) {
@@ -1131,13 +1138,19 @@ vis.binds["tvprogram"] = {
                 meta+= (season || episode) ? season+episode+" ":"";
                 var content=(event.content.texts.Long.value) ? event.content.texts.Long.value:(event.content.texts.VeryShort.value)?event.content.texts.VeryShort.value:"";
                 var photourl=(event.photo.url) ? "https://tvfueralle.de" + event.photo.url : "https://tvfueralle.de/tv-logo-no-image.svg";
+                var favorites = this.getFavorites(instance);
+                var favhighlight = (favorites.indexOf(event.title)>-1);
                 var text="";
                 text += '  <div class="event-container">';
                 text += '    <div class="event-picture dialogcolumn">';
                 text += '    <img src="'+photourl+'">';
                 text += '    </div>';
                 text += '    <div class="event-data dialogcolumn">';
-                if (startTime<new Date() && new Date()<endTime) text += '      <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
+                text += '      <div class="buttoncontainer">';
+                text+='          <div class="star button '+((favhighlight)?'selected':'')+'" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg></div>';
+                if (startTime<new Date() && new Date()<endTime) text += '        <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
+                text += '      </div>';
+                
                 text += '      <div style="padding: 0px 0px 5px;">'+channeltime+'</div>';
                 text += '      <div style="font-weight: bold;padding: 0px 0px 5px;">'+event.title+'</div>';
                 text += '      <div style="padding: 0px 0px 5px;">'+meta+'</div>';
