@@ -58,7 +58,8 @@ Functions:
 - return to today
 - reset zoom
 - favorite broadcasts
-
+- copy text from Detailview
+- markerposition is configurable
 ### Todo
 
 widget tvprogram: 

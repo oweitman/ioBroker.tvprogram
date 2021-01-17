@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.12",
+        "version": "0.0.13",
         "news": {
+            "0.0.13": {
+                "en": "fix pixel error in channel column / copy broadcast details to clipboard from detailview / config of markerposition"
+            },
             "0.0.12": {
                 "en": "show only one date in header / show play button only if time / implement favorites"
             },
