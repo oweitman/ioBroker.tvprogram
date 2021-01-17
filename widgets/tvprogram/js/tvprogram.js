@@ -63,6 +63,7 @@ vis.binds["tvprogram"] = {
             var tvprogram_oid;
             
             if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim()))==false) return;
+            var highlightcolor=data.highlightcolor||"yellow";
 
             if (!this.olddata[widgetID]) this.olddata[widgetID] = data;
             if (!this.measures[widgetID] || (JSON.stringify(this.olddata[widgetID])!=JSON.stringify(data)) ) this.measures[widgetID]= {
@@ -148,19 +149,22 @@ vis.binds["tvprogram"] = {
             }
 
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
+            if (this.onclickFavorite.name=="onclickFavorite")     this.onclickFavorite = this.onclickFavorite.bind(this,tvprogram_oid,widgetID);
             //if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
 
+            var channelfilter = this.getChannelfilter(tvprogram_oid,widgetID);
+            if (channelfilter.length==0) channelfilter = this.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
 
-
+/*
             var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
             if (!config[widgetID]) config[widgetID]={};
             if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
             var channelfilter = config[widgetID].channelfilter;
             if (channelfilter.length==0) channelfilter = this.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
             
-/*            var widthitem = 120;
+            var widthitem = 120;
             var widthchannel = 35;
             var heightrow = 35;
             var widthtvrow = (48*widthitem)+widthchannel;
@@ -272,6 +276,26 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcastelement {\n';
             text += '   width: 100%; \n';
             text += '   height: 100%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement .star {\n';
+            text += '   display: inline-block; \n';
+            text += '   margin: 0px 2px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement .star svg {\n';
+            text += '   height: 1em; \n';
+            text += '   width: 1em; \n';
+            text += '   position: relative; \n';
+            text += '   top: .125em; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.selected .star svg path {\n';
+            text += '   fill: '+highlightcolor+'; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.selected {\n';
+            text += '   color: '+highlightcolor+'; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .button {\n';
@@ -709,7 +733,7 @@ vis.binds["tvprogram"] = {
             var events = this.getEvents(this.tvprogram[viewdate],channelfilter);
             events.map(el=>{
                 text += '    <ul class="tv-row">';
-                text += this.getBroadcasts4Channel(el,widgetID,viewdate,tvprogram_oid).join(""); 
+                text += this.getBroadcasts4Channel(el,widgetID,viewdate,tvprogram_oid,highlightcolor).join(""); 
                 text += '    </ul>';
             });
 
@@ -913,22 +937,29 @@ vis.binds["tvprogram"] = {
         },
         onclickChannelSave: function(widgetID,tvprogram_oid,el,save) {
             if (save) {
+                this.setChannelfilter(tvprogram_oid,widgetID,$(".chselect-container .channel[selected]").toArray().map(el=>parseInt(el.dataset.id)));
+/*
                 var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
                 if (!config[widgetID]) config[widgetID]={};
                 if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
                 config[widgetID]['channelfilter'] = $(".chselect-container .channel[selected]").toArray().map(el=>parseInt(el.dataset.id));
                 vis.setValue(tvprogram_oid+".config",JSON.stringify(config));
+*/
             }
             $( "#"+widgetID+"channeldlg" ).dialog( "close" );
         },
         onclickChannel: function(widgetID,tvprogram_oid,el) {
             var isSorting=false;
             var channels = this.channels;
+            var channelfilter = this.getChannelfilter(tvprogram_oid,widgetID);
+            if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
+/*
             var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
             if (!config[widgetID]) config[widgetID]={};
             if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
             var channelfilter = config[widgetID].channelfilter;
             if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
+*/
             var text="";
             text += '  <div class="chselect-container">';
             text += '    <ul class="listitem channel" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg class="MuiSvgIcon-root jss160" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Check" data-ga-event-category="material-icons" data-ga-event-action="click" data-ga-event-label="Check"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg></li></ul>';
@@ -971,6 +1002,8 @@ vis.binds["tvprogram"] = {
         getBroadcasts4Channel: function(el,widgetID,viewdate,tvprogram_oid) {
             var wItem=this.measures[widgetID].widthItem;
             var tItem=this.measures[widgetID].timeItem;
+            var favorites = this.getFavorites(tvprogram_oid);
+            var favhighlight;
 
             var sTime=new Date(el.events[0].airDate);
             sTime.setHours(5);
@@ -995,12 +1028,15 @@ vis.binds["tvprogram"] = {
                 if (i==0 && startTime > sTime) aa.push('<li class="tv-item broadcast" style="left:0px; width:'+   ((Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10))+'px;"></li>');
                 if (i==0 && startTime < sTime) startTime=sTime;
                 if (endTime>eTime) endTime=eTime;
+                favhighlight = (favorites.indexOf(event.title)>-1);
                 text="";
                 text+='<li class="tv-item broadcast" style="';
                 text+='left:'+   (Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10)+'px;';
                 text+='width:'+   ((Math.floor((endTime-startTime)/60000/tItem*wItem*10)/10))+'px;">';
-                text+='<div class="broadcastelement" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+tvprogram_oid+'" onclick="vis.binds.tvprogram.time1.onclickBroadcast(this)">';
-                text+='<div class="broadcasttitle">'+ event.title+'</div>';
+                text+='<div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+tvprogram_oid+'" onclick="vis.binds.tvprogram.time1.onclickBroadcast(this)">';
+                text+='<div class="broadcasttitle">'+ event.title;
+                text+='<div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg></div>';
+                text+='</div>';
                 text+='<div class="broadcasttime">';
                 text+=("0"+startTime.getHours()).slice(-2)+":"+("0"+startTime.getMinutes()).slice(-2);
                 text+=' - ';
@@ -1009,6 +1045,58 @@ vis.binds["tvprogram"] = {
                 aa.push(text);
             }
             return aa;
+        },
+        onclickFavorite: function(tvprogram_oid,widgetID,el,evt) {
+            var eventid = el.dataset.eventid||0;
+            var viewdate = el.dataset.viewdate||0;
+            if (eventid ==0||viewdate==0) return;
+            this.getServerEvent(tvprogram_oid,eventid,viewdate,function(serverdata) {
+                event=serverdata;
+                var favorites = this.getFavorites(tvprogram_oid);
+                var index = favorites.indexOf(event.title);
+                if (index>-1) {
+                    favorites.splice(index, 1);
+                } else {
+                    favorites.push(event.title);
+                }
+                this.setFavorites(tvprogram_oid,favorites);
+            }.bind(this));
+            evt.stopPropagation();
+        },
+        getConfig: function(tvprogram_oid) {
+            var config;
+            var attr = vis.states.attr(tvprogram_oid+".config.val");
+            if (typeof attr !== 'undefined' && attr !== "null") {
+                config = JSON.parse(attr);
+            } else {
+                config = {};
+            }
+            return config;
+        },
+        setConfig: function(tvprogram_oid,config) {
+            vis.setValue(tvprogram_oid+".config",JSON.stringify(config));
+        },
+        getChannelfilter: function(tvprogram_oid,widgetID) {
+            var config=this.getConfig(tvprogram_oid);
+            if (!config[widgetID]) config[widgetID]={};
+            if (!config[widgetID]["channelfilter"]) config[widgetID]["channelfilter"]=[];
+            return config[widgetID]["channelfilter"];
+        },
+        setChannelfilter: function(tvprogram_oid,widgetID,channelfilter) {
+            var config=this.getConfig(tvprogram_oid);
+            if (!config[widgetID]) config[widgetID]={};
+            config[widgetID]["channelfilter"]=channelfilter;
+            this.setConfig(tvprogram_oid,config);
+        },
+        getFavorites: function(tvprogram_oid) {
+            var config=this.getConfig(tvprogram_oid);
+            if (!config["favorites"]) config["favorites"]=[];
+            return config["favorites"];
+        },
+        setFavorites: function(tvprogram_oid,favorites) {
+            var config=this.getConfig(tvprogram_oid);
+            config["favorites"]=favorites;
+            this.setConfig(tvprogram_oid,config);
         },
         onclickBroadcast: function(el) {
             var eventid = el.dataset.eventid||0;

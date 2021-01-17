@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.11",
+        "version": "0.0.12",
         "news": {
+            "0.0.12": {
+                "en": "show only one date in header / show play button only if time / implement favorites"
+            },
             "0.0.11": {
                 "en": "fix creation of datapoint config"
             },
