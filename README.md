@@ -72,6 +72,7 @@ widget tvprogram:
 - Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
+- ~~Problem: small Pixel glitch if scroll pane is completle on the left side~~
 
 ## Changelog
 

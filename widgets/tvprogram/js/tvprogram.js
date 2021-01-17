@@ -150,6 +150,7 @@ vis.binds["tvprogram"] = {
 
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             if (this.onclickFavorite.name=="onclickFavorite")     this.onclickFavorite = this.onclickFavorite.bind(this,tvprogram_oid,widgetID);
+            if (this.onclickCopy.name=="onclickCopy")     this.onclickCopy = this.onclickCopy.bind(this,tvprogram_oid,widgetID);
             //if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
@@ -1051,6 +1052,16 @@ vis.binds["tvprogram"] = {
             }
             return aa;
         },
+        onclickCopy: function(tvprogram_oid,widgetID,el,evt) {
+            var aux = document.createElement("input");
+            aux.setAttribute("value", $('#'+widgetID+'broadcastdlg .event-data').get(0).textContent);
+            document.body.appendChild(aux);
+            aux.focus();
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
+            evt.stopPropagation();
+        },
         onclickFavorite: function(tvprogram_oid,widgetID,el,evt) {
             var eventid = el.dataset.eventid||0;
             var viewdate = el.dataset.viewdate||0;
@@ -1147,6 +1158,7 @@ vis.binds["tvprogram"] = {
                 text += '    </div>';
                 text += '    <div class="event-data dialogcolumn">';
                 text += '      <div class="buttoncontainer">';
+                text+='          <div class="copy button" onclick="return vis.binds.tvprogram.time1.onclickCopy(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg></div>';
                 text+='          <div class="star button '+((favhighlight)?'selected':'')+'" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg></div>';
                 if (startTime<new Date() && new Date()<endTime) text += '        <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
                 text += '      </div>';
