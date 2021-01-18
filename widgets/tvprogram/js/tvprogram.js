@@ -72,7 +72,9 @@ vis.binds["tvprogram"] = {
                 timeItem:30,
                 heightRow:parseInt(data.heightRow)||35,
                 scrollbarWidth:this.getScrollbarWidth(),
-                markerpositionpercent:data.markerpositionpercent/100||0.25
+                markerpositionpercent:data.markerpositionpercent/100||0.25,
+                dialogwidthpercent:data.dialogwidthpercent/100||0.9,
+                dialogheightpercent:data.dialogheightpercent/100||0.9,
             };
             if (!this.measures[widgetID].widthItem) this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
 
@@ -336,25 +338,17 @@ vis.binds["tvprogram"] = {
             text += '   z-index:12; \n';
             text += '} \n';
 
+            text += '.clearfix {\n';
+            text += '   clear:both; \n';
+            text += '   content:""; \n';
+            text += '   display:table; \n';
+            text += '} \n';
+
             text += '#'+widgetID + 'channeldlg .chselect-container {\n';
-            text += '   display: grid; \n';
-            text += '   gap:5px; \n';
-            text += '   grid-template-columns: repeat(auto-fill, minmax(60px, 60px)); \n';
-            text += '   width:100%; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg .listitem .channel {\n';
-            text += '   width:50px; \n';
-            text += '   height:50px; \n';
-            text += '   margin:auto; \n';
-            text += '   list-style: none; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg div {\n';
-            text += '   width:50px; \n';
-            text += '   height:50px; \n';
-            text += '   margin:auto; \n';
-            text += '   list-style: none; \n';
+            //text += '   display: grid; \n';
+            //text += '   gap:5px; \n';
+            //text += '   grid-template-columns: repeat(auto-fill, minmax(60px, 60px)); \n';
+            //text += '   width:100%; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'channeldlg ul.channel {\n';
@@ -362,9 +356,38 @@ vis.binds["tvprogram"] = {
             text += '   padding:0px; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'channeldlg ul.channel[selected] {\n';
+            text += '#'+widgetID + 'channeldlg .listitem  {\n';
+            text += '   float: left; \n';
+            //text += '   width:50px; \n';
+            //text += '   height:50px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'channeldlg .listitem .channel {\n';
+            //text += '   width:50px; \n';
+            //text += '   height:50px; \n';
+            text += '   list-style: none; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'channeldlg .items  {\n';
+            text += '   list-style: none; \n';
+            text += '   margin:0px; \n';
+            text += '   padding:0px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'channeldlg .channel {\n';
+            text += '   margin:2px; \n';
+            text += '   width:50px; \n';
+            text += '   height:50px; \n';
+            text += '   list-style: none; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'channeldlg .items .channel[selected] {\n';
             text += '   background-color:lightgray; \n';
             text += '} \n';
+
+
+
+
 
             text += '.'+widgetID + '.no-titlebar .ui-dialog-titlebar {\n';
             text += '   display:none; \n';
@@ -794,12 +817,13 @@ vis.binds["tvprogram"] = {
                 $( "#"+widgetID+"broadcastdlg" ).dialog({
                     autoOpen: false,
                     modal: false,
-                    position: { of: $("#"+widgetID) },
-                    width: $("#"+widgetID).width()*0.9,
-                    height: $("#"+widgetID).height()*0.9,
+                    position: { of: $("#"+widgetID), within: $("#"+widgetID)},
+                    width: $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent,
+                    height: $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent,
                     dialogClass: 'no-titlebar '+widgetID,
                     zIndex: 10003,
-                    stack:false
+                    stack:false,
+                    collision:"none"
                 });
             }
             if (!$( "#"+widgetID+"channeldlg" ).hasClass('ui-dialog-content')) {
@@ -807,8 +831,8 @@ vis.binds["tvprogram"] = {
                     autoOpen: false,
                     modal: false,
                     position: { of: $("#"+widgetID) },
-                    width: $("#"+widgetID).width()*0.9,
-                    height: $("#"+widgetID).height()*0.9,
+                    width: $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent,
+                    height: $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent,
                     dialogClass: 'no-titlebar '+widgetID,
                     zIndex: 10003,
                     stack:false
@@ -930,11 +954,13 @@ vis.binds["tvprogram"] = {
         getChannels: function(channels,filter=[]) {
             var cc=[];
             filter.map(el=>{
-                var ch=channels.find(el1=>el1.id==el); 
-                cc.push('<ul class="listitem channel" data-order="'+ch.order+'" data-id="'+ch.id+'" selected><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+ch.channelId+'.png" alt="" class="channel-logo"></li></ul>');
+                var ch=channels.find(el1=>el1.id==el);
+                //cc.push('<ul class="listitem channel" data-order="'+ch.order+'" data-id="'+ch.id+'" selected><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+ch.channelId+'.png" alt="" class="channel-logo"></li></ul>');
+                cc.push('<li class="listitem channel" data-order="'+ch.order+'" data-id="'+ch.id+'" selected><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+ch.channelId+'.png" alt="" class="channel-logo"></li>');
             });
             channels.sort((a, b) => (a.order+(filter.indexOf(a.id)==-1)*100000) - (b.order+(filter.indexOf(b.id)==-1)*100000)).map( el=> {
-                if (filter.findIndex(el1=>el1==el.id)==-1) cc.push('<ul class="listitem channel" data-order="'+el.order+'" data-id="'+el.id+'"><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+el.channelId+'.png" alt="" class="channel-logo"></li></ul>');
+                //if (filter.findIndex(el1=>el1==el.id)==-1) cc.push('<ul class="listitem channel" data-order="'+el.order+'" data-id="'+el.id+'"><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+el.channelId+'.png" alt="" class="channel-logo"></li></ul>');
+                if (filter.findIndex(el1=>el1==el.id)==-1) cc.push('<li class="listitem channel" data-order="'+el.order+'" data-id="'+el.id+'"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+el.channelId+'.png" alt="" class="channel-logo"></li>');
             });
             return cc;
         },
@@ -968,16 +994,18 @@ vis.binds["tvprogram"] = {
             if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
 */
             var text="";
-            text += '  <div class="chselect-container">';
+            text += '  <div class="chselect-container clearfix">';
             text += '    <ul class="listitem channel" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg class="MuiSvgIcon-root jss160" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Check" data-ga-event-category="material-icons" data-ga-event-action="click" data-ga-event-label="Check"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg></li></ul>';
             text += '    <ul class="listitem channel" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg class="MuiSvgIcon-root jss160" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Clear" data-ga-event-category="material-icons" data-ga-event-action="click" data-ga-event-label="Clear"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></li></ul>';
             text += '  </div>';
 
-            text += '  <div class="chselect-container sortable">';
+            text += '  <div class="chselect-container clearfix sortable">';
+            text += '  <ul class="items">';
             text += this.getChannels(channels,channelfilter).join("\n"); 
+            text += '  </ul>';
             text += '  </div>';
             $( "#"+widgetID+"channeldlg" ).html(text);
-            $(".chselect-container ul.channel").click(function() {
+            $(".chselect-container .items .channel").click(function() {
                 console.log("channel click");
                 if (isSorting) return;
                 var target=$(this).parent().find("[selected]").last();
@@ -991,7 +1019,7 @@ vis.binds["tvprogram"] = {
                 }
             });
             $(".chselect-container.sortable").sortable({
-                items: "ul.channel[selected]",
+                items: ".items .channel[selected]",
                 containment: "parent",
                 revert: true,
                 grid: [ 5, 5 ],

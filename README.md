@@ -66,9 +66,8 @@ widget tvprogram:
 - widget for next Favorites
 - broadcast reminders (Favorites widget?)
 - responsive design for detail view
-- copy text from Detailview
 - to be discussed: dont want to see, broadcasts should be hidden
-- Datenpunkt, der nach drcuk auf knopf mit aufnahmedaten gefüllt wird
+- Datenpunkt, der nach druck auf knopf mit Aufnahmedaten gefüllt wird
 - to be discussed: Datenpunkt, mit allen Aufnahmedaten
 - Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script
