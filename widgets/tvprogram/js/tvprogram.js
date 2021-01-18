@@ -1079,6 +1079,16 @@ vis.binds["tvprogram"] = {
                 text+='</div></div></li>';
                 aa.push(text);
             }
+            if (startTime<eTime && endTime < eTime) {
+                startTime=endTime;
+                endTime=eTime;
+                text="";
+                text+='<li class="tv-item broadcast" style="';
+                text+='left:'+   (Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10)+'px;';
+                text+='width:'+   ((Math.floor((endTime-startTime)/60000/tItem*wItem*10)/10))+'px;">';
+                text+='</li>';
+                aa.push(text);
+            }
             return aa;
         },
         onclickCopy: function(tvprogram_oid,widgetID,el,evt) {
