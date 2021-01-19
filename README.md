@@ -60,18 +60,20 @@ Functions:
 - favorite broadcasts
 - copy text from Detailview
 - markerposition is configurable
+- dialog width and height is configurable 
+
 ### Todo
 
 widget tvprogram: 
 - widget for next Favorites
 - broadcast reminders (Favorites widget?)
-- responsive design for detail view
 - to be discussed: dont want to see, broadcasts should be hidden
 - Datenpunkt, der nach druck auf knopf mit Aufnahmedaten gefüllt wird
 - to be discussed: Datenpunkt, mit allen Aufnahmedaten
 - Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
+- ~~responsive design for detail view->no responsive design possible for jquery dialog, found another solution with fixed layouts for height>width~~
 - ~~Problem: small Pixel glitch if scroll pane is completle on the left side~~
 
 ## Changelog

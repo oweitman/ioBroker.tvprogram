@@ -397,16 +397,28 @@ vis.binds["tvprogram"] = {
             text += '   z-index:12; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-container {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-container.row {\n';
             text += '   height:100%; \n';
             text += '   display:flex; \n';
+            text += '   flex-direction:row; \n';
             text += '   overflow:hidden; \n';
             text += '   font-size:75%; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-picture {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-container.col {\n';
             text += '   height:100%; \n';
+            text += '   display:flex; \n';
+            text += '   flex-direction:column; \n';
+            text += '   overflow:hidden; \n';
+            text += '   font-size:75%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-picture.row {\n';
             text += '   width:50%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-picture.col {\n';
+            text += '   height:30%; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'broadcastdlg .event-data {\n';
@@ -422,8 +434,20 @@ vis.binds["tvprogram"] = {
             text += '   margin:auto; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn {\n';
-            text += '   flex:50%; \n';
+            text += '#'+widgetID + 'broadcastdlg .event-picture img {\n';
+            text += '   width:auto; \n';
+            text += '   height:auto; \n';
+            text += '   max-width:100%; \n';
+            text += '   max-height:100%; \n';
+            text += '   display:block; \n';
+            text += '   margin:auto; \n';
+            text += '} \n';
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.row {\n';
+            text += '   flex:1; \n';
+            text += '   padding:5px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.col {\n';
             text += '   padding:5px; \n';
             text += '} \n';
 
@@ -1190,12 +1214,14 @@ vis.binds["tvprogram"] = {
                 var photourl=(event.photo.url) ? "https://tvfueralle.de" + event.photo.url : "https://tvfueralle.de/tv-logo-no-image.svg";
                 var favorites = this.getFavorites(instance);
                 var favhighlight = (favorites.indexOf(event.title)>-1);
+
+                var layout = ($("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent > $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent)?" row":" col";
                 var text="";
-                text += '  <div class="event-container">';
-                text += '    <div class="event-picture dialogcolumn">';
+                text += '  <div class="event-container'+layout+'">';
+                text += '    <div class="event-picture dialogcolumn'+layout+'">';
                 text += '    <img src="'+photourl+'">';
                 text += '    </div>';
-                text += '    <div class="event-data dialogcolumn">';
+                text += '    <div class="event-data dialogcolumn'+layout+'">';
                 text += '      <div class="buttoncontainer">';
                 text+='          <div class="copy button" onclick="return vis.binds.tvprogram.time1.onclickCopy(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg></div>';
                 text+='          <div class="star button '+((favhighlight)?'selected':'')+'" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg></div>';
