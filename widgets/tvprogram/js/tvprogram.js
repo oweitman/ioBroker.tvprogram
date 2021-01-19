@@ -865,6 +865,7 @@ vis.binds["tvprogram"] = {
             $( "#"+widgetID+"broadcastdlg" ).click(function(){
                 $( "#"+widgetID+"broadcastdlg" ).dialog("close");
             });
+            this.copyStyles("font",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
             
             this.updateMarker(widgetID,this.today[widgetID].today);
             if (!this.timer[widgetID]) {
@@ -885,9 +886,19 @@ vis.binds["tvprogram"] = {
             //this.scroll[widgetID].time=new Date();
             //this.scroll[widgetID].position=(left-$('#'+widgetID+' .scrollcontainer').width()/4)/$('#'+widgetID+' .scrollcontainer')[0].scrollWidth;
 
-            
         },
 
+        copyStyles: function(startsWith, from, to) {
+            var cssFrom = window.getComputedStyle(from);
+            var cssTo = window.getComputedStyle(to);
+            for (var i = cssFrom.length; i--;) {
+                if (cssFrom[i].startsWith(startsWith)) {
+                    if (cssFrom.getPropertyValue(cssFrom[i]) != cssTo.getPropertyValue(cssFrom[i])) {
+                        to.style.setProperty(cssFrom[i],cssFrom.getPropertyValue(cssFrom[i]));
+                    }
+                }
+            }
+        },
         onClickZoom: function(widgetID, view, data, style,el) {
             console.log("ClickZoom:"+$(el.currentTarget).attr('class'));
             var day=0;
