@@ -375,9 +375,9 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + 'channeldlg .channel {\n';
-            text += '   margin:2px; \n';
-            text += '   width:50px; \n';
-            text += '   height:50px; \n';
+            text += '   margin:5px; \n';
+            text += '   width: '+(heightrow*1.5)+'px; \n';
+            text += '   height: '+(heightrow*1.5)+'px; \n';
             text += '   list-style: none; \n';
             text += '} \n';
 
