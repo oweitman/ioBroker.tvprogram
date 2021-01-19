@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.14",
+        "version": "0.0.15",
         "news": {
+            "0.0.15": {
+                "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
+            },
             "0.0.14": {
                 "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
             },
