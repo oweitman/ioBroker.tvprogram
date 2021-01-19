@@ -1096,7 +1096,7 @@ vis.binds["tvprogram"] = {
                 if (startTime>=eTime) continue;
                 if (endTime<=sTime) continue;
                 if (i==0 && startTime > sTime) aa.push('<li class="tv-item broadcast" style="left:0px; width:'+   ((Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10))+'px;"></li>');
-                if (i==0 && startTime < sTime) startTime=sTime;
+                if (startTime < sTime) startTime=sTime;
                 if (endTime>eTime) endTime=eTime;
                 favhighlight = (favorites.indexOf(event.title)>-1);
                 text="";
@@ -1107,6 +1107,8 @@ vis.binds["tvprogram"] = {
                 text+='<div class="broadcasttitle">'+ event.title;
                 text+='<div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg></div>';
                 text+='</div>';
+                var startTime= new Date(event.startTime);
+                var endTime= new Date(event.endTime);
                 text+='<div class="broadcasttime">';
                 text+=("0"+startTime.getHours()).slice(-2)+":"+("0"+startTime.getMinutes()).slice(-2);
                 text+=' - ';
