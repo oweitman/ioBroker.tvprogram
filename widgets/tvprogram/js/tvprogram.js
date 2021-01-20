@@ -161,20 +161,6 @@ vis.binds["tvprogram"] = {
             var channelfilter = this.getChannelfilter(tvprogram_oid,widgetID);
             if (channelfilter.length==0) channelfilter = this.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
 
-/*
-            var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
-            if (!config[widgetID]) config[widgetID]={};
-            if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
-            var channelfilter = config[widgetID].channelfilter;
-            if (channelfilter.length==0) channelfilter = this.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
-            
-            var widthitem = 120;
-            var widthchannel = 35;
-            var heightrow = 35;
-            var widthtvrow = (48*widthitem)+widthchannel;
-            var backgroundColor = this.realBackgroundColor($("#"+widgetID)[0]);
-            var scrollbarWidth= this.getScrollbarWidth();
-*/
             var widthitem = this.measures[widgetID].widthItem;
             var widthchannel = this.measures[widgetID].heightRow;
             var heightrow = this.measures[widgetID].heightRow;
@@ -385,10 +371,6 @@ vis.binds["tvprogram"] = {
             text += '   background-color:lightgray; \n';
             text += '} \n';
 
-
-
-
-
             text += '.'+widgetID + '.no-titlebar .ui-dialog-titlebar {\n';
             text += '   display:none; \n';
             text += '} \n';
@@ -402,7 +384,6 @@ vis.binds["tvprogram"] = {
             text += '   display:flex; \n';
             text += '   flex-direction:row; \n';
             text += '   overflow:hidden; \n';
-            text += '   font-size:75%; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'broadcastdlg .event-container.col {\n';
@@ -486,288 +467,17 @@ vis.binds["tvprogram"] = {
             text += '   float: left; \n';
             text += '} \n';
 
-           text += '#'+widgetID + ' .disable-select {\n';
+            text += '#'+widgetID + ' .disable-select {\n';
             text += '   -webkit-user-select: none; \n';
             text += '   -moz-user-select: none; \n';
             text += '   -ms-user-select: none; \n';
             text += '   -user-select: none; \n';
             text += '} \n';
             
-/*
-            text += '#'+widgetID + ' .tv-container {\n';
-            text += '   width: 100%; \n';
-            text += '   height: 100%; \n';
-            text += '   white-space:nowrap; \n';
-            text += '   position:relative; \n';
+            text += '#'+widgetID + ' .staricon {\n';
+            text += '     background-image: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 24 24\'><path fill=\'currentColor\' d=\'M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z\' /></svg>"); \n';
             text += '} \n';
-            
-            text += '#'+widgetID + ' .navcontainer {\n';
-            //text += '   position:absolute; \n';
-            text += '   top:0px; \n';
-            text += '   left:0px; \n';
-            text += '   z-index:12; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .scrollcontainer {\n';
-            //text += '   position:absolute; \n';
-            text += '   overflow:auto; \n';
-            text += '   top:0px; \n';
-            text += '   left:0px; \n';
-            text += '   width: 100%; \n';
-            text += '   height: 100%; \n';
-            text += '   z-index:12; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' * {\n';
-            text += '   box-sizing: border-box; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .tv-row {\n';
-            text += '   margin: 0px; \n';
-            text += '   padding: 0px; \n';
-            text += '   width: '+widthtvrow+'px; \n';
-            
-            text += '} \n';
-
-            text += '#'+widgetID + ' .tv-item {\n';
-            text += '   display: inline-block; \n';
-            text += '   vertical-align: middle; \n';
-            text += '   border: solid #80808033; \n';
-            text += '   border-width:1px 0px 0px 1px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .time {\n';
-            text += '   width: '+widthitem+'px; \n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   font-weight: 700; \n';
-            text += '   font-size: '+headerfontpercent+'%; \n';
-            text += '   padding: 5px 5px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .time:after {\n';
-            text += '   content:""; \n';
-            text += '   display: inline-block; \n';
-            text += '   vertical-align:middle; \n';
-            text += '   height: 100%; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .time span {\n';
-            text += '   vertical-align:middle; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .channel {\n';
-            text += '   width: '+heightrow+'px; \n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   padding: 1px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .broadcast {\n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   padding: 3px; \n';
-            text += '   font-size: '+broadcastfontpercent+'%; \n';
-            text += '   overflow: hidden; \n';
-            text += '} \n';
-            text += '#'+widgetID + ' ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n';
-            text += '   background-color: rgba(128, 128, 128, 0.65); \n';
-            text += '} \n';
-            text += '#'+widgetID + ' ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(even) {\n';
-            text += '   background-color: rgba(128, 128, 128, 0.55); \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' ul.tv-row:nth-child(even)> li.broadcast:nth-child(odd) {\n';
-            text += '   background-color: rgba(128, 128, 128, 0.45); \n';
-            text += '} \n';
-            text += '#'+widgetID + ' ul.tv-row:nth-child(even)> li.broadcast:nth-child(even) {\n';
-            text += '   background-color: rgba(128, 128, 128, 0.35); \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .burger {\n';
-            text += '   width: '+heightrow+'px; \n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   padding: 5px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' svg rect {\n';
-            text += '   fill: '+$("#"+widgetID).css("color")+'; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .broadcast {\n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   padding: 3px; \n';
-            text += '   font-size: '+broadcastfontpercent+'%; \n';
-            text += '   overflow: hidden; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .tv-head-top {\n';
-            text += '   position:sticky; \n';
-            text += '   position: -webkit-sticky; \n';
-            text += '   top:'+heightrow+'px; \n';
-            text += '   z-index:11; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .tv-head-time {\n';
-            text += '   position:sticky; \n';
-            text += '   position: -webkit-sticky; \n';
-            text += '   top:0px; \n';
-            text += '   z-index:11; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .tv-head-left {\n';
-            text += '   position:sticky; \n';
-            text += '   position: -webkit-sticky; \n';
-            text += '   left:0; \n';
-            text += '   z-index:10; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .tv-head-topleft {\n';
-            text += '   position:sticky; \n';
-            text += '   position: -webkit-sticky; \n';
-            text += '   top:0; \n';
-            text += '   z-index:12; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '} \n';
-
-            text += '.ui-dialog.'+widgetID + ' {\n';
-            text += '   z-index:12; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'broadcastdlg  {\n';
-            text += '   z-index:12; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn {\n';
-            text += '   flex:50%; \n';
-            text += '   padding:5px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'broadcastdlg .event-container {\n';
-            text += '   height:100%; \n';
-            text += '   display:flex; \n';
-            text += '   overflow:hidden; \n';
-            text += '   font-size:75%; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'broadcastdlg .event-picture {\n';
-            text += '   height:100%; \n';
-            text += '   width:50%; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'broadcastdlg .event-data {\n';
-            text += '   overflow-y:auto; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'broadcastdlg .event-picture img {\n';
-            text += '   width:auto; \n';
-            text += '   height:auto; \n';
-            text += '   max-width:100%; \n';
-            text += '   max-height:100%; \n';
-            text += '   display:block; \n';
-            text += '   margin:auto; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg .chselect-container {\n';
-            text += '   display: grid; \n';
-            text += '   gap:5px; \n';
-            text += '   grid-template-columns: repeat(auto-fill, minmax(60px, 60px)); \n';
-            text += '   width:100%; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg .listitem .channel {\n';
-            text += '   width:50px; \n';
-            text += '   height:50px; \n';
-            text += '   margin:auto; \n';
-            text += '   list-style: none; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg div {\n';
-            text += '   width:50px; \n';
-            text += '   height:50px; \n';
-            text += '   margin:auto; \n';
-            text += '   list-style: none; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg ul.channel {\n';
-            text += '   margin:0px; \n';
-            text += '   padding:0px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + 'channeldlg ul.channel[selected] {\n';
-            text += '   background-color:lightgray; \n';
-            text += '} \n';
-
-            text += '.'+widgetID + '.no-titlebar .ui-dialog-titlebar {\n';
-            text += '   display:none; \n';
-            text += '} \n';
-
-
-            text += '#'+widgetID + ' .nav {\n';
-            text += '   display:inline-block; \n';
-            text += '   width: '+heightrow+'px; \n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '   border: 1px solid; \n';
-            text += '   border-radius: 5px; \n';
-            text += '   vertical-align: middle; \n';
-            text += '   padding: 5px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .nav svg rect {\n';
-            text += '   fill: '+$("#"+widgetID).css("color")+'; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .zoomcontainer {\n';
-            text += '   position:absolute; \n';
-            text += '   top:'+zoompos+'px; \n';
-            text += '   right:0px; \n';
-            text += '   z-index:12; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .zoom {\n';
-            text += '   display:inline-block; \n';
-            text += '   width: '+heightrow+'px; \n';
-            text += '   height: '+heightrow+'px; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '   border: 1px solid; \n';
-            text += '   border-radius: 5px; \n';
-            text += '   vertical-align: middle; \n';
-            text += '   padding: 5px; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .overlay {\n';
-            text += '   position: absolute; \n';
-            text += '   top: 0; \n';
-            text += '   left: 0; \n';
-            text += '   height: 100%; \n';
-            text += '   width: 100%; \n';
-            text += '   z-index: 12; \n';
-            text += '   line-height: '+$("#"+widgetID).height()+'px; \n';
-            text += '   vertical-align: middle; \n';
-            text += '   text-align: center; \n';
-            text += '   background-color: '+ backgroundColor +'; \n';
-            text += '   opacity: 0; \n';
-            text += '   font-size: 200%; \n';
-            text += '   pointer-events: none; \n';
-
-            text += '} \n';
-
-            text += '#'+widgetID + ' .zoom svg rect {\n';
-            text += '   fill: '+$("#"+widgetID).css("color")+'; \n';
-            text += '} \n';
-
-            text += '#'+widgetID + ' .line {\n';
-            text += '   position: absolute; \n';
-            text += '   top: 0; \n';
-            text += '   width: 2px; \n';
-            text += '   background-color: red; \n';
-            text += '   opacity: 0.8; \n';
-            text += '   z-index: 10; \n';
-            text += '   height: '+Math.min(((channelfilter.length+1)*heightrow),$("#"+widgetID).height())+'px; \n';
-            text += '   float: left; \n';
-            text += '} \n';
-*/
+            //https://mayashavin.com/articles/svg-icons-currentcolor
 
             text += '</style> \n';            
 
@@ -791,31 +501,6 @@ vis.binds["tvprogram"] = {
                 text += '    </ul>';
             });
 
-
-/*
-            text += '  <div class="navcontainer">';
-            text += '    <ul class="tv-row tv-head-top">';
-            text += this.getButtonHeader().join(""); 
-            text += '    </ul>';
-            text += '  </div>';
-            text += '  <div class="scrollcontainer">';
-
-            text += '    <div class="line"></div>';
-
-            text += '    <ul class="tv-row tv-head-time">';
-            text += '      <li class="tv-item tv-head-left channel">';
-            text += '      </li>'; 
-
-            text += this.getTimetable().join(""); 
-            text += '    </ul>';
-            var events = this.getEvents(this.tvprogram[viewdate],channelfilter);
-            events.map(el=>{
-                text += '    <ul class="tv-row">';
-                text += this.getBroadcasts4Channel(el,widgetID,viewdate,tvprogram_oid).join(""); 
-                text += '    </ul>';
-            });
-            text += '  </div>';
-*/
             $('#' + widgetID+' .tv-container').html(text);
 
             console.log("Display day:"+datestring)
@@ -866,7 +551,9 @@ vis.binds["tvprogram"] = {
                 $( "#"+widgetID+"broadcastdlg" ).dialog("close");
             });
             this.copyStyles("font",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
-            
+            this.copyStyles("color",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
+            this.copyStyles("background-color",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
+
             this.updateMarker(widgetID,this.today[widgetID].today);
             if (!this.timer[widgetID]) {
                 //this.timer[widgetID] = setInterval(this.updateMarker.bind(this,widgetID,this.today[widgetID].today),15000);
@@ -881,10 +568,6 @@ vis.binds["tvprogram"] = {
             } else {
                 this.setScroll(widgetID);
             }
-
-            //if (this.scroll[widgetID] && (new Date(this.scroll[widgetID].time.getTime() + 90*1000)>new Date())) return;
-            //this.scroll[widgetID].time=new Date();
-            //this.scroll[widgetID].position=(left-$('#'+widgetID+' .scrollcontainer').width()/4)/$('#'+widgetID+' .scrollcontainer')[0].scrollWidth;
 
         },
 
@@ -970,12 +653,6 @@ vis.binds["tvprogram"] = {
             $('#'+widgetID+' .line').css('left',left+'px');
             this.scroll[widgetID].marker=left;
 
-            //if (this.scroll[widgetID] && (new Date(this.scroll[widgetID].time.getTime() + 90*1000)>new Date())) return;
-            //this.scroll[widgetID].time=new Date();
-            //this.scroll[widgetID].position=(left-$('#'+widgetID+' .scrollcontainer').width()/4)/$('#'+widgetID+' .scrollcontainer')[0].scrollWidth;
-            //$('#'+widgetID+' .scrollcontainer').scrollLeft(left-$('#'+widgetID+' .scrollcontainer').width()/4);
-            //this.setScroll(widgetID);
-            //setTimeout(()=>$(this.setScroll(widgetID),0));
         },
         getScrollbarWidth: function() {
             var scrollDiv = document.createElement("div");
@@ -1006,13 +683,6 @@ vis.binds["tvprogram"] = {
         onclickChannelSave: function(widgetID,tvprogram_oid,el,save) {
             if (save) {
                 this.setChannelfilter(tvprogram_oid,widgetID,$(".chselect-container .channel[selected]").toArray().map(el=>parseInt(el.dataset.id)));
-/*
-                var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
-                if (!config[widgetID]) config[widgetID]={};
-                if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
-                config[widgetID]['channelfilter'] = $(".chselect-container .channel[selected]").toArray().map(el=>parseInt(el.dataset.id));
-                vis.setValue(tvprogram_oid+".config",JSON.stringify(config));
-*/
             }
             $( "#"+widgetID+"channeldlg" ).dialog( "close" );
         },
@@ -1021,13 +691,7 @@ vis.binds["tvprogram"] = {
             var channels = this.channels;
             var channelfilter = this.getChannelfilter(tvprogram_oid,widgetID);
             if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
-/*
-            var config = JSON.parse(vis.states.attr(tvprogram_oid+".config.val")||"{}");
-            if (!config[widgetID]) config[widgetID]={};
-            if (!config[widgetID]['channelfilter']) config[widgetID]['channelfilter']=[];
-            var channelfilter = config[widgetID].channelfilter;
-            if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
-*/
+
             var text="";
             text += '  <div class="chselect-container clearfix">';
             text += '    <ul class="listitem channel" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg class="MuiSvgIcon-root jss160" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Check" data-ga-event-category="material-icons" data-ga-event-action="click" data-ga-event-label="Check"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg></li></ul>';
@@ -1106,6 +770,7 @@ vis.binds["tvprogram"] = {
                 text+='<div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+tvprogram_oid+'" onclick="vis.binds.tvprogram.time1.onclickBroadcast(this)">';
                 text+='<div class="broadcasttitle">'+ event.title;
                 text+='<div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg></div>';
+                //text+='<div class="star staricon" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"></div>';
                 text+='</div>';
                 var startTime= new Date(event.startTime);
                 var endTime= new Date(event.endTime);
