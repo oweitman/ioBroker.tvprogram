@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.15",
+        "version": "0.0.16",
         "news": {
+            "0.0.16": {
+                "en": "fix edge case in rendering broadcasts / remove dead code / reuse svg icons / repair update marker / fix css for favorites / repair deferred updatemarker after manual scroll"
+            },
             "0.0.15": {
                 "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
             },
