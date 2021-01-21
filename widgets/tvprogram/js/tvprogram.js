@@ -101,7 +101,7 @@ vis.binds["tvprogram"] = {
             }
 
             if (!this.today[widgetID]) this.today[widgetID] = {today:new Date(),prevday:null};
-            if (!this.scroll[widgetID]) this.scroll[widgetID] = {time:new Date(0),position:0,marker:0};
+            if (!this.scroll[widgetID]) this.scroll[widgetID] = {time:new Date(0),position:0,marker:0,timeout:null,automatic:0};
 
             var d = this.calcDate(this.today[widgetID].today);
             var datestring = this.getDate(d,0);
@@ -553,6 +553,7 @@ vis.binds["tvprogram"] = {
             $( "#"+widgetID+" .zoom.center" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
 
             $( "#"+widgetID+" .scrollcontainer" ).scroll(function(widgetID,el) {
+                if (this.scroll[widgetID].automatic==0) this.scroll[widgetID].automatic=2;
                 this.scroll[widgetID].time=new Date();
                 this.calcScroll(widgetID);
             }.bind(this,widgetID));
@@ -571,6 +572,7 @@ vis.binds["tvprogram"] = {
                     collision:"none"
                 });
             }
+            console.log("Broadcast Detail view, calculated width and height " + $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent + ", "+$("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent);
             if (!$( "#"+widgetID+"channeldlg" ).hasClass('ui-dialog-content')) {
                 $( "#"+widgetID+"channeldlg" ).dialog({
                     autoOpen: false,
@@ -626,7 +628,6 @@ vis.binds["tvprogram"] = {
             if ($(el.currentTarget).hasClass("center")) this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
             if (this.measures[widgetID].widthItem < 20) this.measures[widgetID].widthItem=this.measures[widgetID].origwidthItem;
             this.calcScroll(widgetID);
-            //this.scroll[widgetID].time= new Date(0);
             this.createWidget(widgetID, view, data, style);
         },
         onClickDay: function(widgetID, view, data, style,el) {
@@ -652,7 +653,7 @@ vis.binds["tvprogram"] = {
         },
         calcScroll: function(widgetID) {
             var el = $('#'+widgetID+' .scrollcontainer').get(0);
-            if (el.scrollLeft==0) {
+            if (el.scrollLeft==0 || this.scroll[widgetID].position==0) {
                 this.scroll[widgetID].position=(this.scroll[widgetID].marker)/el.scrollWidth;
             } else {
                 this.scroll[widgetID].position=(el.scrollLeft+(el.clientWidth*this.measures[widgetID].markerpositionpercent))/el.scrollWidth;
@@ -663,7 +664,8 @@ vis.binds["tvprogram"] = {
             el.scrollLeft = (this.scroll[widgetID].position*el.scrollWidth)-(el.clientWidth*this.measures[widgetID].markerpositionpercent);
         },
         updateMarker: function(widgetID,today) {
-
+            if (this.scroll[widgetID].automatic==2 && ((new Date() - this.scroll[widgetID].time)<(90*1000))) return;
+            this.scroll[widgetID].automatic=0;
             if (this.calcDate(today).toLocaleDateString() != this.calcDate(new Date()).toLocaleDateString()) {
                 $('#'+widgetID+' .line').hide();
                 //return;
@@ -687,6 +689,16 @@ vis.binds["tvprogram"] = {
             var left = (wChannel+Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10);
             $('#'+widgetID+' .line').css('left',left+'px');
             this.scroll[widgetID].marker=left;
+            this.scroll[widgetID].position=0;
+            this.calcScroll(widgetID);
+            if (this.scroll[widgetID].timeout) clearTimeout(this.scroll[widgetID].timeout);
+            this.scroll[widgetID].automatic=1;
+            this.scroll[widgetID].timeout = window.setTimeout(function(){
+                this.scroll[widgetID].automatic=0;
+                clearTimeout(this.scroll[widgetID].timeout);
+                this.scroll[widgetID].timeout=null;
+            }.bind(this), 500);
+            this.setScroll(widgetID);
 
         },
         getScrollbarWidth: function() {
