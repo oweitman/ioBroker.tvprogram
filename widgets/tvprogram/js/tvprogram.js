@@ -284,8 +284,8 @@ vis.binds["tvprogram"] = {
             text += '   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n';
             text += '} \n';
 
-            text += '#'+widgetID + ' .broadcastelement.selected .star svg path, #'+widgetID + 'broadcastdlg .star.selected svg path {\n';
-            text += '   fill: '+highlightcolor+'; \n';
+            text += '#'+widgetID + ' .broadcastelement.selected .star svg path, #'+widgetID + 'broadcastdlg .star.selected {\n';
+            text += '   color: '+highlightcolor+'; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .broadcastelement.selected {\n';

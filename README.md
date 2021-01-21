@@ -43,6 +43,11 @@ In the configuration, the widget only needs to be filled with any data point of 
 The widget searches for all remaining data points automatically.
 
 If the text behind the channel logos shows through, a background color must be selected in the widget
+The Marker position ist updated every 15 seconds.
+
+if something goes wrong after installation and the widget isnt diplayed correctly, please try the following command from shell:
+
+iobroker upload all
 
 Functions:
 
