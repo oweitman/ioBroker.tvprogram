@@ -1,8 +1,53 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.1",
+        "version": "0.0.16",
         "news": {
+            "0.0.16": {
+                "en": "fix edge case in rendering broadcasts / remove dead code / reuse svg icons / repair update marker / fix css for favorites / repair deferred updatemarker after manual scroll"
+            },
+            "0.0.15": {
+                "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
+            },
+            "0.0.14": {
+                "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
+            },
+            "0.0.13": {
+                "en": "fix pixel error in channel column / copy broadcast details to clipboard from detailview / config of markerposition"
+            },
+            "0.0.12": {
+                "en": "show only one date in header / show play button only if time / implement favorites"
+            },
+            "0.0.11": {
+                "en": "fix creation of datapoint config"
+            },
+            "0.0.10": {
+                "en": "introduce center buttons for zoom and navigation / new datapoint selectchannel / click on channel logo trigger this datapoint / icon for selectchannel in broadcast detail view / datapoint handling in adapter"
+            },
+            "0.0.9": {
+                "en": "fix dynamic config of width/height / fix invisible overlay color / new burger icon / configurable header and broadcast font-size / add header navigation with date info"
+            },
+            "0.0.8": {
+                "en": "fix date calc"
+            },
+            "0.0.7": {
+                "en": "resolve 2 or more same widgets problem / improve readme / add widget icon / add alternating colors to widget / implement variable width and height / improve loading logic for past values / fix display for edge case / implement navigation logic / implement zomm logic"
+            },
+            "0.0.6": {
+                "en": "introduce client/server data handling / remove dead code / implement file caching / implement old caching file removal"
+            },
+            "0.0.5": {
+                "en": "see git log"
+            },
+            "0.0.4": {
+                "en": "bug fixes"
+            },
+            "0.0.3": {
+                "en": "bug fixes"
+            },
+            "0.0.2": {
+                "en": "bug fixes"
+            },
             "0.0.1": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",
@@ -59,8 +104,8 @@
         "restartAdapters": [
             "vis"
         ],
-        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
         "mode": "daemon",
+        "messagebox": true,
         "type": "visualization",
         "compact": true,
         "connectionType": "cloud",
@@ -74,8 +119,6 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
     },
     "objects": [],
     "instanceObjects": [
