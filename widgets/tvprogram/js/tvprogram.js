@@ -51,7 +51,6 @@ vis.binds["tvprogram"] = {
         viewday:    {},
         olddata:    {},
         createWidget: function (widgetID, view, data, style) {
-            console.log("createWidget init");
             var $div = $('#' + widgetID);
             // if nothing found => wait
             if (!$div.length) {
@@ -68,7 +67,6 @@ vis.binds["tvprogram"] = {
             if (!this.olddata[widgetID]) this.olddata[widgetID] = data;
             if (!this.measures[widgetID] || (JSON.stringify(this.olddata[widgetID])!=JSON.stringify(data)) ) this.measures[widgetID]= {
                 origwidthItem:parseInt(data.widthItem)||120,
-                //widthItem:parseInt(data.widthItem)||120,
                 timeItem:30,
                 heightRow:parseInt(data.heightRow)||35,
                 scrollbarWidth:this.getScrollbarWidth(),
@@ -81,15 +79,15 @@ vis.binds["tvprogram"] = {
             if (!((this.today||{})[widgetID]||{}).prevday) $('#' + widgetID+' .tv-container').html("Datapoints loading...");
 
             if (Object.keys(this.categories).length==0) this.getServerData(tvprogram_oid,widgetID,'categories',function(widgetID, view, data, style, serverdata){
-                this.categories=serverdata.category;
+                this.categories=serverdata;
                 this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
             if (Object.keys(this.channels).length==0) this.getServerData(tvprogram_oid,widgetID,'channels',function(widgetID, view, data, style,serverdata){
-                this.channels=serverdata.channels;
+                this.channels=serverdata;
                 this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
             if (Object.keys(this.genres).length==0) this.getServerData(tvprogram_oid,widgetID,'genres',function(widgetID, view, data, style,serverdata){
-                this.genres=serverdata.genres;
+                this.genres=serverdata;
                 this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
 
@@ -113,7 +111,7 @@ vis.binds["tvprogram"] = {
             if (check(this.tvprogram[datestring])) {
                 this.getServerData(tvprogram_oid,widgetID,'program.'+datestring,function(widgetID, view, data, style,datestring,serverdata){
                     if (serverdata!="error") {
-                        this.tvprogram[datestring]=serverdata.events;
+                        this.tvprogram[datestring]=serverdata;
                         this.createWidget(widgetID, view, data, style);
                         return;
                     } else {
@@ -139,7 +137,8 @@ vis.binds["tvprogram"] = {
                     this.bound[tvprogram_oid][widgetID]=true;
                     vis.binds["tvprogram"].bindStates($div,[
                         tvprogram_oid + '.config',
-                        ],this.onChange.bind(this, widgetID, view, data, style)
+                        tvprogram_oid + '.cmd',
+                        ],this.onChange.bind(this, widgetID, view, data, style,tvprogram_oid)
                     );
                 }
             }
@@ -979,9 +978,35 @@ vis.binds["tvprogram"] = {
                 hh.push('<li class="tv-item dateinfo">'+new Date(datestring).toLocaleDateString(navigator.language,{weekday:"short"})+", "+new Date(datestring).toLocaleDateString()+'</li>');
             return hh;
         },
-        onChange: function(widgetID, view, data, style,e, newVal, oldVal) {
-            console.log("changed "+widgetID+" type:"+e.type );
-            this.createWidget(widgetID, view, data, style);
+        onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
+            if (e.type=="tvprogram.0.config.val") {
+                console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
+                this.createWidget(widgetID, view, data, style);
+            }
+            if (e.type=="tvprogram.0.cmd.val") {
+                if (newVal && newVal != "") {
+                    console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
+                    var obj = newVal.split("|");
+                    if (obj[0]=="new") {
+                        if (obj[1] != "program") {
+                            this.getServerData(tvprogram_oid,widgetID,obj[1],function(widgetID, view, data, style, serverdata){
+                                this[obj[1]]=serverdata;
+                                this.createWidget(widgetID, view, data, style);
+                                return;
+                            }.bind(this, widgetID, view, data, style));
+                        }
+                        if (obj[1] == "program") {
+                            if (this.tvprogram[obj[2]]) this.getServerData(tvprogram_oid,widgetID,'program.'+obj[2],function(widgetID, view, data, style,datestring,serverdata){
+                                if (serverdata!="error") {
+                                    this.tvprogram[datestring]=serverdata;
+                                    this.createWidget(widgetID, view, data, style);
+                                    return;
+                                }
+                            }.bind(this, widgetID, view, data, style,obj[2]));
+                        }
+                    }
+                }
+            }
         },
         getDate: function(d,add) {
             var d1=new Date(d);
