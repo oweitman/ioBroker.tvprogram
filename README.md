@@ -49,6 +49,21 @@ if something goes wrong after installation and the widget isnt diplayed correctl
 
 iobroker upload all
 
+
+##### Provided Datapoints
+
+**record**
+This datapoint is set if the user clicks the record button in the detail view of a broadcast.
+The provided data are
+
+| field     | Example                    | Description            |
+| --------- | -------------------------- | ---------------------- |
+| startTime | 2021-01-01T00:10:00+01:00  | Start time             |
+| endTime   | 2021-01-01T00:10:30+01:00  | End time               |
+| title     | Title of the broadcast     | title of the broadcast |
+| channel   | 7                          | Unique channel number  |
+| channelid | zdf                        | Unique channel id      |
+
 Functions:
 
 - show tv data on timeline by tv channel

@@ -146,6 +146,7 @@ vis.binds["tvprogram"] = {
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             if (this.onclickFavorite.name=="onclickFavorite")     this.onclickFavorite = this.onclickFavorite.bind(this,tvprogram_oid,widgetID);
             if (this.onclickCopy.name=="onclickCopy")     this.onclickCopy = this.onclickCopy.bind(this,tvprogram_oid,widgetID);
+            if (this.onclickRecord.name=="onclickRecord")     this.onclickRecord = this.onclickRecord.bind(this,tvprogram_oid,widgetID);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
 
@@ -476,26 +477,28 @@ vis.binds["tvprogram"] = {
             // to user : <svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg>
             text += '<svg style="display:none;"><symbol id="check-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="cancel-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>';
+            text += '<svg style="display:none;"><symbol id="cancel-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg>';
+            text += '<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#switch-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="burger-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></svg>';
+            text += '<svg style="display:none;"><symbol id="burger-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#burger-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="nav-prevD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="nav-prevD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#nav-prevD-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="nav-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="nav-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#nav-center-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="nav-nextD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="nav-nextD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#nav-nextD-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="zoom-minus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="zoom-minus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#zoom-minus-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="zoom-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M19,19H15V21H19A2,2 0 0,0 21,19V15H19M19,3H15V5H19V9H21V5A2,2 0 0,0 19,3M5,5H9V3H5A2,2 0 0,0 3,5V9H5M5,15H3V19A2,2 0 0,0 5,21H9V19H5V15Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="zoom-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M19,19H15V21H19A2,2 0 0,0 21,19V15H19M19,3H15V5H19V9H21V5A2,2 0 0,0 19,3M5,5H9V3H5A2,2 0 0,0 3,5V9H5M5,15H3V19A2,2 0 0,0 5,21H9V19H5V15Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="zoom-plus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" /></svg>';
+            text += '<svg style="display:none;"><symbol id="zoom-plus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg>
+            text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg>
 
             text += '  </div>';
 
@@ -805,6 +808,24 @@ vis.binds["tvprogram"] = {
             }
             return aa;
         },
+        onclickRecord: function(tvprogram_oid,widgetID,el,evt) {
+            var eventid = el.dataset.eventid||0;
+            var viewdate = el.dataset.viewdate||0;
+            if (eventid ==0||viewdate==0) return;
+            this.getServerEvent(tvprogram_oid,eventid,viewdate,function(el,serverdata) {
+                var event=serverdata;
+                var channel = event.channel ? this.channels.find(el=>el.id==event.channel) : null;
+                var record = {
+                    startTime:event.startTime,
+                    endTime:event.endTime,
+                    title:event.title,
+                    channel:event.channel,
+                    channelid:channel.channelId
+                }
+            vis.setValue(tvprogram_oid+".record",JSON.stringify(record));
+            }.bind(this,el));
+            evt.stopPropagation();
+        },
         onclickCopy: function(tvprogram_oid,widgetID,el,evt) {
             var aux = document.createElement("input");
             aux.setAttribute("value", $('#'+widgetID+'broadcastdlg .event-data').get(0).textContent);
@@ -913,13 +934,11 @@ vis.binds["tvprogram"] = {
                 text += '    </div>';
                 text += '    <div class="event-data dialogcolumn'+layout+'">';
                 text += '      <div class="buttoncontainer">';
-                //text+='          <div class="copy button" onclick="return vis.binds.tvprogram.time1.onclickCopy(this,event)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg></div>';
+                text+='          <div class="record button" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickRecord(this,event)"><svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg></div>';
                 text+='          <div class="copy button" onclick="return vis.binds.tvprogram.time1.onclickCopy(this,event)"><svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg></div>';
                 text+='          <div class="star button '+((favhighlight)?'selected':'')+'" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
-                //if (startTime<new Date() && new Date()<endTime) text += '        <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></svg></div>';
                 if (startTime<new Date() && new Date()<endTime) text += '        <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" ><use xlink:href="#switch-icon"></use></svg></div>';
                 text += '      </div>';
-                
                 text += '      <div style="padding: 0px 0px 5px;">'+channeltime+'</div>';
                 text += '      <div style="font-weight: bold;padding: 0px 0px 5px;">'+event.title+'</div>';
                 text += '      <div style="padding: 0px 0px 5px;">'+meta+'</div>';

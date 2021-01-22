@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.18",
+        "version": "0.0.19",
         "news": {
+            "0.0.19": {
+                "en": "new record button in the detail view to fill the datapoint record"
+            },
             "0.0.18": {
                 "en": "fix getServerEventMsg"
             },
