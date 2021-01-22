@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.16",
+        "version": "0.0.17",
         "news": {
+            "0.0.17": {
+                "en": "improve dialog open for iframes / remove dead code / implement data sync and update"
+            },
             "0.0.16": {
                 "en": "fix edge case in rendering broadcasts / remove dead code / reuse svg icons / repair update marker / fix css for favorites / repair deferred updatemarker after manual scroll"
             },
