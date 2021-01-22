@@ -26,6 +26,7 @@ class Tvprogram extends utils.Adapter {
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         this.on("unload", this.onUnload.bind(this));
+        this.on('message', this.onMessage.bind(this));
     }
 
     /**
@@ -75,12 +76,20 @@ class Tvprogram extends utils.Adapter {
     onStateChange(id, state) {
         if (state) {
             // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            if (tvprogramserver) tvprogramserver.doStateChange(id,state);
         } else {
             // The state was deleted
-            this.log.info(`state ${id} deleted`);
+            this.log.debug(`state ${id} deleted`);
         }
     }
+
+     onMessage(obj) {
+     	if (typeof obj === 'object' && obj.message) {
+            tvprogramserver.processMessages(obj);
+        }
+     }    
+    
 
 }
 
