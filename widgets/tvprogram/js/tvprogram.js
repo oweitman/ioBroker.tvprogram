@@ -114,16 +114,13 @@ vis.binds["tvprogram"] = {
                 this.getServerData(tvprogram_oid,widgetID,'program.'+datestring,function(widgetID, view, data, style,datestring,serverdata){
                     if (serverdata!="error") {
                         this.tvprogram[datestring]=serverdata.events;
-                        //$('#'+widgetID + ' .dateinfo').html(new Date(datestring).toLocaleDateString());
                         this.createWidget(widgetID, view, data, style);
                         return;
                     } else {
                         this.today[widgetID]["today"]=new Date(this.today[widgetID]["prevday"]);
                         this.viewday[widgetID]["viewday"]=new Date(this.viewday[widgetID]["prevday"]);
-                        //$('#'+widgetID + ' .dateinfo').html("no data for "+new Date(datestring).toLocaleDateString());
                         this.createWidget(widgetID, view, data, style);
                         return;
-                        //$('#' + widgetID+' .tv-container').html("Error: Problem to load tvdata for "+datestring);
                     }
                 }.bind(this, widgetID, view, data, style,datestring));
             } else {
@@ -483,9 +480,9 @@ vis.binds["tvprogram"] = {
             text += '  <div class="svgcontainer">';
             text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></symbol></svg>';
+            text += '<svg style="display:none;"><symbol id="check-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg>
-            text += '<svg style="display:none;"><symbol id="cancel-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>';
+            text += '<svg style="display:none;"><symbol id="cancel-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg>
             text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg>
@@ -505,15 +502,6 @@ vis.binds["tvprogram"] = {
             // to user : <svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg>
             text += '<svg style="display:none;"><symbol id="zoom-plus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" /></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg>
-
-
-
-
-
-
-
-
-
 
             text += '  </div>';
 
@@ -557,34 +545,6 @@ vis.binds["tvprogram"] = {
                 this.scroll[widgetID].time=new Date();
                 this.calcScroll(widgetID);
             }.bind(this,widgetID));
-
-
-            if (!$( "#"+widgetID+"broadcastdlg" ).hasClass('ui-dialog-content')) {
-                $( "#"+widgetID+"broadcastdlg" ).dialog({
-                    autoOpen: false,
-                    modal: false,
-                    position: { of: $("#"+widgetID), within: $("#"+widgetID)},
-                    width: $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent,
-                    height: $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent,
-                    dialogClass: 'no-titlebar '+widgetID,
-                    zIndex: 10003,
-                    stack:false,
-                    collision:"none"
-                });
-            }
-            console.log("Broadcast Detail view, calculated width and height " + $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent + ", "+$("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent);
-            if (!$( "#"+widgetID+"channeldlg" ).hasClass('ui-dialog-content')) {
-                $( "#"+widgetID+"channeldlg" ).dialog({
-                    autoOpen: false,
-                    modal: false,
-                    position: { of: $("#"+widgetID) },
-                    width: $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent,
-                    height: $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent,
-                    dialogClass: 'no-titlebar '+widgetID,
-                    zIndex: 10003,
-                    stack:false
-                });
-            }
             $( "#"+widgetID+"broadcastdlg" ).click(function(){
                 $( "#"+widgetID+"broadcastdlg" ).dialog("close");
             });
@@ -606,7 +566,6 @@ vis.binds["tvprogram"] = {
             } else {
                 this.setScroll(widgetID);
             }
-
         },
 
         copyStyles: function(startsWith, from, to) {
@@ -741,8 +700,6 @@ vis.binds["tvprogram"] = {
 
             var text="";
             text += '  <div class="chselect-container clearfix">';
-            //text += '    <ul class="listitem channel" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg class="MuiSvgIcon-root jss160" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Check" data-ga-event-category="material-icons" data-ga-event-action="click" data-ga-event-label="Check"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg></li></ul>';
-            //text += '    <ul class="listitem channel" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg class="MuiSvgIcon-root jss160" focusable="false" viewBox="0 0 24 24" aria-hidden="true" tabindex="-1" title="Clear" data-ga-event-category="material-icons" data-ga-event-action="click" data-ga-event-label="Clear"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></li></ul>';
             text += '    <ul class="listitem channel" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>';
             text += '    <ul class="listitem channel" data-widgetid="'+widgetID+'" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>';
             text += '  </div>';
@@ -780,6 +737,19 @@ vis.binds["tvprogram"] = {
                     isSorting=false;
                 }
             });
+            $( "#"+widgetID+"channeldlg" ).dialog({
+                autoOpen: false,
+                modal: false,
+                position: { of: $("#"+widgetID) },
+                width: $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent,
+                height: $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent,
+                dialogClass: 'no-titlebar '+widgetID,
+                zIndex: 10003,
+                stack:false
+            });
+            this.copyStyles("font",$('#'+widgetID).get(0),$( "#"+widgetID+"channeldlg" ).get(0));
+            this.copyStyles("color",$('#'+widgetID).get(0),$( "#"+widgetID+"channeldlg" ).get(0));
+            this.copyStyles("background-color",$('#'+widgetID).get(0),$( "#"+widgetID+"channeldlg" ).get(0));
             $( "#"+widgetID+"channeldlg" ).dialog( "open" );
         },        
         getBroadcasts4Channel: function(el,widgetID,viewdate,tvprogram_oid) {
@@ -963,8 +933,23 @@ vis.binds["tvprogram"] = {
                 text += '    </div>';
                 text += '  </div>';
                 text += '  </div>';
+
                 $( "#"+widgetID+"broadcastdlg" ).html(text);
-                $( "#"+widgetID+"broadcastdlg" ).dialog( "open" );                
+                $( "#"+widgetID+"broadcastdlg" ).dialog({
+                    autoOpen: false,
+                    modal: false,
+                    position: { of: $("#"+widgetID), within: $("#"+widgetID)},
+                    width: $("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent,
+                    height: $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent,
+                    dialogClass: 'no-titlebar '+widgetID,
+                    zIndex: 10003,
+                    stack:false,
+                    collision:"none"
+                });
+                this.copyStyles("font",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
+                this.copyStyles("color",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
+                this.copyStyles("background-color",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
+                $( "#"+widgetID+"broadcastdlg" ).dialog("open");
             }.bind(this, widgetID));
         },        
         getEvents: function(tvprogram,filter) {
