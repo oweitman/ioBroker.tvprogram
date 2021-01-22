@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.17",
+        "version": "0.0.18",
         "news": {
+            "0.0.18": {
+                "en": "fix getServerEventMsg"
+            },
             "0.0.17": {
                 "en": "improve dialog open for iframes / remove dead code / implement data sync and update"
             },
