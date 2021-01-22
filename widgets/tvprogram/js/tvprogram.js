@@ -123,21 +123,17 @@ vis.binds["tvprogram"] = {
                         return;
                     }
                 }.bind(this, widgetID, view, data, style,datestring));
-            } else {
-                //$('#'+widgetID + ' .dateinfo').html(new Date(datestring).toLocaleDateString());
             }
             if (Object.keys(this.categories).length==0 || Object.keys(this.channels).length==0 || Object.keys(this.categories).length==0) return;
             if (check(this.tvprogram[datestring])) return;
 
             if (this.viewday[widgetID]["viewday"]!=this.viewday[widgetID]["prevday"]) {
-                //$('#'+widgetID + ' .dateinfo').fadeTo(500,0.7).mydelay(500).fadeTo(500,0);
                 this.viewday[widgetID]["prevday"]=this.viewday[widgetID]["viewday"];
             }
 
             if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
             if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
 
-            //if (this.onChange.name=="onChange") this.onChange = this.onChange.bind(this, widgetID, view, data, style);
             if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
                 if (1 || !vis.editMode) {
                     this.bound[tvprogram_oid][widgetID]=true;
@@ -151,7 +147,6 @@ vis.binds["tvprogram"] = {
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             if (this.onclickFavorite.name=="onclickFavorite")     this.onclickFavorite = this.onclickFavorite.bind(this,tvprogram_oid,widgetID);
             if (this.onclickCopy.name=="onclickCopy")     this.onclickCopy = this.onclickCopy.bind(this,tvprogram_oid,widgetID);
-            //if (this.onclickChannel.name=="onclickChannel")         this.onclickChannel = this.onclickChannel.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
 
