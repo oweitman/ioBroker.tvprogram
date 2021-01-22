@@ -27,7 +27,7 @@ discussed in the iobroker forum in the corresponding thread
 The adapter can currently only be installed via github. This can be done in the iobroker in the "adapter" tab, 
 with the expert view via the github button (cat symbol).
 
-Then enter the url of the github repository xxx in the "any" tab and install it.
+Then enter the url of the github repository https://github.com/oweitman/iobroker.tvprogram in the "any" tab and install it.
 
 ### Adapter Configuration
 
@@ -38,28 +38,48 @@ No configuration currently required
 #### Time
 Currently only the widget "time" exists. This shows the current TV program on a timeline by TV channel.
 
-To set it up, the adapter must have already accessed and filled the necessary data points. 
-In the configuration, the widget only needs to be filled with any data point of the adapter. 
+To set it up, the adapter must have already accessed and filled the necessary data. 
+In the configuration, the widget only needs to be filled with any data point of the adapter (e.g.config).
 The widget searches for all remaining data points automatically.
+
+If the text behind the channel logos shows through, a background color must be selected in the widget
+The Marker position ist updated every 15 seconds.
+
+if something goes wrong after installation and the widget isnt diplayed correctly, please try the following command from shell:
+
+iobroker upload all
 
 Functions:
 
 - show tv data on timeline by tv channel
 - show details about a tv broadcast if available
 - show a marker of actual position with automatic scrolling
-- configure displayed tv channels and order
+- configure displayed tv channels and order, reordering ist possible via dragNdrop.
+- switch command via datapoint after click on logo
+- zoomin/zoomout
+- navigation next and prev days
+- play button to switchchannel datapoint
+- center zoom in next days
+- return to today
+- reset zoom
+- favorite broadcasts
+- copy text from Detailview
+- markerposition is configurable
+- dialog width and height is configurable 
 
 ### Todo
 
 widget tvprogram: 
-- zoomin/zoomout
-- favorite broadcasts
-- navigation next days
-
+- widget for next Favorites
+- broadcast reminders (Favorites widget?)
+- to be discussed: dont want to see, broadcasts should be hidden
+- Datenpunkt, der nach druck auf knopf mit Aufnahmedaten gefüllt wird
+- to be discussed: Datenpunkt, mit allen Aufnahmedaten
+- Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script
-- broadcast reminders
-- switch command via datapoint after click on logo
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
+- ~~responsive design for detail view->no responsive design possible for jquery dialog, found another solution with fixed layouts for height>width~~
+- ~~Problem: small Pixel glitch if scroll pane is completle on the left side~~
 
 ## Changelog
 
