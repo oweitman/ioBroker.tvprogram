@@ -81,6 +81,7 @@ Functions:
 - copy text from Detailview
 - markerposition is configurable
 - dialog width and height is configurable 
+- Datenpunkt record, der nach druck auf Knopf mit Aufnahmedaten gefüllt wird
 
 ### Todo
 
@@ -88,7 +89,6 @@ widget tvprogram:
 - widget for next Favorites
 - broadcast reminders (Favorites widget?)
 - to be discussed: dont want to see, broadcasts should be hidden
-- Datenpunkt, der nach druck auf knopf mit Aufnahmedaten gefüllt wird
 - to be discussed: Datenpunkt, mit allen Aufnahmedaten
 - Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script

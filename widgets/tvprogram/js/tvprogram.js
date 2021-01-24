@@ -158,6 +158,7 @@ vis.binds["tvprogram"] = {
             var heightrow = this.measures[widgetID].heightRow;
 
             var backgroundColor = this.realBackgroundColor($("#"+widgetID)[0]);
+            if (this.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
             var widthtvrow = (48*widthitem)+widthchannel;
             var scrollbarWidth= this.getScrollbarWidth();
             var zoompos = (Math.min(Math.floor($("#"+widgetID).height()/heightrow)-1,channelfilter.length))*heightrow;
@@ -565,6 +566,9 @@ vis.binds["tvprogram"] = {
             }
         },
 
+        checkStyle: function(attr, str) {
+            return str.split(";").reduce((acc,el)=> el.split(":")[0].trim()==attr?el.split(":")[1].trim():acc,"");
+        },
         copyStyles: function(startsWith, from, to) {
             var cssFrom = window.getComputedStyle(from);
             var cssTo = window.getComputedStyle(to);
