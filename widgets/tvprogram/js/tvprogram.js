@@ -37,7 +37,153 @@ vis.binds["tvprogram"] = {
             vis.binds["tvprogram"].version = null;
         }
     },
+    favorites: {
+        visTvprogram:null,
+        pending: {},
+        bound:{},
+        favorites: undefined,
+        timer: {},
+        createWidget: function (widgetID, view, data, style) {
+            var $div = $('#' + widgetID);
+            // if nothing found => wait
+            if (!$div.length) {
+                return setTimeout(function () {
+                    vis.binds["tvprogram"].favorites.createWidget(widgetID, view, data, style);
+                }, 100);
+            }
+            console.log("createWidget start");
+
+            var config  = data['oid'] ? JSON.parse(vis.states.attr( data['oid'] + '.val')) : {};
+            var showweekday = data.showweekday || false;
+            var maxfavorites = data.maxfavorites || 10;
+            var highlightcolor=data.highlightcolor||"yellow";
+            var channelname=data.channelname||false;
+
+            this.visTvprogram = vis.binds["tvprogram"];
+
+            var tvprogram_oid;
+            var weekday_options = { weekday: 'short' };
+            var date_options = { month: '2-digit', day: '2-digit' };
+            var time_options = { hour: '2-digit', minute: '2-digit' };
+
+            if (!data.oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.oid.trim()))==false) return;
+            if (this.visTvprogram.onclickFavorite.name=="onclickFavorite")     this.visTvprogram.onclickFavorite = this.visTvprogram.onclickFavorite.bind(this,tvprogram_oid,widgetID);
+
+            if (!this.favorites || !this.favorites[tvprogram_oid] && config.favorites) this.getFavoritesData(tvprogram_oid,widgetID,config.favorites,function(widgetID, view, data, style, tvprogram_oid, serverdata){
+                if (!this.favorites) this.favorites=[];
+                this.favorites[tvprogram_oid]=serverdata;
+                this.createWidget(widgetID, view, data, style);
+            }.bind(this, widgetID, view, data, style,tvprogram_oid));
+            if (!this.favorites || !this.favorites[tvprogram_oid]) return;
+
+            if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
+            if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
+
+            if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
+                if (1 || !vis.editMode) {
+                    this.bound[tvprogram_oid][widgetID]=true;
+                    vis.binds["tvprogram"].bindStates($div,[
+                        tvprogram_oid + '.config',
+                        ],this.onChange.bind(this, widgetID, view, data, style,tvprogram_oid)
+                    );
+                }
+            }
+
+
+            var text ='';
+            text += '<style> \n';
+            text += '#'+widgetID + ' .tv-fav {\n';
+            text += '   width: 100%;\n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tv-fav td{\n';
+            text += '   white-space: nowrap;\n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tv-left {\n';
+            text += '   text-align: left;\n';
+            text += '   width: 1%;\n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tv-full {\n';
+            text += '   width: 50%;\n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tv-fav .star {\n';
+            text += '   width: 1em;\n';
+            text += '   height: 1em;\n';
+            text += '   color: '+highlightcolor+'; \n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tv-center {\n';
+            text += '   text-align: center;\n';
+            text += '   width: 1%;\n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tv-icon {\n';
+            text += '   height: 1em; \n';
+            text += '   width: 1em; \n';
+            text += '} \n';
+
+            text += '</style> \n';
+
+            text += '  <div class="svgcontainer">';
+            text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg>
+            text += '  </div>';
+
+            text += '<table class="tv-fav">';
+            this.favorites[tvprogram_oid]=this.favorites[tvprogram_oid].filter((el)=>new Date(el.startTime)>=new Date());
+            this.favorites[tvprogram_oid].forEach(function(favorite, index) {
+                var today = new Date();
+                var startTime = new Date(favorite.startTime);
+                var endTime = new Date(favorite.endTime);
+                if (index<maxfavorites) {
+                    (vis.binds["tvprogram"].compareDate(today,startTime)) ? text += '        <tr class="tv-today">' : text += '        <tr>';
+                    text+='<td class="tv-left" data-viewdate="'+favorite.viewdate+'" data-eventid="'+favorite.id+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>';
+                    if (showweekday) text += '           <td class="tv-left">'+ startTime.toLocaleString(vis.language,weekday_options)  +'</td>';
+                    text += '           <td class="tv-left">'+ startTime.toLocaleString(vis.language,date_options)  +'</td>';
+                    text += '           <td class="tv-left">'+ startTime.toLocaleString(vis.language,time_options)  +'</td>';
+                    text += '           <td class="tv-left">-</td>';
+                    text += '           <td class="tv-left">'+ endTime.toLocaleString(vis.language,time_options)  +'</td>';
+                    if (channelname) {
+                        text += '           <td class="tv-left">'+ favorite.channelname  +'</td>';
+                    } else {
+                        text += '           <td class="tv-center tv-tdicon">';
+                        text += '              <img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+favorite.channelid+'.png" alt="" class="tv-icon">';
+                        text += '           </td>';
+                    }
+                    text += '           <td class="tv-full">'+ favorite.title +'</td>';
+                    text += '        </tr>';
+                }
+            });
+            text += '</table>            ';
+
+            $('#' + widgetID).html(text);
+            if (!this.timer[widgetID]) {
+                this.timer[widgetID] = setInterval(vis.binds["tvprogram"].favorites.createWidget.bind(this,widgetID, view, data, style),1000*60);
+            } else {
+                clearInterval(this.timer[widgetID]);
+                this.timer[widgetID] = setInterval(vis.binds["tvprogram"].favorites.createWidget.bind(this,widgetID, view, data, style),1000*60);
+            }
+        },
+        onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
+            if (e.type=="tvprogram.0.config.val") {
+                console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
+                this.favorites=[];
+                this.createWidget(widgetID, view, data, style);
+            }
+        },
+        getFavoritesData: function(instance,widgetID,favorites,callback) {
+            if (!this.pending[instance]) this.pending[instance]={};
+            if (!this.pending[instance][widgetID]) this.pending[instance][widgetID]={};
+            if (!this.pending[instance][widgetID]["favorites"]) {
+                this.pending[instance][widgetID]["favorites"]=true;
+                console.log("getFavoritesData request "+instance+".favorites");
+                vis.conn._socket.emit('sendTo', instance, 'getFavoritesData', favorites,function (data) {
+                    console.log("getFavoritesData received "+instance+".favorites");
+                    this.pending[instance][widgetID]["favorites"]=false;
+                    if (callback) callback(data);
+                }.bind(this));
+            }
+        },
+    },
     time1: {
+        visTvprogram:null,
         tvprogram:  {},
         channels:   {},
         categories: {},
@@ -60,7 +206,8 @@ vis.binds["tvprogram"] = {
             }
             console.log("createWidget start");
             var tvprogram_oid;
-            
+
+            this.visTvprogram = vis.binds["tvprogram"];
             if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim()))==false) return;
             var highlightcolor=data.highlightcolor||"yellow";
 
@@ -144,13 +291,13 @@ vis.binds["tvprogram"] = {
             }
 
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
-            if (this.onclickFavorite.name=="onclickFavorite")     this.onclickFavorite = this.onclickFavorite.bind(this,tvprogram_oid,widgetID);
+            if (this.visTvprogram.onclickFavorite.name=="onclickFavorite")     this.visTvprogram.onclickFavorite = this.visTvprogram.onclickFavorite.bind(this,tvprogram_oid,widgetID);
             if (this.onclickCopy.name=="onclickCopy")     this.onclickCopy = this.onclickCopy.bind(this,tvprogram_oid,widgetID);
             if (this.onclickRecord.name=="onclickRecord")     this.onclickRecord = this.onclickRecord.bind(this,tvprogram_oid,widgetID);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
 
-            var channelfilter = this.getChannelfilter(tvprogram_oid,widgetID);
+            var channelfilter = this.visTvprogram.getChannelfilter(tvprogram_oid,widgetID);
             if (channelfilter.length==0) channelfilter = this.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
 
             var widthitem = this.measures[widgetID].widthItem;
@@ -162,7 +309,7 @@ vis.binds["tvprogram"] = {
             var widthtvrow = (48*widthitem)+widthchannel;
             var scrollbarWidth= this.getScrollbarWidth();
             var zoompos = (Math.min(Math.floor($("#"+widgetID).height()/heightrow)-1,channelfilter.length))*heightrow;
-            
+
             var headerfontpercent=data.headerfontpercent||125;
             var broadcastfontpercent=data.broadcastfontpercent||75;
 
@@ -466,7 +613,7 @@ vis.binds["tvprogram"] = {
             text += '   -ms-user-select: none; \n';
             text += '   -user-select: none; \n';
             text += '} \n';
-            
+
             text += '#'+widgetID + ' .staricon {\n';
             text += '     background-image: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 24 24\'><path fill=\'currentColor\' d=\'M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z\' /></svg>"); \n';
             text += '} \n';
@@ -505,21 +652,21 @@ vis.binds["tvprogram"] = {
 
             text += '  <div class="navcontainer">';
             text += '    <ul class="tv-row tv-head-top">';
-            text += this.getButtonHeader(datestring).join(""); 
+            text += this.getButtonHeader(datestring).join("");
             text += '    </ul>';
             text += '  </div>';
             text += '  <div class="scrollcontainer">';
             text += '    <ul class="tv-row tv-head-time">';
             text += '      <div class="line"></div>';
             text += '      <li class="tv-item tv-head-left channel">';
-            text += '      </li>'; 
+            text += '      </li>';
 
-            text += this.getTimetable().join(""); 
+            text += this.getTimetable().join("");
             text += '    </ul>';
             var events = this.getEvents(this.tvprogram[viewdate],channelfilter);
             events.map(el=>{
                 text += '    <ul class="tv-row">';
-                text += this.getBroadcasts4Channel(el,widgetID,viewdate,tvprogram_oid,highlightcolor).join(""); 
+                text += this.getBroadcasts4Channel(el,widgetID,viewdate,tvprogram_oid,highlightcolor).join("");
                 text += '    </ul>';
             });
 
@@ -669,12 +816,11 @@ vis.binds["tvprogram"] = {
             var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
             document.body.removeChild(scrollDiv);
             return scrollbarWidth;
-        },        
+        },
         getChannels: function(channels,filter=[]) {
             var cc=[];
             filter.map(el=>{
                 var ch=channels.find(el1=>el1.id==el);
-                //cc.push('<ul class="listitem channel" data-order="'+ch.order+'" data-id="'+ch.id+'" selected><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+ch.channelId+'.png" alt="" class="channel-logo"></li></ul>');
                 cc.push('<li class="listitem channel" data-order="'+ch.order+'" data-id="'+ch.id+'" selected><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+ch.channelId+'.png" alt="" class="channel-logo"></li>');
             });
             channels.sort((a, b) => (a.order+(filter.indexOf(a.id)==-1)*100000) - (b.order+(filter.indexOf(b.id)==-1)*100000)).map( el=> {
@@ -689,14 +835,14 @@ vis.binds["tvprogram"] = {
         },
         onclickChannelSave: function(widgetID,tvprogram_oid,el,save) {
             if (save) {
-                this.setChannelfilter(tvprogram_oid,widgetID,$(".chselect-container .channel[selected]").toArray().map(el=>parseInt(el.dataset.id)));
+                this.visTvprogram.setChannelfilter(tvprogram_oid,widgetID,$(".chselect-container .channel[selected]").toArray().map(el=>parseInt(el.dataset.id)));
             }
             $( "#"+widgetID+"channeldlg" ).dialog( "close" );
         },
         onclickChannel: function(widgetID,tvprogram_oid,el) {
             var isSorting=false;
             var channels = this.channels;
-            var channelfilter = this.getChannelfilter(tvprogram_oid,widgetID);
+            var channelfilter = this.visTvprogram.getChannelfilter(tvprogram_oid,widgetID);
             if (channelfilter.length==0) channelfilter = channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
 
             var text="";
@@ -707,7 +853,7 @@ vis.binds["tvprogram"] = {
 
             text += '  <div class="chselect-container clearfix sortable">';
             text += '  <ul class="items">';
-            text += this.getChannels(channels,channelfilter).join("\n"); 
+            text += this.getChannels(channels,channelfilter).join("\n");
             text += '  </ul>';
             text += '  </div>';
             $( "#"+widgetID+"channeldlg" ).html(text);
@@ -721,7 +867,7 @@ vis.binds["tvprogram"] = {
                 } else {
                     $(this).parent().children().sort(function(a,b){
                        return (a.dataset.order+($(a).attr("selected")!="selected")*100000)-(b.dataset.order+($(b).attr("selected")!="selected")*100000);
-                    }).appendTo($(this).parent());                    
+                    }).appendTo($(this).parent());
                 }
             });
             $(".chselect-container.sortable").sortable({
@@ -752,11 +898,11 @@ vis.binds["tvprogram"] = {
             this.copyStyles("color",$('#'+widgetID).get(0),$( "#"+widgetID+"channeldlg" ).get(0));
             this.copyStyles("background-color",$('#'+widgetID).get(0),$( "#"+widgetID+"channeldlg" ).get(0));
             $( "#"+widgetID+"channeldlg" ).dialog( "open" );
-        },        
+        },
         getBroadcasts4Channel: function(el,widgetID,viewdate,tvprogram_oid) {
             var wItem=this.measures[widgetID].widthItem;
             var tItem=this.measures[widgetID].timeItem;
-            var favorites = this.getFavorites(tvprogram_oid);
+            var favorites = this.visTvprogram.getFavorites(tvprogram_oid);
             var favhighlight;
 
             var sTime=new Date(el.events[0].airDate);
@@ -770,7 +916,7 @@ vis.binds["tvprogram"] = {
             var text="";
             text += '    <li class="tv-item tv-head-left channel">';
             text += '      <img width="100%" height="100%" data-channelid="'+channel.channelId+'" src="https://tvfueralle.de/channel-logos/'+channel.channelId+'.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)">';
-            text += '    </li>'; 
+            text += '    </li>';
             aa.push(text);
 
             for (var i=0;i<el.events.length;i++) {
@@ -789,7 +935,7 @@ vis.binds["tvprogram"] = {
                 text+='width:'+   ((Math.floor((endTime-startTime)/60000/tItem*wItem*10)/10))+'px;">';
                 text+='<div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+tvprogram_oid+'" onclick="vis.binds.tvprogram.time1.onclickBroadcast(this)">';
                 text+='<div class="broadcasttitle">'+ event.title;
-                text+='<div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
+                text+='<div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
                 text+='</div>';
                 var startTime= new Date(event.startTime);
                 var endTime= new Date(event.endTime);
@@ -816,7 +962,7 @@ vis.binds["tvprogram"] = {
             var eventid = el.dataset.eventid||0;
             var viewdate = el.dataset.viewdate||0;
             if (eventid ==0||viewdate==0) return;
-            this.getServerEvent(tvprogram_oid,eventid,viewdate,function(el,serverdata) {
+            this.visTvprogram.getServerEvent(tvprogram_oid,eventid,viewdate,function(el,serverdata) {
                 var event=serverdata;
                 var channel = event.channel ? this.channels.find(el=>el.id==event.channel) : null;
                 var record = {
@@ -840,70 +986,16 @@ vis.binds["tvprogram"] = {
             document.body.removeChild(aux);
             evt.stopPropagation();
         },
-        onclickFavorite: function(tvprogram_oid,widgetID,el,evt) {
-            var eventid = el.dataset.eventid||0;
-            var viewdate = el.dataset.viewdate||0;
-            if (eventid ==0||viewdate==0) return;
-            this.getServerEvent(tvprogram_oid,eventid,viewdate,function(el,serverdata) {
-                event=serverdata;
-                var favorites = this.getFavorites(tvprogram_oid);
-                var index = favorites.indexOf(event.title);
-                if (index>-1) {
-                    favorites.splice(index, 1);
-                    if ($(el).hasClass("button")) $(el).removeClass("selected");
-                } else {
-                    favorites.push(event.title);
-                    if ($(el).hasClass("button")) $(el).addClass("selected");
-                }
-                this.setFavorites(tvprogram_oid,favorites);
-            }.bind(this,el));
-            evt.stopPropagation();
-        },
-        getConfig: function(tvprogram_oid) {
-            var config;
-            var attr = vis.states.attr(tvprogram_oid+".config.val");
-            if (typeof attr !== 'undefined' && attr !== "null") {
-                config = JSON.parse(attr);
-            } else {
-                config = {};
-            }
-            return config;
-        },
-        setConfig: function(tvprogram_oid,config) {
-            vis.setValue(tvprogram_oid+".config",JSON.stringify(config));
-        },
-        getChannelfilter: function(tvprogram_oid,widgetID) {
-            var config=this.getConfig(tvprogram_oid);
-            if (!config[widgetID]) config[widgetID]={};
-            if (!config[widgetID]["channelfilter"]) config[widgetID]["channelfilter"]=[];
-            return config[widgetID]["channelfilter"];
-        },
-        setChannelfilter: function(tvprogram_oid,widgetID,channelfilter) {
-            var config=this.getConfig(tvprogram_oid);
-            if (!config[widgetID]) config[widgetID]={};
-            config[widgetID]["channelfilter"]=channelfilter;
-            this.setConfig(tvprogram_oid,config);
-        },
-        getFavorites: function(tvprogram_oid) {
-            var config=this.getConfig(tvprogram_oid);
-            if (!config["favorites"]) config["favorites"]=[];
-            return config["favorites"];
-        },
-        setFavorites: function(tvprogram_oid,favorites) {
-            var config=this.getConfig(tvprogram_oid);
-            config["favorites"]=favorites;
-            this.setConfig(tvprogram_oid,config);
-        },
         onclickBroadcast: function(el) {
             var eventid = el.dataset.eventid||0;
             var widgetID = el.dataset.widgetid||0;
             var viewdate = el.dataset.viewdate||0;
             var instance = el.dataset.instance||"";
             if (eventid ==0||widgetID==0) return;
-            this.getServerEvent(instance,eventid,viewdate,function(widgetID, serverdata){
+            this.visTvprogram.getServerEvent(instance,eventid,viewdate,function(widgetID, serverdata){
                 event=serverdata;
                 var startTime= new Date(event.startTime);
-                var endTime= new Date(event.endTime);            
+                var endTime= new Date(event.endTime);
                 var category = event.content.category ? this.categories.find(el=>el.id==event.content.category) : null;
                 var channel = event.channel ? this.channels.find(el=>el.id==event.channel) : null;
                 var channeltime="";
@@ -927,7 +1019,7 @@ vis.binds["tvprogram"] = {
                 meta+= (season || episode) ? season+episode+" ":"";
                 var content=(event.content.texts.Long.value) ? event.content.texts.Long.value:(event.content.texts.VeryShort.value)?event.content.texts.VeryShort.value:"";
                 var photourl=(event.photo.url) ? "https://tvfueralle.de" + event.photo.url : "https://tvfueralle.de/tv-logo-no-image.svg";
-                var favorites = this.getFavorites(instance);
+                var favorites = this.visTvprogram.getFavorites(instance);
                 var favhighlight = (favorites.indexOf(event.title)>-1);
 
                 var layout = ($("#"+widgetID).width()*this.measures[widgetID].dialogwidthpercent > $("#"+widgetID).height()*this.measures[widgetID].dialogheightpercent)?" row":" col";
@@ -940,7 +1032,7 @@ vis.binds["tvprogram"] = {
                 text += '      <div class="buttoncontainer">';
                 text+='          <div class="record button" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickRecord(this,event)"><svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg></div>';
                 text+='          <div class="copy button" onclick="return vis.binds.tvprogram.time1.onclickCopy(this,event)"><svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg></div>';
-                text+='          <div class="star button '+((favhighlight)?'selected':'')+'" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.time1.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
+                text+='          <div class="star button '+((favhighlight)?'selected':'')+'" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
                 if (startTime<new Date() && new Date()<endTime) text += '        <div class="channelselect button" data-channelid="'+channel.channelId+'" onclick="vis.binds.tvprogram.time1.onclickChannelSwitch(this)"><svg width="100%" height="100%" ><use xlink:href="#switch-icon"></use></svg></div>';
                 text += '      </div>';
                 text += '      <div style="padding: 0px 0px 5px;">'+channeltime+'</div>';
@@ -968,7 +1060,7 @@ vis.binds["tvprogram"] = {
                 this.copyStyles("background-color",$('#'+widgetID).get(0),$( "#"+widgetID+"broadcastdlg" ).get(0));
                 $( "#"+widgetID+"broadcastdlg" ).dialog("open");
             }.bind(this, widgetID));
-        },        
+        },
         getEvents: function(tvprogram,filter) {
             var tv=[],i;
             tvprogram.map((el)=>{
@@ -1051,7 +1143,7 @@ vis.binds["tvprogram"] = {
         getServerData: function(instance,widgetID,dataname,callback) {
             if (!this.pending[instance]) this.pending[instance]={};
             if (!this.pending[instance][widgetID]) this.pending[instance][widgetID]={};
-            if (!this.pending[instance][widgetID][dataname]) { 
+            if (!this.pending[instance][widgetID][dataname]) {
                 this.pending[instance][widgetID][dataname]=true;
                 console.log("getServerData request "+instance+"."+dataname);
                 vis.conn._socket.emit('sendTo', instance, 'getServerData', dataname,function (data) {
@@ -1061,19 +1153,77 @@ vis.binds["tvprogram"] = {
                 }.bind(this));
             }
         },
-        getServerEvent: function(instance,eventid,viewdate,callback) {
-            console.log("getServerEvent request "+eventid+"."+viewdate);
-            vis.conn._socket.emit('sendTo', instance, 'getServerEvent', {eventid:eventid,viewdate:viewdate},function (data) {
-                console.log("getServerEvent received "+instance+"."+viewdate+"."+eventid );
-                if (callback) callback(data);
-            }.bind(this));
-        },
         setServerData: function(instance,dataname,data,callback) {
 //            vis.conn._socket.emit('sendTo', instance, 'getServerData', {dataname:dataname,data:data},function (data) {
 //                callback(data);
-//            });        
+//            });
         },
-        
+    },
+    onclickFavorite: function(tvprogram_oid,widgetID,el,evt) {
+        var eventid = el.dataset.eventid||0;
+        var viewdate = el.dataset.viewdate||0;
+        if (eventid ==0||viewdate==0) return;
+        this.visTvprogram.getServerEvent(tvprogram_oid,eventid,viewdate,function(el,serverdata) {
+            event=serverdata;
+            var favorites = this.visTvprogram.getFavorites(tvprogram_oid);
+            var index = favorites.indexOf(event.title);
+            if (index>-1) {
+                favorites.splice(index, 1);
+                if ($(el).hasClass("button")) $(el).removeClass("selected");
+            } else {
+                favorites.push(event.title);
+                if ($(el).hasClass("button")) $(el).addClass("selected");
+            }
+            this.visTvprogram.setFavorites(tvprogram_oid,favorites);
+        }.bind(this,el));
+        evt.stopPropagation();
+    },
+    getConfig: function(tvprogram_oid) {
+        var config;
+        var attr = vis.states.attr(tvprogram_oid+".config.val");
+        if (typeof attr !== 'undefined' && attr !== "null") {
+            config = JSON.parse(attr);
+        } else {
+            config = {};
+        }
+        return config;
+    },
+    setConfig: function(tvprogram_oid,config) {
+        vis.setValue(tvprogram_oid+".config",JSON.stringify(config));
+    },
+    getChannelfilter: function(tvprogram_oid,widgetID) {
+        var config=this.getConfig(tvprogram_oid);
+        if (!config[widgetID]) config[widgetID]={};
+        if (!config[widgetID]["channelfilter"]) config[widgetID]["channelfilter"]=[];
+        return config[widgetID]["channelfilter"];
+    },
+    setChannelfilter: function(tvprogram_oid,widgetID,channelfilter) {
+        var config=this.getConfig(tvprogram_oid);
+        if (!config[widgetID]) config[widgetID]={};
+        config[widgetID]["channelfilter"]=channelfilter;
+        this.setConfig(tvprogram_oid,config);
+    },
+    getFavorites: function(tvprogram_oid) {
+        var config=this.getConfig(tvprogram_oid);
+        if (!config["favorites"]) config["favorites"]=[];
+        return config["favorites"];
+    },
+    setFavorites: function(tvprogram_oid,favorites) {
+        var config=this.getConfig(tvprogram_oid);
+        config["favorites"]=favorites;
+        this.setConfig(tvprogram_oid,config);
+    },
+    getServerEvent: function(instance,eventid,viewdate,callback) {
+        console.log("getServerEvent request "+eventid+"."+viewdate);
+        vis.conn._socket.emit('sendTo', instance, 'getServerEvent', {eventid:eventid,viewdate:viewdate},function (data) {
+            console.log("getServerEvent received "+instance+"."+viewdate+"."+eventid );
+            if (callback) callback(data);
+        }.bind(this));
+    },
+    compareDate: function(adate,bdate) {
+        return adate.getDate() == bdate.getDate() &&
+               adate.getMonth() == bdate.getMonth() &&
+               adate.getYear() == bdate.getYear();
     },
     getTvprogramId: function(tvprogram_oid) {
         var idParts = tvprogram_oid.split('.');
@@ -1099,12 +1249,12 @@ vis.binds["tvprogram"] = {
             vis.conn.subscribe(bound);
             for (var i=0;i<bound.length;i++) {
                 bound[i]=bound[i]+'.val';
-                vis.states.bind(bound[i] , change_callback);            
+                vis.states.bind(bound[i] , change_callback);
             }
             vis.updateStates(states);
             $div.data('bound', bound);
             $div.data('bindHandler', change_callback);
-        }.bind({change_callback}));                
+        }.bind({change_callback}));
     },
 };
 

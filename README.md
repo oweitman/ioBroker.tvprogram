@@ -36,21 +36,58 @@ No configuration currently required
 ### Widgets
 
 #### Time
-Currently only the widget "time" exists. This shows the current TV program on a timeline by TV channel.
+This widget shows the current TV program on a timeline by TV channel.
 
 To set it up, the adapter must have already accessed and filled the necessary data. 
+Due to its size, the data is not stored in data points but in files and in the adapter's memory.
 In the configuration, the widget only needs to be filled with any data point of the adapter (e.g.config).
 The widget searches for all remaining data points automatically.
 
-If the text behind the channel logos shows through, a background color must be selected in the widget
+If the text behind the channel logos shows through, a background color must be selected in the widget.
+it is generally a good approach to choose an explicit foreground and background color for the view or at least for the widget.
 The Marker position ist updated every 15 seconds.
 
-if something goes wrong after installation and the widget isnt diplayed correctly, please try the following command from shell:
+If something goes wrong after installation and the widget isnt diplayed correctly, please try the following command from shell:
 
 iobroker upload all
 
+The following attributes are available for configuration in vis
 
-##### Provided Datapoints
+| Attribute             | Example            | Description                                           |
+| --------------------- | ------------------ | ----------------------------------------------------- |
+| tvprogram_oid         | tvprogram.0.config | A Datapoint of a instance of the tvprogram adapter.   |
+| widthItem             | 120                | Standard width in pixels for a 30 minute segment      |
+| heightRow             | 35                 | Height for each displayed line                        |
+| headerfontpercent     | 125                | Character size in percent for the heading (time)      |
+| broadcastfontpercent  | 75                 | Character size in percent for the broadcasts          |
+| highlightcolor        | yellow             | color for the favorites                               |
+| markerpositionpercent | 25                 | Position of the Marker in percent ot the widget width |
+| dialogwidthpercent    | 90                 | size of the dialogs in percent of the widget          |
+| dialogheightpercent   | 90                 | size of the dialogs in percent of the widget          |
+
+#### Favorites
+This widget shows a list of the selected favorites, sorted by date and time.
+
+The following attributes are available for configuration in vis
+
+| Attribute      | Example            | Description                                         |
+| -------------- | ------------------ | --------------------------------------------------- |
+| oid            | tvprogram.0.config | A Datapoint of a instance of the tvprogram adapter. |
+| channelname    | no                 | Show logo (off) or channelname                      |
+| showweekday    | yes                | Show Weekday                                        |
+| maxfavorites   | 10                 | Max favorites to show                               |
+| highlightcolor | yellow             | color for the favorites                             |
+
+### Provided Datapoints
+
+**config**
+this datapoint contains the configuration of the widget information e.g. selected channels, selected favorites, etc.
+
+**cmd**
+this datapoint is used for internal communication between the widgets and the adapter
+
+**selectchannel*
+This datapoint is used to recognize a channel switch command with a click on the channel logo or the switch icon in the detail view.
 
 **record**
 This datapoint is set if the user clicks the record button in the detail view of a broadcast.
