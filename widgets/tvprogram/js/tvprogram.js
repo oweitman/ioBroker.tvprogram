@@ -885,6 +885,7 @@ vis.binds["tvprogram"] = {
                 }
             });
             $( "#"+widgetID+"channeldlg" ).dialog({
+                resizable: false,
                 autoOpen: false,
                 modal: false,
                 position: { of: $("#"+widgetID) },
@@ -1045,6 +1046,7 @@ vis.binds["tvprogram"] = {
 
                 $( "#"+widgetID+"broadcastdlg" ).html(text);
                 $( "#"+widgetID+"broadcastdlg" ).dialog({
+                    resizable: false,
                     autoOpen: false,
                     modal: false,
                     position: { of: $("#"+widgetID), within: $("#"+widgetID)},
