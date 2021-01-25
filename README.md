@@ -81,15 +81,19 @@ The following attributes are available for configuration in vis
 ### Provided Datapoints
 
 **config**
+
 this datapoint contains the configuration of the widget information e.g. selected channels, selected favorites, etc.
 
 **cmd**
+
 this datapoint is used for internal communication between the widgets and the adapter
 
 **selectchannel*
+
 This datapoint is used to recognize a channel switch command with a click on the channel logo or the switch icon in the detail view.
 
 **record**
+
 This datapoint is set if the user clicks the record button in the detail view of a broadcast.
 The provided data are
 
@@ -119,17 +123,16 @@ Functions:
 - markerposition is configurable
 - dialog width and height is configurable 
 - Datenpunkt record, der nach druck auf Knopf mit Aufnahmedaten gefüllt wird
+- Widget for Favorites
 
 ### Todo
 
 widget tvprogram: 
-- widget for next Favorites
-- broadcast reminders (Favorites widget?)
 - to be discussed: dont want to see, broadcasts should be hidden
-- to be discussed: Datenpunkt, mit allen Aufnahmedaten
 - Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)
+- ~~to be discussed: Datenpunkt, mit allen Aufnahmedaten, should be implementet at a videorecorder adapter or in a seperate script~~
 - ~~responsive design for detail view->no responsive design possible for jquery dialog, found another solution with fixed layouts for height>width~~
 - ~~Problem: small Pixel glitch if scroll pane is completle on the left side~~
 
