@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.20",
+        "version": "0.0.21",
         "news": {
+            "0.0.21": {
+                "en": "hide non favorites / dialogs are now not resizable / bump adapter-react /small corrections readme"
+            },
             "0.0.20": {
                 "en": "improve backgroundcolor for dialogs / new widget favorites"
             },
