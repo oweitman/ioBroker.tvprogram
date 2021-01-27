@@ -293,6 +293,7 @@ vis.binds["tvprogram"] = {
             if (this.onclickBroadcast.name=="onclickBroadcast")     this.onclickBroadcast = this.onclickBroadcast.bind(this);
             if (this.visTvprogram.onclickFavorite.name=="onclickFavorite")     this.visTvprogram.onclickFavorite = this.visTvprogram.onclickFavorite.bind(this,tvprogram_oid,widgetID);
             if (this.onclickCopy.name=="onclickCopy")     this.onclickCopy = this.onclickCopy.bind(this,tvprogram_oid,widgetID);
+            if (this.onclickCopy.name=="onclickCopy")     this.onclickCopy = this.onclickCopy.bind(this,tvprogram_oid,widgetID);
             if (this.onclickRecord.name=="onclickRecord")     this.onclickRecord = this.onclickRecord.bind(this,tvprogram_oid,widgetID);
             if (this.onclickChannelSave.name=="onclickChannelSave") this.onclickChannelSave = this.onclickChannelSave.bind(this,widgetID,tvprogram_oid);
             if (this.onclickChannelSwitch.name=="onclickChannelSwitch") this.onclickChannelSwitch = this.onclickChannelSwitch.bind(this,tvprogram_oid);
@@ -406,6 +407,10 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcastelement {\n';
             text += '   width: 100%; \n';
             text += '   height: 100%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.hide {\n';
+            text += '   display: none; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .broadcastelement .star  {\n';
@@ -647,6 +652,9 @@ vis.binds["tvprogram"] = {
             // to user : <svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg>
             text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
             // to user : <svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg>
+            text += '<svg style="display:none;"><symbol id="hide-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z" /></symbol></svg>';
+            //text += '<svg style="display:none;"><symbol id="hide-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#hide-icon"></use></svg>
 
             text += '  </div>';
 
@@ -672,18 +680,28 @@ vis.binds["tvprogram"] = {
 
             $('#' + widgetID+' .tv-container').html(text);
 
+            var config = this.visTvprogram.getConfig(tvprogram_oid);
+            if (config[widgetID]) {
+                if (config[widgetID]["toggle"]==1) {
+                    $('#'+widgetID+' .broadcastelement:not(".selected")').show();
+                } else {
+                    $('#'+widgetID+' .broadcastelement:not(".selected")').hide();
+                }
+            }
+
             console.log("Display day:"+datestring)
             $( "#"+widgetID+" .burger" ).click(function(widgetID,tvprogram_oid,el){
                 vis.binds.tvprogram.time1.onclickChannel(widgetID,tvprogram_oid,el);
             }.bind(this,widgetID,tvprogram_oid));
 
-            $( "#"+widgetID+" .nav.prevD" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
-            $( "#"+widgetID+" .nav.nextD" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
-            $( "#"+widgetID+" .nav.center" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.nav.prevD" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.nav.nextD" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.nav.center" ).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,widgetID, view, data, style));
 
-            $( "#"+widgetID+" .zoom.minus" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
-            $( "#"+widgetID+" .zoom.plus" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
-            $( "#"+widgetID+" .zoom.center" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.zoom.minus" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.zoom.plus" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.zoom.center" ).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,widgetID, view, data, style));
+            $( "#"+widgetID+" .button.hide" ).off("click.onClickHide").on("click.onClickHide",this.onClickHide.bind(this,tvprogram_oid,widgetID));
 
             $( "#"+widgetID+" .scrollcontainer" ).scroll(function(widgetID,el) {
                 if (this.scroll[widgetID].automatic==0) this.scroll[widgetID].automatic=2;
@@ -726,6 +744,9 @@ vis.binds["tvprogram"] = {
                     }
                 }
             }
+        },
+        onClickHide: function(tvprogram,widgetID) {
+            this.visTvprogram.toggleFavorites(tvprogram,widgetID);
         },
         onClickZoom: function(widgetID, view, data, style,el) {
             console.log("ClickZoom:"+$(el.currentTarget).attr('class'));
@@ -1092,6 +1113,7 @@ vis.binds["tvprogram"] = {
                 hh.push('<li class="tv-item button zoom minus"><svg width="100%" height="100%" ><use xlink:href="#zoom-minus-icon"></use></svg></li>');
                 hh.push('<li class="tv-item button zoom center"><svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg></li>');
                 hh.push('<li class="tv-item button zoom plus"><svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button hide"><svg width="100%" height="100%" ><use xlink:href="#hide-icon"></use></svg></li>');
                 hh.push('<li class="tv-item dateinfo">'+new Date(datestring).toLocaleDateString(navigator.language,{weekday:"short"})+", "+new Date(datestring).toLocaleDateString()+'</li>');
             return hh;
         },
@@ -1192,6 +1214,13 @@ vis.binds["tvprogram"] = {
     },
     setConfig: function(tvprogram_oid,config) {
         vis.setValue(tvprogram_oid+".config",JSON.stringify(config));
+    },
+    toggleFavorites: function(tvprogram_oid,widgetID) {
+        var config=this.getConfig(tvprogram_oid);
+        if (!config[widgetID]) config[widgetID]={};
+        if (!config[widgetID]["toggle"]) config[widgetID]["toggle"]=0;
+        config[widgetID]["toggle"]=(config[widgetID]["toggle"]==1)?0:1;
+        this.setConfig(tvprogram_oid,config);
     },
     getChannelfilter: function(tvprogram_oid,widgetID) {
         var config=this.getConfig(tvprogram_oid);

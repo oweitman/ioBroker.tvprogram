@@ -35,6 +35,9 @@ No configuration currently required
 
 ### Widgets
 
+Widgets are supported only in modern browsers (Google Chrome, Mozilla Firefox, Opera, Safari).
+Not supported Internet Explorer or Microsoft Edge without Chromium (Version <79).
+
 #### Time
 This widget shows the current TV program on a timeline by TV channel.
 
@@ -64,6 +67,47 @@ The following attributes are available for configuration in vis
 | markerpositionpercent | 25                 | Position of the Marker in percent ot the widget width |
 | dialogwidthpercent    | 90                 | size of the dialogs in percent of the widget          |
 | dialogheightpercent   | 90                 | size of the dialogs in percent of the widget          |
+
+##### CSS-Classes
+Please change w00001 to your widget ID
+
+To Change the formatting of the dialogs
+
+```css
+#w00001channeldlg {
+    background-color: red !important;
+}
+```
+
+```css
+#w00001broadcastdlg {
+    background-color: red !important;
+}
+```
+
+To Change the formatting of the alternating background colors of the broadcasts
+```css
+#w00001 .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#w00001 ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {
+   background-color: rgba(128, 128, 128, 0.65);
+}
+#w00001 .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#w00001 ul.tv-row:nth-child(odd)> li.time:nth-child(even) {
+   background-color: rgba(128, 128, 128, 0.55);
+}
+#w00001 .scrollcontainer ul.tv-row:nth-child(even)> li.broadcast:nth-child(odd) {
+   background-color: rgba(128, 128, 128, 0.45);
+}
+#w00001 .scrollcontainer ul.tv-row:nth-child(even)> li.broadcast:nth-child(even) {
+   background-color: rgba(128, 128, 128, 0.35);
+}
+
+```
+
+
+To change the alternating background color
+
+#w00001 ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {
+    background-color: rgba(128, 128, 128, 0.65);
+}
 
 #### Favorites
 This widget shows a list of the selected favorites, sorted by date and time.
