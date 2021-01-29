@@ -1782,7 +1782,7 @@ vis.binds["tvprogram"] = {
     },
     onChangeOID: function (widgetID, view, newId, fields) {
         var options = [];
-        var tvprogram_oid = this.getTvprogramId(newId);
+        var tvprogram_oid = this.getTvprogramId(newId||"");
         var config = this.getConfig(tvprogram_oid);
         options= Object.keys(config);
         options.unshift("");
