@@ -102,13 +102,6 @@ To Change the formatting of the alternating background colors of the broadcasts
 
 ```
 
-
-To change the alternating background color
-
-#w00001 ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {
-    background-color: rgba(128, 128, 128, 0.65);
-}
-
 #### Favorites
 This widget shows a list of the selected favorites, sorted by date and time.
 
@@ -121,6 +114,22 @@ The following attributes are available for configuration in vis
 | showweekday    | yes                | Show Weekday                                        |
 | maxfavorites   | 10                 | Max favorites to show                               |
 | highlightcolor | yellow             | color for the favorites                             |
+
+#### Control
+This widget shows all actual broadcasts. You can click on the channel logo to switch channel.
+you can click on the broadcast to get detailed information about thew broadcast.
+
+The following attributes are available for configuration in vis
+
+| Attribute             | Example            | Description                                                                                       |
+| --------------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| oid                   | tvprogram.0.config | A Datapoint of a instance of the tvprogram adapter.                                               |
+| widgetNumber          | w00001             | After selection of the oid you have to select the widgetID of the saved channelfilter information |
+| heightRow             | 35                 | Height for each displayed line                                                                    |
+| broadcastfontpercent  | 75                 | Character size in percent for the broadcasts                                                      |
+| highlightcolor        | yellow             | color for the favorites                                                                           |
+| dialogwidthpercent    | 90                 | size of the dialogs in percent of the widget                                                      |
+| dialogheightpercent   | 90                 | size of the dialogs in percent of the widget                                                      |
 
 ### Provided Datapoints
 

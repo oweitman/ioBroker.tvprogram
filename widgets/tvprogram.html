@@ -108,7 +108,7 @@
         data-vis-type="val"
         data-vis-beta="false"
         data-vis-update-style="true"
-        data-vis-name="TV Program  Timetable1">
+        data-vis-name="TV Program Timetable1">
     <div class="vis-widget <%== this.data.attr('class') %>" style="overflow:hidden; width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.time1.createWidget(this.data.wid, this.view, this.data, this.style);
     %>
@@ -127,8 +127,26 @@
         data-vis-type="val"
         data-vis-beta="false"
         data-vis-update-style="true"
-        data-vis-name="TV Program  Favorites">
+        data-vis-name="TV Program Favorites">
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.favorites.createWidget(this.data.wid, this.view, this.data, this.style);
     %></div>
 </script>
+<script id="tpltvprogramcontrol"
+        type="text/ejs"
+        class="vis-tpl"
+		data-vis-prev='<img src="widgets/tvprogram/img/control.png"></img>'
+        data-vis-attrs="oid//onChangeOID;widgetNumber/custom,tvprogram.attrSelectWidgetNumber;heightRow/number;broadcastfontpercent[75]/number,0,1000,1;highlightcolor[yellow]/color;dialogwidthpercent[90]/number,1,100,1;dialogheightpercent[90]/number,1,100,1;"
+        data-vis-set="tvprogram"
+        data-vis-type="val"
+        data-vis-beta="false"
+        data-vis-update-style="true"
+        data-vis-name="TV Program Control">
+    <div class="vis-widget <%== this.data.attr('class') %>" style="width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
+        vis.binds.tvprogram.control.createWidget(this.data.wid, this.view, this.data, this.style);
+    %>
+    <div class="tv-control disable-select"></div>
+    <div class="dialog" id="<%== this.data.wid %>broadcastdlg"></div>
+    </div>
+</script>
+                 

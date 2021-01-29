@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.21",
+        "version": "0.0.22",
         "news": {
+            "0.0.22": {
+                "en": "new widget remote control / little improvement with the copy button / highlite background-color for favorites"
+            },
             "0.0.21": {
                 "en": "hide non favorites / dialogs are now not resizable / bump adapter-react /small corrections readme"
             },
