@@ -61,29 +61,27 @@ vis.binds["tvprogram"] = {
             }
             console.log("createWidget start");
 
-
             this.visTvprogram = vis.binds["tvprogram"];
             var tvprogram_oid;
             if (!data.oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.oid.trim()))==false) return;
             var widgetNumber = data.widgetNumber||"";
             var config = this.visTvprogram.getConfig(tvprogram_oid);
 
-            if (widgetNumber=="") return;
-            if (!config[widgetNumber]) return;
             this.visTvprogram.loadCategories(tvprogram_oid,()=> this.createWidget(widgetID, view, data, style));
             this.visTvprogram.loadChannels(tvprogram_oid,()=> this.createWidget(widgetID, view, data, style));
 
-            if (Object.keys(this.tvprogram).length==0) this.visTvprogram.getServerBroadcastsNow(tvprogram_oid,config[widgetNumber].channelfilter,function(widgetID, view, data, style, serverdata){
+            if (this.visTvprogram.channels.length==0) return;
+
+            var channelfilter = this.visTvprogram.getChannelfilter(tvprogram_oid,widgetNumber);
+            if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
+
+            var favorites = this.visTvprogram.getFavorites(tvprogram_oid);
+
+            if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastsNow(tvprogram_oid,channelfilter,function(widgetID, view, data, style, serverdata){
                 this.tvprogram=serverdata;
                 if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
             }.bind(this, widgetID, view, data, style));
-            if (!this.favorites || !this.favorites[tvprogram_oid] && config.favorites) this.visTvprogram.getFavoritesData(tvprogram_oid,widgetID,config.favorites,function(widgetID, view, data, style, tvprogram_oid, serverdata){
-                if (!this.favorites) this.favorites=[];
-                this.favorites[tvprogram_oid]=serverdata;
-                this.createWidget(widgetID, view, data, style);
-            }.bind(this, widgetID, view, data, style,tvprogram_oid));
 
-            if (!this.favorites || !this.favorites[tvprogram_oid]) return;
 
             if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
             if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
@@ -131,6 +129,8 @@ vis.binds["tvprogram"] = {
             text += '   white-space:nowrap; \n';
             text += '   display:flex; \n';
             text += '   flex-direction: column; \n';
+            text += '   overflow: hidden; \n';
+            text += '   overflow-y: auto; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .tv-row {\n';
@@ -194,14 +194,14 @@ vis.binds["tvprogram"] = {
             text += '   z-index:12; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-container.row {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-container.tv-dlg-row {\n';
             text += '   height:100%; \n';
             text += '   display:flex; \n';
             text += '   flex-direction:row; \n';
             text += '   overflow:hidden; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-container.col {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-container.tv-dlg-col {\n';
             text += '   height:100%; \n';
             text += '   display:flex; \n';
             text += '   flex-direction:column; \n';
@@ -209,11 +209,11 @@ vis.binds["tvprogram"] = {
             text += '   font-size:75%; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-picture.row {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-picture.tv-dlg-row {\n';
             text += '   width:50%; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-picture.col {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-picture.tv-dlg-col {\n';
             text += '   height:30%; \n';
             text += '} \n';
 
@@ -238,12 +238,12 @@ vis.binds["tvprogram"] = {
             text += '   display:block; \n';
             text += '   margin:auto; \n';
             text += '} \n';
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.row {\n';
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.tv-dlg-row {\n';
             text += '   flex:1; \n';
             text += '   padding:5px; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.col {\n';
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.tv-dlg-col {\n';
             text += '   padding:5px; \n';
             text += '} \n';
 
@@ -263,7 +263,6 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcastelement.selected .star svg path, #'+widgetID + 'broadcastdlg .star.selected {\n';
             text += '   color: '+highlightcolor+'; \n';
             text += '} \n';
-
 
             text += '</style> \n';
 
@@ -309,11 +308,28 @@ vis.binds["tvprogram"] = {
             });
 
             $('#' + widgetID+' .tv-control').html(text);
+            if (!this.timer[widgetID]) {
+                this.timer[widgetID] = setInterval(()=> {
+                    if (this.tvprogram.some(el => new Date(el.endTime)<= new Date()))  {
+                        this.tvprogram=[];
+                        vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
+                    }
+                },1000*60);
+            } else {
+                clearInterval(this.timer[widgetID]);
+                this.timer[widgetID] = setInterval(()=> {
+                    if (this.tvprogram.some(el => new Date(el.endTime)<= new Date())) {
+                        this.tvprogram=[];
+                        vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
+                    }
+                },1000*60);
+            }
         },
         onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
-            if (e.type=="tvprogram.0.config.val") {
+            var dp = e.type.split(".");
+            if (dp[2]=="config" && dp[3]=="val") {
                 console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
-                this.favorites=[];
+                this.tvprogram=[];
                 this.createWidget(widgetID, view, data, style);
             }
         },
@@ -441,7 +457,8 @@ vis.binds["tvprogram"] = {
             }
         },
         onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
-            if (e.type=="tvprogram.0.config.val") {
+            var dp = e.type.split(".");
+            if (dp[2]=="config" && dp[3]=="val") {
                 console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
                 this.favorites=[];
                 this.createWidget(widgetID, view, data, style);
@@ -806,14 +823,14 @@ vis.binds["tvprogram"] = {
             text += '   z-index:12; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-container.row {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-container.tv-dlg-row {\n';
             text += '   height:100%; \n';
             text += '   display:flex; \n';
             text += '   flex-direction:row; \n';
             text += '   overflow:hidden; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-container.col {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-container.tv-dlg-col {\n';
             text += '   height:100%; \n';
             text += '   display:flex; \n';
             text += '   flex-direction:column; \n';
@@ -821,11 +838,11 @@ vis.binds["tvprogram"] = {
             text += '   font-size:75%; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-picture.row {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-picture.tv-dlg-row {\n';
             text += '   width:50%; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .event-picture.col {\n';
+            text += '#'+widgetID + 'broadcastdlg .event-picture.tv-dlg-col {\n';
             text += '   height:30%; \n';
             text += '} \n';
 
@@ -850,12 +867,12 @@ vis.binds["tvprogram"] = {
             text += '   display:block; \n';
             text += '   margin:auto; \n';
             text += '} \n';
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.row {\n';
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.tv-dlg-row {\n';
             text += '   flex:1; \n';
             text += '   padding:5px; \n';
             text += '} \n';
 
-            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.col {\n';
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.tv-dlg-col {\n';
             text += '   padding:5px; \n';
             text += '} \n';
 
@@ -1395,11 +1412,12 @@ vis.binds["tvprogram"] = {
             return hh;
         },
         onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
-            if (e.type=="tvprogram.0.config.val") {
+            var dp = e.type.split(".");
+            if (dp[2]=="config" && dp[3]=="val") {
                 console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
                 this.createWidget(widgetID, view, data, style);
             }
-            if (e.type=="tvprogram.0.cmd.val") {
+            if (dp[2]=="cmd" && dp[3]=="val") {
                 if (newVal && newVal != "") {
                     console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
                     var obj = newVal.split("|");
@@ -1498,7 +1516,7 @@ vis.binds["tvprogram"] = {
             var favorites = this.getFavorites(instance);
             var favhighlight = (favorites.indexOf(event.title)>-1);
 
-            var layout = ($("#"+widgetID).width()*measures.dialogwidthpercent > $("#"+widgetID).height()*measures.dialogheightpercent)?" row":" col";
+            var layout = ($("#"+widgetID).width()*measures.dialogwidthpercent > $("#"+widgetID).height()*measures.dialogheightpercent)?" tv-dlg-row":" tv-dlg-col";
             var text="";
             text += '  <div class="event-container'+layout+'">';
             text += '    <div class="event-picture dialogcolumn'+layout+'">';
@@ -1685,7 +1703,7 @@ vis.binds["tvprogram"] = {
 //                callback(data);
 //            });
     },
-    getFavoritesData: function(instance,widgetID,favorites,callback) {
+    getFavoritesData: function(instance,widgetID,favorites=[],callback) {
         if (!this.pending[instance]) this.pending[instance]={};
         if (!this.pending[instance]["favorites"]) {
             this.pending[instance]["favorites"]=true;
