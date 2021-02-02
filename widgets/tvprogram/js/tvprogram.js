@@ -280,7 +280,35 @@ vis.binds["tvprogram"] = {
             var favhighlight;
             var favorites = this.visTvprogram.getFavorites(tvprogram_oid);
 
-            this.tvprogram.map((event) => {
+            this.tvprogram.map(ch=>{
+                ch.events.map(event=> {
+                    var channel = this.visTvprogram.channels.find(ch=>ch.id==event.channel);
+                    favhighlight = (favorites.indexOf(event.title)>-1);
+                    text += '    <ul class="tv-row">';
+                    text += '       <li class="tv-item channel">';
+                    text += '          <img width="100%" height="100%" data-channelid="'+channel.channelId+'" data-instance="'+tvprogram_oid+'" src="https://tvfueralle.de/channel-logos/'+channel.channelId+'.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">';
+                    text += '       </li>';
+                    text += '       <li class="tv-item broadcast">';
+                    text+='             <div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+tvprogram_oid+'" data-view="'+view+'" onclick="vis.binds.tvprogram.onclickBroadcast(this)">';
+                    text+='                 <div class="broadcasttitle">';
+                    text+='                     '+ event.title;
+                    text+='                     <div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" data-instance="'+tvprogram_oid+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
+                    text+='                 </div>';
+                    var startTime= new Date(event.startTime);
+                    var endTime= new Date(event.endTime);
+                    text+='                 <div class="broadcasttime">';
+                    text+=                      ("0"+startTime.getHours()).slice(-2)+":"+("0"+startTime.getMinutes()).slice(-2);
+                    text+=                      ' - ';
+                    text+=                      ("0"+endTime.getHours()).slice(-2)+":"+("0"+endTime.getMinutes()).slice(-2);
+                    text+='                 </div>';
+                    text+='             </div>';
+                    text += '       </li>'
+                    text += '    </ul>';
+                });
+            });
+
+
+/*             this.tvprogram.map((event) => {
                 if (new Date(event.startTime)<=new Date() && new Date(event.endTime)>=new Date()) {
                     var channel = this.visTvprogram.channels.find(ch=>ch.id==event.channel);
                     favhighlight = (favorites.indexOf(event.title)>-1);
@@ -306,11 +334,12 @@ vis.binds["tvprogram"] = {
                     text += '    </ul>';
                 }
             });
-
+ */
             $('#' + widgetID+' .tv-control').html(text);
             if (!this.timer[widgetID]) {
                 this.timer[widgetID] = setInterval(()=> {
-                    if (this.tvprogram.some(el => new Date(el.endTime)<= new Date()))  {
+                    var tvprogram = this.tvprogram.reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
+                    if (tvprogram.some(el => new Date(el.endTime)<= new Date())) {
                         this.tvprogram=[];
                         vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                     }
@@ -318,7 +347,8 @@ vis.binds["tvprogram"] = {
             } else {
                 clearInterval(this.timer[widgetID]);
                 this.timer[widgetID] = setInterval(()=> {
-                    if (this.tvprogram.some(el => new Date(el.endTime)<= new Date())) {
+                    var tvprogram = this.tvprogram.reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
+                    if (tvprogram.some(el => new Date(el.endTime)<= new Date())) {
                         this.tvprogram=[];
                         vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                     }
@@ -979,13 +1009,10 @@ vis.binds["tvprogram"] = {
 
             $('#' + widgetID+' .tv-container').html(text);
 
-            var config = this.visTvprogram.getConfig(tvprogram_oid);
-            if (config[widgetID]) {
-                if (config[widgetID]["toggle"]==1) {
-                    $('#'+widgetID+' .broadcastelement:not(".selected")').show();
-                } else {
-                    $('#'+widgetID+' .broadcastelement:not(".selected")').hide();
-                }
+            if (this.visTvprogram.getToggleFavorites(tvprogram_oid,widgetID)==1) {
+                $('#'+widgetID+' .broadcastelement:not(".selected")').show();
+            } else {
+                $('#'+widgetID+' .broadcastelement:not(".selected")').hide();
             }
 
             console.log("Display day:"+datestring)
@@ -1656,6 +1683,12 @@ vis.binds["tvprogram"] = {
         if (!config[widgetID]["toggle"]) config[widgetID]["toggle"]=0;
         config[widgetID]["toggle"]=(config[widgetID]["toggle"]==1)?0:1;
         this.setConfig(tvprogram_oid,config);
+    },
+    getToggleFavorites: function(tvprogram_oid,widgetID) {
+        var config=this.getConfig(tvprogram_oid);
+        if (!config[widgetID]) config[widgetID]={};
+        if (!config[widgetID]["toggle"]) config[widgetID]["toggle"]=1;
+        return config[widgetID]["toggle"];
     },
     getChannelfilter: function(tvprogram_oid,widgetID) {
         var config=this.getConfig(tvprogram_oid);
