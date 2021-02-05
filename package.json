@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tvprogram",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
   "author": {
     "name": "oweitman",
@@ -18,12 +18,13 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
-    "@sentry/browser": "^5.29.2"
+    "@sentry/browser": "^5.29.2",
+    "parcel-plugin-build-hooks": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
-    "@iobroker/adapter-react": "^1.6.0",
+    "@iobroker/adapter-react": "^1.6.1",
     "@iobroker/testing": "^2.4.2",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
@@ -33,8 +34,8 @@
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.22",
     "@types/proxyquire": "^1.3.28",
-    "@types/react-dom": "^17.0.0",
     "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/sinon": "^9.0.10",
     "@types/sinon-chai": "^3.2.5",
     "axios": "^0.21.1",
@@ -46,12 +47,18 @@
     "mocha": "^8.2.1",
     "parcel-bundler": "^1.12.4",
     "proxyquire": "^2.1.3",
+    "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
-    "react": "^17.0.1",
     "sinon": "^9.2.3",
     "sinon-chai": "^3.5.0",
     "typescript": "^4.1.3"
+  },
+  "parcel-plugin-build-hooks": {
+    "buildStart": "echo \"parcel buildStart\"",
+    "bundled": "iob upload tvprogram",
+    "buildEnd": "echo \"parcel buildEnd\"",
+    "buildError": "echo \"parcel buildError\""
   },
   "main": "main.js",
   "scripts": {
@@ -64,7 +71,9 @@
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:js && npm run test:package",
     "check": "tsc --noEmit -p tsconfig.check.json",
-    "lint": "eslint --ext .js,.jsx"
+    "lint:client": "eslint admin/src --ext .js,.jsx --env browser --ignore-pattern rrule.js --fix",
+    "lint:server": "eslint main.js lib --ext .js,.jsx --env node --ignore-pattern rrule.js --fix",
+    "lint": "npm run lint:client && npm run lint:server"
   },
   "bugs": {
     "url": "https://github.com/oweitman/ioBroker.tvprogram/issues"

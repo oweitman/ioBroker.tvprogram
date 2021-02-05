@@ -1,5 +1,10 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import PropTypes from "prop-types";
+import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -9,11 +14,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import I18n from "@iobroker/adapter-react/i18n";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import SettingsList from "./settingslist";
 
 /**
  * @type {() => Record<string, import("@material-ui/core/styles/withStyles").CreateCSSProperties>}
  */
 const styles = () => ({
+    root: {
+        color: "red",
+    },    
     input: {
         marginTop: 0,
         minWidth: 400,
@@ -58,6 +69,39 @@ const styles = () => ({
  * @property {undefined} [dummy] Delete this and add your own state properties here
  */
 
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+    const divStyle = {
+        overflowY: "scroll",
+        height: "calc( 100% - 150px )",
+    };
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            style={divStyle}
+            {...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    {children}
+                </Box>
+            )}
+        </div>
+    );
+}
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};const StyledTextField = withStyles({
+    root: {
+        color: "red",
+    },
+})(TextField);
+
 /**
  * @extends {React.Component<SettingsProps, SettingsState>}
  */
@@ -65,6 +109,16 @@ class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.state.tab = 0;
+        
+        this.addHandler = this.addHandler.bind(this);
+        this.onChangeTVCount = this.onChangeTVCount.bind(this);
+    }
+    a11yProps(index) {
+        return {
+            id: `simple-tab-${index}`,
+            "aria-controls": `simple-tabpanel-${index}`,
+        };
     }
 
     /**
@@ -74,7 +128,7 @@ class Settings extends React.Component {
      */
     renderInput(title, attr, type) {
         return (
-            <TextField
+            <StyledTextField
                 label={I18n.t(title)}
                 className={`${this.props.classes.input} ${this.props.classes.controlElement}`}
                 value={this.props.native[attr]}
@@ -141,11 +195,73 @@ class Settings extends React.Component {
             />
         );
     }
+    addHandler() {
+        this.props.onChange("tvcount", this.props.native["tvcount"]+1);
+    }
+    onChangeTVCount(value) {
+        this.props.onChange("tvcount", value);
+    }
 
     render() {
+        
+        const value = this.state.tab;
+
+        const handleChange = (event, newValue) => {
+            this.setState({
+                tab: newValue
+            });
+        };
+        const StyledTabs = withStyles({
+            scroller: {
+                "background-color": "#2196f3",
+            },
+        })(Tabs);
+        const StyledTab = withStyles({
+            root: {
+                //              "background-color": '#64b5f6',
+            },
+            selected: {
+                color: "black",
+                "background-color": "white",
+            },
+        })(Tab);
+        
         return (
-            <form className={this.props.classes.tab}>
-            </form>
+            <div>
+                <AppBar position="static">
+                    <StyledTabs value={value} onChange={handleChange.bind(this)} aria-label="simple tabs example">
+                        <StyledTab label={I18n.t("TVprogram")} {...this.a11yProps(0)} />
+                    </StyledTabs>
+                </AppBar>
+                <TabPanel value={value} index={0}>
+                    <form className={this.props.classes.tab}>
+                        <h3>{I18n.t("TVProgram configuration")}</h3>
+                        <StyledTextField
+                            label={I18n.t("TV count")}
+                            className={`${this.props.classes.input} ${this.props.classes.controlElement}`}
+                            value={this.props.native["tvcount"]}
+                            type={"text"}
+                            onChange={(e) => this.props.onChange("tvcount", e.target.value)}
+                            margin="normal"
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                        />
+                        <Fab
+                            onClick={this.addHandler}
+                            size="medium"
+                            color="primary"
+                            aria-label="add">
+                            <AddIcon />
+                        </Fab>
+                            <SettingsList 
+                                context={this.props.context}
+                                onChangeTVCount={this.onChangeTVCount}
+                            />
+                    </form>
+                </TabPanel>
+            </div>
+
         );
     }
 }

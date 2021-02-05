@@ -40,10 +40,18 @@ class App extends GenericApp {
         if (!this.state.loaded) {
             return super.render();
         }
+        const context = {
+            socket: this.socket,
+            instanceId: this.instanceId,
+        };
 
         return (
             <div className="App">
-                <Settings native={this.state.native} onChange={(attr, value) => this.updateNativeValue(attr, value)} />
+                <Settings 
+                    native={this.state.native} 
+                    context={context}
+                    onChange={(attr, value) => this.updateNativeValue(attr, value)} 
+                />
                 {this.renderError()}
                 {this.renderToast()}
                 {this.renderSaveCloseButtons()}

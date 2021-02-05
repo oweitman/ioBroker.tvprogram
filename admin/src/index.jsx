@@ -5,7 +5,8 @@ import theme from "@iobroker/adapter-react/Theme";
 import Utils from "@iobroker/adapter-react/Components/Utils";
 import App from "./app";
 
-let themeName = Utils.getThemeName();
+//let themeName = Utils.getThemeName();
+let themeName = "light";
 
 function build() {
     ReactDOM.render(

@@ -85,6 +85,15 @@ To Change the formatting of the dialogs
 }
 ```
 
+If you use some extra dialogs with other z-index-setting you can set highet z-index for the tvprogram dialogs. 
+Maybe you have to set a higher number than 300. This depends on settings in other dialogs which overlap or hide the tvprogram (broadcast info and channel select) dialogs
+
+```css
+.ui-dialog.w00001 {
+   z-index:300 !important;
+}
+```
+
 To Change the formatting of the alternating background colors of the broadcasts
 ```css
 #w00001 .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#w00001 ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {
@@ -133,22 +142,37 @@ The following attributes are available for configuration in vis
 
 ### Provided Datapoints
 
-**config**
+The following set of datapoint exists for every created TV
 
-this datapoint contains the configuration of the widget information e.g. selected channels, selected favorites, etc.
+**channelfilter**
+
+this datapoint contains the channels shown in the widget as a JSON-Array
 
 **cmd**
 
 this datapoint is used for internal communication between the widgets and the adapter
 
-**selectchannel*
+**favorites**
 
-This datapoint is used to recognize a channel switch command with a click on the channel logo or the switch icon in the detail view.
+this datapoint contains the selected favorites as a JSON-Array
 
 **record**
 
 This datapoint is set if the user clicks the record button in the detail view of a broadcast.
 The provided data are
+
+**selectchannel*
+
+This datapoint is used to recognize a channel switch command with a click on the channel logo or the switch icon in the detail view.
+
+**show**
+
+this datapoint contains the status of whether only favorites or everything should be displayed in the widget tvprogram
+
+**config**
+
+this datapoint is deprecated and will be removed in the next versions
+
 
 | field     | Example                    | Description            |
 | --------- | -------------------------- | ---------------------- |
