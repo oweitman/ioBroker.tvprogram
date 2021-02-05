@@ -47,42 +47,6 @@
             },
             "0.0.10": {
                 "en": "introduce center buttons for zoom and navigation / new datapoint selectchannel / click on channel logo trigger this datapoint / icon for selectchannel in broadcast detail view / datapoint handling in adapter"
-            },
-            "0.0.9": {
-                "en": "fix dynamic config of width/height / fix invisible overlay color / new burger icon / configurable header and broadcast font-size / add header navigation with date info"
-            },
-            "0.0.8": {
-                "en": "fix date calc"
-            },
-            "0.0.7": {
-                "en": "resolve 2 or more same widgets problem / improve readme / add widget icon / add alternating colors to widget / implement variable width and height / improve loading logic for past values / fix display for edge case / implement navigation logic / implement zomm logic"
-            },
-            "0.0.6": {
-                "en": "introduce client/server data handling / remove dead code / implement file caching / implement old caching file removal"
-            },
-            "0.0.5": {
-                "en": "see git log"
-            },
-            "0.0.4": {
-                "en": "bug fixes"
-            },
-            "0.0.3": {
-                "en": "bug fixes"
-            },
-            "0.0.2": {
-                "en": "bug fixes"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
             }
         },
         "title": "TV Programm",
