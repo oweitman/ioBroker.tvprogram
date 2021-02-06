@@ -504,11 +504,6 @@ vis.binds["tvprogram"] = {
             if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim()))==false) return;
             if (!data.tvprogram_oid || (instance = vis.binds["tvprogram"].getInstance(data.tvprogram_oid.trim()))==false) return;
 
-            this.visTvprogram.getServerTest(instance,"10597874","2021-02-05",function(data){
-                var a=0;
-            });
-
-            
             var highlightcolor=data.highlightcolor||"yellow";
 
             if (!this.olddata[widgetID]) this.olddata[widgetID] = data;
@@ -1553,20 +1548,9 @@ vis.binds["tvprogram"] = {
         console.log("getServerBroadcast request "+eventid+"."+viewdate);
         vis.conn._socket.emit('sendTo', instance, 'getServerBroadcast', {eventid:eventid,viewdate:viewdate},function (data) {
             if (data!="error" && data!="nodata") {
-                console.log("getServerBroadcast received "+data );                
-            } else {
                 console.log("getServerBroadcast received ok "+instance+"."+viewdate+"."+eventid );                
-            }
-            if (callback) callback(data);
-        }.bind(this));
-    },
-    getServerTest: function(instance,eventid,viewdate,callback) {
-        console.log("getServerTest request ");
-        vis.conn._socket.emit('sendTo', instance, 'getServerTest', {eventid:eventid,viewdate:viewdate},function (data) {
-            if (data!="error" && data!="nodata") {
-                console.log("getServerTest received ok "+data );                
             } else {
-                console.log("getServerTest received "+instance );
+                console.log("getServerBroadcast received "+data );
             }
             if (callback) callback(data);
         }.bind(this));
@@ -1585,9 +1569,9 @@ vis.binds["tvprogram"] = {
         }
         vis.conn._socket.emit('sendTo', instance, 'getServerData', dataname,function (data) {
             if (data!="error" && data!="nodata") {
-                console.log("getServerData received ok "+data );                
-            } else {
                 console.log("getServerData received "+instance+"."+dataname+" "+JSON.stringify(data).substring(0,100));
+            } else {
+                console.log("getServerData received err "+data );
             }
             this.serverdata[name]=data;
             if (!this.events.hasOwnProperty(name)) return;
@@ -1629,7 +1613,7 @@ vis.binds["tvprogram"] = {
         console.log("getFavoritesData request "+instance+".favorites");
         vis.conn._socket.emit('sendTo', instance, 'getFavoritesDatax', favorites,(data) =>{
             if (data!="error" && data!="nodata") {
-                console.log("getFavoritesData received ok "+data );                
+                console.log("getFavoritesData received ok "+data.length );
             } else {
                 console.log("getFavoritesData received "+instance+".favorites");
             }
@@ -1656,7 +1640,7 @@ vis.binds["tvprogram"] = {
         console.log("getServerBroadcastNow request ");
         vis.conn._socket.emit('sendTo', instance, 'getServerBroadcastNow', channelfilter,function (data) {
             if (data!="error" && data!="nodata") {
-                console.log("getServerBroadcastNow received ok "+data );                
+                console.log("getServerBroadcastNow received ok "+data.length );
             } else {
                 console.log("getServerBroadcastNow received " );
             }
