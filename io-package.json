@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.24",
+        "version": "0.0.25",
         "news": {
+            "0.0.25": {
+                "en": "add some extra scripts and tools to the documentation / add alternating colors for control widget / add datapoint name to name the tv"
+            },
             "0.0.24": {
                 "en": "now more TVs than one can be configured"
             },
