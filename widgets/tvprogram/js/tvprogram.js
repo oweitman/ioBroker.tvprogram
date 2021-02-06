@@ -143,6 +143,16 @@ vis.binds["tvprogram"] = {
             text += '   width: 100%; \n';
             text += '} \n';
 
+            text += '#'+widgetID + ' .tv-control .tv-row:nth-child(odd) {\n';
+            text += '   background-color: rgba(128,127,127,.65); \n';
+            text += '   padding: 0px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-control .tv-row:nth-child(even) {\n';
+            text += '   background-color: rgba(128,127,127,.55); \n';
+            text += '   padding: 0px; \n';
+            text += '} \n';
+
             text += '#'+widgetID + ' .tv-item {\n';
             text += '   display: inline-block; \n';
             text += '   vertical-align: middle; \n';
