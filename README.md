@@ -182,7 +182,120 @@ this datapoint is deprecated and will be removed in the next versions
 | channel   | 7                          | Unique channel number  |
 | channelid | zdf                        | Unique channel id      |
 
-Functions:
+### functions not implemented in the Adapter, but provides as scripts for the javascript-adapter
+
+#### Recordlist
+
+List of all current recording times collected from the record data point, which is updated every minute
+
+```javascript
+// datapoint where the List should be saved
+var recorderListDP = "0_userdata.0.tvprogram.RecorderList";
+// datapoint who should be monitored of new data
+var recorderDP ="tvprogram.0.tv1.record";
+
+on(recorderDP, function (obj) {
+    var recorderList;
+    var index;
+    var recObj = JSON.parse(obj.newState.val);
+    var s = getState(recorderListDP).val;
+    s = (s=="") ? s="[]":s;
+    recorderList = JSON.parse(s) || [];
+    index = recorderList.findIndex(function(el) {
+        return JSON.stringify(el)==JSON.stringify(recObj);
+    });
+    if (index>-1) {
+        recorderList.splice(index,1);
+    }
+    recorderList.push(recObj);
+    setState(recorderListDP,JSON.stringify(recorderList));
+});
+var timer = setInterval(function() {
+    var recorderList;
+    var s = getState(recorderListDP).val;
+    s = (s=="") ? s="[]":s;
+    recorderList = JSON.parse(s) || [];
+    recorderList=recorderList.filter( (el) => new Date(el.endTime)>new Date());
+    setState(recorderListDP,JSON.stringify(recorderList));
+},1000*60);
+ ```
+
+To visualize this data, the widget JSON template from the adapter myTime can help with the following template.
+Enter as json_oid the datapoint with the recordlist and as json_template the following code:
+
+```javascript
+<% data.sort((a,b)=>new Date(a.startTime) - new Date(b.startTime)) %>
+<table>
+    <th>Datum</th>
+    <th>Start</th>
+    <th>Ende</th>
+    <th>Titel</th>
+<% for (var i=0;i<data.length;i++) {%>
+<tr>
+<td><%- new Date(data[i].startTime).toLocaleDateString() %>%></td>
+<td><%- new Date(data[i].startTime).toLocaleTimeString() %></td>
+<td><%- new Date(data[i].endTime).toLocaleTimeString() %></td>
+<td><%- data[i].channelid %></td>
+<td><%- data[i].title %></td>
+</tr>
+<% } %>
+</table>
+
+```
+
+#### Favorite broadcast at the moment
+The following script determines once a minute whether a favorite program is currently running.
+
+```javascript
+// Favorites datapoint of your tv
+var favoritesDP = "tvprogram.0.tv1.favorites";
+// channelfilter datapoint of your tv
+var channelfilterDP = "tvprogram.0.tv1.channelfilter";
+// datapoint where the result should be saved
+var favoritesBool ="0_userdata.0.tvprogram.favoriteNow";
+
+var timer = setInterval(function() {
+    var favorites = JSON.parse(getState(favoritesDP).val);
+    var channelfilter = JSON.parse(getState(channelfilterDP).val);
+    sendTo("tvprogram.0","getServerBroadcastNow",channelfilter,(data)=>{
+            setState(favoritesBool,data.some((el) => favorites.includes(el.events[0].title)))
+    });
+},1000*10);
+
+```
+#### Coloring of programs that are located in the recordlist data point in the widget tvprogram
+
+the following template is for the widget JSON template from the adapter rssfeed.
+this template does not generate any visible output, but generates css instructions that color the current programs.
+it also colors the record button in the detailed view.
+
+to use this template, please select the recordlist datapoint in the widget properties json_oid
+and insert the following template in json_template
+
+```javascript
+<%
+  // Insert the IDs of your tvprogram widget IDs
+  var widgetArray = ["w00001","w00002"];
+  recorderList = data || [];
+%>
+  <style>
+<%
+  recorderList.map( (rec) => {
+        widgetArray.map( (widget) => {
+%>
+            #<%= widget %> .broadcastelement[data-eventid="<%= rec.eventid %>"] {
+                 background-color: rgba(255,0,0,0.1);
+            }
+            #<%= widget %>broadcastdlg .event-container.tv-dlg-row[data-eventid="<%= rec.eventid %>"] .record  {
+                color: red;
+            }
+<%      });
+    }); %>
+  </style>
+```
+
+
+### Functions:
 
 - show tv data on timeline by tv channel
 - show details about a tv broadcast if available

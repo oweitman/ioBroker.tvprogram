@@ -1375,7 +1375,7 @@ vis.binds["tvprogram"] = {
 
             var layout = ($("#"+widgetID).width()*measures.dialogwidthpercent > $("#"+widgetID).height()*measures.dialogheightpercent)?" tv-dlg-row":" tv-dlg-col";
             var text="";
-            text += '  <div class="event-container'+layout+'">';
+            text += '  <div class="event-container'+layout+'" data-eventid="'+event.id+'">';
             text += '    <div class="event-picture dialogcolumn'+layout+'">';
             text += '    <img src="'+photourl+'">';
             text += '    </div>';
@@ -1430,7 +1430,9 @@ vis.binds["tvprogram"] = {
                 endTime:event.endTime,
                 title:event.title,
                 channel:event.channel,
-                channelid:channel.channelId
+                channelid:channel.channelId,
+                channelname:event.channelname,
+                eventid:event.id
             }
         vis.setValue(tvprogram_oid+".record",JSON.stringify(record));
         }.bind(this,el));
