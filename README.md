@@ -214,7 +214,12 @@ var recorderDP ="tvprogram.0.tv1.record";
 on(recorderDP, function (obj) {
     var recorderList;
     var index;
-    var recObj = JSON.parse(obj.newState.val);
+        console.log(obj.state.val);
+    try {
+        var recObj = JSON.parse(obj.state.val);
+    } catch {
+        return;
+    }
     var s = getState(recorderListDP).val;
     s = (s=="") ? s="[]":s;
     recorderList = JSON.parse(s) || [];
@@ -226,6 +231,8 @@ on(recorderDP, function (obj) {
     }
     recorderList.push(recObj);
     setState(recorderListDP,JSON.stringify(recorderList));
+    setState(recorderDP,"");
+
 });
 var timer = setInterval(function() {
     var recorderList;
@@ -252,7 +259,7 @@ Enter as json_oid the datapoint with the recordlist and as json_template the fol
 <td><%- new Date(data[i].startTime).toLocaleDateString() %>%></td>
 <td><%- new Date(data[i].startTime).toLocaleTimeString() %></td>
 <td><%- new Date(data[i].endTime).toLocaleTimeString() %></td>
-<td><%- data[i].channelid %></td>
+<td><%- data[i].channelname %></td>
 <td><%- data[i].title %></td>
 </tr>
 <% } %>
@@ -331,11 +338,11 @@ and insert the following template in json_template
 - dialog width and height is configurable 
 - Datenpunkt record, der nach druck auf Knopf mit Aufnahmedaten gefüllt wird
 - Widget for Favorites
+- hide Non-Favorites 
 
 ### Todo
 
 widget tvprogram: 
-- to be discussed: dont want to see, broadcasts should be hidden
 - Problem: endless scroll in firefox
 - Ideas for further widgets based on the existing TV program script
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box)

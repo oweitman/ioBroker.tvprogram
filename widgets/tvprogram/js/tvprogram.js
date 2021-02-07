@@ -1433,7 +1433,7 @@ vis.binds["tvprogram"] = {
                 title:event.title,
                 channel:event.channel,
                 channelid:channel.channelId,
-                channelname:event.channelname,
+                channelname:channel.name,
                 eventid:event.id
             }
         vis.setValue(tvprogram_oid+".record",JSON.stringify(record));
