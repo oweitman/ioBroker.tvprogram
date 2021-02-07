@@ -140,6 +140,23 @@ The following attributes are available for configuration in vis
 | dialogwidthpercent    | 90                 | size of the dialogs in percent of the widget                                                      |
 | dialogheightpercent   | 90                 | size of the dialogs in percent of the widget                                                      |
 
+##### CSS-Classes
+
+Please change w00001 to your widget ID
+
+To Change the formatting of the alternating background colors of the broadcasts
+
+```css
+#w00001 .tv-control .tv-row:nth-child(odd) {
+   background-color: rgba(128, 128, 128, 0.65);
+}
+#w00001 #w00003 .tv-control .tv-row:nth-child(even) {
+   background-color: rgba(128, 128, 128, 0.55);
+}
+
+```
+
+
 ### Provided Datapoints
 
 The following set of datapoint exists for every created TV

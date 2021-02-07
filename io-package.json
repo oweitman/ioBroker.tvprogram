@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.25",
+        "version": "0.0.26",
         "news": {
+            "0.0.26": {
+                "en": "sendto command getServerBroadcastNow no scans a day before and after the actual day / some small improvements"
+            },
             "0.0.25": {
                 "en": "add some extra scripts and tools to the documentation / add alternating colors for control widget / add datapoint name to name the tv"
             },

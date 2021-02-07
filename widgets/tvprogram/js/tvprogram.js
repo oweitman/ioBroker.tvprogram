@@ -47,8 +47,6 @@ vis.binds["tvprogram"] = {
         bound:{},
         tvprogram:[],
 
-
-
         favorites: undefined,
         timer: {},
         createWidget: function (widgetID, view, data, style) {
@@ -74,16 +72,8 @@ vis.binds["tvprogram"] = {
 
             if (this.visTvprogram.channels.length==0) return;
 
-            var channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-            if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
-
-            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-
-            if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
-                this.tvprogram=serverdata;
-                if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
-            }.bind(this, widgetID, view, data, style));
-
+            var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
+            if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
 
             if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
             if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
@@ -99,6 +89,17 @@ vis.binds["tvprogram"] = {
                     );
                 }
             }
+
+            var channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+            if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
+
+            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+
+            if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
+                this.tvprogram=serverdata;
+                if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
+            }.bind(this, widgetID, view, data, style));
+
 
             if (this.tvprogram=="error") return;
             if (this.visTvprogram.channels.length==0) return;
@@ -372,7 +373,6 @@ vis.binds["tvprogram"] = {
             var highlightcolor=data.highlightcolor||"yellow";
             var channelname=data.channelname||false;
 
-
             var tvprogram_oid;
             var instance;
 
@@ -383,14 +383,8 @@ vis.binds["tvprogram"] = {
             if (!data.oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.oid.trim()))==false) return;
             if (!data.oid || (instance = vis.binds["tvprogram"].getInstance(data.oid.trim()))==false) return;
 
-            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-
-            if (!this.favorites || !this.favorites[tvprogram_oid] && favorites) this.visTvprogram.getFavoritesData(instance,favorites,function(widgetID, view, data, style, tvprogram_oid, serverdata){
-                if (!this.favorites) this.favorites=[];
-                this.favorites[tvprogram_oid]=serverdata;
-                this.createWidget(widgetID, view, data, style);
-            }.bind(this, widgetID, view, data, style,tvprogram_oid));
-            if (!this.favorites || !this.favorites[tvprogram_oid]) return;
+            var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
+            if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
 
             if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
             if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
@@ -405,6 +399,15 @@ vis.binds["tvprogram"] = {
                     );
                 }
             }
+
+            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+
+            if (!this.favorites || !this.favorites[tvprogram_oid] && favorites) this.visTvprogram.getFavoritesData(instance,favorites,function(widgetID, view, data, style, tvprogram_oid, serverdata){
+                if (!this.favorites) this.favorites=[];
+                this.favorites[tvprogram_oid]=serverdata;
+                this.createWidget(widgetID, view, data, style);
+            }.bind(this, widgetID, view, data, style,tvprogram_oid));
+            if (!this.favorites || !this.favorites[tvprogram_oid]) return;
 
             var text ='';
             text += '<style> \n';
@@ -604,8 +607,8 @@ vis.binds["tvprogram"] = {
             var widthchannel = this.measures[widgetID].heightRow;
             var heightrow = this.measures[widgetID].heightRow;
 
-            var backgroundColor = this.realBackgroundColor($("#"+widgetID)[0]);
-            if (this.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
+            var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
+            if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
             var widthtvrow = (48*widthitem)+widthchannel;
             var scrollbarWidth= this.getScrollbarWidth();
             var zoompos = (Math.min(Math.floor($("#"+widgetID).height()/heightrow)-1,channelfilter.length))*heightrow;
@@ -981,9 +984,9 @@ vis.binds["tvprogram"] = {
             $('#' + widgetID+' .tv-container').html(text);
 
             if (this.visTvprogram.getConfigShow(tvprogram_oid)==1) {
-                $('#'+widgetID+' .broadcastelement:not(".selected")').show();
+                $('#'+widgetID+' .broadcastelement:not(".selected") > *').show();
             } else {
-                $('#'+widgetID+' .broadcastelement:not(".selected")').hide();
+                $('#'+widgetID+' .broadcastelement:not(".selected") > *').hide();
             }
 
             console.log("Display day:"+datestring)
@@ -1023,10 +1026,6 @@ vis.binds["tvprogram"] = {
             } else {
                 this.setScroll(widgetID);
             }
-        },
-
-        checkStyle: function(attr, str) {
-            return str.split(";").reduce((acc,el)=> el.split(":")[0].trim()==attr?el.split(":")[1].trim():acc,"");
         },
         onClickHide: function(tvprogram,widgetID) {
             this.visTvprogram.toggleShow(tvprogram);
@@ -1321,18 +1320,21 @@ vis.binds["tvprogram"] = {
                 }
             }
         },
-        realBackgroundColor: function(elem) {
-            var transparent = 'rgba(0, 0, 0, 0)';
-            var transparentIE11 = 'transparent';
-            if (!elem) return transparent;
+    },
+    checkStyle: function(attr, str) {
+        return str.split(";").reduce((acc,el)=> el.split(":")[0].trim()==attr?el.split(":")[1].trim():acc,"");
+    },
+    realBackgroundColor: function(elem) {
+        var transparent = 'rgba(0, 0, 0, 0)';
+        var transparentIE11 = 'transparent';
+        if (!elem) return transparent;
 
-            var bg = getComputedStyle(elem).backgroundColor;
-            if (bg === transparent || bg === transparentIE11) {
-                return this.realBackgroundColor(elem.parentElement);
-            } else {
-                return bg;
-            }
-        },
+        var bg = getComputedStyle(elem).backgroundColor;
+        if (bg === transparent || bg === transparentIE11) {
+            return this.realBackgroundColor(elem.parentElement);
+        } else {
+            return bg;
+        }
     },
     onclickBroadcast: function(el) {
         var eventid = el.dataset.eventid||0;
