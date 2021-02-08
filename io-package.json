@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.26",
+        "version": "0.0.27",
         "news": {
+            "0.0.27": {
+                "en": "two new internal sendto commands to request broadcast for a different date and a time range optionaly filtered for categories"
+            },
             "0.0.26": {
                 "en": "sendto command getServerBroadcastNow no scans a day before and after the actual day / some small improvements"
             },
