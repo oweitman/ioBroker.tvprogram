@@ -38,10 +38,402 @@ vis.binds["tvprogram"] = {
         }
     },
     pending: {},
-    categories: [],
-    channels:[],
-    genres:[],
+    categories: null,
+    channels:null,
+    genres:null,
     tvprogram:[],
+    infos:null,
+    search: {
+        visTvprogram:null,
+        bound:{},
+        searchdata: [],
+        searchresult: [],
+        createWidget: function (widgetID, view, data, style) {
+            var $div = $('#' + widgetID);
+            // if nothing found => wait
+            if (!$div.length) {
+                return setTimeout(function () {
+                    vis.binds["tvprogram"].search.createWidget(widgetID, view, data, style);
+                }, 100);
+            }
+            console.log("createWidget start");
+
+            this.visTvprogram = vis.binds["tvprogram"];
+            var tvprogram_oid;
+            var instance;
+            if (!data.oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.oid.trim()))==false) return;
+            if (!data.oid || (instance = vis.binds["tvprogram"].getInstance(data.oid.trim()))==false) return;
+
+            var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
+            if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
+
+            if(!this.searchresult[tvprogram_oid]) this.searchresult[tvprogram_oid]={};
+            if(!this.searchresult[tvprogram_oid][widgetID]) this.searchresult[tvprogram_oid][widgetID]=[];
+
+            if(!this.searchdata[tvprogram_oid]) this.searchdata[tvprogram_oid]={};
+            if(!this.searchdata[tvprogram_oid][widgetID]) this.searchdata[tvprogram_oid][widgetID]={
+                datefrom:"",
+                datetill:"",
+                categoryfilter:"",
+                textfilter:""
+            };
+
+            if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
+            if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
+
+            if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
+                if (1 || !vis.editMode) {
+                    this.bound[tvprogram_oid][widgetID]=true;
+                    vis.binds["tvprogram"].bindStates($div,[
+                        tvprogram_oid + '.config',
+                        tvprogram_oid + '.favorites',
+                        tvprogram_oid + '.channelfilter',
+                        ],this.onChange.bind(this, widgetID, view, data, style,tvprogram_oid)
+                    );
+                }
+            }
+
+            if (this.infos==null) {
+                this.infos={};
+                this.visTvprogram.getServerInfo(instance,(serverdata) => {
+                    this.infos = serverdata
+                    this.createWidget(widgetID, view, data, style);
+                });
+            }
+            this.visTvprogram.loadServerInfos(instance,()=> this.createWidget(widgetID, view, data, style));
+            this.visTvprogram.loadCategories(instance,widgetID,()=> this.createWidget(widgetID, view, data, style));
+            this.visTvprogram.loadChannels(instance,widgetID,()=> this.createWidget(widgetID, view, data, style));
+
+            if (this.visTvprogram.infos==null || !this.infos.hasOwnProperty("tvprogram")) return;
+            if (this.visTvprogram.categories.length==0) return;
+            if (this.visTvprogram.channels.length==0) return;
+
+            var categoriesoptions = this.visTvprogram.categories.map( (cat)=> '<option value="'+cat.id+'" '+((this.searchdata[tvprogram_oid][widgetID].categoryfilter==cat.id)?" selected":"")+'>'+cat.title+'</option>' );
+            categoriesoptions = '<option value="" '+((this.searchdata[tvprogram_oid][widgetID].categoryfilter=="")?" selected":"")+'></option>'+categoriesoptions;
+
+            var maxresults              = parseInt(data.maxresults)||10;
+            var heightrow               = parseInt(data.heightRow)||35;
+            var broadcastfontpercent    = parseInt(data.broadcastfontpercent)||75;
+            var highlightcolor          = data.highlightcolor||"yellow";
+
+            var dialogwidthpercent      = data.dialogwidthpercent/100||0.9;
+            var dialogheightpercent     = data.dialogheightpercent/100||0.9;
+            $( "#"+widgetID+"broadcastdlg" ).data({
+                dialogwidthpercent:     dialogwidthpercent,
+                dialogheightpercent:    dialogheightpercent
+            });
+
+            var text = "";
+            text += '<style> \n';
+
+            text += '#'+widgetID + ' * {\n';
+            text += '   box-sizing: border-box; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-search {\n';
+            text += '   width: 100%; \n';
+            text += '   height: 100%; \n';
+            text += '   white-space:nowrap; \n';
+            text += '   display:flex; \n';
+            text += '   flex-direction: column; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-form {\n';
+            text += '   padding: 5px 0px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-result {\n';
+            text += '   overflow: hidden; \n';
+            text += '   overflow-y: auto; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-row {\n';
+            text += '   margin: 0px; \n';
+            text += '   padding: 0px; \n';
+            text += '   width: 100%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-search .tv-row:nth-child(odd) {\n';
+            text += '   background-color: rgba(128,127,127,.65); \n';
+            text += '   padding: 0px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-search .tv-row:nth-child(even) {\n';
+            text += '   background-color: rgba(128,127,127,.55); \n';
+            text += '   padding: 0px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .tv-item {\n';
+            text += '   display: inline-block; \n';
+            text += '   vertical-align: middle; \n';
+            text += '   border: solid #80808033; \n';
+            text += '   border-width:1px 0px 0px 1px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .channel {\n';
+            text += '   width: '+heightrow+'px; \n';
+            text += '   height: '+heightrow+'px; \n';
+            text += '   padding: 1px; \n';
+            text += '   background-color: '+ backgroundColor +'; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcast {\n';
+            text += '   height: '+heightrow+'px; \n';
+            text += '   padding: 3px; \n';
+            text += '   font-size: '+broadcastfontpercent+'%; \n';
+            text += '   overflow: hidden; \n';
+            text += '   width: 100%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement {\n';
+            text += '   width: 100%; \n';
+            text += '   height: 100%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement .star  {\n';
+            text += '   display: inline-block; \n';
+            text += '   margin: 0px 2px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement .star svg {\n';
+            text += '   height: 1em; \n';
+            text += '   width: 1em; \n';
+            text += '   position: relative; \n';
+            text += '   top: .125em; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.selected .star svg path {\n';
+            text += '   color: '+highlightcolor+'; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.selected {\n';
+            text += '   color: '+highlightcolor+'; \n';
+            text += '} \n';
+
+            text += '.'+widgetID + '.no-titlebar .ui-dialog-titlebar {\n';
+            text += '   display:none; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg  {\n';
+            text += '   z-index:12; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-container.tv-dlg-row {\n';
+            text += '   height:100%; \n';
+            text += '   display:flex; \n';
+            text += '   flex-direction:row; \n';
+            text += '   overflow:hidden; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-container.tv-dlg-col {\n';
+            text += '   height:100%; \n';
+            text += '   display:flex; \n';
+            text += '   flex-direction:column; \n';
+            text += '   overflow:hidden; \n';
+            text += '   font-size:75%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-picture.tv-dlg-row {\n';
+            text += '   width:50%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-picture.tv-dlg-col {\n';
+            text += '   height:30%; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-data {\n';
+            text += '   overflow-y:auto; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-picture img {\n';
+            text += '   width:auto; \n';
+            text += '   height:auto; \n';
+            text += '   max-width:100%; \n';
+            text += '   max-height:100%; \n';
+            text += '   display:block; \n';
+            text += '   margin:auto; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .event-picture img {\n';
+            text += '   width:auto; \n';
+            text += '   height:auto; \n';
+            text += '   max-width:100%; \n';
+            text += '   max-height:100%; \n';
+            text += '   display:block; \n';
+            text += '   margin:auto; \n';
+            text += '} \n';
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.tv-dlg-row {\n';
+            text += '   flex:1; \n';
+            text += '   padding:5px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .dialogcolumn.tv-dlg-col {\n';
+            text += '   padding:5px; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .button {\n';
+            text += '   display:inline-block; \n';
+            text += '   width: 35px; \n';
+            text += '   height: 35px; \n';
+            text += '   vertical-align: middle; \n';
+            text += '   position: relative; \n';
+            text += '   float: right; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + 'broadcastdlg .star.selected svg  {\n';
+            text += '   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastelement.selected .star svg path, #'+widgetID + 'broadcastdlg .star.selected {\n';
+            text += '   color: '+highlightcolor+'; \n';
+            text += '} \n';
+
+            text += '</style> \n';
+
+            text += '  <div class="svgcontainer">';
+            text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg>
+            text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg>
+            text += '<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#switch-icon"></use></svg>
+            text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
+            // to user : <svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg>
+            text += '  </div>';
+
+            text += '  <form data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" data-maxresults="'+maxresults+'" >';
+            text += '    <label for="tvsearch">Search:';
+            text += '      <input name="tvsearch"   type="text" id="tvsearch" value="'+this.searchdata[tvprogram_oid][widgetID].textfilter+'" placeholder="Search">';
+            text += '    </label>';
+            text += '    <label for="tvfrom">From:';
+            text += '      <input name="tvfrom"   type="text" id="tvfrom" value="'+this.searchdata[tvprogram_oid][widgetID].datefrom+'" size="12">';
+            text += '    </label>';
+            text += '    <label for="tvtill">Till:';
+            text += '      <input name="tvtill"   type="text" id="tvtill" value="'+this.searchdata[tvprogram_oid][widgetID].datetill+'" size="12">';
+            text += '    </label>';
+            text += '    <label for="tvcategory">Category:';
+            text += '      <select name="tvcategory" id="tvcategory" >';
+            text += categoriesoptions;
+            text += '      </select>';
+            text += '    </label>';
+            text += '  <button>Search</Search>';
+            text += '  </form>';
+
+            $('#' + widgetID+' .tv-form').html(text);
+            $('#' + widgetID+' .tv-form form').submit(this.onSubmitSearch.bind(this,widgetID, view, data, style));
+
+            var dtfrom = new Date(this.infos.tvprogram[0]);
+            dtfrom.setHours(5);
+            var dttill = new Date(this.infos.tvprogram[this.infos.tvprogram.length-1]);
+            dttill.setDate(dttill.getDate()+1);
+            dttill.setHours(5);
+
+            $('#' + widgetID+' form #tvfrom').datetimepicker({
+                dateFormat: "dd.mm.yy",
+                hourGrid:       3,
+                minuteGrid:     15,
+                minDateTime:    dtfrom,       //datetime object
+                maxDateTime:    dttill        //datetime object
+            });
+            $('#' + widgetID+' form #tvtill').datetimepicker({
+                dateFormat: "dd.mm.yy",
+                hourGrid:       3,
+                minuteGrid:     15,
+                minDateTime:    dtfrom,       //datetime object
+                maxDateTime:    dttill        //datetime object
+            });
+            var favhighlight,viewdate;
+            text="";
+            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+            this.searchresult[tvprogram_oid][widgetID].map((event,i)=> {
+                if (i+1>maxresults) return;
+                var channel = this.visTvprogram.channels.find(ch=>ch.id==event.channel);
+                favhighlight = (favorites.indexOf(event.title)>-1);
+                viewdate=event.airDate;
+                text += '    <ul class="tv-row">';
+                text += '       <li class="tv-item channel">';
+                text += '          <img width="100%" height="100%" data-channelid="'+channel.channelId+'" data-dp="'+tvprogram_oid+'" src="https://tvfueralle.de/channel-logos/'+channel.channelId+'.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">';
+                text += '       </li>';
+                text += '       <li class="tv-item broadcast">';
+                //text+='             <div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-view="" onclick="vis.binds.tvprogram.onclickBroadcast(this)">';
+                text+='             <div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-view="" >';
+                text+='                 <div class="broadcasttitle">';
+                text+='                     '+ event.title;
+                text+='                     <div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
+                text+='                 </div>';
+                var startTime= new Date(event.startTime);
+                var endTime= new Date(event.endTime);
+                text+='                 <div class="broadcasttime">';
+                text+=                      ("0"+startTime.getDate()).slice(-2)+"."+("0"+parseInt(startTime.getMonth())+1).slice(-2)+"."+("0"+startTime.getFullYear()).slice(-4)+" ";
+                text+=                      ("0"+startTime.getHours()).slice(-2)+":"+("0"+startTime.getMinutes()).slice(-2);
+                text+=                      ' - ';
+                text+=                      ("0"+endTime.getHours()).slice(-2)+":"+("0"+endTime.getMinutes()).slice(-2);
+                text+='                 </div>';
+                text+='             </div>';
+                text += '       </li>'
+                text += '    </ul>';
+            });
+            $('#' + widgetID+' .tv-result').html(text);
+            $('#' + widgetID+' .tv-result .broadcastelement').click(vis.binds.tvprogram.onclickBroadcast.bind(this.visTvprogram));
+        },
+        onSubmitSearch: function(widgetID, view, data, style,evt) {
+            var el=evt.target;
+            var instance = el.dataset.instance||"";
+            var tvprogram_oid = el.dataset.dp||"";
+            var maxresults = el.dataset.maxresults||10;
+            evt.preventDefault();
+            var isearch=$(el).find('[name="tvsearch"]').val();
+            var icategory=$(el).find('[name="tvcategory"]').val();
+            var ifrom=$(el).find('[name="tvfrom"]').val();
+            var itill=$(el).find('[name="tvtill"]').val();
+            if (!this.parseDatestring(ifrom)) {
+                return false;
+            }
+            if (!this.parseDatestring(itill)) {
+                return false;
+            }
+            var channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+            if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
+
+            if(!this.searchdata[tvprogram_oid]) this.searchdata[tvprogram_oid]={};
+            this.searchdata[tvprogram_oid][widgetID]={
+                datefrom:ifrom,
+                datetill:itill,
+                categoryfilter:[icategory],
+                textfilter:isearch
+            };
+            var obj = {
+                channelfilter:channelfilter,
+                datefrom:this.parseDatestring(ifrom),
+                datetill:this.parseDatestring(itill),
+                categoryfilter:icategory,
+                textfilter:isearch
+            };
+            this.visTvprogram.getServerBroadcastFind(instance,obj,function(serverdata){
+                this.searchresult[tvprogram_oid][widgetID]=serverdata;
+                this.createWidget(widgetID, view, data, style);
+            }.bind(this));
+            return false;
+        },
+        parseDatestring: function (datestring) {
+            var dtarr = datestring.split(" ");
+            if (dtarr.length!=2) return false;
+            var dtdate = dtarr[0].split(".");
+            var dttime = dtarr[1].split(":");
+            if (dtdate.length!=3) return false;
+            if (dttime.length!=2) return false;
+            var dt = new Date(parseInt(dtdate[2]),parseInt(dtdate[1])-1,parseInt(dtdate[0]),parseInt(dttime[0]),parseInt(dttime[1]));
+            if (!(dt instanceof Date && !isNaN(dt))) return false;
+            return dt;
+        },
+        onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
+            var dp = e.type.split(".");
+            if ((dp[3]=="config" || dp[3]=="favorites" || dp[3]=="channelfilter" || dp[3]=="show") && dp[4]=="val") {
+                console.log("changed "+widgetID+" type:"+e.type +" val:"+newVal);
+                this.createWidget(widgetID, view, data, style);
+            }
+        },
+    },
     control: {
         visTvprogram:null,
         bound:{},
@@ -120,9 +512,6 @@ vis.binds["tvprogram"] = {
 
             var text ='';
             text += '<style> \n';
-            //text += '#'+widgetID + ' .tv-fav {\n';
-            //text += '   width: 100%;\n';
-            //text += '} \n';
 
             text += '#'+widgetID + ' * {\n';
             text += '   box-sizing: border-box; \n';
@@ -165,6 +554,7 @@ vis.binds["tvprogram"] = {
             text += '   width: '+heightrow+'px; \n';
             text += '   height: '+heightrow+'px; \n';
             text += '   padding: 1px; \n';
+            text += '   background-color: '+ backgroundColor +'; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .broadcast {\n';
@@ -198,7 +588,6 @@ vis.binds["tvprogram"] = {
 
             text += '#'+widgetID + ' .broadcastelement.selected {\n';
             text += '   color: '+highlightcolor+'; \n';
-            //text += '   background-color: '+this.visTvprogram.colorToRGBA(highlightcolor,".1")+'; \n';
             text += '} \n';
 
             text += '.'+widgetID + '.no-titlebar .ui-dialog-titlebar {\n';
@@ -1336,7 +1725,9 @@ vis.binds["tvprogram"] = {
             return bg;
         }
     },
-    onclickBroadcast: function(el) {
+    onclickBroadcast: function(evt) {
+        var el;
+        el=(evt.currentTarget)?evt.currentTarget:evt;
         var eventid = el.dataset.eventid||0;
         var widgetID = el.dataset.widgetid||0;
         var view = el.dataset.view||0;
@@ -1634,21 +2025,12 @@ vis.binds["tvprogram"] = {
             if (callback) callback(data);
         });
     },
-    getFavoritesData1: function(instance,favorites=[],callback) {
-        if (!this.pending[instance]) this.pending[instance]={};
-        if (!this.pending[instance]["favorites"]) {
-            this.pending[instance]["favorites"]=true;
-            console.log("getFavoritesData request "+instance+".favorites");
-            vis.conn._socket.emit('sendTo', instance, 'getFavoritesData', favorites,function (data) {
-                if (data!="error" && data!="nodata") {
-                    console.log("getFavoritesData received ok "+data );                
-                } else {
-                    console.log("getFavoritesData received "+instance+".favorites");
-                }
-                this.pending[instance]["favorites"]=false;
-                if (callback) callback(data);
-            }.bind(this));
-        }
+    getServerInfo: function(instance,callback) {
+        console.log("getServerInfo request ");
+        vis.conn._socket.emit('sendTo', instance, 'getServerInfo', {},(data) =>{
+            console.log("getFavoritesData received ok " );
+            if (callback) callback(data);
+        });
     },
     getServerBroadcastNow: function(instance,channelfilter,callback) {
         console.log("getServerBroadcastNow request ");
@@ -1661,30 +2043,58 @@ vis.binds["tvprogram"] = {
             if (callback) callback(data);
         }.bind(this));
     },
+    getServerBroadcastFind: function(instance,obj,callback) {
+        console.log("getServerBroadcastFind request ");
+        vis.conn._socket.emit('sendTo', instance, 'getServerBroadcastFind', obj,function (data) {
+            if (data!="error" && data!="nodata") {
+                console.log("getServerBroadcastFind received ok "+data.length );
+            } else {
+                console.log("getServerBroadcastFind received " );
+            }
+            var serverdata=[];
+            data.map(ch=>{
+                ch.events.map(event=> serverdata.push(event));
+            });
+            data=serverdata.sort((a,b)=> new Date(a.startTime) - new Date(b.startTime));
+            if (callback) callback(data);
+        }.bind(this));
+    },
+    loadServerInfos: function(instance,callback,force=false) {
+        if (this.infos!=null || force) return
+        this.infos=[];
+        this.getServerInfo(instance,function(serverdata) {
+            this.infos=serverdata;
+            callback(serverdata);
+        }.bind(this));
+    },
     loadCategories: function(instance,widgetID,callback,force=false) {
-        if (!(this.categories.length==0 || force)) return
+        if (this.categories!=null || force) return
+        this.categories=[];
         this.getServerData(instance,widgetID,'categories',function(serverdata) {
             this.categories=serverdata;
             callback(serverdata);
         }.bind(this));
     },
     loadChannels: function(instance,widgetID,callback,force=false) {
-        if (!(this.channels.length==0 || force)) return
+        if (this.channels!=null || force) return
+        this.channels=[];
         this.getServerData(instance,widgetID,'channels',function(serverdata) {
             this.channels=serverdata;
             callback(serverdata);
         }.bind(this));
     },
     loadGenres: function(instance,widgetID,callback,force=false) {
-        if (!(this.genres.length==0 || force)) return
+        if (this.genres!=null || force) return
+        this.genres=[];
         this.getServerData(instance,widgetID,'genres',function(serverdata) {
             this.genres=serverdata;
             callback(serverdata);
         }.bind(this));
     },
     loadProgram: function(instance,widgetID,datestring,callback,force=false) {
-        if (!this.tvprogram[datestring]) this.tvprogram[datestring]=[];
-        if (!(this.tvprogram[datestring].length==0 || force)) return
+        if (!this.tvprogram[datestring]) this.tvprogram[datestring]=null;
+        if (this.tvprogram[datestring]!=null || force) return
+        this.tvprogram[datestring]=[];
         this.getServerTVProgram(instance,widgetID,datestring,function(datestring,serverdata) {
             if (serverdata!="error" && serverdata!="nodata") this.tvprogram[datestring]=serverdata;
             callback(datestring,serverdata);
