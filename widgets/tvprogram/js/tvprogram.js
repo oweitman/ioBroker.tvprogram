@@ -303,13 +303,13 @@ vis.binds["tvprogram"] = {
 
             text += '  <form data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-widgetid="'+widgetID+'" data-maxresults="'+maxresults+'" >';
             text += '    <label for="tvsearch">Search:';
-            text += '      <input name="tvsearch"   type="text" id="tvsearch" value="'+this.searchdata[tvprogram_oid][widgetID].textfilter+'" placeholder="Search">';
+            text += '      <input name="tvsearch" type="text" id="tvsearch" value="'+this.searchdata[tvprogram_oid][widgetID].textfilter+'" placeholder="Search">';
             text += '    </label>';
             text += '    <label for="tvfrom">From:';
-            text += '      <input name="tvfrom"   type="text" id="tvfrom" value="'+this.searchdata[tvprogram_oid][widgetID].datefrom+'" size="12">';
+            text += '      <input name="tvfrom" autocomplete="off"  type="text" id="tvfrom" value="'+this.searchdata[tvprogram_oid][widgetID].datefrom+'" size="12">';
             text += '    </label>';
             text += '    <label for="tvtill">Till:';
-            text += '      <input name="tvtill"   type="text" id="tvtill" value="'+this.searchdata[tvprogram_oid][widgetID].datetill+'" size="12">';
+            text += '      <input name="tvtill" autocomplete="off"  type="text" id="tvtill" value="'+this.searchdata[tvprogram_oid][widgetID].datetill+'" size="12">';
             text += '    </label>';
             text += '    <label for="tvcategory">Category:';
             text += '      <select name="tvcategory" id="tvcategory" >';
@@ -328,12 +328,13 @@ vis.binds["tvprogram"] = {
             dttill.setDate(dttill.getDate()+1);
             dttill.setHours(5);
 
+            https://htmlpreview.github.io/?https://github.com/trentrichardson/jQuery-Timepicker-Addon/blob/master/dist/index.html#basic_examples
             $('#' + widgetID+' form #tvfrom').datetimepicker({
                 dateFormat: "dd.mm.yy",
                 hourGrid:       3,
                 minuteGrid:     15,
                 minDateTime:    dtfrom,       //datetime object
-                maxDateTime:    dttill        //datetime object
+                maxDateTime:    dttill       //datetime object
             });
             $('#' + widgetID+' form #tvtill').datetimepicker({
                 dateFormat: "dd.mm.yy",
@@ -342,6 +343,12 @@ vis.binds["tvprogram"] = {
                 minDateTime:    dtfrom,       //datetime object
                 maxDateTime:    dttill        //datetime object
             });
+
+            this.visTvprogram.copyStyles("font",$('#'+widgetID).get(0),$( "#ui-datepicker-div" ).get(0));
+            this.visTvprogram.copyStyles("color",$('#'+widgetID).get(0),$( "#ui-datepicker-div" ).get(0));
+            this.visTvprogram.copyStyles("background-color",$('#'+widgetID).get(0),$( "#ui-datepicker-div" ).get(0));
+            $( "#ui-datepicker-div" ).css("background","inherit");
+
             var favhighlight,viewdate;
             text="";
             var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
