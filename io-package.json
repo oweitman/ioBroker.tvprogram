@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.29",
+        "version": "0.0.30",
         "news": {
+            "0.0.30": {
+                "en": "change date fields in widget search / widget control, more flexible time attribute"
+            },
             "0.0.29": {
                 "en": "search widget: adjust css formating of the datetimepicker"
             },
@@ -32,36 +35,6 @@
             },
             "0.0.20": {
                 "en": "improve backgroundcolor for dialogs / new widget favorites"
-            },
-            "0.0.19": {
-                "en": "new record button in the detail view to fill the datapoint record"
-            },
-            "0.0.18": {
-                "en": "fix getServerEventMsg"
-            },
-            "0.0.17": {
-                "en": "improve dialog open for iframes / remove dead code / implement data sync and update"
-            },
-            "0.0.16": {
-                "en": "fix edge case in rendering broadcasts / remove dead code / reuse svg icons / repair update marker / fix css for favorites / repair deferred updatemarker after manual scroll"
-            },
-            "0.0.15": {
-                "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
-            },
-            "0.0.14": {
-                "en": "fix dialog setting / introduce settings for dialog with and height / repair channel sort / fill broadcast gaps if no data before 5:00"
-            },
-            "0.0.13": {
-                "en": "fix pixel error in channel column / copy broadcast details to clipboard from detailview / config of markerposition"
-            },
-            "0.0.12": {
-                "en": "show only one date in header / show play button only if time / implement favorites"
-            },
-            "0.0.11": {
-                "en": "fix creation of datapoint config"
-            },
-            "0.0.10": {
-                "en": "introduce center buttons for zoom and navigation / new datapoint selectchannel / click on channel logo trigger this datapoint / icon for selectchannel in broadcast detail view / datapoint handling in adapter"
             }
         },
         "title": "TV Programm",
