@@ -156,7 +156,9 @@ To Change the formatting of the alternating background colors of the broadcasts
 ```
 
 #### Search
-With this widget you can search for broadcast within the title, in a range of time and for a broadcast type.
+With this widget you can search for broadcast within the title, a start date and for a broadcast type.
+The input field "From" ist prefilled with the actual date. if this field is unchanged the search starts with the actual time.
+if you change this field to a future or past date, the search starts at 00:00 of this date.
 
 The following attributes are available for configuration in vis
 
@@ -362,6 +364,7 @@ categoryfilter: Optional Array of categoryIDs
 datetimefrom: datetime from
 datetimetill: datetime till
 textfilter: Optional title or part of a title to search
+maxresults: Optional the max amount of results. Default value is 10
 
 **Returns:**
 
@@ -375,7 +378,8 @@ sendTo("tvprogram.0","getServerBroadcastFind",{
     categoryfilter:[],
     datefrom:"2021-02-10T10:00:00.000Z",
     datetill:"2021-02-10T23:00:00.000Z",
-    textfilter:""
+    textfilter:"",
+    maxresults:10
 },(data)=>console.log(data));
 ```
 
