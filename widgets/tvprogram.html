@@ -8,24 +8,6 @@
 <!-- here you can include so many css as you want -->
 <link rel="stylesheet" href="widgets/tvprogram/css/style.css" />
 <!-- here you can include so many js-files as you want -->
-<script>
-var list = document.getElementsByTagName('script');
-var i = list.length, flag = false;
-while (i--) {
-    if (list[i].src.includes('jquery-ui-timepicker-addon')) {
-        flag = true;
-        break;
-    }
-}
-
-// if we didn't already find it on the page, add it
-if (!flag) {
-    var tag = document.createElement('script');
-    tag.src = 'widgets/tvprogram/js/jquery-ui-timepicker-addon-1.6.3.js';
-    document.getElementsByTagName('body')[0].appendChild(tag);
-}
-
-</script>
 <script type="text/javascript" src="widgets/tvprogram/js/tvprogram.js"></script>
 
 <!-- the full description of format in data-vis-attrs can be found here:

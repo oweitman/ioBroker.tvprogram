@@ -67,15 +67,23 @@ vis.binds["tvprogram"] = {
             var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
             if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
 
+            var maxresults              = parseInt(data.maxresults)||10;
+            var heightrow               = parseInt(data.heightRow)||35;
+            var broadcastfontpercent    = parseInt(data.broadcastfontpercent)||75;
+            var highlightcolor          = data.highlightcolor||"yellow";
+
+            var dialogwidthpercent      = data.dialogwidthpercent/100||0.9;
+            var dialogheightpercent     = data.dialogheightpercent/100||0.9;
+
             if(!this.searchresult[tvprogram_oid]) this.searchresult[tvprogram_oid]={};
             if(!this.searchresult[tvprogram_oid][widgetID]) this.searchresult[tvprogram_oid][widgetID]=[];
 
             if(!this.searchdata[tvprogram_oid]) this.searchdata[tvprogram_oid]={};
             if(!this.searchdata[tvprogram_oid][widgetID]) this.searchdata[tvprogram_oid][widgetID]={
-                datefrom:"",
-                datetill:"",
+                datefrom:new Date().toISOString().split("T")[0],
                 categoryfilter:"",
-                textfilter:""
+                textfilter:"",
+                maxresults:maxresults||10
             };
 
             if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
@@ -111,13 +119,6 @@ vis.binds["tvprogram"] = {
             var categoriesoptions = this.visTvprogram.categories.map( (cat)=> '<option value="'+cat.id+'" '+((this.searchdata[tvprogram_oid][widgetID].categoryfilter==cat.id)?" selected":"")+'>'+cat.title+'</option>' );
             categoriesoptions = '<option value="" '+((this.searchdata[tvprogram_oid][widgetID].categoryfilter=="")?" selected":"")+'></option>'+categoriesoptions;
 
-            var maxresults              = parseInt(data.maxresults)||10;
-            var heightrow               = parseInt(data.heightRow)||35;
-            var broadcastfontpercent    = parseInt(data.broadcastfontpercent)||75;
-            var highlightcolor          = data.highlightcolor||"yellow";
-
-            var dialogwidthpercent      = data.dialogwidthpercent/100||0.9;
-            var dialogheightpercent     = data.dialogheightpercent/100||0.9;
             $( "#"+widgetID+"broadcastdlg" ).data({
                 dialogwidthpercent:     dialogwidthpercent,
                 dialogheightpercent:    dialogheightpercent
@@ -306,10 +307,7 @@ vis.binds["tvprogram"] = {
             text += '      <input name="tvsearch" type="text" id="tvsearch" value="'+this.searchdata[tvprogram_oid][widgetID].textfilter+'" placeholder="Search">';
             text += '    </label>';
             text += '    <label for="tvfrom">From:';
-            text += '      <input name="tvfrom" autocomplete="off"  type="text" id="tvfrom" value="'+this.searchdata[tvprogram_oid][widgetID].datefrom+'" size="12">';
-            text += '    </label>';
-            text += '    <label for="tvtill">Till:';
-            text += '      <input name="tvtill" autocomplete="off"  type="text" id="tvtill" value="'+this.searchdata[tvprogram_oid][widgetID].datetill+'" size="12">';
+            text += '      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="'+this.infos.tvprogram[0]+'" max="'+this.infos.tvprogram[this.infos.tvprogram.length-1]+'" value="'+this.searchdata[tvprogram_oid][widgetID].datefrom+'">';
             text += '    </label>';
             text += '    <label for="tvcategory">Category:';
             text += '      <select name="tvcategory" id="tvcategory" >';
@@ -321,33 +319,6 @@ vis.binds["tvprogram"] = {
 
             $('#' + widgetID+' .tv-form').html(text);
             $('#' + widgetID+' .tv-form form').submit(this.onSubmitSearch.bind(this,widgetID, view, data, style));
-
-            var dtfrom = new Date(this.infos.tvprogram[0]);
-            dtfrom.setHours(5);
-            var dttill = new Date(this.infos.tvprogram[this.infos.tvprogram.length-1]);
-            dttill.setDate(dttill.getDate()+1);
-            dttill.setHours(5);
-
-            https://htmlpreview.github.io/?https://github.com/trentrichardson/jQuery-Timepicker-Addon/blob/master/dist/index.html#basic_examples
-            $('#' + widgetID+' form #tvfrom').datetimepicker({
-                dateFormat: "dd.mm.yy",
-                hourGrid:       3,
-                minuteGrid:     15,
-                minDateTime:    dtfrom,       //datetime object
-                maxDateTime:    dttill       //datetime object
-            });
-            $('#' + widgetID+' form #tvtill').datetimepicker({
-                dateFormat: "dd.mm.yy",
-                hourGrid:       3,
-                minuteGrid:     15,
-                minDateTime:    dtfrom,       //datetime object
-                maxDateTime:    dttill        //datetime object
-            });
-
-            this.visTvprogram.copyStyles("font",$('#'+widgetID).get(0),$( "#ui-datepicker-div" ).get(0));
-            this.visTvprogram.copyStyles("color",$('#'+widgetID).get(0),$( "#ui-datepicker-div" ).get(0));
-            this.visTvprogram.copyStyles("background-color",$('#'+widgetID).get(0),$( "#ui-datepicker-div" ).get(0));
-            $( "#ui-datepicker-div" ).css("background","inherit");
 
             var favhighlight,viewdate;
             text="";
@@ -362,7 +333,6 @@ vis.binds["tvprogram"] = {
                 text += '          <img width="100%" height="100%" data-channelid="'+channel.channelId+'" data-dp="'+tvprogram_oid+'" src="https://tvfueralle.de/channel-logos/'+channel.channelId+'.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">';
                 text += '       </li>';
                 text += '       <li class="tv-item broadcast">';
-                //text+='             <div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-view="" onclick="vis.binds.tvprogram.onclickBroadcast(this)">';
                 text+='             <div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-view="" >';
                 text+='                 <div class="broadcasttitle">';
                 text+='                     '+ event.title;
@@ -392,30 +362,41 @@ vis.binds["tvprogram"] = {
             var isearch=$(el).find('[name="tvsearch"]').val();
             var icategory=$(el).find('[name="tvcategory"]').val();
             var ifrom=$(el).find('[name="tvfrom"]').val();
-            var itill=$(el).find('[name="tvtill"]').val();
             if (!this.parseDatestring(ifrom)) {
-                return false;
-            }
-            if (!this.parseDatestring(itill)) {
                 return false;
             }
             var channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
             if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
 
             if(!this.searchdata[tvprogram_oid]) this.searchdata[tvprogram_oid]={};
-            this.searchdata[tvprogram_oid][widgetID]={
+            this.searchdata[tvprogram_oid][widgetID]=Object.assign(this.searchdata[tvprogram_oid][widgetID],{
                 datefrom:ifrom,
-                datetill:itill,
                 categoryfilter:[icategory],
                 textfilter:isearch
-            };
+            });
+            var today = new Date();
+            var dFrom = this.parseDatestring(ifrom);
+            if (today.getDate()==dFrom.getDate() && today.getMonth()==dFrom.getMonth() && today.getFullYear()==dFrom.getFullYear()) {
+                dFrom.setHours(today.getHours());
+                dFrom.setMinutes(today.getMinutes());
+                dFrom.setSeconds(today.getSeconds());
+            } else {
+                dFrom.setHours(0);
+                dFrom.setMinutes(0);
+                dFrom.setSeconds(0);
+            }
+            var dTill = new Date(today);
+            dTill.setDate(dTill.getDate()+10);
+
             var obj = {
                 channelfilter:channelfilter,
-                datefrom:this.parseDatestring(ifrom),
-                datetill:this.parseDatestring(itill),
-                categoryfilter:icategory,
-                textfilter:isearch
+                datefrom:dFrom,
+                datetill:dTill,
+                categoryfilter:(icategory=="")?[]:[parseInt(icategory)],
+                textfilter:isearch,
+                maxresults:this.searchdata[tvprogram_oid][widgetID].maxresults
             };
+            if (isearch=="" && icategory=="") return false;
             this.visTvprogram.getServerBroadcastFind(instance,obj,function(serverdata){
                 this.searchresult[tvprogram_oid][widgetID]=serverdata;
                 this.createWidget(widgetID, view, data, style);
@@ -423,15 +404,9 @@ vis.binds["tvprogram"] = {
             return false;
         },
         parseDatestring: function (datestring) {
-            var dtarr = datestring.split(" ");
-            if (dtarr.length!=2) return false;
-            var dtdate = dtarr[0].split(".");
-            var dttime = dtarr[1].split(":");
-            if (dtdate.length!=3) return false;
-            if (dttime.length!=2) return false;
-            var dt = new Date(parseInt(dtdate[2]),parseInt(dtdate[1])-1,parseInt(dtdate[0]),parseInt(dttime[0]),parseInt(dttime[1]));
-            if (!(dt instanceof Date && !isNaN(dt))) return false;
-            return dt;
+            var b = datestring.split(/\D/);
+            var d = new Date(b[0], --b[1], b[2]);
+            return d && d.getMonth() == b[1]? d : false;
         },
         onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
             var dp = e.type.split(".");
