@@ -469,11 +469,19 @@ vis.binds["tvprogram"] = {
 
             var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
 
-            if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
-                this.tvprogram=serverdata;
-                if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
-            }.bind(this, widgetID, view, data, style));
+            var time = data.time||"";
 
+            if (time=="") {
+                if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
+                    this.tvprogram=serverdata;
+                    if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
+                }.bind(this, widgetID, view, data, style));
+            } else {
+                if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastDate(instance,channelfilter,this.parseTime(time),function(widgetID, view, data, style, serverdata){
+                    this.tvprogram=serverdata;
+                    if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
+                }.bind(this, widgetID, view, data, style));
+            }
 
             if (this.tvprogram=="error") return;
             if (this.visTvprogram.channels.length==0) return;
@@ -711,6 +719,23 @@ vis.binds["tvprogram"] = {
                     }
                 },1000*60);
             }
+        },
+        parseTime: function(time) {
+            var date = new Date(time);
+            if (date instanceof Date && !isNaN(date)) return date;
+            var iTime = time.split(":");
+            date = new Date();
+            if (parseInt(iTime[0])>date.getHours() && iTime[1]>date.getMinutes()) {
+                date.setHours(parseInt(iTime[0]));
+                date.setMinutes(parseInt(iTime[1]));
+                date.setSeconds(0);
+            } else {
+                date.setDate(date.getDate()+1);
+                date.setHours(parseInt(iTime[0]));
+                date.setMinutes(parseInt(iTime[1]));
+                date.setSeconds(0);
+            }
+            return date;
         },
         onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
             var dp = e.type.split(".");
@@ -2021,6 +2046,17 @@ vis.binds["tvprogram"] = {
                 console.log("getServerBroadcastNow received ok "+data.length );
             } else {
                 console.log("getServerBroadcastNow received " );
+            }
+            if (callback) callback(data);
+        }.bind(this));
+    },
+    getServerBroadcastDate: function(instance,channelfilter,date,callback) {
+        console.log("getServerBroadcastDate request ");
+        vis.conn._socket.emit('sendTo', instance, 'getServerBroadcastDate', {channelfilter:channelfilter,date:date},function (data) {
+            if (data!="error" && data!="nodata") {
+                console.log("getServerBroadcastDate received ok "+data.length );
+            } else {
+                console.log("getServerBroadcastDate received " );
             }
             if (callback) callback(data);
         }.bind(this));

@@ -55,17 +55,20 @@ iobroker upload all
 
 The following attributes are available for configuration in vis
 
-| Attribute             | Example             | Description                                           |
-| --------------------- | ------------------- | ----------------------------------------------------- |
-| tvprogram_oid         | tvprogram.0.tv1.cmd | A Datapoint of a instance of the tvprogram adapter.   |
-| widthItem             | 120                 | Standard width in pixels for a 30 minute segment      |
-| heightRow             | 35                  | Height for each displayed line                        |
-| headerfontpercent     | 125                 | Character size in percent for the heading (time)      |
-| broadcastfontpercent  | 75                  | Character size in percent for the broadcasts          |
-| highlightcolor        | yellow              | color for the favorites                               |
-| markerpositionpercent | 25                  | Position of the Marker in percent ot the widget width |
-| dialogwidthpercent    | 90                  | size of the dialogs in percent of the widget          |
-| dialogheightpercent   | 90                  | size of the dialogs in percent of the widget          |
+| Attribute             | Example                  | Description                                                                                                       |
+| --------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| tvprogram_oid         | tvprogram.0.tv1.cmd      | A Datapoint of a instance of the tvprogram adapter.                                                               |
+| time                  |                          | If empty then the actual broadcasts would be shown                                                                |
+| time                  | 20:15                    | if time the broadcast at this time would be shown. if actual time is after this time, the next day would be shown |
+| time                  | 2021-02-15T20:15:00.405Z | If valid Datestring, then the broadcast at this tim would be shown                                                |
+| widthItem             | 120                      | Standard width in pixels for a 30 minute segment                                                                  |
+| heightRow             | 35                       | Height for each displayed line                                                                                    |
+| headerfontpercent     | 125                      | Character size in percent for the heading (time)                                                                  |
+| broadcastfontpercent  | 75                       | Character size in percent for the broadcasts                                                                      |
+| highlightcolor        | yellow                   | color for the favorites                                                                                           |
+| markerpositionpercent | 25                       | Position of the Marker in percent ot the widget width                                                             |
+| dialogwidthpercent    | 90                       | size of the dialogs in percent of the widget                                                                      |
+| dialogheightpercent   | 90                       | size of the dialogs in percent of the widget                                                                      |
 
 ##### CSS-Classes
 Please change w00001 to your widget ID
