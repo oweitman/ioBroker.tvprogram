@@ -341,7 +341,7 @@ vis.binds["tvprogram"] = {
                 var startTime= new Date(event.startTime);
                 var endTime= new Date(event.endTime);
                 text+='                 <div class="broadcasttime">';
-                text+=                      ("0"+startTime.getDate()).slice(-2)+"."+("0"+parseInt(startTime.getMonth())+1).slice(-2)+"."+("0"+startTime.getFullYear()).slice(-4)+" ";
+                text+=                      ("0"+startTime.getDate()).slice(-2)+"."+("0"+parseInt(startTime.getMonth()+1)).slice(-2)+"."+("0"+startTime.getFullYear()).slice(-4)+" ";
                 text+=                      ("0"+startTime.getHours()).slice(-2)+":"+("0"+startTime.getMinutes()).slice(-2);
                 text+=                      ' - ';
                 text+=                      ("0"+endTime.getHours()).slice(-2)+":"+("0"+endTime.getMinutes()).slice(-2);
