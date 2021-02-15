@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.30",
+        "version": "0.0.31",
         "news": {
+            "0.0.31": {
+                "en": "fix bug in control widget to show detail view"
+            },
             "0.0.30": {
                 "en": "change date fields in widget search / widget control, more flexible time attribute"
             },

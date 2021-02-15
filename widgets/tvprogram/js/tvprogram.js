@@ -487,7 +487,7 @@ vis.binds["tvprogram"] = {
             if (this.visTvprogram.channels.length==0) return;
             if (this.visTvprogram.categories.length==0) return;
 
-            var viewdate = this.visTvprogram.getDate(this.visTvprogram.calcDate(new Date()),0);
+            var viewdate = this.visTvprogram.getDate(this.visTvprogram.calcDate(this.parseTime(time)),0);
 
             var heightrow               = parseInt(data.heightRow)||35;
             var broadcastfontpercent    = parseInt(data.broadcastfontpercent)||75;
@@ -723,6 +723,7 @@ vis.binds["tvprogram"] = {
         parseTime: function(time) {
             var date = new Date(time);
             if (date instanceof Date && !isNaN(date)) return date;
+            if (time=="") return new Date();
             var iTime = time.split(":");
             date = new Date();
             if (parseInt(iTime[0])>date.getHours() && iTime[1]>date.getMinutes()) {

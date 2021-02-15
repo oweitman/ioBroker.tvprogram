@@ -60,7 +60,7 @@ The following attributes are available for configuration in vis
 | tvprogram_oid         | tvprogram.0.tv1.cmd      | A Datapoint of a instance of the tvprogram adapter.                                                               |
 | time                  |                          | If empty then the actual broadcasts would be shown                                                                |
 | time                  | 20:15                    | if time the broadcast at this time would be shown. if actual time is after this time, the next day would be shown |
-| time                  | 2021-02-15T20:15:00.405Z | If valid Datestring, then the broadcast at this tim would be shown                                                |
+| time                  | 2021-02-15T20:15:00.000Z | If valid Datestring, then the broadcast at this tim would be shown. Remember the timezones                        |
 | widthItem             | 120                      | Standard width in pixels for a 30 minute segment                                                                  |
 | heightRow             | 35                       | Height for each displayed line                                                                                    |
 | headerfontpercent     | 125                      | Character size in percent for the heading (time)                                                                  |
@@ -162,6 +162,7 @@ To Change the formatting of the alternating background colors of the broadcasts
 With this widget you can search for broadcast within the title, a start date and for a broadcast type.
 The input field "From" ist prefilled with the actual date. if this field is unchanged the search starts with the actual time.
 if you change this field to a future or past date, the search starts at 00:00 of this date.
+One or both of the inputfields searchtext and category must be filled/selected.
 
 The following attributes are available for configuration in vis
 
