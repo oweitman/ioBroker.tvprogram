@@ -90,7 +90,7 @@ To Change the formatting of the dialogs
 }
 ```
 
-If you use some extra dialogs with other z-index-setting you can set highet z-index for the tvprogram dialogs. 
+If you use some extra dialogs with other z-index-setting you can set higher z-index for the tvprogram dialogs. 
 Maybe you have to set a higher number than 300. This depends on settings in other dialogs which overlap or hide the tvprogram (broadcast info and channel select) dialogs
 
 ```css
@@ -228,7 +228,7 @@ The provided data are
 | eventid     | 12345678                   | Unique broadcast id    |
 
 
-**selectchannel*
+**selectchannel**
 
 This datapoint is used to recognize a channel switch command with a click on the channel logo or the switch icon in the detail view.
 
@@ -240,7 +240,7 @@ this datapoint contains the status of whether only favorites or everything shoul
 
 this datapoint is deprecated and will be removed in the next versions
 
-### Provided Sentto-Commands
+### Provided Sendto-Commands
 
 All Data can be requested crom the adapter by sendto-commands. this can be used to develop individual functionalities
 
@@ -248,7 +248,7 @@ All Data can be requested crom the adapter by sendto-commands. this can be used 
 
 Request base data from the adapter. 
 
-**Valid parameters are **
+**Valid parameters are**
 
 * categories
 * genres
@@ -268,7 +268,7 @@ sendTo("tvprogram.0","getServerData","categories",(data)=>console.log(data));
 
 Request program data from the adapter. 
 
-**Valid parameters are **
+**Valid parameters are**
 
 a datestring in the following format: yyyy-mm-dd
 
@@ -286,7 +286,7 @@ sendTo("tvprogram.0","getServerTVProgram","2021-02-10",(data)=>console.log(data)
 
 Request the detail data of a broadcast.
 
-**Valid parameters are **
+**Valid parameters are**
 
 a object that contains an
 viewdate in the following format yyyy-mm-dd
@@ -306,7 +306,7 @@ sendTo("tvprogram.0","getServerBroadcast",{viewdate:"2021-02-10",eventid:"106595
 
 Request all favorite broadcast from now till end of saved data.
 
-**Valid parameters are **
+**Valid parameters are**
 
 Array of favorites
 
@@ -325,7 +325,7 @@ sendTo("tvprogram.0","getFavoritesDatax",['heute','Tagesschau'],(data)=>console.
 
 Requests all broadcasts that are currently running
 
-**Valid parameters are **
+**Valid parameters are**
 
 Array of channelIDs of your favorite channels 
 
@@ -344,7 +344,7 @@ sendTo("tvprogram.0","getServerBroadcastNow",[1,6,22,7],(data)=>console.log(data
 
 Requests all broadcasts that are running at a datetime
 
-**Valid parameters are **
+**Valid parameters are**
 
 Array of channelIDs of your favorite channels
 datetime 
@@ -364,7 +364,7 @@ sendTo("tvprogram.0","getServerBroadcastDate",{channelfilter:[1,6,22,7],date:"20
 
 Search for broadcasts in a range of time and optional with categories
 
-**Valid parameters are **
+**Valid parameters are**
 
 channelfilter: Array of channelIDs of your favorite channels
 categoryfilter: Optional Array of categoryIDs
@@ -394,7 +394,7 @@ sendTo("tvprogram.0","getServerBroadcastFind",{
 
 Request available dates of broadcast in the adapter memory
 
-**Valid parameters are **
+**Valid parameters are**
 
 empty object
 
