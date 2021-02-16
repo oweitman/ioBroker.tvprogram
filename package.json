@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:oweitman/ioBroker.tvprogram.git"
+    "url": "https://github.com/oweitman/ioBroker.tvprogram"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
