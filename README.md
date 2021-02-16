@@ -10,7 +10,10 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tvprogram.png?downloads=true)](https://nodei.co/npm/iobroker.tvprogram/)
 
-**Tests:** [![Travis-CI](http://img.shields.io/travis/oweitman/ioBroker.tvprogram/master.svg)](https://travis-ci.org/oweitman/ioBroker.tvprogram)
+**Tests:** 
+[![Travis-CI](http://img.shields.io/travis/oweitman/ioBroker.tvprogram/master.svg)](https://travis-ci.com/oweitman/ioBroker.tvprogram)
+[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/oweitman/iobroker-tvprogram.svg)](https://ci.appveyor.com/project/oweitman/iobroker-tvprogram)
+
 
 ## tvprogram adapter for ioBroker
 
