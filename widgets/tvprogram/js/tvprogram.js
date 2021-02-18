@@ -438,13 +438,19 @@ vis.binds["tvprogram"] = {
             var instance;
             if (!data.oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.oid.trim()))==false) return;
             if (!data.oid || (instance = vis.binds["tvprogram"].getInstance(data.oid.trim()))==false) return;
-            var widgetNumber = data.widgetNumber||"";
-            //var config = this.visTvprogram.getConfig(tvprogram_oid);
+
+            if(!this.tvprogram[tvprogram_oid]) this.tvprogram[tvprogram_oid]=[];
+            if(!this.tvprogram[tvprogram_oid][widgetID]) this.tvprogram[tvprogram_oid][widgetID]=[];
 
             this.visTvprogram.loadCategories(instance,widgetID,()=> this.createWidget(widgetID, view, data, style));
             this.visTvprogram.loadChannels(instance,widgetID,()=> this.createWidget(widgetID, view, data, style));
 
-            if (this.visTvprogram.channels.length==0) return;
+            if (this.visTvprogram.channels.length==0 || this.visTvprogram.categories.length==0) {
+                return setTimeout(function () {
+                    vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
+                }, 100);
+            }
+            //if (this.visTvprogram.categories.length==0) return;
 
             var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
             if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
@@ -472,20 +478,18 @@ vis.binds["tvprogram"] = {
             var time = data.time||"";
 
             if (time=="") {
-                if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
-                    this.tvprogram=serverdata;
-                    if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
+                if (Object.keys(this.tvprogram[tvprogram_oid][widgetID]).length==0 || this.tvprogram[tvprogram_oid][widgetID].some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
+                    this.tvprogram[tvprogram_oid][widgetID]=serverdata;
+                    if (this.tvprogram[tvprogram_oid][widgetID].length>0) this.createWidget(widgetID, view, data, style);
                 }.bind(this, widgetID, view, data, style));
             } else {
-                if (Object.keys(this.tvprogram).length==0 || this.tvprogram.some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastDate(instance,channelfilter,this.parseTime(time),function(widgetID, view, data, style, serverdata){
-                    this.tvprogram=serverdata;
-                    if (this.tvprogram.length>0) this.createWidget(widgetID, view, data, style);
+                if (Object.keys(this.tvprogram[tvprogram_oid][widgetID]).length==0 || this.tvprogram[tvprogram_oid][widgetID].some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastDate(instance,channelfilter,this.parseTime(time),function(widgetID, view, data, style, serverdata){
+                    this.tvprogram[tvprogram_oid][widgetID]=serverdata;
+                    if (this.tvprogram[tvprogram_oid][widgetID].length>0) this.createWidget(widgetID, view, data, style);
                 }.bind(this, widgetID, view, data, style));
             }
 
-            if (this.tvprogram=="error") return;
-            if (this.visTvprogram.channels.length==0) return;
-            if (this.visTvprogram.categories.length==0) return;
+            if (this.tvprogram[tvprogram_oid][widgetID]=="error") return;
 
             var viewdate = this.visTvprogram.getDate(this.visTvprogram.calcDate(this.parseTime(time)),0);
 
@@ -674,7 +678,7 @@ vis.binds["tvprogram"] = {
             var favhighlight;
             var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
 
-            this.tvprogram.map(ch=>{
+            this.tvprogram[tvprogram_oid][widgetID].map(ch=>{
                 ch.events.map(event=> {
                     var channel = this.visTvprogram.channels.find(ch=>ch.id==event.channel);
                     favhighlight = (favorites.indexOf(event.title)>-1);
@@ -703,18 +707,18 @@ vis.binds["tvprogram"] = {
             $('#' + widgetID+' .tv-control').html(text);
             if (!this.timer[widgetID]) {
                 this.timer[widgetID] = setInterval(()=> {
-                    var tvprogram = this.tvprogram.reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
+                    var tvprogram = this.tvprogram[tvprogram_oid][widgetID].reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
                     if (tvprogram.some(el => new Date(el.endTime)<= new Date())) {
-                        this.tvprogram=[];
+                        this.tvprogram[tvprogram_oid][widgetID]=[];
                         vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                     }
                 },1000*60);
             } else {
                 clearInterval(this.timer[widgetID]);
                 this.timer[widgetID] = setInterval(()=> {
-                    var tvprogram = this.tvprogram.reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
+                    var tvprogram = this.tvprogram[tvprogram_oid][widgetID].reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
                     if (tvprogram.some(el => new Date(el.endTime)<= new Date())) {
-                        this.tvprogram=[];
+                        this.tvprogram[tvprogram_oid][widgetID]=[];
                         vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                     }
                 },1000*60);
@@ -724,19 +728,21 @@ vis.binds["tvprogram"] = {
             var date = new Date(time);
             if (date instanceof Date && !isNaN(date)) return date;
             if (time=="") return new Date();
-            var iTime = time.split(":");
-            date = new Date();
-            if (parseInt(iTime[0])>date.getHours() && iTime[1]>date.getMinutes()) {
-                date.setHours(parseInt(iTime[0]));
-                date.setMinutes(parseInt(iTime[1]));
-                date.setSeconds(0);
+            var iTime = time.split("/");
+            var duration = 120;
+            if (iTime.length>1 && parseInt(iTime[1].trim())>0) duration = parseInt(iTime[1].trim());
+            iTime = iTime[0].split(":");
+            var endDate = new Date();
+            endDate.setHours(parseInt(iTime[0]));
+            endDate.setMinutes(parseInt(iTime[1]));
+            endDate.setSeconds(0);
+            var startDate = new Date(endDate);
+            endDate.setMinutes(endDate.getMinutes()+duration);
+            if (new Date()<endDate) {
+                return startDate;
             } else {
-                date.setDate(date.getDate()+1);
-                date.setHours(parseInt(iTime[0]));
-                date.setMinutes(parseInt(iTime[1]));
-                date.setSeconds(0);
+                return startDate.setDate(startDate.getDate()+1);
             }
-            return date;
         },
         onChange: function(widgetID, view, data, style,tvprogram_oid,e, newVal, oldVal) {
             var dp = e.type.split(".");
@@ -1463,6 +1469,7 @@ vis.binds["tvprogram"] = {
         },
         setScroll: function(widgetID) {
             var el = $('#'+widgetID+' .scrollcontainer').get(0);
+            if (!el.scrollWidth) return;
             el.scrollLeft = (this.scroll[widgetID].position*el.scrollWidth)-(el.clientWidth*this.measures[widgetID].markerpositionpercent);
         },
         updateMarker: function(widgetID,today) {
@@ -2187,3 +2194,6 @@ jQuery.fn.mydelay = function( time, type ) {
 		};
 	} );
 };
+//https://services.sg1.etvp01.sctv.ch/catalog/tv/channels/list/ids=25;level=enorm;start=202102182000
+//https://services.sg2.etvp01.sctv.ch/portfolio/tv/channels
+//https://services.sg1.etvp01.sctv.ch/catalog/tv/channels/list/ids=25,656;level=normal;start=202102180500;end=202102190500
