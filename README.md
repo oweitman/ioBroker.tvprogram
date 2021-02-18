@@ -20,7 +20,7 @@
 This adapter polls information about the television program at regular intervals. 
 The data can be displayed in various widgets. 
 
-The adapter is still in an alpha phase in which widgets / functions are still being tested, 
+The adapter is in an beta phase in which widgets / functions are still being tested, 
 functions / widgets can be added and removed or completely exchanged.
 
 References to issues or feature requests can be left or 
@@ -35,7 +35,7 @@ The widget searches for all remaining data points automatically.
 The adapter can currently only be installed via github. This can be done in the iobroker in the "adapter" tab, 
 with the expert view via the github button (cat symbol).
 
-Then enter the url of the github repository https://github.com/oweitman/iobroker.tvprogram in the "any" tab and install it.
+Then enter the url of the github repository https://github.com/oweitman/ioBroker.tvprogram in the "any" tab and install it.
 
 ### Adapter Configuration
 
@@ -242,7 +242,7 @@ this datapoint is deprecated and will be removed in the next versions
 
 ### Provided Sendto-Commands
 
-All Data can be requested crom the adapter by sendto-commands. this can be used to develop individual functionalities
+All Data can be requested from the adapter by sendto-commands. this can be used to develop individual functionalities
 
 #### getServerData
 
@@ -414,7 +414,9 @@ sendTo("tvprogram.0","getServerInfo","{}",(data)=>console.log(data));
 
 #### Recordlist
 
-List of all current recording times collected from the record data point, which is updated every minute
+List of all current recording times recorded by the recording data point and updated every minute.
+You have to configure the data point name of your RecorderList and the name of the data point to be observed.
+As soon as the script has added the recording to the list, the record data point is emptied.
 
 ```javascript
 // datapoint where the List should be saved
@@ -495,7 +497,7 @@ var timer = setInterval(function() {
     sendTo("tvprogram.0","getServerBroadcastNow",channelfilter,(data)=>{
             setState(favoritesBool,data.some((el) => favorites.includes(el.events[0].title)))
     });
-},1000*10);
+},1000*60);
 
 ```
 #### Coloring of programs that are located in the recordlist data point in the widget tvprogram
