@@ -4,40 +4,148 @@
         "version": "0.0.31",
         "news": {
             "0.0.31": {
-                "en": "fix bug in control widget to show detail view"
+                "en": "fix bug in control widget to show detail view",
+                "de": "Behebung eines Fehlers im Steuerungs-Widget, um die Detailansicht anzuzeigen",
+                "ru": "исправить ошибку в виджете управления, чтобы отобразить подробный вид",
+                "pt": "corrigir bug no widget de controle para mostrar visualização de detalhes",
+                "nl": "repareer bug in controlewidget om detailweergave te tonen",
+                "fr": "correction d'un bug dans le widget de contrôle pour afficher la vue détaillée",
+                "it": "correggere un bug nel widget di controllo per mostrare la visualizzazione dei dettagli",
+                "es": "corregir un error en el widget de control para mostrar la vista detallada",
+                "pl": "napraw błąd w widżecie kontrolnym, aby wyświetlić widok szczegółów",
+                "zh-cn": "修复控件小部件中的错误以显示详细信息视图"
             },
             "0.0.30": {
-                "en": "change date fields in widget search / widget control, more flexible time attribute"
+                "en": "change date fields in widget search / widget control, more flexible time attribute",
+                "de": "Ändern Sie Datumsfelder in der Widget-Suche / Widget-Steuerung, flexibleres Zeitattribut",
+                "ru": "изменить поля даты в поиске виджетов / управлении виджетами, более гибкий атрибут времени",
+                "pt": "alterar campos de data na pesquisa / controle de widget, atributo de tempo mais flexível",
+                "nl": "datumvelden wijzigen in widget zoeken / widgetbeheer, flexibeler tijdattribuut",
+                "fr": "modifier les champs de date dans la recherche de widget / contrôle de widget, attribut de temps plus flexible",
+                "it": "modificare i campi della data nella ricerca widget / controllo widget, attributo temporale più flessibile",
+                "es": "cambiar los campos de fecha en la búsqueda de widgets / control de widgets, atributo de tiempo más flexible",
+                "pl": "zmień pola daty w wyszukiwaniu widgetów / kontroli widgetów, bardziej elastyczny atrybut czasu",
+                "zh-cn": "在小部件搜索/小部件控件中更改日期字段，更灵活的时间属性"
             },
             "0.0.29": {
-                "en": "search widget: adjust css formating of the datetimepicker"
+                "en": "search widget: adjust css formating of the datetimepicker",
+                "de": "Such-Widget: Passen Sie die CSS-Formatierung des Datetimepickers an",
+                "ru": "виджет поиска: настроить форматирование css для datetimepicker",
+                "pt": "widget de pesquisa: ajusta a formatação css do datetimepicker",
+                "nl": "zoekwidget: pas de css-indeling van de datetimepicker aan",
+                "fr": "widget de recherche: ajustez le formatage css du datetimepicker",
+                "it": "widget di ricerca: regola la formattazione css del datetimepicker",
+                "es": "widget de búsqueda: ajusta el formato CSS del selector de fecha y hora",
+                "pl": "widget wyszukiwania: dostosuj formatowanie css selektora danych",
+                "zh-cn": "搜索小部件：调整datetimepicker的CSS格式"
             },
             "0.0.28": {
-                "en": "New widget to search broadcasts"
+                "en": "New widget to search broadcasts",
+                "de": "Neues Widget zum Durchsuchen von Sendungen",
+                "ru": "Новый виджет для поиска трансляций",
+                "pt": "Novo widget para pesquisar transmissões",
+                "nl": "Nieuwe widget om uitzendingen te zoeken",
+                "fr": "Nouveau widget pour rechercher des diffusions",
+                "it": "Nuovo widget per cercare le trasmissioni",
+                "es": "Nuevo widget para buscar transmisiones",
+                "pl": "Nowy widget do wyszukiwania transmisji",
+                "zh-cn": "新的小部件可搜索广播"
             },
             "0.0.27": {
-                "en": "two new internal sendto commands to request broadcast for a different date and a time range optionaly filtered for categories"
+                "en": "two new internal sendto commands to request broadcast for a different date and a time range optionaly filtered for categories",
+                "de": "Zwei neue interne Sendto-Befehle zum Anfordern einer Übertragung für ein anderes Datum und ein optional nach Kategorien gefilterter Zeitbereich",
+                "ru": "две новые внутренние команды sendto для запроса трансляции на другую дату и временной диапазон, дополнительно отфильтрованные по категориям",
+                "pt": "dois novos comandos internos sendto para solicitar transmissão para uma data diferente e um intervalo de tempo opcionalmente filtrado por categorias",
+                "nl": "twee nieuwe interne sendto-opdrachten om uitzending voor een andere datum aan te vragen en een tijdbereik dat optioneel is gefilterd op categorieën",
+                "fr": "deux nouvelles commandes sendto internes pour demander la diffusion pour une date différente et une plage horaire éventuellement filtrée pour les catégories",
+                "it": "due nuovi comandi interni sendto per richiedere la trasmissione per una data diversa e un intervallo di tempo facoltativamente filtrato per categorie",
+                "es": "dos nuevos comandos internos sendto para solicitar la transmisión para una fecha diferente y un rango de tiempo filtrado opcionalmente por categorías",
+                "pl": "dwa nowe wewnętrzne polecenia sendto do żądania transmisji dla innej daty i przedziału czasu, opcjonalnie filtrowane według kategorii",
+                "zh-cn": "两个新的内部sendto命令来请求广播不同的日期和时间范围（按类别过滤）"
             },
             "0.0.26": {
-                "en": "sendto command getServerBroadcastNow no scans a day before and after the actual day / some small improvements"
+                "en": "sendto command getServerBroadcastNow no scans a day before and after the actual day / some small improvements",
+                "de": "sendto-Befehl getServerBroadcastNow keine Scans einen Tag vor und nach dem eigentlichen Tag / einige kleine Verbesserungen",
+                "ru": "Команда sendto getServerBroadcastNow нет сканирования за день до и после фактического дня / некоторые небольшие улучшения",
+                "pt": "Comando sendto getServerBroadcastNow sem varreduras um dia antes e depois do dia real / algumas pequenas melhorias",
+                "nl": "sendto commando getServerBroadcastNow geen scans een dag voor en na de eigenlijke dag / enkele kleine verbeteringen",
+                "fr": "sendto commande getServerBroadcastNow pas de scan un jour avant et après le jour réel / quelques petites améliorations",
+                "it": "sendto command getServerBroadcastNow nessuna scansione un giorno prima e dopo il giorno effettivo / alcuni piccoli miglioramenti",
+                "es": "sendto command getServerBroadcastNow no escaneos un día antes y después del día real / algunas pequeñas mejoras",
+                "pl": "polecenie sendto getServerBroadcastNow żadnych skanów dzień przed i po dniu faktycznym / kilka drobnych ulepszeń",
+                "zh-cn": "sendto命令getServerBroadcast现在在实际日期的前后没有扫描/一些小的改进"
             },
             "0.0.25": {
-                "en": "add some extra scripts and tools to the documentation / add alternating colors for control widget / add datapoint name to name the tv"
+                "en": "add some extra scripts and tools to the documentation / add alternating colors for control widget / add datapoint name to name the tv",
+                "de": "Fügen Sie der Dokumentation einige zusätzliche Skripte und Tools hinzu / fügen Sie abwechselnde Farben für das Steuerungs-Widget hinzu / fügen Sie einen Datenpunktnamen hinzu, um den Fernseher zu benennen",
+                "ru": "добавить в документацию дополнительные скрипты и инструменты / добавить чередующиеся цвета для виджета управления / добавить имя точки данных для имени телевизора",
+                "pt": "adicione alguns scripts e ferramentas extras à documentação / adicione cores alternadas para o widget de controle / adicione o nome do ponto de dados para nomear a tv",
+                "nl": "voeg wat extra scripts en tools toe aan de documentatie / voeg afwisselende kleuren toe voor control widget / voeg datapuntnaam toe om de tv een naam te geven",
+                "fr": "ajouter des scripts et des outils supplémentaires à la documentation / ajouter des couleurs alternées pour le widget de contrôle / ajouter le nom du point de données pour nommer le téléviseur",
+                "it": "aggiungi alcuni script e strumenti extra alla documentazione / aggiungi colori alternati per il widget di controllo / aggiungi il nome del datapoint per nominare la tv",
+                "es": "agregue algunos scripts y herramientas adicionales a la documentación / agregue colores alternos para el widget de control / agregue el nombre del punto de datos para nombrar la televisión",
+                "pl": "dodaj dodatkowe skrypty i narzędzia do dokumentacji / dodaj naprzemienne kolory widgetu sterującego / dodaj nazwę punktu danych, aby nazwać telewizor",
+                "zh-cn": "向文档中添加一些额外的脚本和工具/为控件小部件添加交替的颜色/为数据名称添加电视名称"
             },
             "0.0.24": {
-                "en": "now more TVs than one can be configured"
+                "en": "now more TVs than one can be configured",
+                "de": "Jetzt können mehr Fernseher als einer konfiguriert werden",
+                "ru": "теперь можно настроить больше телевизоров, чем один",
+                "pt": "agora mais TVs do que uma podem ser configuradas",
+                "nl": "nu kunnen er meer dan één tv worden geconfigureerd",
+                "fr": "il est désormais possible de configurer plus de téléviseurs qu'un seul",
+                "it": "ora è possibile configurare più televisori di uno",
+                "es": "ahora se pueden configurar más televisores de uno",
+                "pl": "teraz można skonfigurować więcej telewizorów niż jeden",
+                "zh-cn": "现在配置的电视多于一台"
             },
             "0.0.23": {
-                "en": "change some css classes to avoid css collision / improve widget control"
+                "en": "change some css classes to avoid css collision / improve widget control",
+                "de": "Ändern Sie einige CSS-Klassen, um CSS-Kollisionen zu vermeiden / die Widget-Kontrolle zu verbessern",
+                "ru": "изменить некоторые классы css, чтобы избежать столкновения css / улучшить управление виджетами",
+                "pt": "alterar algumas classes css para evitar colisão css / melhorar o controle do widget",
+                "nl": "verander enkele css-klassen om css-botsing te voorkomen / widgetcontrole te verbeteren",
+                "fr": "changer certaines classes css pour éviter les collisions css / améliorer le contrôle des widgets",
+                "it": "modificare alcune classi CSS per evitare collisioni CSS / migliorare il controllo dei widget",
+                "es": "cambiar algunas clases de CSS para evitar la colisión de CSS / mejorar el control del widget",
+                "pl": "zmień niektóre klasy css, aby uniknąć kolizji css / poprawić kontrolę widgetów",
+                "zh-cn": "更改一些CSS类以避免CSS碰撞/改善小部件控制"
             },
             "0.0.22": {
-                "en": "new widget remote control / little improvement with the copy button / highlite background-color for favorites"
+                "en": "new widget remote control / little improvement with the copy button / highlite background-color for favorites",
+                "de": "neue Widget-Fernbedienung / kleine Verbesserung mit der Kopiertaste / Highlite-Hintergrundfarbe für Favoriten",
+                "ru": "новое дистанционное управление виджетами / небольшое улучшение с кнопкой копирования / выделение фона для избранных",
+                "pt": "novo controle remoto de widget / pouca melhoria com o botão de cópia / cor de fundo realçada para favoritos",
+                "nl": "nieuwe widget afstandsbediening / kleine verbetering met de kopieerknop / highlite achtergrondkleur voor favorieten",
+                "fr": "nouvelle télécommande de widget / petite amélioration avec le bouton de copie / couleur de fond highlite pour les favoris",
+                "it": "nuovo controllo remoto del widget / piccolo miglioramento con il pulsante di copia / evidenziazione del colore di sfondo per i preferiti",
+                "es": "nuevo control remoto de widgets / poca mejora con el botón de copia / color de fondo resaltado para favoritos",
+                "pl": "nowy pilot do widżetów / niewielka poprawa dzięki przyciskowi kopiowania / podświetlanie koloru tła ulubionych",
+                "zh-cn": "新的小部件遥控器/带有复制按钮的改进不大/收藏夹的highlite背景色"
             },
             "0.0.21": {
-                "en": "hide non favorites / dialogs are now not resizable / bump adapter-react /small corrections readme"
+                "en": "hide non favorites / dialogs are now not resizable / bump adapter-react /small corrections readme",
+                "de": "Nicht-Favoriten ausblenden / Dialoge können jetzt nicht in der Größe geändert werden / Adapter reagieren / Readme für kleine Korrekturen",
+                "ru": "скрыть не избранное / диалоговые окна теперь нельзя изменить / bump adapter-react / small corrections readme",
+                "pt": "ocultar não favoritos / diálogos agora não são redimensionáveis ​​/ bump adaptador-react / pequenas correções leia-me",
+                "nl": "verberg niet-favorieten / dialoogvensters kunnen nu niet worden aangepast / bump adapter-react / kleine correcties readme",
+                "fr": "masquer les non favoris / les boîtes de dialogue ne sont plus redimensionnables / bump adapter-react / petites corrections readme",
+                "it": "nascondi i non preferiti / le finestre di dialogo ora non sono ridimensionabili / bump adapter-react / piccole correzioni readme",
+                "es": "ocultar no favoritos / los diálogos ahora no son redimensionables / bump adapter-react / pequeñas correcciones readme",
+                "pl": "ukryj nie ulubione / okna dialogowe nie mogą teraz zmieniać rozmiaru / bump adapter-act / małe poprawki readme",
+                "zh-cn": "隐藏非收藏夹/对话框现在无法调整大小/凹凸适配器反应/小修正自述文件"
             },
             "0.0.20": {
-                "en": "improve backgroundcolor for dialogs / new widget favorites"
+                "en": "improve backgroundcolor for dialogs / new widget favorites",
+                "de": "Verbessern Sie die Hintergrundfarbe für Dialoge / neue Widget-Favoriten",
+                "ru": "улучшить цвет фона для диалогов / избранного нового виджета",
+                "pt": "melhorar a cor de fundo para diálogos / novos favoritos de widget",
+                "nl": "achtergrondkleur voor dialogen / nieuwe widgetfavorieten verbeteren",
+                "fr": "améliorer la couleur d'arrière-plan des boîtes de dialogue / nouveaux favoris de widget",
+                "it": "migliorare il colore di sfondo per le finestre di dialogo / nuovi widget preferiti",
+                "es": "mejorar el color de fondo para los cuadros de diálogo / nuevos widgets favoritos",
+                "pl": "popraw kolor tła okien dialogowych / nowych ulubionych widgetów",
+                "zh-cn": "改善对话框的背景色/新的小部件收藏夹"
             }
         },
         "title": "TV Programm",
@@ -80,6 +188,7 @@
         "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/master/admin/tvprogram.png",
         "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
         "loglevel": "info",
+        "singletonHost": true,
         "restartAdapters": [
             "vis"
         ],
@@ -97,8 +206,7 @@
             "vis"
         ]
     },
-    "native": {
-    },
+    "native": {},
     "objects": [],
     "instanceObjects": [
         {
