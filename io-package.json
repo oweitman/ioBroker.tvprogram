@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "0.0.31",
+        "version": "0.0.32",
         "news": {
+            "0.0.32": {
+                "en": "fix bug with 2 control widgets / add duration to the time attribute at the control widget / small changes in the documentation",
+                "de": "Behebung eines Fehlers mit 2 Steuerelement-Widgets / Hinzufügen von Dauer zum Zeitattribut im Steuerelement-Widget / kleine Änderungen in der Dokumentation",
+                "ru": "исправить ошибку с 2 виджетами управления / добавить продолжительность к атрибуту времени в виджете управления / небольшие изменения в документации",
+                "pt": "corrigir bug com 2 widgets de controle / adicionar duração ao atributo de tempo no widget de controle / pequenas mudanças na documentação",
+                "nl": "repareer bug met 2 controlewidgets / voeg duur toe aan het tijdattribuut bij de controlewidget / kleine wijzigingen in de documentatie",
+                "fr": "correction d'un bug avec 2 widgets de contrôle / ajout de la durée à l'attribut time au niveau du widget de contrôle / petits changements dans la documentation",
+                "it": "risolto bug con 2 widget di controllo / aggiungi durata all'attributo time nel widget di controllo / piccole modifiche nella documentazione",
+                "es": "corregir el error con 2 widgets de control / agregar duración al atributo de tiempo en el widget de control / pequeños cambios en la documentación",
+                "pl": "napraw błąd za pomocą 2 widżetów sterujących / dodaj czas trwania do atrybutu czasu w widgecie kontrolnym / małe zmiany w dokumentacji",
+                "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动"
+            },
             "0.0.31": {
                 "en": "fix bug in control widget to show detail view",
                 "de": "Behebung eines Fehlers im Steuerungs-Widget, um die Detailansicht anzuzeigen",
