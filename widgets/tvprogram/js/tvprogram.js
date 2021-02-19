@@ -2197,3 +2197,4 @@ jQuery.fn.mydelay = function( time, type ) {
 //https://services.sg1.etvp01.sctv.ch/catalog/tv/channels/list/ids=25;level=enorm;start=202102182000
 //https://services.sg2.etvp01.sctv.ch/portfolio/tv/channels
 //https://services.sg1.etvp01.sctv.ch/catalog/tv/channels/list/ids=25,656;level=normal;start=202102180500;end=202102190500
+//tv.blue.ch
