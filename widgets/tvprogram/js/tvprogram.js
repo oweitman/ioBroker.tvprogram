@@ -1019,6 +1019,16 @@ vis.binds["tvprogram"] = {
             var headerfontpercent=data.headerfontpercent||125;
             var broadcastfontpercent=data.broadcastfontpercent||75;
 
+            var lineheight = 0;
+            var widgetheight = $("#"+widgetID).height()-heightrow;
+            var contentheight=((channelfilter.length+1)*heightrow);
+
+            if (contentheight<widgetheight) {
+                lineheight = contentheight;
+            } else {
+                lineheight = widgetheight-this.measures[widgetID].scrollbarWidth;
+            }
+
             var text ='';
             text += '<style> \n';
 
@@ -1182,10 +1192,6 @@ vis.binds["tvprogram"] = {
             text += '} \n';
 
             text += '#'+widgetID + 'channeldlg .chselect-container {\n';
-            //text += '   display: grid; \n';
-            //text += '   gap:5px; \n';
-            //text += '   grid-template-columns: repeat(auto-fill, minmax(60px, 60px)); \n';
-            //text += '   width:100%; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'channeldlg ul.channel {\n';
@@ -1195,13 +1201,9 @@ vis.binds["tvprogram"] = {
 
             text += '#'+widgetID + 'channeldlg .listitem  {\n';
             text += '   float: left; \n';
-            //text += '   width:50px; \n';
-            //text += '   height:50px; \n';
             text += '} \n';
 
             text += '#'+widgetID + 'channeldlg .listitem .channel {\n';
-            //text += '   width:50px; \n';
-            //text += '   height:50px; \n';
             text += '   list-style: none; \n';
             text += '} \n';
 
@@ -1314,7 +1316,7 @@ vis.binds["tvprogram"] = {
             text += '   background-color: red; \n';
             text += '   opacity: 0.8; \n';
             text += '   z-index: 10; \n';
-            text += '   height: '+((channelfilter.length+1)*heightrow)+'px; \n';
+            text += '   height: '+lineheight+'px; \n';
             text += '   float: left; \n';
             text += '} \n';
 
