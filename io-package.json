@@ -4,7 +4,7 @@
         "version": "1.0.0",
         "news": {
             "1.0.0": {
-                "en": "fix bug with endless scroll in firefox / set version number to 1.0 due adapter now in stable repository",
+                "en": "fix bug with endless scroll in firefox / set version number to 1.0 due adapter now in stable repository"
             },
             "0.0.32": {
                 "en": "fix bug with 2 control widgets / add duration to the time attribute at the control widget / small changes in the documentation",
