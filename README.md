@@ -20,22 +20,13 @@
 This adapter polls information about the television program at regular intervals. 
 The data can be displayed in various widgets. 
 
-The adapter is in an beta phase in which widgets / functions are still being tested, 
-functions / widgets can be added and removed or completely exchanged.
-
-References to issues or feature requests can be left or 
-discussed in the iobroker forum in the corresponding thread
-
 To set it up, the adapter must have already accessed and filled the necessary data. 
 Due to its size, the data is not stored in data points but in files (Linux path: /opt/iobroker/data-files/tvprogram) and in the adapter's memory.
 In the configuration, the widget only needs to be filled with any data point of the adapter (e.g.cmd).
 The widget searches for all remaining data points automatically.
 
-## Developer manual
-The adapter can currently only be installed via github. This can be done in the iobroker in the "adapter" tab, 
-with the expert view via the github button (cat symbol).
-
-Then enter the url of the github repository https://github.com/oweitman/ioBroker.tvprogram in the "any" tab and install it.
+## Installation
+The adapter can be installed via the stable or for testing verions via beta/latest repository.
 
 ### Adapter Configuration
 
@@ -555,7 +546,12 @@ and insert the following template in json_template
 
 ### Todo
 
-widget tvprogram: 
+widget tvprogram:
+- search through the whole text to also find directors and actors
+- tooltips for the buttons
+- improve documentation for configuring the widgets
+- broadcast pictures if available in the main view of the time widget
+- maybe a highlight broadcasts widget 
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box). Considerations on this are currently suspended due to the low demand
 - ~~Ideas for further widgets based on the existing TV program script~~
 - ~~Problem: endless scroll in firefox~~
@@ -565,8 +561,8 @@ widget tvprogram:
 
 ## Changelog
 
-### 0.0.1
-* (oweitman) initial release
+### 1.0.0
+* (oweitman) stable version
 
 ## License
 MIT License
