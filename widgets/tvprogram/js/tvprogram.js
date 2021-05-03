@@ -1294,6 +1294,24 @@ vis.binds["tvprogram"] = {
             text += '   float: right; \n';
             text += '} \n';
 
+            text += '#'+widgetID + ' .tooltip {\n';
+            text += '   position: relative; \n';
+            text += '} \n';
+            text += '#'+widgetID + ' .tooltip span[role=tooltip] {\n';
+            text += '   display: none; \n';
+            text += '} \n';
+
+
+            text += '#'+widgetID + ' .tooltip:hover span[role=tooltip] {\n';
+            text += '   display: block; \n';
+            text += '   position: absolute; \n';
+            text += '   left: 3em; \n';
+            text += '   border: 1px solid; \n';
+            text += '   font-size: 75%; \n';
+            text += '   padding: 0.2em; \n';
+            text += '   z-index: 100; \n';
+            text += '   background-color: '+backgroundColor+'; \n';
+            text += '} \n';
 
             text += '#'+widgetID + ' .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#'+widgetID + ' ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n';
             text += '   background-color: rgba(128, 128, 128, 0.65); \n';
@@ -1684,14 +1702,14 @@ vis.binds["tvprogram"] = {
         },
         getButtonHeader: function(datestring) {
             var hh=[];
-                hh.push('<li class="tv-item tv-head-topleft tv-head-left button burger"><svg width="100%" height="100%" ><use xlink:href="#burger-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button nav prevD"><svg width="100%" height="100%" ><use xlink:href="#nav-prevD-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button nav center"><svg width="100%" height="100%" ><use xlink:href="#nav-center-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button nav nextD"><svg width="100%" height="100%" ><use xlink:href="#nav-nextD-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button zoom minus"><svg width="100%" height="100%" ><use xlink:href="#zoom-minus-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button zoom center"><svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button zoom plus"><svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg></li>');
-                hh.push('<li class="tv-item button hide"><svg width="100%" height="100%" ><use xlink:href="#hide-icon"></use></svg></li>');
+                hh.push('<li class="tv-item tv-head-topleft tv-head-left button burger tooltip"><span role="tooltip">Menu</span><svg width="100%" height="100%" ><use xlink:href="#burger-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button nav prevD tooltip"><span role="tooltip">Previous day</span><svg width="100%" height="100%" ><use xlink:href="#nav-prevD-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button nav center tooltip"><span role="tooltip">Today</span><svg width="100%" height="100%" ><use xlink:href="#nav-center-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button nav nextD tooltip"><span role="tooltip">Next day</span><svg width="100%" height="100%" ><use xlink:href="#nav-nextD-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button zoom minus tooltip"><span role="tooltip">Zoom in</span><svg width="100%" height="100%" ><use xlink:href="#zoom-minus-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button zoom center tooltip"><span role="tooltip">Zoom normal</span><svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button zoom plus tooltip"><span role="tooltip">Zoom out</span><svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg></li>');
+                hh.push('<li class="tv-item button hide tooltip"><span role="tooltip">Hide Non-Favorites</span><svg width="100%" height="100%" ><use xlink:href="#hide-icon"></use></svg></li>');
                 hh.push('<li class="tv-item dateinfo">'+new Date(datestring).toLocaleDateString(navigator.language,{weekday:"short"})+", "+new Date(datestring).toLocaleDateString()+'</li>');
             return hh;
         },
