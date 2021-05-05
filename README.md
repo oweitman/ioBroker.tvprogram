@@ -657,9 +657,9 @@ and insert the following template in json_template
 ### Todo
 
 widget tvprogram:
-- improve documentation for configuring the widgets
 - maybe a highlight broadcasts widget 
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box). Considerations on this are currently suspended due to the low demand
+- ~~improve documentation for configuring the widgets~~
 - ~~broadcast pictures if available in the main view of the time widget~~
 - ~~search through the whole text to also find directors and actors~~
 - ~~tooltips for the buttons in the time widget~~
