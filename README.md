@@ -153,7 +153,7 @@ To Change the formatting of the alternating background colors of the broadcasts
 ```
 
 #### Search
-With this widget you can search for broadcast within the title, a start date and for a broadcast type.
+With this widget you can search for broadcast within the title, description, a start date and for a broadcast type.
 The input field "From" ist prefilled with the actual date. if this field is unchanged the search starts with the actual time.
 if you change this field to a future or past date, the search starts at 00:00 of this date.
 One or both of the inputfields searchtext and category must be filled/selected.
@@ -547,12 +547,12 @@ and insert the following template in json_template
 ### Todo
 
 widget tvprogram:
-- search through the whole text to also find directors and actors
 - improve documentation for configuring the widgets
 - broadcast pictures if available in the main view of the time widget
 - maybe a highlight broadcasts widget 
 - Data adapter for other sources (Internet, hardware such as Enigma, VU-Box). Considerations on this are currently suspended due to the low demand
-- ~~tooltips for the buttons~~
+- ~~search through the whole text to also find directors and actors~~
+- ~~tooltips for the buttons in the time widget~~
 - ~~Ideas for further widgets based on the existing TV program script~~
 - ~~Problem: endless scroll in firefox~~
 - ~~to be discussed: Datenpunkt, mit allen Aufnahmedaten, should be implementet at a videorecorder adapter or in a seperate script~~
