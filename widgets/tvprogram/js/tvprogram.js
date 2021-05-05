@@ -921,7 +921,6 @@ vis.binds["tvprogram"] = {
             if (!data.tvprogram_oid || (instance = vis.binds["tvprogram"].getInstance(data.tvprogram_oid.trim()))==false) return;
 
             var highlightcolor=data.highlightcolor||"yellow";
-
             if (!this.olddata[widgetID]) this.olddata[widgetID] = data;
             if (!this.measures[widgetID] || (JSON.stringify(this.olddata[widgetID])!=JSON.stringify(data)) ) this.measures[widgetID]= {
                 origwidthItem:parseInt(data.widthItem)||120,
@@ -931,6 +930,7 @@ vis.binds["tvprogram"] = {
                 markerpositionpercent:data.markerpositionpercent/100||0.25,
                 dialogwidthpercent:data.dialogwidthpercent/100||0.9,
                 dialogheightpercent:data.dialogheightpercent/100||0.9,
+                showpictures:data.showpictures||false,
             };
             $( "#"+widgetID+"broadcastdlg" ).data({
                 dialogwidthpercent:     this.measures[widgetID].dialogwidthpercent,
@@ -1122,6 +1122,7 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcastelement {\n';
             text += '   width: 100%; \n';
             text += '   height: 100%; \n';
+            text += '   display: table-cell; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .broadcastelement.hide {\n';
@@ -1151,6 +1152,12 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcastelement.selected {\n';
             text += '   color: '+highlightcolor+'; \n';
             text += '   background-color: '+this.visTvprogram.colorToRGBA(highlightcolor,".1")+'; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastimage {\n';
+            text += '   height: '+(heightrow-7)+'px; \n';
+            text += '   padding-right: 3px; \n';
+            text += '   float: left; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .button {\n';
@@ -1656,6 +1663,9 @@ vis.binds["tvprogram"] = {
                 text+='left:'+   (Math.floor((startTime-sTime)/60000/tItem*wItem*10)/10)+'px;';
                 text+='width:'+   ((Math.floor((endTime-startTime)/60000/tItem*wItem*10)/10))+'px;">';
                 text+='<div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-view="'+view+'" onclick="vis.binds.tvprogram.onclickBroadcast(this)">';
+                if (event.photo.url && this.measures[widgetID].showpictures) {
+                    text+='<div><img class="broadcastimage" src="'+"https://tvfueralle.de" +event.photo.url+'"></div>';
+                }
                 text+='<div class="broadcasttitle">'+ event.title;
                 text+='<div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" data-dp="'+tvprogram_oid+'" data-instance="'+instance+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
                 text+='</div>';

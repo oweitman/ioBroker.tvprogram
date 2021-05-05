@@ -54,6 +54,7 @@ The following attributes are available for configuration in vis
 | tvprogram_oid         | tvprogram.0.tv1.cmd      | A Datapoint of a instance of the tvprogram adapter.                                                               |
 | widthItem             | 120                      | Standard width in pixels for a 30 minute segment                                                                  |
 | heightRow             | 35                       | Height for each displayed line                                                                                    |
+| showpictures          | x                        | Show pictures in timeline if available                                                                            |
 | headerfontpercent     | 125                      | Character size in percent for the heading (time)                                                                  |
 | broadcastfontpercent  | 75                       | Character size in percent for the broadcasts                                                                      |
 | highlightcolor        | yellow                   | color for the favorites                                                                                           |
