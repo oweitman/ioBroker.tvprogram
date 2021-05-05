@@ -132,6 +132,7 @@ The following attributes are available for configuration in vis
 | time                  | 20:15/200                | if time with duration the broadcast at this time would be shown for 200 minutes                    |
 | time                  | 2021-02-15T20:15:00.000Z | If valid Datestring, then the broadcast at this tim would be shown. Remember the timezones         |
 | heightRow             | 35                       | Height for each displayed line                                                                     |
+| showpictures          | x                        | Show pictures if available                                                                            |
 | broadcastfontpercent  | 75                       | Character size in percent for the broadcasts                                                       |
 | highlightcolor        | yellow                   | color for the favorites                                                                            |
 | dialogwidthpercent    | 90                       | size of the dialogs in percent of the widget                                                       |
