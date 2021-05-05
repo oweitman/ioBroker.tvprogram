@@ -71,6 +71,7 @@ vis.binds["tvprogram"] = {
             var heightrow               = parseInt(data.heightRow)||35;
             var broadcastfontpercent    = parseInt(data.broadcastfontpercent)||75;
             var highlightcolor          = data.highlightcolor||"yellow";
+            var showpictures            = data.showpictures||false;
 
             var dialogwidthpercent      = data.dialogwidthpercent/100||0.9;
             var dialogheightpercent     = data.dialogheightpercent/100||0.9;
@@ -189,6 +190,7 @@ vis.binds["tvprogram"] = {
             text += '#'+widgetID + ' .broadcastelement {\n';
             text += '   width: 100%; \n';
             text += '   height: 100%; \n';
+            text += '   display: table-cell; \n';
             text += '} \n';
 
             text += '#'+widgetID + ' .broadcastelement .star  {\n';
@@ -209,6 +211,12 @@ vis.binds["tvprogram"] = {
 
             text += '#'+widgetID + ' .broadcastelement.selected {\n';
             text += '   color: '+highlightcolor+'; \n';
+            text += '} \n';
+
+            text += '#'+widgetID + ' .broadcastimage {\n';
+            text += '   height: '+(heightrow-7)+'px; \n';
+            text += '   padding-right: 3px; \n';
+            text += '   float: left; \n';
             text += '} \n';
 
             text += '.'+widgetID + '.no-titlebar .ui-dialog-titlebar {\n';
@@ -334,6 +342,9 @@ vis.binds["tvprogram"] = {
                 text += '       </li>';
                 text += '       <li class="tv-item broadcast">';
                 text+='             <div class="broadcastelement '+((favhighlight)?'selected':'')+'" data-widgetid="'+widgetID+'" data-eventid="'+event.id+'" data-viewdate="'+viewdate+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" data-view="" >';
+                if (event.photo.url && showpictures) {
+                    text+='<div><img class="broadcastimage" src="'+"https://tvfueralle.de" +event.photo.url+'"></div>';
+                }
                 text+='                 <div class="broadcasttitle">';
                 text+='                     '+ event.title;
                 text+='                     <div class="star" data-viewdate="'+viewdate+'" data-eventid="'+event.id+'" data-instance="'+instance+'" data-dp="'+tvprogram_oid+'" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>';
