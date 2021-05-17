@@ -31,6 +31,15 @@ The adapter can be installed via the stable or for testing verions via beta/late
 ### Adapter Configuration
 
 You can configure how much different TVs, or at least different configurations you will have.
+
+### Warnings in the iobroker-log
+
+Warnings like 
+
+"Read-only state "tvprogram.0.tv1.cmd" has been written without ack-flag with value "new|program|2021-01-01"
+
+are ok by design, due the internal signalling mechanism between the adapter and the widgets, which are first set without the ack flag and after a while is reset with the ack flag.
+
 ### Widgets
 
 Widgets are supported only in modern browsers (Google Chrome, Mozilla Firefox, Opera, Safari).
