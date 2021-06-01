@@ -17,7 +17,7 @@
     "url": "https://github.com/oweitman/ioBroker.tvprogram"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.4.0",
+    "@iobroker/adapter-core": "^2.5.0",
     "@sentry/browser": "^6.3.5",
     "parcel-plugin-build-hooks": "^1.1.0"
   },
