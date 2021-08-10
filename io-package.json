@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "tvprogram",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "news": {
+            "1.1.1": {
+                "en": "* remove dead code / extend doku about the warnings in the iobroker log * change the method of setting for configuration data from widget to datapoint"
+            },
             "1.1.0": {
                 "en": "tooltips for the buttons in the time widget / search through the whole text to also find directors and actors / add showpictures option in time,control and search widget / improve documentation",
                 "de": "Tooltips für die Schaltflächen im Zeit-Widget / Durchsuchen des gesamten Textes, um auch Regisseure und Schauspieler zu finden / Showpictures-Option in Zeit hinzufügen, Widget steuern und suchen / Dokumentation verbessern",

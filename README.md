@@ -679,10 +679,11 @@ widget tvprogram:
 - ~~Problem: small Pixel glitch if scroll pane is completle on the left side~~
 
 ## Changelog
+
+### 1.1.1 (2021-08-10)
+* remove dead code / extend doku about the warnings in the iobroker log * change the method of setting for configuration data from widget to datapoint
 ### 1.1.0 (2021-05-06)
 * tooltips for the buttons in the time widget / search through the whole text to also find directors and actors / add showpictures option in time,control and search widget / improve documentation
-
-
 ### 1.0.0
 * (oweitman) stable version
 
