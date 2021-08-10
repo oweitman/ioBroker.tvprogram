@@ -233,7 +233,7 @@
         ],
         "mode": "daemon",
         "messagebox": true,
-        "type": "visualization",
+        "type": "misc-data",
         "compact": true,
         "connectionType": "cloud",
         "dataSource": "poll",
