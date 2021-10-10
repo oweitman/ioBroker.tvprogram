@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
-    "@sentry/browser": "^6.11.0",
+    "@sentry/browser": "^6.13.2",
     "parcel-plugin-build-hooks": "^1.1.0"
   },
   "devDependencies": {
