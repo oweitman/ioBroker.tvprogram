@@ -430,7 +430,7 @@ vis.binds["tvprogram"] = {
     control: {
         visTvprogram:null,
         bound:{},
-        tvprogram:[],
+        programdata:{},
 
         favorites: undefined,
         timer: {},
@@ -442,7 +442,7 @@ vis.binds["tvprogram"] = {
                     vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                 }, 100);
             }
-            console.log("createWidget start");
+            console.log("createWidget control start");
 
             this.visTvprogram = vis.binds["tvprogram"];
             var tvprogram_oid;
@@ -450,21 +450,47 @@ vis.binds["tvprogram"] = {
             if (!data.oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.oid.trim()))==false) return;
             if (!data.oid || (instance = vis.binds["tvprogram"].getInstance(data.oid.trim()))==false) return;
 
-            if(!this.tvprogram[tvprogram_oid]) this.tvprogram[tvprogram_oid]=[];
-            if(!this.tvprogram[tvprogram_oid][widgetID]) this.tvprogram[tvprogram_oid][widgetID]=[];
-
             this.visTvprogram.loadCategories(instance,widgetID,()=> this.createWidget(widgetID, view, data, style));
             this.visTvprogram.loadChannels(instance,widgetID,()=> this.createWidget(widgetID, view, data, style));
 
             if (this.visTvprogram.channels.length==0 || this.visTvprogram.categories.length==0) {
+                return;
+                /*
                 return setTimeout(function () {
                     vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                 }, 100);
+                */
             }
             //if (this.visTvprogram.categories.length==0) return;
 
             var backgroundColor = this.visTvprogram.realBackgroundColor($("#"+widgetID)[0]);
             if (this.visTvprogram.checkStyle("background-color",$("#"+widgetID)[0].style.cssText)=="") $("#"+widgetID).css("background-color",backgroundColor);
+
+            var channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+            if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
+
+            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+
+            var time = data.time||"";
+
+            if(!this.programdata[tvprogram_oid]) this.programdata[tvprogram_oid]={};
+            if(!this.programdata[tvprogram_oid][widgetID]) {
+                this.programdata[tvprogram_oid][widgetID]=[];
+                if (time=="") {
+                    if (Object.keys(this.programdata[tvprogram_oid][widgetID]).length==0 || this.programdata[tvprogram_oid][widgetID].some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
+                        this.programdata[tvprogram_oid][widgetID]=serverdata;
+                        if (this.programdata[tvprogram_oid][widgetID].length>0) this.createWidget(widgetID, view, data, style);
+                    }.bind(this, widgetID, view, data, style));
+                } else {
+                    if (Object.keys(this.programdata[tvprogram_oid][widgetID]).length==0 || this.programdata[tvprogram_oid][widgetID].some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastDate(instance,channelfilter,this.parseTime(time),function(widgetID, view, data, style, serverdata){
+                        this.programdata[tvprogram_oid][widgetID]=serverdata;
+                        if (this.programdata[tvprogram_oid][widgetID].length>0) this.createWidget(widgetID, view, data, style);
+                    }.bind(this, widgetID, view, data, style));
+                }
+            }
+
+
+            if (this.programdata[tvprogram_oid][widgetID]=="error") return;
 
             if(!this.bound[tvprogram_oid]) this.bound[tvprogram_oid]={};
             if(!this.bound[tvprogram_oid][widgetID]) this.bound[tvprogram_oid][widgetID]=false;
@@ -480,27 +506,6 @@ vis.binds["tvprogram"] = {
                     );
                 }
             }
-
-            var channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-            if (channelfilter.length==0) channelfilter = this.visTvprogram.channels.reduce((acc,el,i)=>{if (i<4) acc.push(el.id);return acc;},[]);
-
-            var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-
-            var time = data.time||"";
-
-            if (time=="") {
-                if (Object.keys(this.tvprogram[tvprogram_oid][widgetID]).length==0 || this.tvprogram[tvprogram_oid][widgetID].some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastNow(instance,channelfilter,function(widgetID, view, data, style, serverdata){
-                    this.tvprogram[tvprogram_oid][widgetID]=serverdata;
-                    if (this.tvprogram[tvprogram_oid][widgetID].length>0) this.createWidget(widgetID, view, data, style);
-                }.bind(this, widgetID, view, data, style));
-            } else {
-                if (Object.keys(this.tvprogram[tvprogram_oid][widgetID]).length==0 || this.tvprogram[tvprogram_oid][widgetID].some(el => new Date(el.endTime)<= new Date())) this.visTvprogram.getServerBroadcastDate(instance,channelfilter,this.parseTime(time),function(widgetID, view, data, style, serverdata){
-                    this.tvprogram[tvprogram_oid][widgetID]=serverdata;
-                    if (this.tvprogram[tvprogram_oid][widgetID].length>0) this.createWidget(widgetID, view, data, style);
-                }.bind(this, widgetID, view, data, style));
-            }
-
-            if (this.tvprogram[tvprogram_oid][widgetID]=="error") return;
 
             var viewdate = this.visTvprogram.getDate(this.visTvprogram.calcDate(this.parseTime(time)),0);
 
@@ -697,7 +702,7 @@ vis.binds["tvprogram"] = {
             var favhighlight;
             var favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
 
-            this.tvprogram[tvprogram_oid][widgetID].map(ch=>{
+            this.programdata[tvprogram_oid][widgetID].map(ch=>{
                 ch.events.map(event=> {
                     var channel = this.visTvprogram.channels.find(ch=>ch.id==event.channel);
                     favhighlight = (favorites.indexOf(event.title)>-1);
@@ -729,18 +734,18 @@ vis.binds["tvprogram"] = {
             $('#' + widgetID+' .tv-control').html(text);
             if (!this.timer[widgetID]) {
                 this.timer[widgetID] = setInterval(()=> {
-                    var tvprogram = this.tvprogram[tvprogram_oid][widgetID].reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
-                    if (tvprogram.some(el => new Date(el.endTime)<= new Date())) {
-                        this.tvprogram[tvprogram_oid][widgetID]=[];
+                    var programdata = this.programdata[tvprogram_oid][widgetID].reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
+                    if (programdata.some(el => new Date(el.endTime)<= new Date())) {
+                        this.programdata[tvprogram_oid][widgetID]=[];
                         vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                     }
                 },1000*60);
             } else {
                 clearInterval(this.timer[widgetID]);
                 this.timer[widgetID] = setInterval(()=> {
-                    var tvprogram = this.tvprogram[tvprogram_oid][widgetID].reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
-                    if (tvprogram.some(el => new Date(el.endTime)<= new Date())) {
-                        this.tvprogram[tvprogram_oid][widgetID]=[];
+                    var programdata = this.programdata[tvprogram_oid][widgetID].reduce((acc,el)=>{acc.push(el.events[0]);return acc},[]);
+                    if (programdata.some(el => new Date(el.endTime)<= new Date())) {
+                        this.programdata[tvprogram_oid][widgetID]=[];
                         vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
                     }
                 },1000*60);
