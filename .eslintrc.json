@@ -1,55 +1,54 @@
 {
-  "root": true,
-  "env": {
-    "es6": true,
-    "node": true,
-    "mocha": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "react-app",
-    "react-app/jest"
-  ],
-  "plugins": [
-    "react"
-  ],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "rules": {
-    "no-debugger": "off",
-    "indent": [
-      "error",
-      "tab",
-      {
-        "SwitchCase": 1
-      }
+    "root": true,
+    "parser": "@babel/eslint-parser",
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
-    "react/prop-types": 0,
-    "no-console": "off",
-    "no-var": "error",
-    "no-trailing-spaces": "error",
-    "prefer-const": "error",
-    "quotes": [
-      "error",
-      "double",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
+    "plugins": [
+        "react"
     ],
-    "semi": [
-      "error",
-      "always"
-    ]
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "ecmaFeatures": {
-      "jsx": true
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4, 
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "no-console": "off",
+        "no-var": "error",
+        "no-trailing-spaces": "error",
+        "prefer-const": "error",
+        "quotes": [
+            "error",
+            "double", 
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    },
+    "parserOptions": {
+		"sourceType": "module",
+        "ecmaVersion": 2018,
+        "requireConfigFile": false,
+        "ecmaFeatures": {
+            "jsx": true
+        }
     }
-  }
 }

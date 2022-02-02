@@ -9,18 +9,18 @@ import App from "./app";
 let themeName = "light";
 
 function build() {
-	ReactDOM.render(
-		<MuiThemeProvider theme={theme(themeName)}>
-			<App
-				adapterName="tvprogram"
-				onThemeChange={(_theme) => {
-					themeName = _theme;
-					build();
-				}}
-			/>
-		</MuiThemeProvider>,
-		document.getElementById("root"),
-	);
+    ReactDOM.render(
+        <MuiThemeProvider theme={theme(themeName)}>
+            <App
+                adapterName="tvprogram"
+                onThemeChange={(_theme) => {
+                    themeName = _theme;
+                    build();
+                }}
+            />
+        </MuiThemeProvider>,
+        document.getElementById("root"),
+    );
 }
 
 build();
