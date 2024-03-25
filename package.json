@@ -17,7 +17,7 @@
     "url": "https://github.com/oweitman/ioBroker.tvprogram"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.7",
+    "@iobroker/adapter-core": "^2.6.9",
     "axios": "^0.27.2"
   },
   "devDependencies": {
