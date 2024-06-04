@@ -690,8 +690,7 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.1.3-alpha.0 (2024-06-04)
 
 * align structures and files
 
