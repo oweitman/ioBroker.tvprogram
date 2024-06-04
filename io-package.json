@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "1.1.3-alpha.0",
+    "version": "1.1.3-alpha.1",
     "news": {
+      "1.1.3-alpha.1": {
+        "en": "fix lint errors",
+        "de": "lint fehler beheben",
+        "ru": "исправление ошибок линта",
+        "pt": "corrigir erros de lint",
+        "nl": "fix pluisfouten",
+        "fr": "corriger les erreurs de linte",
+        "it": "correggere gli errori di lintuizione",
+        "es": "corregir errores lint",
+        "pl": "naprawić błędy lintu",
+        "uk": "виправлено помилки в розмітці",
+        "zh-cn": "修正错误"
+      },
       "1.1.3-alpha.0": {
         "en": "align structures and files",
         "de": "strukturen und dateien ausrichten",
@@ -57,18 +70,6 @@
         "es": "corregir el error con 2 widgets de control / agregar duración al atributo de tiempo en el widget de control / pequeños cambios en la documentación",
         "pl": "napraw błąd za pomocą 2 widżetów sterujących / dodaj czas trwania do atrybutu czasu w widgecie kontrolnym / małe zmiany w dokumentacji",
         "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动"
-      },
-      "0.0.31": {
-        "en": "fix bug in control widget to show detail view",
-        "de": "Behebung eines Fehlers im Steuerungs-Widget, um die Detailansicht anzuzeigen",
-        "ru": "исправить ошибку в виджете управления, чтобы отобразить подробный вид",
-        "pt": "corrigir bug no widget de controle para mostrar visualização de detalhes",
-        "nl": "repareer bug in controlewidget om detailweergave te tonen",
-        "fr": "correction d'un bug dans le widget de contrôle pour afficher la vue détaillée",
-        "it": "correggere un bug nel widget di controllo per mostrare la visualizzazione dei dettagli",
-        "es": "corregir un error en el widget de control para mostrar la vista detallada",
-        "pl": "napraw błąd w widżecie kontrolnym, aby wyświetlić widok szczegółów",
-        "zh-cn": "修复控件小部件中的错误以显示详细信息视图"
       }
     },
     "title": "TV Programm",
