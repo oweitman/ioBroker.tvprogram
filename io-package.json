@@ -222,7 +222,10 @@
             "TV",
             "programm"
         ],
-        "license": "MIT",
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "tvprogram.png",
@@ -230,22 +233,26 @@
         "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/master/admin/tvprogram.png",
         "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
         "loglevel": "info",
-        "singletonHost": true,
-        "restartAdapters": [
-            "vis"
-        ],
+        "tier": 3,
+        "restartAdapters": [],
         "mode": "daemon",
         "messagebox": true,
         "type": "misc-data",
         "compact": true,
         "connectionType": "cloud",
         "dataSource": "poll",
-        "materialize": true,
+        "adminUI": {
+            "config": "json"
+        },
         "dependencies": [
             {
-                "js-controller": ">=2.0.0"
-            },
-            "vis"
+                "js-controller": ">=3.3.22"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.13"
+            }
         ]
     },
     "native": {},
