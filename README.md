@@ -686,6 +686,14 @@ widget tvprogram:
 * ~~Problem: small Pixel glitch if scroll pane is completle on the left side~~
 
 ## Changelog
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ### **WORK IN PROGRESS**
+-->
+
+### **WORK IN PROGRESS**
+
+* align structures and files
 
 ### 1.1.1 (2021-08-10)
 
