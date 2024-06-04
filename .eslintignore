@@ -1,3 +1,5 @@
 .prettierrc.js
 **/.eslintrc.js
 admin/words.js
+
+widgets/tvprogram/js/jquery-ui-timepicker-addon-1.6.3.js
