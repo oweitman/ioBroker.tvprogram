@@ -1,12 +1,11 @@
-.cache
-.git
-.idea
+# No dot-directories except github/vscode
+.*/
+!.vscode/
+!.github/
+
 *.code-workspace
 node_modules
 nbproject
-
-# Sourcemaps
-maps/
 
 # npm package files
 iobroker.*.tgz

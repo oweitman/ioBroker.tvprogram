@@ -1,5 +1,6 @@
 {
     "cli": true,
+    "target": "directory",
     "adapterName": "tvprogram",
     "title": "TV Programm",
     "description": "TV Program",
@@ -8,32 +9,29 @@
         "programm"
     ],
     "expert": "yes",
-    "features": [
-        "adapter",
-        "vis"
-    ],
+    "features": ["adapter", "vis"],
     "adminFeatures": [],
-    "type": "visualization",
+    "type": "misc-data",
     "startMode": "daemon",
     "connectionType": "cloud",
     "dataSource": "poll",
     "connectionIndicator": "yes",
     "language": "JavaScript",
-    "adminReact": "yes",
-    "tools": [
-        "ESLint",
-        "type checking"
-    ],
+    "nodeVersion": "18",
+    "adminUi": "json",
+    "tools": ["ESLint", "type checking", "Prettier"],
+    "releaseScript": "yes",
+    "devServer": "yes",
+    "devServerPort": 8081,
     "indentation": "Space (4)",
     "quotes": "double",
-    "es6class": "yes",
     "authorName": "oweitman",
     "authorGithub": "oweitman",
     "authorEmail": "oweitman@gmx.de",
     "gitRemoteProtocol": "SSH",
     "gitCommit": "no",
+    "defaultBranch": "main",
     "license": "MIT License",
-    "ci": "travis",
     "dependabot": "yes",
-    "creatorVersion": "1.31.0"
+    "creatorVersion": "2.6.3"
 }

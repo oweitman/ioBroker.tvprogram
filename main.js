@@ -1,4 +1,4 @@
-
+"use strict";
 
 /*
  * Created with @iobroker/create-adapter v1.31.0
@@ -9,7 +9,6 @@
 const utils = require("@iobroker/adapter-core");
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
 const tvprogramrequire = require(__dirname +"/lib/tvprogramserver.js");
 let tvprogramserver;
 
@@ -45,8 +44,6 @@ class Tvprogram extends utils.Adapter {
         }
 
         this.subscribeStates("*");
-
-
     }
 
     /**
@@ -67,7 +64,6 @@ class Tvprogram extends utils.Adapter {
             callback();
         }
     }
-
     /**
      * Is called if a subscribed state changes
      * @param {string} id
@@ -83,18 +79,14 @@ class Tvprogram extends utils.Adapter {
             this.log.debug(`state ${id} deleted`);
         }
     }
-
     onMessage(obj) {
         if (typeof obj === "object" && obj.message) {
             tvprogramserver.processMessages(obj);
         }
     }
-
-
 }
 
-// @ts-ignore parent is a valid property on module
-if (module.parent) {
+if (require.main !== module) {
     // Export the constructor in compact mode
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
