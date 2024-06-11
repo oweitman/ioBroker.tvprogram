@@ -141,6 +141,24 @@
   "objects": [],
   "instanceObjects": [
     {
+      "_id": "",
+      "type": "meta",
+      "common": {
+        "name": "Files for tvprogram-adapter",
+        "type": "meta.user"
+      },
+      "native": {}
+    },
+    {
+      "_id": "program",
+      "type": "meta",
+      "common": {
+        "name": "Programfiles for tvprogram-adapter",
+        "type": "meta.user"
+      },
+      "native": {}
+    },        
+    {
       "_id": "info",
       "type": "channel",
       "common": {
