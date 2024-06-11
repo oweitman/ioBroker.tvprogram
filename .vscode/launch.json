@@ -10,7 +10,7 @@
             "program": "node_modules/iobroker.tvprogram/main.js",
             "cwd": "${workspaceFolder}/.dev-server/default",
             "runtimeExecutable": "c:/Users/oweit/AppData/Roaming/fnm/aliases/default/node.exe",
-            "stopOnEntry": false,
+            "stopOnEntry": true,
             "sourceMaps": true,
             "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
         },
@@ -38,7 +38,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch my cool app",
-            "url": "http://127.0.0.1:8082/vis/index.html#main",
+            "url": "http://localhost:8082/vis/index.html#test",
             "trace": true,
             "skipFiles": [
                 "socket.io.js",
@@ -48,7 +48,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "vis2 Launch Edit",
-            "url": "http://127.0.0.1:8082/vis-2/edit.html#default",
+            "url": "http://localhost:8082/vis-2/edit.html#test",
             "trace": true,
             "skipFiles": [
                 "socket.io.js",
