@@ -1,185 +1,209 @@
 {
-  "common": {
-    "name": "tvprogram",
-    "version": "1.1.3-alpha.1",
-    "news": {
-      "1.1.3-alpha.1": {
-        "en": "fix lint errors",
-        "de": "lint fehler beheben",
-        "ru": "исправление ошибок линта",
-        "pt": "corrigir erros de lint",
-        "nl": "fix pluisfouten",
-        "fr": "corriger les erreurs de linte",
-        "it": "correggere gli errori di lintuizione",
-        "es": "corregir errores lint",
-        "pl": "naprawić błędy lintu",
-        "uk": "виправлено помилки в розмітці",
-        "zh-cn": "修正错误"
-      },
-      "1.1.3-alpha.0": {
-        "en": "align structures and files",
-        "de": "strukturen und dateien ausrichten",
-        "ru": "выравнивать структуры и файлы",
-        "pt": "alinhar estruturas e arquivos",
-        "nl": "structuren en bestanden uitlijnen",
-        "fr": "aligner les structures et les fichiers",
-        "it": "allineare strutture e file",
-        "es": "estructuras y archivos alineados",
-        "pl": "wyrównać struktury i pliki",
-        "uk": "вирівнювання структур і файлів",
-        "zh-cn": "对齐结构和文件"
-      },
-      "1.1.2": {
-        "en": "* fix setState with ack==false"
-      },
-      "1.1.1": {
-        "en": "* remove dead code / extend doku about the warnings in the iobroker log * change the method of setting for configuration data from widget to datapoint"
-      },
-      "1.1.0": {
-        "en": "tooltips for the buttons in the time widget / search through the whole text to also find directors and actors / add showpictures option in time,control and search widget / improve documentation",
-        "de": "Tooltips für die Schaltflächen im Zeit-Widget / Durchsuchen des gesamten Textes, um auch Regisseure und Schauspieler zu finden / Showpictures-Option in Zeit hinzufügen, Widget steuern und suchen / Dokumentation verbessern",
-        "ru": "всплывающие подсказки для кнопок в виджете времени / поиск по всему тексту, чтобы также найти режиссеров и актеров / добавление опции showpictures во времени, виджет управления и поиска / улучшение документации",
-        "pt": "dicas para os botões no widget de tempo / pesquisa em todo o texto para também encontrar diretores e atores / adicionar a opção de quadros de exibição no tempo, controlar e pesquisar widget / melhorar a documentação",
-        "nl": "tooltips voor de knoppen in de tijdwidget / doorzoek de hele tekst om ook regisseurs en acteurs te vinden / voeg showpictures toe optie in de tijd, controle en zoekwidget / verbeter documentatie",
-        "fr": "info-bulles pour les boutons dans le widget de temps / rechercher dans tout le texte pour trouver également les réalisateurs et les acteurs / ajouter l'option showpictures dans le temps, contrôler et rechercher un widget / améliorer la documentation",
-        "it": "suggerimenti per i pulsanti nel widget del tempo / ricerca nell'intero testo per trovare anche registi e attori / aggiungere l'opzione di immagini dello spettacolo nel widget di tempo, controllo e ricerca / migliorare la documentazione",
-        "es": "información sobre herramientas para los botones en el widget de tiempo / búsqueda en todo el texto para encontrar también directores y actores / agregar la opción de mostrar imágenes en el tiempo, control y widget de búsqueda / mejorar la documentación",
-        "pl": "podpowiedzi do przycisków w widgecie czasu / przeszukiwanie całego tekstu, aby znaleźć także reżyserów i aktorów / dodawanie opcji showpictures w czasie, widżet sterowania i wyszukiwania / ulepszanie dokumentacji",
-        "zh-cn": "时间小部件中的按钮的工具提示/在整个文本中搜索还可以找到导演和演员/在时间中添加showpictures选项，控制和搜索小部件/改进文档"
-      },
-      "1.0.0": {
-        "en": "fix bug with endless scroll in firefox / set version number to 1.0 due adapter now in stable repository",
-        "de": "Behebung eines Fehlers mit endlosem Bildlauf in Firefox / Setzen der Versionsnummer auf 1.0 aufgrund des Adapters jetzt im stabilen Repository",
-        "ru": "исправить ошибку с бесконечной прокруткой в ​​firefox / установить номер версии на 1.0 из-за адаптера теперь в стабильном репозитории",
-        "pt": "corrigir bug com scroll infinito no firefox / definir número da versão para 1.0 devido ao adaptador agora no repositório estável",
-        "nl": "fix bug met eindeloze scroll in firefox / set versienummer naar 1.0 vanwege adapter nu in stabiele repository",
-        "fr": "correction d'un bug avec le défilement sans fin dans Firefox / définir le numéro de version sur 1.0 en raison de l'adaptateur maintenant dans le référentiel stable",
-        "it": "correzione bug con scorrimento infinito in firefox / imposta il numero di versione su 1.0 dovuto l'adattatore ora nel repository stabile",
-        "es": "Corregir error con desplazamiento sin fin en Firefox / establecer el número de versión en 1.0 Adaptador debido ahora en repositorio estable",
-        "pl": "napraw błąd z niekończącym się przewijaniem w firefox / set numer wersji 1.0 z powodu adaptera teraz w stabilnym repozytorium",
-        "zh-cn": "修复了在firefox中无休止滚动的错误/现在将版本号设置为1.0到期的适配器已在稳定的存储库中"
-      },
-      "0.0.32": {
-        "en": "fix bug with 2 control widgets / add duration to the time attribute at the control widget / small changes in the documentation",
-        "de": "Behebung eines Fehlers mit 2 Steuerelement-Widgets / Hinzufügen von Dauer zum Zeitattribut im Steuerelement-Widget / kleine Änderungen in der Dokumentation",
-        "ru": "исправить ошибку с 2 виджетами управления / добавить продолжительность к атрибуту времени в виджете управления / небольшие изменения в документации",
-        "pt": "corrigir bug com 2 widgets de controle / adicionar duração ao atributo de tempo no widget de controle / pequenas mudanças na documentação",
-        "nl": "repareer bug met 2 controlewidgets / voeg duur toe aan het tijdattribuut bij de controlewidget / kleine wijzigingen in de documentatie",
-        "fr": "correction d'un bug avec 2 widgets de contrôle / ajout de la durée à l'attribut time au niveau du widget de contrôle / petits changements dans la documentation",
-        "it": "risolto bug con 2 widget di controllo / aggiungi durata all'attributo time nel widget di controllo / piccole modifiche nella documentazione",
-        "es": "corregir el error con 2 widgets de control / agregar duración al atributo de tiempo en el widget de control / pequeños cambios en la documentación",
-        "pl": "napraw błąd za pomocą 2 widżetów sterujących / dodaj czas trwania do atrybutu czasu w widgecie kontrolnym / małe zmiany w dokumentacji",
-        "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动"
-      }
+    "common": {
+        "name": "tvprogram",
+        "version": "1.1.3-alpha.1",
+        "news": {
+            "1.1.3-alpha.1": {
+                "en": "fix lint errors",
+                "de": "lint fehler beheben",
+                "ru": "исправление ошибок линта",
+                "pt": "corrigir erros de lint",
+                "nl": "fix pluisfouten",
+                "fr": "corriger les erreurs de linte",
+                "it": "correggere gli errori di lintuizione",
+                "es": "corregir errores lint",
+                "pl": "naprawić błędy lintu",
+                "uk": "виправлено помилки в розмітці",
+                "zh-cn": "修正错误"
+            },
+            "1.1.3-alpha.0": {
+                "en": "align structures and files",
+                "de": "strukturen und dateien ausrichten",
+                "ru": "выравнивать структуры и файлы",
+                "pt": "alinhar estruturas e arquivos",
+                "nl": "structuren en bestanden uitlijnen",
+                "fr": "aligner les structures et les fichiers",
+                "it": "allineare strutture e file",
+                "es": "estructuras y archivos alineados",
+                "pl": "wyrównać struktury i pliki",
+                "uk": "вирівнювання структур і файлів",
+                "zh-cn": "对齐结构和文件"
+            },
+            "1.1.2": {
+                "en": "* fix setState with ack==false",
+                "de": "* setState mit ack==false korrigieren",
+                "ru": "* исправление setState с ack==false",
+                "pt": "* corrija setState com ack==false",
+                "nl": "* setState repareren met ack==false",
+                "fr": "* Correction de setState avec ack==false",
+                "it": "* corretto setState con ack==false",
+                "es": "* arreglar setState con ack==false",
+                "pl": "* napraw setState za pomocą ack==false",
+                "uk": "* виправити setState з ack==false",
+                "zh-cn": "* 修复 setState 为 ack==false"
+            },
+            "1.1.1": {
+                "en": "* remove dead code / extend doku about the warnings in the iobroker log * change the method of setting for configuration data from widget to datapoint",
+                "de": "* Entfernen Sie toten Code / Erweitern Sie die Dokumentation zu den Warnungen im Iobroker-Protokoll * Ändern Sie die Einstellungsmethode für Konfigurationsdaten von Widget zu Datenpunkt",
+                "ru": "* удалить мертвый код / ​​расширить документацию о предупреждениях в журнале iobroker * изменить метод настройки данных конфигурации с виджета на точку данных",
+                "pt": "* remover código morto / estender o doku sobre os avisos no log do iobroker * alterar o método de configuração dos dados de configuração do widget para o ponto de dados",
+                "nl": "* verwijder dode code / breid doku uit over de waarschuwingen in het iobroker-logboek * verander de instellingsmethode voor configuratiegegevens van widget naar datapunt",
+                "fr": "* supprimer le code mort / étendre le doku sur les avertissements dans le journal iobroker * modifier la méthode de configuration des données de configuration du widget au point de données",
+                "it": "* rimuove il codice morto / estende il doku sugli avvisi nel registro di iobroker * cambia il metodo di impostazione dei dati di configurazione dal widget al datapoint",
+                "es": "* eliminar el código inactivo / ampliar el doku sobre las advertencias en el registro de iobroker * cambiar el método de configuración de los datos de configuración del widget al punto de datos",
+                "pl": "* usuń martwy kod / rozszerz doku o ostrzeżenia w dzienniku iobrokera * zmień metodę ustawiania danych konfiguracyjnych z widgetu na punkt danych",
+                "uk": "* видалити мертвий код / ​​розширити документ про попередження в журналі iobroker * змінити метод налаштування даних конфігурації від віджета до точки даних",
+                "zh-cn": "*删除死代码/扩展有关iobroker日志中警告的doku *将配置数据的设置方法从小部件更改为数据点"
+            },
+            "1.1.0": {
+                "en": "tooltips for the buttons in the time widget / search through the whole text to also find directors and actors / add showpictures option in time,control and search widget / improve documentation",
+                "de": "Tooltips für die Schaltflächen im Zeit-Widget / Durchsuchen des gesamten Textes, um auch Regisseure und Schauspieler zu finden / Showpictures-Option in Zeit hinzufügen, Widget steuern und suchen / Dokumentation verbessern",
+                "ru": "всплывающие подсказки для кнопок в виджете времени / поиск по всему тексту, чтобы также найти режиссеров и актеров / добавление опции showpictures во времени, виджет управления и поиска / улучшение документации",
+                "pt": "dicas para os botões no widget de tempo / pesquisa em todo o texto para também encontrar diretores e atores / adicionar a opção de quadros de exibição no tempo, controlar e pesquisar widget / melhorar a documentação",
+                "nl": "tooltips voor de knoppen in de tijdwidget / doorzoek de hele tekst om ook regisseurs en acteurs te vinden / voeg showpictures toe optie in de tijd, controle en zoekwidget / verbeter documentatie",
+                "fr": "info-bulles pour les boutons dans le widget de temps / rechercher dans tout le texte pour trouver également les réalisateurs et les acteurs / ajouter l'option showpictures dans le temps, contrôler et rechercher un widget / améliorer la documentation",
+                "it": "suggerimenti per i pulsanti nel widget del tempo / ricerca nell'intero testo per trovare anche registi e attori / aggiungere l'opzione di immagini dello spettacolo nel widget di tempo, controllo e ricerca / migliorare la documentazione",
+                "es": "información sobre herramientas para los botones en el widget de tiempo / búsqueda en todo el texto para encontrar también directores y actores / agregar la opción de mostrar imágenes en el tiempo, control y widget de búsqueda / mejorar la documentación",
+                "pl": "podpowiedzi do przycisków w widgecie czasu / przeszukiwanie całego tekstu, aby znaleźć także reżyserów i aktorów / dodawanie opcji showpictures w czasie, widżet sterowania i wyszukiwania / ulepszanie dokumentacji",
+                "zh-cn": "时间小部件中的按钮的工具提示/在整个文本中搜索还可以找到导演和演员/在时间中添加showpictures选项，控制和搜索小部件/改进文档",
+                "uk": "підказки для кнопок у віджеті часу / пошук по всьому тексту, щоб також знайти режисерів і акторів / додайте опцію показу картинок у часі, віджет керування та пошуку / вдосконалення документації"
+            },
+            "1.0.0": {
+                "en": "fix bug with endless scroll in firefox / set version number to 1.0 due adapter now in stable repository",
+                "de": "Behebung eines Fehlers mit endlosem Bildlauf in Firefox / Setzen der Versionsnummer auf 1.0 aufgrund des Adapters jetzt im stabilen Repository",
+                "ru": "исправить ошибку с бесконечной прокруткой в ​​firefox / установить номер версии на 1.0 из-за адаптера теперь в стабильном репозитории",
+                "pt": "corrigir bug com scroll infinito no firefox / definir número da versão para 1.0 devido ao adaptador agora no repositório estável",
+                "nl": "fix bug met eindeloze scroll in firefox / set versienummer naar 1.0 vanwege adapter nu in stabiele repository",
+                "fr": "correction d'un bug avec le défilement sans fin dans Firefox / définir le numéro de version sur 1.0 en raison de l'adaptateur maintenant dans le référentiel stable",
+                "it": "correzione bug con scorrimento infinito in firefox / imposta il numero di versione su 1.0 dovuto l'adattatore ora nel repository stabile",
+                "es": "Corregir error con desplazamiento sin fin en Firefox / establecer el número de versión en 1.0 Adaptador debido ahora en repositorio estable",
+                "pl": "napraw błąd z niekończącym się przewijaniem w firefox / set numer wersji 1.0 z powodu adaptera teraz w stabilnym repozytorium",
+                "zh-cn": "修复了在firefox中无休止滚动的错误/现在将版本号设置为1.0到期的适配器已在稳定的存储库中",
+                "uk": "виправлено помилку з нескінченним прокручуванням у firefox / встановлено номер версії 1.0 через те, що адаптер тепер у стабільному репозиторії"
+            },
+            "0.0.32": {
+                "en": "fix bug with 2 control widgets / add duration to the time attribute at the control widget / small changes in the documentation",
+                "de": "Behebung eines Fehlers mit 2 Steuerelement-Widgets / Hinzufügen von Dauer zum Zeitattribut im Steuerelement-Widget / kleine Änderungen in der Dokumentation",
+                "ru": "исправить ошибку с 2 виджетами управления / добавить продолжительность к атрибуту времени в виджете управления / небольшие изменения в документации",
+                "pt": "corrigir bug com 2 widgets de controle / adicionar duração ao atributo de tempo no widget de controle / pequenas mudanças na documentação",
+                "nl": "repareer bug met 2 controlewidgets / voeg duur toe aan het tijdattribuut bij de controlewidget / kleine wijzigingen in de documentatie",
+                "fr": "correction d'un bug avec 2 widgets de contrôle / ajout de la durée à l'attribut time au niveau du widget de contrôle / petits changements dans la documentation",
+                "it": "risolto bug con 2 widget di controllo / aggiungi durata all'attributo time nel widget di controllo / piccole modifiche nella documentazione",
+                "es": "corregir el error con 2 widgets de control / agregar duración al atributo de tiempo en el widget de control / pequeños cambios en la documentación",
+                "pl": "napraw błąd za pomocą 2 widżetów sterujących / dodaj czas trwania do atrybutu czasu w widgecie kontrolnym / małe zmiany w dokumentacji",
+                "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动",
+                "uk": "виправити помилку з 2 віджетами керування / додати тривалість до атрибута часу у віджеті керування / невеликі зміни в документації"
+            }
+        },
+        "titleLang": {
+            "en": "TV Programm",
+            "de": "Fernsehprogramm",
+            "ru": "Телепрограмма",
+            "pt": "Programa de TV",
+            "nl": "Tv-programma",
+            "fr": "Programme TV",
+            "it": "Programma TV",
+            "es": "Programa de televisión",
+            "pl": "Program telewizyjny",
+            "zh-cn": "电视节目",
+            "uk": "Телепрограма"
+        },
+        "desc": {
+            "en": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
+            "de": "Dieser Adapter fragt in regelmäßigen Abständen Informationen über das Fernsehprogramm ab. ",
+            "ru": "Этот адаптер регулярно запрашивает информацию о телевизионной программе. ",
+            "pt": "Este adaptador pesquisa informações sobre o programa de televisão em intervalos regulares. ",
+            "nl": "Deze adapter vraagt ​​regelmatig informatie over het televisieprogramma. ",
+            "fr": "Cet adaptateur interroge les informations sur le programme de télévision à intervalles réguliers. ",
+            "it": "Questo adattatore esegue il polling delle informazioni sul programma televisivo a intervalli regolari. ",
+            "es": "Este adaptador recopila información sobre el programa de televisión a intervalos regulares. ",
+            "pl": "Ten adapter odpytuje informacje o programie telewizyjnym w regularnych odstępach czasu. ",
+            "zh-cn": "该适配器定期轮询有关电视节目的信息。",
+            "uk": "Цей адаптер регулярно опитує інформацію про телевізійну програму. Дані можуть відображатися в різних віджетах"
+        },
+        "authors": [
+            "oweitman <oweitman@gmx.de>"
+        ],
+        "keywords": [
+            "TV",
+            "programm"
+        ],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "tvprogram.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/main/admin/tvprogram.png",
+        "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/main/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "restartAdapters": [],
+        "mode": "daemon",
+        "messagebox": true,
+        "type": "misc-data",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=3.3.22"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.13"
+            }
+        ]
     },
-    "title": "TV Programm",
-    "titleLang": {
-      "en": "TV Programm",
-      "de": "Fernsehprogramm",
-      "ru": "Телепрограмма",
-      "pt": "Programa de TV",
-      "nl": "Tv-programma",
-      "fr": "Programme TV",
-      "it": "Programma TV",
-      "es": "Programa de televisión",
-      "pl": "Program telewizyjny",
-      "zh-cn": "电视节目"
-    },
-    "desc": {
-      "en": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
-      "de": "Dieser Adapter fragt in regelmäßigen Abständen Informationen über das Fernsehprogramm ab. ",
-      "ru": "Этот адаптер регулярно запрашивает информацию о телевизионной программе. ",
-      "pt": "Este adaptador pesquisa informações sobre o programa de televisão em intervalos regulares. ",
-      "nl": "Deze adapter vraagt ​​regelmatig informatie over het televisieprogramma. ",
-      "fr": "Cet adaptateur interroge les informations sur le programme de télévision à intervalles réguliers. ",
-      "it": "Questo adattatore esegue il polling delle informazioni sul programma televisivo a intervalli regolari. ",
-      "es": "Este adaptador recopila información sobre el programa de televisión a intervalos regulares. ",
-      "pl": "Ten adapter odpytuje informacje o programie telewizyjnym w regularnych odstępach czasu. ",
-      "zh-cn": "该适配器定期轮询有关电视节目的信息。"
-    },
-    "authors": [
-      "oweitman <oweitman@gmx.de>"
-    ],
-    "keywords": [
-      "TV",
-      "programm"
-    ],
-    "licenseInformation": {
-      "type": "free",
-      "license": "MIT"
-    },
-    "platform": "Javascript/Node.js",
-    "main": "main.js",
-    "icon": "tvprogram.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/main/admin/tvprogram.png",
-    "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/main/README.md",
-    "loglevel": "info",
-    "tier": 3,
-    "restartAdapters": [],
-    "mode": "daemon",
-    "messagebox": true,
-    "type": "misc-data",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.3.22"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.13"
-      }
+    "native": {},
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "",
+            "type": "meta",
+            "common": {
+                "name": "Files for tvprogram-adapter",
+                "type": "meta.user"
+            },
+            "native": {}
+        },
+        {
+            "_id": "program",
+            "type": "meta",
+            "common": {
+                "name": "Programfiles for tvprogram-adapter",
+                "type": "meta.user"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {
+                "tvcount": 1
+            }
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
     ]
-  },
-  "native": {},
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "",
-      "type": "meta",
-      "common": {
-        "name": "Files for tvprogram-adapter",
-        "type": "meta.user"
-      },
-      "native": {}
-    },
-    {
-      "_id": "program",
-      "type": "meta",
-      "common": {
-        "name": "Programfiles for tvprogram-adapter",
-        "type": "meta.user"
-      },
-      "native": {}
-    },        
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {
-        "tvcount": 1
-      }
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    }
-  ]
 }
