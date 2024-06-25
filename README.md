@@ -1,6 +1,6 @@
 ![Logo](admin/tvprogram.png)
 
-# ioBroker Adapter to request and show RSS Feeds of different standards (Atom, RSS, RDF)
+# ioBroker.tvprogram
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.tvprogram.svg)](https://www.npmjs.com/package/iobroker.tvprogram)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.tvprogram.svg)](https://www.npmjs.com/package/iobroker.tvprogram)
