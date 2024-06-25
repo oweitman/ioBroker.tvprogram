@@ -1,7 +1,5 @@
 {
-    "rssfeed1 adapter settings": "rssfeed1的适配器设置",
-    "option1": "选项1",
-    "option2": "选项2",
+    "rssfeed adapter settings": "rssfeed的适配器设置",
     "Default Refresh (min)": "默认刷新（分钟）",
     "Default Max articles": "默认最大文章数",
     "Warning: Please dont set the refresh rate too low. Maybe the provider will ban you or stop the service": "警告：请不要将刷新率设置得太低。也许提供商会禁止您或停止服务",
