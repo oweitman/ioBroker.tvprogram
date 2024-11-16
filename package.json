@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tvprogram",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
   "author": {
     "name": "oweitman",
@@ -71,7 +71,7 @@
     "check": "tsc --noEmit -p tsconfig.check.json",
     "lint": "eslint .",
     "translate": "translate-adapter",
-    "release": "release-script",
+    "release": "release-script --all",
     "repochecker": "npx github:oweitman/ioBroker.repochecker https://github.com/oweitman/ioBroker.tvprogram --local",
     "translate-admin-deletekey": "node ./src-admin/devutil/translate.js deletekey 'xx,xx'",
     "translate-admin": "node ./devutil/translate.js -- source src-admin/src/i18n",

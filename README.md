@@ -719,6 +719,10 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 2.0.1 (2024-11-16)
+
+- fix lint errors
+
 ### 2.0.0 (2024-11-16)
 
 - fix lint errors

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "fix lint errors",
+        "de": "lint fehler beheben",
+        "ru": "исправление ошибок линта",
+        "pt": "corrigir erros de lint",
+        "nl": "fix pluisfouten",
+        "fr": "corriger les erreurs de linte",
+        "it": "correggere gli errori di lintuizione",
+        "es": "corregir errores lint",
+        "pl": "naprawić błędy lintu",
+        "uk": "виправлено помилки в розмітці",
+        "zh-cn": "修正错误"
+      },
       "2.0.0": {
         "en": "fix lint errors\nalign structures and files\nswitch to jsonconfig\nconfig translations\nmake vis2 compatible (maybe some glitches included, please report)",
         "de": "lint fehler beheben\nstrukturen und dateien ausrichten\nauf jsonconfig wechseln\nübersetzungen\nvis2 kompatibel machen (kann einige glitches enthalten sein, bitte melden)",
