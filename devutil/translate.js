@@ -15,23 +15,23 @@ const langTemplate = {
     "uk": {},
     "zh-cn": {}
 };
-let i18npath = '../src/i18n';
-let format = 'multi';
+let i18npath = "../src/i18n";
+let format = "multi";
 function importi18nKeys() {
     // importiere alle json dateien, die in einem bestimmten verzeichnis liegen
     const i18n = {};
     const dir = path.resolve(__dirname, "../", i18npath);
 
-    if (format === 'multi') {
+    if (format === "multi") {
         const files = fs.readdirSync(dir);
         for (const file of files) {
             const filePath = `${dir}/${file}`;
-            if (fs.statSync(filePath).isFile() && filePath.endsWith('.json')) {
-                i18n[file.replace('.json', '')] = require(filePath);
+            if (fs.statSync(filePath).isFile() && filePath.endsWith(".json")) {
+                i18n[file.replace(".json", "")] = require(filePath);
             }
         }
     }
-    if (format === 'single') {
+    if (format === "single") {
         const filePath = path.resolve(__dirname, "../", i18npath);
         i18n["en"] = require(filePath);
     }
@@ -46,7 +46,6 @@ function exporti18nKeysMultiFile(i18n) {
     }
 }
 function exporti18nKeysSingleFile(i18n) {
-    const dir = path.resolve(__dirname, i18npath);
     const source = i18n.en;
     const target = {};
     // schleife über source und erstelle ein neues objekt miteiner liste von objekten, die nach dem key benannt werden, welches wiederum als property jede einzelne sprache mit der jeweiligen übersetzung enthäl
@@ -57,7 +56,7 @@ function exporti18nKeysSingleFile(i18n) {
         }
     }
     const pathObject = path.parse(i18npath);
-    pathObject.base = 'translations.json';
+    pathObject.base = "translations.json";
     const newPath = path.format(pathObject);
     const filePath = path.resolve(__dirname, "../", newPath);
     const json = JSON.stringify(target, null, 4);
@@ -66,8 +65,8 @@ function exporti18nKeysSingleFile(i18n) {
 function exporti18nKeys(i18n) {
     let tempI18n;
     if (!format) format = "multi";
-    if (format === 'multi') tempI18n = exporti18nKeysMultiFile(i18n);
-    if (format === 'single') tempI18n = exporti18nKeysSingleFile(i18n);
+    if (format === "multi") tempI18n = exporti18nKeysMultiFile(i18n);
+    if (format === "single") tempI18n = exporti18nKeysSingleFile(i18n);
     return tempI18n;
 }
 function extendLanguages(i18n) {
@@ -214,19 +213,19 @@ async function doTranslate() {
     let i18n = importi18nKeys();
     i18n = extendLanguages(i18n);
     i18n = extendLanguageKeysFromLang(i18n, "en");
-    i18n = await updateEmptyKeysWithTranslation(i18n, "en")
+    i18n = await updateEmptyKeysWithTranslation(i18n, "en");
     exporti18nKeys(i18n);
     console.log("end translate");
 }
 async function main() {
     let pos;
     const args = process.argv.slice(2);
-    pos = args.indexOf('--source');
+    pos = args.indexOf("--source");
     if (pos >= 0) {
         i18npath = args[pos + 1];
         args.splice(pos, 2);
     }
-    pos = args.indexOf('--format');
+    pos = args.indexOf("--format");
     if (pos >= 0) {
         format = args[pos + 1];
         args.splice(pos, 2);
