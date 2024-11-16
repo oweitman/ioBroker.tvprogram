@@ -3,37 +3,18 @@
     "name": "tvprogram",
     "version": "1.1.3-alpha.1",
     "news": {
-      "1.1.3-alpha.1": {
-        "en": "fix lint errors",
-        "de": "lint fehler beheben",
-        "ru": "исправление ошибок линта",
-        "pt": "corrigir erros de lint",
-        "nl": "fix pluisfouten",
-        "fr": "corriger les erreurs de linte",
-        "it": "correggere gli errori di lintuizione",
-        "es": "corregir errores lint",
-        "pl": "naprawić błędy lintu",
-        "uk": "виправлено помилки в розмітці",
-        "zh-cn": "修正错误"
-      },
-      "1.1.3-alpha.0": {
-        "en": "align structures and files",
-        "de": "strukturen und dateien ausrichten",
-        "ru": "выравнивать структуры и файлы",
-        "pt": "alinhar estruturas e arquivos",
-        "nl": "structuren en bestanden uitlijnen",
-        "fr": "aligner les structures et les fichiers",
-        "it": "allineare strutture e file",
-        "es": "estructuras y archivos alineados",
-        "pl": "wyrównać struktury i pliki",
-        "uk": "вирівнювання структур і файлів",
-        "zh-cn": "对齐结构和文件"
-      },
       "1.1.2": {
-        "en": "* fix setState with ack==false"
-      },
-      "1.1.1": {
-        "en": "* remove dead code / extend doku about the warnings in the iobroker log * change the method of setting for configuration data from widget to datapoint"
+        "en": "* fix setState with ack==false",
+        "de": "* setState mit ack==false korrigieren",
+        "ru": "* исправление setState с ack==false",
+        "pt": "* corrija setState com ack==false",
+        "nl": "* setState repareren met ack==false",
+        "fr": "* Correction de setState avec ack==false",
+        "it": "* corretto setState con ack==false",
+        "es": "* arreglar setState con ack==false",
+        "pl": "* napraw setState za pomocą ack==false",
+        "uk": "* виправити setState з ack==false",
+        "zh-cn": "* 修复 setState 为 ack==false"
       },
       "1.1.0": {
         "en": "tooltips for the buttons in the time widget / search through the whole text to also find directors and actors / add showpictures option in time,control and search widget / improve documentation",
@@ -45,7 +26,8 @@
         "it": "suggerimenti per i pulsanti nel widget del tempo / ricerca nell'intero testo per trovare anche registi e attori / aggiungere l'opzione di immagini dello spettacolo nel widget di tempo, controllo e ricerca / migliorare la documentazione",
         "es": "información sobre herramientas para los botones en el widget de tiempo / búsqueda en todo el texto para encontrar también directores y actores / agregar la opción de mostrar imágenes en el tiempo, control y widget de búsqueda / mejorar la documentación",
         "pl": "podpowiedzi do przycisków w widgecie czasu / przeszukiwanie całego tekstu, aby znaleźć także reżyserów i aktorów / dodawanie opcji showpictures w czasie, widżet sterowania i wyszukiwania / ulepszanie dokumentacji",
-        "zh-cn": "时间小部件中的按钮的工具提示/在整个文本中搜索还可以找到导演和演员/在时间中添加showpictures选项，控制和搜索小部件/改进文档"
+        "zh-cn": "时间小部件中的按钮的工具提示/在整个文本中搜索还可以找到导演和演员/在时间中添加showpictures选项，控制和搜索小部件/改进文档",
+        "uk": "підказки для кнопок у віджеті часу / пошук по всьому тексту, щоб також знайти режисерів і акторів / додайте опцію показу картинок у часі, віджет керування та пошуку / вдосконалення документації"
       },
       "1.0.0": {
         "en": "fix bug with endless scroll in firefox / set version number to 1.0 due adapter now in stable repository",
@@ -57,7 +39,8 @@
         "it": "correzione bug con scorrimento infinito in firefox / imposta il numero di versione su 1.0 dovuto l'adattatore ora nel repository stabile",
         "es": "Corregir error con desplazamiento sin fin en Firefox / establecer el número de versión en 1.0 Adaptador debido ahora en repositorio estable",
         "pl": "napraw błąd z niekończącym się przewijaniem w firefox / set numer wersji 1.0 z powodu adaptera teraz w stabilnym repozytorium",
-        "zh-cn": "修复了在firefox中无休止滚动的错误/现在将版本号设置为1.0到期的适配器已在稳定的存储库中"
+        "zh-cn": "修复了在firefox中无休止滚动的错误/现在将版本号设置为1.0到期的适配器已在稳定的存储库中",
+        "uk": "виправлено помилку з нескінченним прокручуванням у firefox / встановлено номер версії 1.0 через те, що адаптер тепер у стабільному репозиторії"
       },
       "0.0.32": {
         "en": "fix bug with 2 control widgets / add duration to the time attribute at the control widget / small changes in the documentation",
@@ -69,10 +52,10 @@
         "it": "risolto bug con 2 widget di controllo / aggiungi durata all'attributo time nel widget di controllo / piccole modifiche nella documentazione",
         "es": "corregir el error con 2 widgets de control / agregar duración al atributo de tiempo en el widget de control / pequeños cambios en la documentación",
         "pl": "napraw błąd za pomocą 2 widżetów sterujących / dodaj czas trwania do atrybutu czasu w widgecie kontrolnym / małe zmiany w dokumentacji",
-        "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动"
+        "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动",
+        "uk": "виправити помилку з 2 віджетами керування / додати тривалість до атрибута часу у віджеті керування / невеликі зміни в документації"
       }
     },
-    "title": "TV Programm",
     "titleLang": {
       "en": "TV Programm",
       "de": "Fernsehprogramm",
@@ -83,7 +66,8 @@
       "it": "Programma TV",
       "es": "Programa de televisión",
       "pl": "Program telewizyjny",
-      "zh-cn": "电视节目"
+      "zh-cn": "电视节目",
+      "uk": "Телепрограма"
     },
     "desc": {
       "en": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
@@ -95,7 +79,8 @@
       "it": "Questo adattatore esegue il polling delle informazioni sul programma televisivo a intervalli regolari. ",
       "es": "Este adaptador recopila información sobre el programa de televisión a intervalos regulares. ",
       "pl": "Ten adapter odpytuje informacje o programie telewizyjnym w regularnych odstępach czasu. ",
-      "zh-cn": "该适配器定期轮询有关电视节目的信息。"
+      "zh-cn": "该适配器定期轮询有关电视节目的信息。",
+      "uk": "Цей адаптер регулярно опитує інформацію про телевізійну програму. Дані можуть відображатися в різних віджетах"
     },
     "authors": [
       "oweitman <oweitman@gmx.de>"
@@ -109,7 +94,6 @@
       "license": "MIT"
     },
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "tvprogram.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/master/admin/tvprogram.png",
@@ -128,7 +112,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.3.22"
+        "js-controller": ">=4.0.24"
       }
     ],
     "globalDependencies": [
