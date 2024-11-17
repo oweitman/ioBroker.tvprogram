@@ -719,6 +719,11 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 2.0.2 (2024-11-17)
+
+- fix jsonconfig
+- add node 22 to testing
+
 ### 2.0.1 (2024-11-16)
 
 - fix lint errors

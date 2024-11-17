@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "news": {
+      "2.0.2": {
+        "en": "fix jsonconfig\nadd node 22 to testing",
+        "de": "jsonconfig herunterladen\nknoten 22 zum testen hinzufügen",
+        "ru": "исправить jsonconfig\nдобавить узел 22 к тестированию",
+        "pt": "corrigir jsonconfig\nadicionar nó 22 para testar",
+        "nl": "fix jsonconfig\nnode 22 toevoegen aan het testen",
+        "fr": "réparer jsonconfig\najouter le noeud 22 aux essais",
+        "it": "correzione di jsonconfig\naggiungere nodo 22 al test",
+        "es": "jsonconfig\nañadir nodo 22 a las pruebas",
+        "pl": "fix jsonconfig\ndodać węzeł 22 do badania",
+        "uk": "виправлено jsonconfig\nдодати вузол 22 для тестування",
+        "zh-cn": "修复json配置\n在测试中添加节点 22"
+      },
       "2.0.1": {
         "en": "fix lint errors",
         "de": "lint fehler beheben",
@@ -15,19 +28,6 @@
         "pl": "naprawić błędy lintu",
         "uk": "виправлено помилки в розмітці",
         "zh-cn": "修正错误"
-      },
-      "2.0.0": {
-        "en": "fix lint errors\nalign structures and files\nswitch to jsonconfig\nconfig translations\nmake vis2 compatible (maybe some glitches included, please report)",
-        "de": "lint fehler beheben\nstrukturen und dateien ausrichten\nauf jsonconfig wechseln\nübersetzungen\nvis2 kompatibel machen (kann einige glitches enthalten sein, bitte melden)",
-        "ru": "исправление ошибок линта\nвыравнивать структуры и файлы\nпереход на jsonconfig\nнастройка переводов\nсделать vis2 совместимым (может быть, некоторые клавиатуры включены, пожалуйста, сообщите)",
-        "pt": "corrigir erros de lint\nalinhar estruturas e arquivos\nmudar para jsonconfig\ntraduções de configuração\nmake vis2 compatível (talvez algumas falhas incluídas, por favor reporte)",
-        "nl": "fix pluisfouten\nstructuren en bestanden uitlijnen\nschakelen naar jsonconfig\nconfiguratievertalingen\nvis2 compatibel maken (misschien zijn er enkele storingen opgenomen, rapporteer alsjeblieft)",
-        "fr": "corriger les erreurs de linte\naligner les structures et les fichiers\npasser à jsonconfig\nconfig les traductions\nrendre vis2 compatible (peut-être quelques problèmes inclus, veuillez signaler)",
-        "it": "correggere gli errori di lintuizione\nallineare strutture e file\npassare a jsonconfig\ntraduzioni di configurazione\nrendere vis2 compatibile (forse alcuni glitch inclusi, si prega di segnalare)",
-        "es": "corregir errores lint\nestructuras y archivos alineados\ncambiar a jsonconfig\nconfig translations\nhacer vis2 compatibles (tal vez algunos fallos incluidos, por favor reportar)",
-        "pl": "naprawić błędy lintu\nwyrównać struktury i pliki\nprzełącz na jsonconfig\ntłumaczenia konfiguracyjne\nzrobić vis2 kompatybilne (może niektóre usterki w tym, proszę zgłosić)",
-        "uk": "виправлено помилки в розмітці\nвирівнювання структур і файлів\nперехід на jsonconfig\nналаштування перекладів\nmake vis2 сумісний (можливо, деякі щілини включені, будь ласка, звіт)",
-        "zh-cn": "修正错误\n对齐结构和文件\n切换到 json配置\n配置翻译\n使粘度2兼容( 可能包含一些故障, 请报告)"
       },
       "1.1.2": {
         "en": "* fix setState with ack==false",
