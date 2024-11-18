@@ -7,7 +7,7 @@
 */
 "use strict";
 
-/* global vis, $, jQuery*/
+/* global vis*/
 
 // add translations for edit mode
 
@@ -55,6 +55,7 @@ vis.binds["tvprogram"] = {
     genres: null,
     tvprogram: [],
     infos: null,
+    requests: [],
     search: {
         visTvprogram: null,
         bound: {},
@@ -127,8 +128,8 @@ vis.binds["tvprogram"] = {
             this.visTvprogram.loadChannels(instance, widgetID, () => this.createWidget(widgetID, view, data, style));
 
             if (this.visTvprogram.infos == null || !Object.prototype.hasOwnProperty.call(this.infos, "tvprogram")) return;
-            if (this.visTvprogram.categories.length == 0) return;
-            if (this.visTvprogram.channels.length == 0) return;
+            if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") return;
+            if (this.visTvprogram.channels.length == 0 || this.visTvprogram.channels[0] === "request") return;
 
             let categoriesoptions = this.visTvprogram.categories.map((cat) => '<option value="' + cat.id + '" ' + ((this.searchdata[tvprogram_oid][widgetID].categoryfilter == cat.id) ? " selected" : "") + ">" + cat.title + "</option>");
             categoriesoptions = '<option value="" ' + ((this.searchdata[tvprogram_oid][widgetID].categoryfilter == "") ? " selected" : "") + "></option>" + categoriesoptions;
@@ -466,7 +467,8 @@ vis.binds["tvprogram"] = {
             this.visTvprogram.loadCategories(instance, widgetID, () => this.createWidget(widgetID, view, data, style));
             this.visTvprogram.loadChannels(instance, widgetID, () => this.createWidget(widgetID, view, data, style));
 
-            if (this.visTvprogram.channels.length == 0 || this.visTvprogram.categories.length == 0) {
+            if (this.visTvprogram.channels.length == 0 || this.visTvprogram.channels[0] === "request" || this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") {
+                //this.createWidget(widgetID, view, data, style);
                 return;
                 /*
                 return setTimeout(function () {
@@ -1016,9 +1018,9 @@ vis.binds["tvprogram"] = {
                     }
                 });
             }
-            if (this.visTvprogram.categories.length == 0) return;
-            if (this.visTvprogram.channels.length == 0) return;
-            if (this.visTvprogram.genres.length == 0) return;
+            if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") return;
+            if (this.visTvprogram.channels.length == 0 || this.visTvprogram.channels[0] === "request") return;
+            if (this.visTvprogram.genres.length == 0 || this.visTvprogram.genres[0] === "request") return;
 
             if (check(this.visTvprogram.tvprogram[datestring])) return;
 
@@ -2054,29 +2056,26 @@ vis.binds["tvprogram"] = {
     events: {},
     serverdata: {},
     getServerData: function (instance, widgetID, dataname, callback) {
-        const name = instance + dataname;
-        if (Object.prototype.hasOwnProperty.call(this.serverdata, name)) callback(this.serverdata[name]);
-        if (Object.prototype.hasOwnProperty.call(this.events, name)) {
-            if (!this.events[name].find((el) => el.key == widgetID)) this.events[name].push({ key: widgetID, cb: callback });
-            //if (this.events[name].indexOf(callback)==-1) this.events[name].push(callback);
-            return;
-        } else {
-            this.events[name] = [{ key: widgetID, cb: callback }];
-        }
+        const that = this;
+        const dataid = instance + dataname;
+        if (Object.prototype.hasOwnProperty.call(that.serverdata, dataid)) callback(that.serverdata[dataid]);
+        if (!Object.prototype.hasOwnProperty.call(that.events, dataid)) that.events[dataid] = [];
+        const obj = that.events[dataid];
+        if (!obj.find((el) => el.key == widgetID)) obj.push({ key: widgetID, cb: callback });
         vis.conn.sendTo(instance, "getServerData", dataname, function (data) {
-            //vis.conn._socket.emit("sendTo", instance, "getServerData", dataname, function (data) {
             if (data != "error" && data != "nodata") {
                 console.log("getServerData received " + instance + "." + dataname + " " + JSON.stringify(data).substring(0, 100));
             } else {
                 console.log("getServerData received err " + data);
             }
-            this.serverdata[name] = data;
-            if (!Object.prototype.hasOwnProperty.call(this.events, name)) return;
-            for (let i = 0; i < this.events[name].length; i++) {
-                this.events[name][i].cb(data);
+            that.serverdata[dataid] = data;
+            if (!Object.prototype.hasOwnProperty.call(that.events, dataid)) return;
+            const obj = that.events[dataid];
+            for (let i = 0; i < obj.length; i++) {
+                obj[i].cb(data);
             }
-            delete this.events[name];
-        }.bind(this));
+            delete that.events[dataid];
+        });
     },
     getServerTVProgram: function (instance, widgetID, dataname, callback) {
         const name = instance + "program." + dataname;
@@ -2178,24 +2177,24 @@ vis.binds["tvprogram"] = {
         }.bind(this));
     },
     loadCategories: function (instance, widgetID, callback, force = false) {
-        if (this.categories != null || force) return;
-        this.categories = [];
+        if (this.categories != null && this.categories[0] !== "request" || force) return;
+        this.categories = ["request"];
         this.getServerData(instance, widgetID, "categories", function (serverdata) {
             this.categories = serverdata;
             callback(serverdata);
         }.bind(this));
     },
     loadChannels: function (instance, widgetID, callback, force = false) {
-        if (this.channels != null || force) return;
-        this.channels = [];
+        if (this.channels != null && this.channels[0] !== "request" || force) return;
+        this.channels = ["request"];
         this.getServerData(instance, widgetID, "channels", function (serverdata) {
             this.channels = serverdata;
             callback(serverdata);
         }.bind(this));
     },
     loadGenres: function (instance, widgetID, callback, force = false) {
-        if (this.genres != null || force) return;
-        this.genres = [];
+        if (this.genres != null && this.genres[0] !== "request" || force) return;
+        this.genres = ["request"];
         this.getServerData(instance, widgetID, "genres", function (serverdata) {
             this.genres = serverdata;
             callback(serverdata);
