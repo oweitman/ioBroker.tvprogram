@@ -2103,7 +2103,7 @@ vis.binds["tvprogram"] = {
     },
     getFavoritesData: function (instance, favorites = [], callback) {
         console.log("getFavoritesData request " + instance + ".favorites");
-        vis.conn.sendTo(instance, "getFavoritesDatax", favorites, (data) => {
+        vis.conn.sendTo(instance, "getFavoritesData", favorites, (data) => {
             // vis.conn._socket.emit("sendTo", instance, "getFavoritesDatax", favorites, (data) => {
             if (data != "error" && data != "nodata") {
                 console.log("getFavoritesData received ok " + data.length);
