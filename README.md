@@ -146,7 +146,7 @@ Minimum configuration is to set the datapoint to the cmd-datapoint.
 | `time`                 |                          | If empty then the actual broadcasts would be shown                                                 |
 | `time`                 | 20:15                    | if time only the broadcast at this time would be shown for 120 minutes, then the next day is shown |
 | `time`                 | 20:15/200                | if time with duration the broadcast at this time would be shown for 200 minutes                    |
-| `time`                 | 2021-02-15T20:15:00.000Z | If valid Datestring, then the broadcast at this tim would be shown. Remember the timezones         |
+| `time`                 | 2021-02-15T20:15:00.000Z | If valid UTC-Datestring, then the broadcast at this time would be shown. Remember the timezones         |
 | `heightRow`            | 35                       | Height for each displayed line                                                                     |
 | `showpictures`         | x                        | Show pictures if available                                                                         |
 | `broadcastfontpercent` | 75                       | Character size in percent for the broadcasts                                                       |
