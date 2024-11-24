@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "2.0.2",
+    "version": "2.1.0",
     "news": {
+      "2.1.0": {
+        "en": "Change sento command from getFavoritesDatax to getFavoritesData\nswitch to eslint\ncomplete rework of tvprogram to switch from callback to await",
+        "de": "Change sento Befehl von getFavorites Datax to getFavorites Daten\nschalten auf eslint\nkomplettes nacharbeiten von tvprogram, um vom rückruf zu warten",
+        "ru": "Изменение команды от getFavorites Datax to getFavorites Данные\nпереход на eslint\nполная переработка tvprogram для перехода от обратного вызова к ожиданию",
+        "pt": "Alterar comando sendo de getFavorites Datax para obterFavorites Dados\nmudar para eslint\nretrabalho completo de tvprogram para mudar de callback para esperar",
+        "nl": "Sento-opdracht van getFavorieten wijzigen Datax te krijgenFavorieten Gegevens\nschakelen naar eslint\nvolledige bewerking van tv-programma om over te schakelen van callback naar wacht",
+        "fr": "Changer la commande sendo de getFavorites Datax pour obtenirFavorites Données\npasser à eslint\nretravail complet du programme tv pour passer du callback à l'attente",
+        "it": "Cambia il comando sento da getFavorites Datax per ottenereFavorites Dati\npassare a eslint\nrielaborazione completa di tvprogram per passare dal callback per attendere",
+        "es": "Cambio comando sento de getFavorites Datax para conseguirFavorites Datos\ncambiar a eslint\nretrabajo completo de tvprogram para cambiar de callback a esperar",
+        "pl": "Zmień polecenie sento z getFavorites Datax do getFavorites Dane\nprzełącz na eslint\nkompletna przeróbka programu tvprogram do przełączania z połączenia zwrotnego na oczekiwanie",
+        "uk": "Зміна відправної команди від getFavorites Datax для getFavorites Дані\nперемикач до eslint\nповна робота телепрограми для переходу від зворотного зв'язку",
+        "zh-cn": "从 Favorites 更改发送命令 Datax 获取最爱 数据\n切换到 eslint\n完成 tvprogram 的重修, 从回调到等待"
+      },
       "2.0.2": {
         "en": "fix jsonconfig\nadd node 22 to testing",
         "de": "jsonconfig herunterladen\nknoten 22 zum testen hinzufügen",
