@@ -724,6 +724,8 @@ widget tvprogram:
 - Change sento command from getFavoritesDatax to getFavoritesData
 - switch to eslint
 - complete rework of tvprogram to switch from callback to await
+- the widgets are now compatible with vis-2 (minimum vis-2 version ist 2.10)
+- due to datapoint management, all datapoints should be deleted.
 
 ### 2.0.2 (2024-11-17)
 

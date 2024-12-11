@@ -139,7 +139,10 @@
     "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
     "loglevel": "info",
     "tier": 3,
-    "restartAdapters": [],
+    "restartAdapters": [
+      "vis",
+      "vis-2"
+    ],
     "mode": "daemon",
     "messagebox": true,
     "type": "misc-data",
