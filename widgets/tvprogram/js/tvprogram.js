@@ -128,10 +128,10 @@ vis.binds['tvprogram'] = {
                 this.visTvprogram.infos = await this.visTvprogram.loadServerInfosAsync(instance);
             }
             if (!this.visTvprogram.categories) {
-                this.visTvprogram.categories = await await this.visTvprogram.loadCategories(instance, widgetID);
+                this.visTvprogram.categories = await this.visTvprogram.loadCategories(instance, widgetID);
             }
             if (!this.visTvprogram.channels) {
-                this.visTvprogram.channels = await await this.visTvprogram.loadChannels(instance, widgetID);
+                this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
             }
 
             if (
@@ -1150,7 +1150,7 @@ vis.binds['tvprogram'] = {
                 this.visTvprogram.categories = await this.visTvprogram.loadCategories(instance, widgetID);
             }
             if (!this.visTvprogram.channels) {
-                this.visTvprogram.channels = await await this.visTvprogram.loadChannels(instance, widgetID);
+                this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
             }
             if (!this.visTvprogram.genres) {
                 this.visTvprogram.genres = await this.visTvprogram.loadGenres(instance, widgetID);
