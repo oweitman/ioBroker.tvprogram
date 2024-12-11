@@ -2001,7 +2001,7 @@ vis.binds['tvprogram'] = {
             $(`#${widgetID}channeldlg`).dialog({
                 resizable: false,
                 autoOpen: false,
-                modal: false,
+                modal: true,
                 position: { of: $(`#${widgetID}`) },
                 width: $(`#${widgetID}`).width() * this.measures[widgetID].dialogwidthpercent,
                 height: $(`#${widgetID}`).height() * this.measures[widgetID].dialogheightpercent,
@@ -2317,7 +2317,7 @@ vis.binds['tvprogram'] = {
         $(`#${widgetID}broadcastdlg`).dialog({
             resizable: false,
             autoOpen: false,
-            modal: false,
+            modal: true,
             position: { of: $(`#${widgetID}`), within: $(`#${widgetID}`) },
             width: $(`#${widgetID}`).width() * measures.dialogwidthpercent,
             height: $(`#${widgetID}`).height() * measures.dialogheightpercent,
