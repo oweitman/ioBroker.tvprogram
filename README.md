@@ -719,6 +719,12 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS*
+
+- remove jquery-ui dependency
+- fix dialog is visible on view switch, now it's modal
+- fix adapter icon
+
 ### 2.1.0 (2024-11-24)
 
 - Change sento command from getFavoritesDatax to getFavoritesData
