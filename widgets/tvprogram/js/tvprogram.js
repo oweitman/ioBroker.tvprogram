@@ -11,6 +11,7 @@
 // add translations for edit mode
 
 import { version as pkgVersion } from '../../../package.json';
+import Sortable from 'sortablejs';
 const dayjs = require('dayjs');
 
 fetch('widgets/tvprogram/i18n/translations.json').then(async res => {
@@ -1926,7 +1927,8 @@ vis.binds['tvprogram'] = {
                         .map(el => parseInt(el.dataset.id)),
                 );
             }
-            $(`#${widgetID}channeldlg`).dialog('close');
+            let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
+            dialog.close();
         },
         onclickChannel: function (widgetID, instance, tvprogram_oid) {
             let isSorting = false;
@@ -1940,8 +1942,14 @@ vis.binds['tvprogram'] = {
                     return acc;
                 }, []);
             }
-
+            let width = $(`#${widgetID}`).width() * this.measures[widgetID].dialogwidthpercent;
+            let height = $(`#${widgetID}`).height() * this.measures[widgetID].dialogheightpercent;
+            let { top: elTop, left: elLeft } = $(`#${widgetID}`).position();
+            let top = elTop + ($(`#${widgetID}`).height() - height) / 2;
+            let left = elLeft + ($(`#${widgetID}`).width() - width) / 2;
             let text = '';
+            text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
+
             text += '  <div class="chselect-container clearfix">';
             text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${
                 tvprogram_oid
@@ -1984,30 +1992,15 @@ vis.binds['tvprogram'] = {
                         .appendTo($(this).parent());
                 }
             });
-            $('.chselect-container.sortable').sortable({
-                items: '.items .channel[selected]',
-                containment: 'parent',
-                revert: true,
-                grid: [5, 5],
-                opacity: 0.8,
-                tolerance: 'pointer',
-                start: function () {
-                    isSorting = true;
+            let grid = document.querySelector('.chselect-container.sortable .items');
+            new Sortable(grid, {
+                animation: 150,
+                filter: 'li:not([selected])',
+                onMove: function (evt) {
+                    if (!evt.related.hasAttribute('selected')) {
+                        return false;
+                    }
                 },
-                stop: function () {
-                    isSorting = false;
-                },
-            });
-            $(`#${widgetID}channeldlg`).dialog({
-                resizable: false,
-                autoOpen: false,
-                modal: true,
-                position: { of: $(`#${widgetID}`) },
-                width: $(`#${widgetID}`).width() * this.measures[widgetID].dialogwidthpercent,
-                height: $(`#${widgetID}`).height() * this.measures[widgetID].dialogheightpercent,
-                dialogClass: `no-titlebar ${widgetID}`,
-                zIndex: 10003,
-                stack: false,
             });
             this.visTvprogram.copyStyles('font', $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
             this.visTvprogram.copyStyles('color', $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
@@ -2016,7 +2009,9 @@ vis.binds['tvprogram'] = {
                 $(`#${widgetID}`).get(0),
                 $(`#${widgetID}channeldlg`).get(0),
             );
-            $(`#${widgetID}channeldlg`).dialog('open');
+
+            let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
+            dialog.showModal();
         },
         getBroadcasts4Channel: function (el, widgetID, view, viewdate, tvprogram_oid, instance) {
             const wItem = this.measures[widgetID].widthItem;
@@ -2277,7 +2272,13 @@ vis.binds['tvprogram'] = {
             $(`#${widgetID}`).height() * measures.dialogheightpercent
                 ? ' tv-dlg-row'
                 : ' tv-dlg-col';
+        let width = $(`#${widgetID}`).width() * measures.dialogwidthpercent;
+        let height = $(`#${widgetID}`).height() * measures.dialogheightpercent;
+        let { top: elTop, left: elLeft } = $(`#${widgetID}`).position();
+        let top = elTop + ($(`#${widgetID}`).height() - height) / 2;
+        let left = elLeft + ($(`#${widgetID}`).width() - width) / 2;
         let text = '';
+        text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
         text += `  <div class="event-container${layout}" data-eventid="${event.id}">`;
         text += `    <div class="event-picture dialogcolumn${layout}">`;
         text += `    <img src="${photourl}">`;
@@ -2312,27 +2313,16 @@ vis.binds['tvprogram'] = {
         text += '    </div>';
         text += '  </div>';
         text += '  </div>';
-
+        text += `</dialog">`;
         $(`#${widgetID}broadcastdlg`).html(text);
-        $(`#${widgetID}broadcastdlg`).dialog({
-            resizable: false,
-            autoOpen: false,
-            modal: true,
-            position: { of: $(`#${widgetID}`), within: $(`#${widgetID}`) },
-            width: $(`#${widgetID}`).width() * measures.dialogwidthpercent,
-            height: $(`#${widgetID}`).height() * measures.dialogheightpercent,
-            dialogClass: `no-titlebar ${widgetID}`,
-            zIndex: 10003,
-            stack: false,
-            collision: 'none',
-        });
-        this.copyStyles('font', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
-        this.copyStyles('color', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
-        this.copyStyles('background-color', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
-        $(`#${widgetID}broadcastdlg`).dialog('open');
+        this.copyStyles('font', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg dialog`).get(0));
+        this.copyStyles('color', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg dialog`).get(0));
+        this.copyStyles('background-color', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg dialog`).get(0));
+        let dialog = document.querySelector(`#${widgetID}broadcastdlg dialog`);
         $(`#${widgetID}broadcastdlg`).click(function () {
-            $(`#${widgetID}broadcastdlg`).dialog('close');
+            dialog.close();
         });
+        dialog.showModal();
     },
     onclickRecord: async function (el, evt) {
         const instance = el.dataset.instance || '';
