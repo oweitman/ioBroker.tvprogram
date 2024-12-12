@@ -438,7 +438,6 @@ vis.binds['tvprogram'] = {
             const el = evt.target;
             const instance = el.dataset.instance || '';
             const tvprogram_oid = el.dataset.dp || '';
-            //const maxresults = el.dataset.maxresults||10;
             evt.preventDefault();
             const isearch = $(el).find('[name="tvsearch"]').val();
             const icategory = $(el).find('[name="tvcategory"]').val();
@@ -558,8 +557,6 @@ vis.binds['tvprogram'] = {
                     return acc;
                 }, []);
             }
-
-            //const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
 
             const time = data.tvprogram_time || '';
 
@@ -962,17 +959,6 @@ vis.binds['tvprogram'] = {
                 }
                 this.favorites[tvprogram_oid] = favoritesData;
                 this.createWidget(widgetID, view, data, style);
-                /*                 this.visTvprogram.getFavoritesData(
-                    instance,
-                    favorites,
-                    function (widgetID, view, data, style, tvprogram_oid, serverdata) {
-                        if (!this.favorites) {
-                            this.favorites = [];
-                        }
-                        this.favorites[tvprogram_oid] = serverdata;
-                        this.createWidget(widgetID, view, data, style);
-                    }.bind(this, widgetID, view, data, style, tvprogram_oid),
-                ); */
             }
             if (!this.favorites || !this.favorites[tvprogram_oid]) {
                 return;
@@ -1253,9 +1239,6 @@ vis.binds['tvprogram'] = {
                 $(`#${widgetID}`).css('background-color', backgroundColor);
             }
             const widthtvrow = 48 * widthitem + widthchannel;
-            //const scrollbarWidth= this.getScrollbarWidth();
-            //const zoompos = (Math.min(Math.floor($("#"+widgetID).height()/heightrow)-1,channelfilter.length))*heightrow;
-
             const headerfontpercent = data.tvprogram_headerfontpercent || 125;
             const broadcastfontpercent = data.tvprogram_broadcastfontpercent || 75;
 
@@ -1901,7 +1884,6 @@ vis.binds['tvprogram'] = {
                         (b.order + (filter.indexOf(b.id) == -1) * 100000),
                 )
                 .map(el => {
-                    //if (filter.findIndex(el1=>el1==el.id)==-1) cc.push('<ul class="listitem channel" data-order="'+el.order+'" data-id="'+el.id+'"><li class="channel"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/'+el.channelId+'.png" alt="" class="channel-logo"></li></ul>');
                     if (filter.findIndex(el1 => el1 == el.id) == -1) {
                         cc.push(
                             `<li class="listitem channel" data-order="${el.order}" data-id="${
@@ -2223,7 +2205,6 @@ vis.binds['tvprogram'] = {
         const el = evt.currentTarget ? evt.currentTarget : evt;
         const eventid = el.dataset.eventid || 0;
         const widgetID = el.dataset.widgetid || 0;
-        // const view = el.dataset.view || 0;
         const viewdate = el.dataset.viewdate || 0;
         const instance = el.dataset.instance || '';
         const tvprogram_oid = el.dataset.dp || '';
@@ -2345,7 +2326,6 @@ vis.binds['tvprogram'] = {
             eventid: event.id,
         };
         this.setValueAckAsync(instance, `${tvprogram_oid}.record`, JSON.stringify(record));
-        //this.setValueAck(instance, `${tvprogram_oid}.record`, JSON.stringify(record));
     },
     onclickCopy: function (el, evt) {
         const widgetID = el.dataset.widgetid || '';
@@ -2384,7 +2364,6 @@ vis.binds['tvprogram'] = {
         const tvprogram_oid = el.dataset.dp || '';
         const instance = el.dataset.instance || '';
         this.setValueAckAsync(instance, `${tvprogram_oid}.selectchannel`, channelid);
-        // this.setValueAck(instance, `${tvprogram_oid}.selectchannel`, channelid);
         evt.stopPropagation();
     },
     onclickFavorite: async function (el, evt) {
@@ -2434,7 +2413,6 @@ vis.binds['tvprogram'] = {
     },
     setConfigFavorites: function (instance, tvprogram_oid, favorites) {
         this.setValueAckAsync(instance, `${tvprogram_oid}.favorites`, JSON.stringify(favorites));
-        // this.setValueAck(instance, `${tvprogram_oid}.favorites`, JSON.stringify(favorites));
     },
     getConfigChannelfilter: function (tvprogram_oid) {
         let channelfilter;
@@ -2448,7 +2426,6 @@ vis.binds['tvprogram'] = {
     },
     setConfigChannelfilter: function (instance, tvprogram_oid, channelfilter) {
         this.setValueAckAsync(instance, `${tvprogram_oid}.channelfilter`, JSON.stringify(channelfilter));
-        //this.setValueAck(instance, `${tvprogram_oid}.channelfilter`, JSON.stringify(channelfilter));
     },
     getConfigShow: function (tvprogram_oid) {
         let show;
@@ -2462,7 +2439,6 @@ vis.binds['tvprogram'] = {
     },
     setConfigShow: function (instance, tvprogram_oid, show) {
         this.setValueAckAsync(instance, `${tvprogram_oid}.show`, JSON.stringify(show));
-        // this.setValueAck(instance, `${tvprogram_oid}.show`, JSON.stringify(show));
     },
     toggleShow: function (instance, tvprogram_oid) {
         let show = this.getConfigShow(tvprogram_oid);
@@ -2479,7 +2455,6 @@ vis.binds['tvprogram'] = {
             'getServerBroadcast',
             { eventid: eventid, viewdate: viewdate },
             function (data) {
-                //vis.conn._socket.emit("sendTo", instance, "getServerBroadcast", { eventid: eventid, viewdate: viewdate }, function (data) {
                 if (data != 'error' && data != 'nodata') {
                     console.log(`getServerBroadcast received ok ${instance}.${viewdate}.${eventid}`);
                 } else {
@@ -2552,7 +2527,6 @@ vis.binds['tvprogram'] = {
             'getServerTVProgram',
             dataname,
             function (data) {
-                // vis.conn._socket.emit("sendTo", instance, "getServerTVProgram", dataname, function (data) {
                 if (data != 'error' && data != 'nodata') {
                     console.log(`getServerTVProgram received ${instance}.${dataname}nodata`);
                 } else {
@@ -2576,7 +2550,6 @@ vis.binds['tvprogram'] = {
     getFavoritesData: function (instance, favorites = [], callback) {
         console.log(`getFavoritesData request ${instance}.favorites`);
         vis.conn.sendTo(instance, 'getFavoritesData', favorites, data => {
-            // vis.conn._socket.emit("sendTo", instance, "getFavoritesDatax", favorites, (data) => {
             if (data != 'error' && data != 'nodata') {
                 console.log(`getFavoritesData received ok ${data.length}`);
             } else {
@@ -2594,7 +2567,6 @@ vis.binds['tvprogram'] = {
     getServerInfo: function (instance, callback) {
         console.log('getServerInfo request ');
         vis.conn.sendTo(instance, 'getServerInfo', {}, data => {
-            //vis.conn._socket.emit("sendTo", instance, "getServerInfo", {}, (data) => {
             console.log('getServerInfo received ok ');
             if (callback) {
                 callback(data);
@@ -2612,7 +2584,6 @@ vis.binds['tvprogram'] = {
             'getServerBroadcastNow',
             channelfilter,
             function (data) {
-                //vis.conn._socket.emit("sendTo", instance, "getServerBroadcastNow", channelfilter, function (data) {
                 if (data != 'error' && data != 'nodata') {
                     console.log(`getServerBroadcastNow received ok ${data.length}`);
                 } else {
@@ -2639,7 +2610,6 @@ vis.binds['tvprogram'] = {
             'getServerBroadcastDate',
             { channelfilter: channelfilter, date: date },
             function (data) {
-                //vis.conn._socket.emit("sendTo", instance, "getServerBroadcastDate", { channelfilter: channelfilter, date: date }, function (data) {
                 if (data != 'error' && data != 'nodata') {
                     console.log(`getServerBroadcastDate received ok ${data.length}`);
                 } else {
@@ -2662,7 +2632,6 @@ vis.binds['tvprogram'] = {
             'getServerBroadcastFind',
             obj,
             function (data) {
-                //vis.conn._socket.emit("sendTo", instance, "getServerBroadcastFind", obj, function (data) {
                 if (data != 'error' && data != 'nodata') {
                     console.log(`getServerBroadcastFind received ok ${data.length}`);
                 } else {
@@ -2691,27 +2660,11 @@ vis.binds['tvprogram'] = {
     },
     setValueAck: function (instance, id, value) {
         console.log('setValueAck request ');
-        vis.conn.sendTo(
-            instance,
-            'setValueAck',
-            { id: id, value: value },
-            function () {
-                //vis.conn._socket.emit("sendTo", instance, "setValueAck", { id: id, value: value }, function () {
-            }.bind(this),
-        );
+        vis.conn.sendTo(instance, 'setValueAck', { id: id, value: value });
     },
     setValueAckAsync: async function (instance, id, value) {
         console.log('setValueAck request ');
         return await this.sendToAsync(instance, 'setValueAck', { id: id, value: value });
-        /*         vis.conn.sendTo(
-            instance,
-            'setValueAck',
-            { id: id, value: value },
-            function () {
-                //vis.conn._socket.emit("sendTo", instance, "setValueAck", { id: id, value: value }, function () {
-            }.bind(this),
-        );
- */
     },
     sendToAsync: async function (instance, command, sendData) {
         console.log(`sendToAsync ${command} ${sendData}`);
@@ -2728,13 +2681,6 @@ vis.binds['tvprogram'] = {
     loadServerInfosAsync: async function (instance) {
         this.infos = [];
         return await this.getServerInfoAsync(instance);
-        /*         this.getServerInfo(
-            instance,
-            function (serverdata) {
-                this.infos = serverdata;
-                callback(serverdata);
-            }.bind(this),
- */
     },
     loadCategories: async function (instance, widgetID) {
         console.log('loadCategories');
@@ -2751,18 +2697,6 @@ vis.binds['tvprogram'] = {
     loadProgram: async function (instance, widgetID, datestring) {
         console.log(`loadProgram ${datestring}`);
         return await this.getServerTVProgramAsync(instance, widgetID, datestring);
-        /*         this.getServerTVProgram(
-            instance,
-            widgetID,
-            datestring,
-            function (datestring, serverdata) {
-                if (serverdata != 'error' && serverdata != 'nodata') {
-                    this.tvprogram[datestring] = serverdata;
-                }
-                callback(datestring, serverdata);
-            }.bind(this, datestring),
-        );
- */
     },
     calcDate: function (datum) {
         const d = new Date(datum);

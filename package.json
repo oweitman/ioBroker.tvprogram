@@ -23,7 +23,8 @@
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.2",
     "axios": "^1.7.7",
-    "dayjs": "^1.11.13"
+    "dayjs": "^1.11.13",
+    "sortablejs": "^1.15.6"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.8.0",
