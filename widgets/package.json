@@ -4,7 +4,8 @@
   "main": "tvprogram/js/tvprogram.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild tvprogram/js/tvprogram.js --minify --bundle --outfile=tvprogram/js/tvprogram-dist.js --target=es6 --sourcemap"
+    "build": "esbuild tvprogram/js/tvprogram.js --bundle --outfile=tvprogram/js/tvprogram-dist.js --target=es6 --sourcemap",
+    "buildmin": "esbuild tvprogram/js/tvprogram.js --minify --bundle --outfile=tvprogram/js/tvprogram-dist.js --target=es6 --sourcemap"
   },
   "author": "",
   "license": "MIT",
