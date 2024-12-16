@@ -719,11 +719,14 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS*
+### 2.2.0 (2024-12-16)
 
 - remove jquery-ui dependency
 - fix dialog is visible on view switch, now it's modal
 - fix adapter icon
+- fix eslint errors
+- switch some callbacks to promises
+- remove unused code
 
 ### 2.1.0 (2024-11-24)
 

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "news": {
+      "2.2.0": {
+        "en": "remove jquery-ui dependency\nfix dialog is visible on view switch, now it's modal\nfix adapter icon\nfix eslint errors\nswitch some callbacks to promises\nremove unused code",
+        "de": "jquery-ui abhängigkeit\nfix dialog ist sichtbar auf ansicht schalter, jetzt ist es modal\nadapter-symbol\neslint fehler beheben\neinige rückrufe zu versprechen wechseln\nungenutzten code entfernen",
+        "ru": "удалить жкжи-уи-иждивенца\nдиалог фиксации виден на переключателе просмотра, теперь это модаль\nзначок адаптера\nисправить ошибки eslint\nпереключить некоторые отзывы к обещаниям\nудалить неиспользуемый код",
+        "pt": "remover a dependência jquery-ui\na caixa de diálogo de correção é visível no interruptor de visualização, agora é modal\nícone do adaptador de correção\ncorrigir erros eslint\nmudar alguns callbacks para promessas\nremover código não utilizado",
+        "nl": "jquery-ui-afhankelijkheid verwijderen\nfix dialoogvenster is zichtbaar op weergave schakelaar, nu is het modal\nadapterpictogram herstellen\neslint-fouten herstellen\nsommige callbacks overzetten naar beloftes\nongebruikte code verwijderen",
+        "fr": "supprimer la dépendance jquery-ui\nla boîte de dialogue de correction est visible sur le commutateur de vue, maintenant c'est modal\ncorrection de l'icône de l'adaptateur\ncorrection d'erreurs d'essence\npasser quelques rappels aux promesses\nsupprimer le code inutilisé",
+        "it": "rimuovere la dipendenza jquery-ui\nfix finestra di dialogo è visibile sull'interruttore di visualizzazione, ora è modale\nfissa icona dell'adattatore\ncorreggere gli errori eslint\ncambiare alcuni callback per promesse\nrimuovere il codice non utilizzato",
+        "es": "eliminar jquery-ui dependencia\nfijar diálogo es visible en el interruptor de vista, ahora es modal\nicono de adaptador de fijación\ncorrige errores de eslint\ncambiar algunos callbacks a promesas\neliminar código no utilizado",
+        "pl": "usunąć zależność jquery- ui\nfix okno jest widoczne na przełączniku widoku, teraz jest modalne\nikona adaptera\nnaprawić błędy eslintu\nprzełączanie niektórych zwrotów na obietnice\nusunąć niewykorzystany kod",
+        "uk": "видалити jquery-ui залежностей\nвиправити діалог видимий на перемикачі перегляду, тепер він модальний\nіконка адаптера\nвиправити помилки eslint\nпереключити деякі виклики для обіцянок\nвидалити невикористаний код",
+        "zh-cn": "删除对jquery-ui的依赖\n在视图开关上可见固定对话框, 现在它是模式\n修正适配器图标\n修正 eslint 错误\n将一些回调改为承诺\n删除未使用的代码"
+      },
       "2.1.0": {
         "en": "Change sento command from getFavoritesDatax to getFavoritesData\nswitch to eslint\ncomplete rework of tvprogram to switch from callback to await",
         "de": "Change sento Befehl von getFavorites Datax to getFavorites Daten\nschalten auf eslint\nkomplettes nacharbeiten von tvprogram, um vom rückruf zu warten",
@@ -80,19 +93,6 @@
         "pl": "napraw błąd z niekończącym się przewijaniem w firefox / set numer wersji 1.0 z powodu adaptera teraz w stabilnym repozytorium",
         "zh-cn": "修复了在firefox中无休止滚动的错误/现在将版本号设置为1.0到期的适配器已在稳定的存储库中",
         "uk": "виправлено помилку з нескінченним прокручуванням у firefox / встановлено номер версії 1.0 через те, що адаптер тепер у стабільному репозиторії"
-      },
-      "0.0.32": {
-        "en": "fix bug with 2 control widgets / add duration to the time attribute at the control widget / small changes in the documentation",
-        "de": "Behebung eines Fehlers mit 2 Steuerelement-Widgets / Hinzufügen von Dauer zum Zeitattribut im Steuerelement-Widget / kleine Änderungen in der Dokumentation",
-        "ru": "исправить ошибку с 2 виджетами управления / добавить продолжительность к атрибуту времени в виджете управления / небольшие изменения в документации",
-        "pt": "corrigir bug com 2 widgets de controle / adicionar duração ao atributo de tempo no widget de controle / pequenas mudanças na documentação",
-        "nl": "repareer bug met 2 controlewidgets / voeg duur toe aan het tijdattribuut bij de controlewidget / kleine wijzigingen in de documentatie",
-        "fr": "correction d'un bug avec 2 widgets de contrôle / ajout de la durée à l'attribut time au niveau du widget de contrôle / petits changements dans la documentation",
-        "it": "risolto bug con 2 widget di controllo / aggiungi durata all'attributo time nel widget di controllo / piccole modifiche nella documentazione",
-        "es": "corregir el error con 2 widgets de control / agregar duración al atributo de tiempo en el widget de control / pequeños cambios en la documentación",
-        "pl": "napraw błąd za pomocą 2 widżetów sterujących / dodaj czas trwania do atrybutu czasu w widgecie kontrolnym / małe zmiany w dokumentacji",
-        "zh-cn": "修复2个控件窗口小部件的错误/在控件窗口小部件的时间属性中添加持续时间/文档中的小改动",
-        "uk": "виправити помилку з 2 віджетами керування / додати тривалість до атрибута часу у віджеті керування / невеликі зміни в документації"
       }
     },
     "titleLang": {
