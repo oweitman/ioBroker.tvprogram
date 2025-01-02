@@ -833,6 +833,11 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 3.0.0 (2025-01-02)
+
+- TVs as a device, this is a major change because all data points have to be deleted manually by the user
+- improve datapoint creation
+
 ### 2.3.1 (2025-01-02)
 
 - little docu fixes
