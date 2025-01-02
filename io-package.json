@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "news": {
+      "2.3.1": {
+        "en": "little docu fixes",
+        "de": "kleine docu-fixes",
+        "ru": "небольшие исправления доку",
+        "pt": "pequenas correções docu",
+        "nl": "kleine documentfixes",
+        "fr": "petites corrections docu",
+        "it": "piccolo docu correzioni",
+        "es": "pequeño docu arregla",
+        "pl": "małe poprawki doku",
+        "uk": "мало docu fixes",
+        "zh-cn": "小文档修正"
+      },
       "2.3.0": {
         "en": "add datapoint for optional channel icons\nadd logic in the widgets",
         "de": "datenpunkt für optionale kanalsymbole hinzufügen\nlogik in den widgets hinzufügen",
@@ -80,19 +93,6 @@
         "pl": "* napraw setState za pomocą ack==false",
         "uk": "* виправити setState з ack==false",
         "zh-cn": "* 修复 setState 为 ack==false"
-      },
-      "1.1.0": {
-        "en": "tooltips for the buttons in the time widget / search through the whole text to also find directors and actors / add showpictures option in time,control and search widget / improve documentation",
-        "de": "Tooltips für die Schaltflächen im Zeit-Widget / Durchsuchen des gesamten Textes, um auch Regisseure und Schauspieler zu finden / Showpictures-Option in Zeit hinzufügen, Widget steuern und suchen / Dokumentation verbessern",
-        "ru": "всплывающие подсказки для кнопок в виджете времени / поиск по всему тексту, чтобы также найти режиссеров и актеров / добавление опции showpictures во времени, виджет управления и поиска / улучшение документации",
-        "pt": "dicas para os botões no widget de tempo / pesquisa em todo o texto para também encontrar diretores e atores / adicionar a opção de quadros de exibição no tempo, controlar e pesquisar widget / melhorar a documentação",
-        "nl": "tooltips voor de knoppen in de tijdwidget / doorzoek de hele tekst om ook regisseurs en acteurs te vinden / voeg showpictures toe optie in de tijd, controle en zoekwidget / verbeter documentatie",
-        "fr": "info-bulles pour les boutons dans le widget de temps / rechercher dans tout le texte pour trouver également les réalisateurs et les acteurs / ajouter l'option showpictures dans le temps, contrôler et rechercher un widget / améliorer la documentation",
-        "it": "suggerimenti per i pulsanti nel widget del tempo / ricerca nell'intero testo per trovare anche registi e attori / aggiungere l'opzione di immagini dello spettacolo nel widget di tempo, controllo e ricerca / migliorare la documentazione",
-        "es": "información sobre herramientas para los botones en el widget de tiempo / búsqueda en todo el texto para encontrar también directores y actores / agregar la opción de mostrar imágenes en el tiempo, control y widget de búsqueda / mejorar la documentación",
-        "pl": "podpowiedzi do przycisków w widgecie czasu / przeszukiwanie całego tekstu, aby znaleźć także reżyserów i aktorów / dodawanie opcji showpictures w czasie, widżet sterowania i wyszukiwania / ulepszanie dokumentacji",
-        "zh-cn": "时间小部件中的按钮的工具提示/在整个文本中搜索还可以找到导演和演员/在时间中添加showpictures选项，控制和搜索小部件/改进文档",
-        "uk": "підказки для кнопок у віджеті часу / пошук по всьому тексту, щоб також знайти режисерів і акторів / додайте опцію показу картинок у часі, віджет керування та пошуку / вдосконалення документації"
       }
     },
     "titleLang": {

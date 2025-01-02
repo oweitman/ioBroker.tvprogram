@@ -268,7 +268,7 @@ http://localhost:8082/vis.0/icons/tvlogos/
 
 All icons should be uploaded via the iobroker file dialog.
 
-For an example see Chapter
+For an example see Chapter [Example for Alternative Logos](#alternative-channel-logos-by-tino-0)
 
 ### Provided `Sendto`-Commands
 
@@ -587,7 +587,7 @@ You have to register to download the logos with following size 400x160
 
 **Rename the Logos:**
 
-start the follwing commands in the downloaded and unziped file
+start the follwing commands in the downloaded and unziped folder
 
 <details>
   <summary>Details</summary>
@@ -833,6 +833,10 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 2.3.1 (2025-01-02)
+
+- little docu fixes
+
 ### 2.3.0 (2025-01-02)
 
 - add datapoint for optional channel icons
