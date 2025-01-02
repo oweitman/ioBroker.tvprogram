@@ -1,584 +1,5213 @@
-"use strict";(()=>{var Te=(t,e)=>()=>(t&&(e=t(t=0)),e);var ke=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports);var R=(t,e,n)=>new Promise((o,i)=>{var a=h=>{try{c(n.next(h))}catch(u){i(u)}},l=h=>{try{c(n.throw(h))}catch(u){i(u)}},c=h=>h.done?o(h.value):Promise.resolve(h.value).then(a,l);c((n=n.apply(t,e)).next())});var Ee,Ae=Te(()=>{Ee="2.1.0"});function _e(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(t);e&&(o=o.filter(function(i){return Object.getOwnPropertyDescriptor(t,i).enumerable})),n.push.apply(n,o)}return n}function ht(t){for(var e=1;e<arguments.length;e++){var n=arguments[e]!=null?arguments[e]:{};e%2?_e(Object(n),!0).forEach(function(o){on(t,o,n[o])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):_e(Object(n)).forEach(function(o){Object.defineProperty(t,o,Object.getOwnPropertyDescriptor(n,o))})}return t}function Xt(t){"@babel/helpers - typeof";return typeof Symbol=="function"&&typeof Symbol.iterator=="symbol"?Xt=function(e){return typeof e}:Xt=function(e){return e&&typeof Symbol=="function"&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},Xt(t)}function on(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}function ft(){return ft=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(t[o]=n[o])}return t},ft.apply(this,arguments)}function rn(t,e){if(t==null)return{};var n={},o=Object.keys(t),i,a;for(a=0;a<o.length;a++)i=o[a],!(e.indexOf(i)>=0)&&(n[i]=t[i]);return n}function an(t,e){if(t==null)return{};var n=rn(t,e),o,i;if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(i=0;i<a.length;i++)o=a[i],!(e.indexOf(o)>=0)&&Object.prototype.propertyIsEnumerable.call(t,o)&&(n[o]=t[o])}return n}function ut(t){if(typeof window!="undefined"&&window.navigator)return!!navigator.userAgent.match(t)}function P(t,e,n){t.addEventListener(e,n,!pt&&je)}function N(t,e,n){t.removeEventListener(e,n,!pt&&je)}function It(t,e){if(e){if(e[0]===">"&&(e=e.substring(1)),t)try{if(t.matches)return t.matches(e);if(t.msMatchesSelector)return t.msMatchesSelector(e);if(t.webkitMatchesSelector)return t.webkitMatchesSelector(e)}catch(n){return!1}return!1}}function We(t){return t.host&&t!==document&&t.host.nodeType?t.host:t.parentNode}function ct(t,e,n,o){if(t){n=n||document;do{if(e!=null&&(e[0]===">"?t.parentNode===n&&It(t,e):It(t,e))||o&&t===n)return t;if(t===n)break}while(t=We(t))}return null}function it(t,e,n){if(t&&e)if(t.classList)t.classList[n?"add":"remove"](e);else{var o=(" "+t.className+" ").replace(Oe," ").replace(" "+e+" "," ");t.className=(o+(n?" "+e:"")).replace(Oe," ")}}function E(t,e,n){var o=t&&t.style;if(o){if(n===void 0)return document.defaultView&&document.defaultView.getComputedStyle?n=document.defaultView.getComputedStyle(t,""):t.currentStyle&&(n=t.currentStyle),e===void 0?n:n[e];!(e in o)&&e.indexOf("webkit")===-1&&(e="-webkit-"+e),o[e]=n+(typeof n=="string"?"":"px")}}function _t(t,e){var n="";if(typeof t=="string")n=t;else do{var o=E(t,"transform");o&&o!=="none"&&(n=o+" "+n)}while(!e&&(t=t.parentNode));var i=window.DOMMatrix||window.WebKitCSSMatrix||window.CSSMatrix||window.MSCSSMatrix;return i&&new i(n)}function Re(t,e,n){if(t){var o=t.getElementsByTagName(e),i=0,a=o.length;if(n)for(;i<a;i++)n(o[i],i);return o}return[]}function dt(){var t=document.scrollingElement;return t||document.documentElement}function X(t,e,n,o,i){if(!(!t.getBoundingClientRect&&t!==window)){var a,l,c,h,u,p,f;if(t!==window&&t.parentNode&&t!==dt()?(a=t.getBoundingClientRect(),l=a.top,c=a.left,h=a.bottom,u=a.right,p=a.height,f=a.width):(l=0,c=0,h=window.innerHeight,u=window.innerWidth,p=window.innerHeight,f=window.innerWidth),(e||n)&&t!==window&&(i=i||t.parentNode,!pt))do if(i&&i.getBoundingClientRect&&(E(i,"transform")!=="none"||n&&E(i,"position")!=="static")){var b=i.getBoundingClientRect();l-=b.top+parseInt(E(i,"border-top-width")),c-=b.left+parseInt(E(i,"border-left-width")),h=l+a.height,u=c+a.width;break}while(i=i.parentNode);if(o&&t!==window){var w=_t(i||t),g=w&&w.a,S=w&&w.d;w&&(l/=S,c/=g,f/=g,p/=S,h=l+p,u=c+f)}return{top:l,left:c,bottom:h,right:u,width:f,height:p}}}function He(t,e,n){for(var o=bt(t,!0),i=X(t)[e];o;){var a=X(o)[n],l=void 0;if(n==="top"||n==="left"?l=i>=a:l=i<=a,!l)return o;if(o===dt())break;o=bt(o,!1)}return!1}function Mt(t,e,n,o){for(var i=0,a=0,l=t.children;a<l.length;){if(l[a].style.display!=="none"&&l[a]!==_.ghost&&(o||l[a]!==_.dragged)&&ct(l[a],n.draggable,t,!1)){if(i===e)return l[a];i++}a++}return null}function ye(t,e){for(var n=t.lastElementChild;n&&(n===_.ghost||E(n,"display")==="none"||e&&!It(n,e));)n=n.previousElementSibling;return n||null}function st(t,e){var n=0;if(!t||!t.parentNode)return-1;for(;t=t.previousElementSibling;)t.nodeName.toUpperCase()!=="TEMPLATE"&&t!==_.clone&&(!e||It(t,e))&&n++;return n}function Ve(t){var e=0,n=0,o=dt();if(t)do{var i=_t(t),a=i.a,l=i.d;e+=t.scrollLeft*a,n+=t.scrollTop*l}while(t!==o&&(t=t.parentNode));return[e,n]}function ln(t,e){for(var n in t)if(t.hasOwnProperty(n)){for(var o in e)if(e.hasOwnProperty(o)&&e[o]===t[n][o])return Number(n)}return-1}function bt(t,e){if(!t||!t.getBoundingClientRect)return dt();var n=t,o=!1;do if(n.clientWidth<n.scrollWidth||n.clientHeight<n.scrollHeight){var i=E(n);if(n.clientWidth<n.scrollWidth&&(i.overflowX=="auto"||i.overflowX=="scroll")||n.clientHeight<n.scrollHeight&&(i.overflowY=="auto"||i.overflowY=="scroll")){if(!n.getBoundingClientRect||n===document.body)return dt();if(o||e)return n;o=!0}}while(n=n.parentNode);return dt()}function cn(t,e){if(t&&e)for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);return t}function ae(t,e){return Math.round(t.top)===Math.round(e.top)&&Math.round(t.left)===Math.round(e.left)&&Math.round(t.height)===Math.round(e.height)&&Math.round(t.width)===Math.round(e.width)}function ze(t,e){return function(){if(!Bt){var n=arguments,o=this;n.length===1?t.call(o,n[0]):t.apply(o,n),Bt=setTimeout(function(){Bt=void 0},e)}}}function dn(){clearTimeout(Bt),Bt=void 0}function Ye(t,e,n){t.scrollLeft+=e,t.scrollTop+=n}function De(t){var e=window.Polymer,n=window.jQuery||window.Zepto;return e&&e.dom?e.dom(t).cloneNode(!0):n?n(t).clone(!0)[0]:t.cloneNode(!0)}function qe(t,e,n){var o={};return Array.from(t.children).forEach(function(i){var a,l,c,h;if(!(!ct(i,e.draggable,t,!1)||i.animated||i===n)){var u=X(i);o.left=Math.min((a=o.left)!==null&&a!==void 0?a:1/0,u.left),o.top=Math.min((l=o.top)!==null&&l!==void 0?l:1/0,u.top),o.right=Math.max((c=o.right)!==null&&c!==void 0?c:-1/0,u.right),o.bottom=Math.max((h=o.bottom)!==null&&h!==void 0?h:-1/0,u.bottom)}}),o.width=o.right-o.left,o.height=o.bottom-o.top,o.x=o.left,o.y=o.top,o}function hn(){var t=[],e;return{captureAnimationState:function(){if(t=[],!!this.options.animation){var o=[].slice.call(this.el.children);o.forEach(function(i){if(!(E(i,"display")==="none"||i===_.ghost)){t.push({target:i,rect:X(i)});var a=ht({},t[t.length-1].rect);if(i.thisAnimationDuration){var l=_t(i,!0);l&&(a.top-=l.f,a.left-=l.e)}i.fromRect=a}})}},addAnimationState:function(o){t.push(o)},removeAnimationState:function(o){t.splice(ln(t,{target:o}),1)},animateAll:function(o){var i=this;if(!this.options.animation){clearTimeout(e),typeof o=="function"&&o();return}var a=!1,l=0;t.forEach(function(c){var h=0,u=c.target,p=u.fromRect,f=X(u),b=u.prevFromRect,w=u.prevToRect,g=c.rect,S=_t(u,!0);S&&(f.top-=S.f,f.left-=S.e),u.toRect=f,u.thisAnimationDuration&&ae(b,f)&&!ae(p,f)&&(g.top-f.top)/(g.left-f.left)===(p.top-f.top)/(p.left-f.left)&&(h=fn(g,b,w,i.options)),ae(f,p)||(u.prevFromRect=p,u.prevToRect=f,h||(h=i.options.animation),i.animate(u,g,f,h)),h&&(a=!0,l=Math.max(l,h),clearTimeout(u.animationResetTimer),u.animationResetTimer=setTimeout(function(){u.animationTime=0,u.prevFromRect=null,u.fromRect=null,u.prevToRect=null,u.thisAnimationDuration=null},h),u.thisAnimationDuration=h)}),clearTimeout(e),a?e=setTimeout(function(){typeof o=="function"&&o()},l):typeof o=="function"&&o(),t=[]},animate:function(o,i,a,l){if(l){E(o,"transition",""),E(o,"transform","");var c=_t(this.el),h=c&&c.a,u=c&&c.d,p=(i.left-a.left)/(h||1),f=(i.top-a.top)/(u||1);o.animatingX=!!p,o.animatingY=!!f,E(o,"transform","translate3d("+p+"px,"+f+"px,0)"),this.forRepaintDummy=un(o),E(o,"transition","transform "+l+"ms"+(this.options.easing?" "+this.options.easing:"")),E(o,"transform","translate3d(0,0,0)"),typeof o.animated=="number"&&clearTimeout(o.animated),o.animated=setTimeout(function(){E(o,"transition",""),E(o,"transform",""),o.animated=!1,o.animatingX=!1,o.animatingY=!1},l)}}}}function un(t){return t.offsetWidth}function fn(t,e,n,o){return Math.sqrt(Math.pow(e.top-t.top,2)+Math.pow(e.left-t.left,2))/Math.sqrt(Math.pow(e.top-n.top,2)+Math.pow(e.left-n.left,2))*o.animation}function pn(t){var e=t.sortable,n=t.rootEl,o=t.name,i=t.targetEl,a=t.cloneEl,l=t.toEl,c=t.fromEl,h=t.oldIndex,u=t.newIndex,p=t.oldDraggableIndex,f=t.newDraggableIndex,b=t.originalEvent,w=t.putSortable,g=t.extraEventProperties;if(e=e||n&&n[ot],!!e){var S,s=e.options,d="on"+o.charAt(0).toUpperCase()+o.substr(1);window.CustomEvent&&!pt&&!Rt?S=new CustomEvent(o,{bubbles:!0,cancelable:!0}):(S=document.createEvent("Event"),S.initEvent(o,!0,!0)),S.to=l||n,S.from=c||n,S.item=i||n,S.clone=a,S.oldIndex=h,S.newIndex=u,S.oldDraggableIndex=p,S.newDraggableIndex=f,S.originalEvent=b,S.pullMode=w?w.lastPutMode:void 0;var V=ht(ht({},g),zt.getEventProperties(o,e));for(var L in V)S[L]=V[L];n&&n.dispatchEvent(S),s[d]&&s[d].call(e,S)}}function tt(t){pn(ht({putSortable:Q,cloneEl:Y,targetEl:m,rootEl:z,oldIndex:Et,oldDraggableIndex:Ft,newIndex:rt,newDraggableIndex:vt},t))}function _(t,e){if(!(t&&t.nodeType&&t.nodeType===1))throw"Sortable: `el` must be an HTMLElement, not ".concat({}.toString.call(t));this.el=t,this.options=e=ft({},e),t[ot]=this;var n={group:null,sort:!0,disabled:!1,store:null,handle:null,draggable:/^[uo]l$/i.test(t.nodeName)?">li":">*",swapThreshold:1,invertSwap:!1,invertedSwapThreshold:null,removeCloneOnHide:!0,direction:function(){return Ge(t,this.options)},ghostClass:"sortable-ghost",chosenClass:"sortable-chosen",dragClass:"sortable-drag",ignore:"a, img",filter:null,preventOnFilter:!0,animation:0,easing:null,setData:function(l,c){l.setData("Text",c.textContent)},dropBubble:!1,dragoverBubble:!1,dataIdAttr:"data-id",delay:0,delayOnTouchOnly:!1,touchStartThreshold:(Number.parseInt?Number:window).parseInt(window.devicePixelRatio,10)||1,forceFallback:!1,fallbackClass:"sortable-fallback",fallbackOnBody:!1,fallbackTolerance:0,fallbackOffset:{x:0,y:0},supportPointer:_.supportPointer!==!1&&"PointerEvent"in window&&(!Pt||$e),emptyInsertThreshold:5};zt.initializePlugins(this,t,n);for(var o in n)!(o in e)&&(e[o]=n[o]);Xe(e);for(var i in this)i.charAt(0)==="_"&&typeof this[i]=="function"&&(this[i]=this[i].bind(this));this.nativeDraggable=e.forceFallback?!1:vn,this.nativeDraggable&&(this.options.touchStartThreshold=1),e.supportPointer?P(t,"pointerdown",this._onTapStart):(P(t,"mousedown",this._onTapStart),P(t,"touchstart",this._onTapStart)),this.nativeDraggable&&(P(t,"dragover",this),P(t,"dragenter",this)),ee.push(this.el),e.store&&e.store.get&&this.sort(e.store.get(this)||[]),ft(this,hn())}function yn(t){t.dataTransfer&&(t.dataTransfer.dropEffect="move"),t.cancelable&&t.preventDefault()}function Gt(t,e,n,o,i,a,l,c){var h,u=t[ot],p=u.options.onMove,f;return window.CustomEvent&&!pt&&!Rt?h=new CustomEvent("move",{bubbles:!0,cancelable:!0}):(h=document.createEvent("Event"),h.initEvent("move",!0,!0)),h.to=e,h.from=t,h.dragged=n,h.draggedRect=o,h.related=i||e,h.relatedRect=a||X(e),h.willInsertAfter=c,h.originalEvent=l,t.dispatchEvent(h),p&&(f=p.call(u,h,l)),f}function he(t){t.draggable=!1}function Sn(){ge=!1}function xn(t,e,n){var o=X(Mt(n.el,0,n.options,!0)),i=qe(n.el,n.options,H),a=10;return e?t.clientX<i.left-a||t.clientY<o.top&&t.clientX<o.right:t.clientY<i.top-a||t.clientY<o.bottom&&t.clientX<o.left}function Cn(t,e,n){var o=X(ye(n.el,n.options.draggable)),i=qe(n.el,n.options,H),a=10;return e?t.clientX>i.right+a||t.clientY>o.bottom&&t.clientX>o.left:t.clientY>i.bottom+a||t.clientX>o.right&&t.clientY>o.top}function wn(t,e,n,o,i,a,l,c){var h=o?t.clientY:t.clientX,u=o?n.height:n.width,p=o?n.top:n.left,f=o?n.bottom:n.right,b=!1;if(!l){if(c&&Ut<u*i){if(!Wt&&(jt===1?h>p+u*a/2:h<f-u*a/2)&&(Wt=!0),Wt)b=!0;else if(jt===1?h<p+Ut:h>f-Ut)return-jt}else if(h>p+u*(1-i)/2&&h<f-u*(1-i)/2)return Tn(e)}return b=b||l,b&&(h<p+u*a/2||h>f-u*a/2)?h>p+u/2?1:-1:0}function Tn(t){return st(m)<st(t)?1:-1}function kn(t){for(var e=t.tagName+t.className+t.src+t.href+t.textContent,n=e.length,o=0;n--;)o+=e.charCodeAt(n);return o.toString(36)}function An(t){ne.length=0;for(var e=t.getElementsByTagName("input"),n=e.length;n--;){var o=e[n];o.checked&&ne.push(o)}}function Jt(t){return setTimeout(t,0)}function ve(t){return clearTimeout(t)}function En(){function t(){this.defaults={scroll:!0,forceAutoScrollFallback:!1,scrollSensitivity:30,scrollSpeed:10,bubbleScroll:!0};for(var e in this)e.charAt(0)==="_"&&typeof this[e]=="function"&&(this[e]=this[e].bind(this))}return t.prototype={dragStarted:function(n){var o=n.originalEvent;this.sortable.nativeDraggable?P(document,"dragover",this._handleAutoScroll):this.options.supportPointer?P(document,"pointermove",this._handleFallbackAutoScroll):o.touches?P(document,"touchmove",this._handleFallbackAutoScroll):P(document,"mousemove",this._handleFallbackAutoScroll)},dragOverCompleted:function(n){var o=n.originalEvent;!this.options.dragOverBubble&&!o.rootEl&&this._handleAutoScroll(o)},drop:function(){this.sortable.nativeDraggable?N(document,"dragover",this._handleAutoScroll):(N(document,"pointermove",this._handleFallbackAutoScroll),N(document,"touchmove",this._handleFallbackAutoScroll),N(document,"mousemove",this._handleFallbackAutoScroll)),Be(),Qt(),dn()},nulling:function(){oe=me=Lt=be=Nt=ue=fe=null,G.length=0},_handleFallbackAutoScroll:function(n){this._handleAutoScroll(n,!0)},_handleAutoScroll:function(n,o){var i=this,a=(n.touches?n.touches[0]:n).clientX,l=(n.touches?n.touches[0]:n).clientY,c=document.elementFromPoint(a,l);if(oe=n,o||this.options.forceAutoScrollFallback||Rt||pt||Pt){pe(n,this.options,c,o);var h=bt(c,!0);be&&(!Nt||a!==ue||l!==fe)&&(Nt&&Be(),Nt=setInterval(function(){var u=bt(document.elementFromPoint(a,l),!0);u!==h&&(h=u,Qt()),pe(n,i.options,u,o)},10),ue=a,fe=l)}else{if(!this.options.bubbleScroll||bt(c,!0)===dt()){Qt();return}pe(n,this.options,bt(c,!1),!1)}}},ft(t,{pluginName:"scroll",initializeByDefault:!0})}function Qt(){G.forEach(function(t){clearInterval(t.pid)}),G=[]}function Be(){clearInterval(Nt)}function Se(){}function xe(){}var sn,pt,Rt,Me,Pt,$e,Fe,je,Oe,Bt,ot,Tt,se,zt,gn,nt,m,q,H,z,Ct,Kt,Y,mt,Et,rt,Ft,vt,Dt,Q,At,te,ee,St,lt,le,ce,Le,Ne,Vt,kt,jt,Wt,qt,Ut,I,de,ge,ne,ie,Zt,Pe,vn,Ze,Ge,mn,bn,Xe,Ke,Ue,xt,$n,G,Lt,me,be,ue,fe,oe,Nt,pe,Je,Qe,Ie=Te(()=>{sn="1.15.6";pt=ut(/(?:Trident.*rv[ :]?11\.|msie|iemobile|Windows Phone)/i),Rt=ut(/Edge/i),Me=ut(/firefox/i),Pt=ut(/safari/i)&&!ut(/chrome/i)&&!ut(/android/i),$e=ut(/iP(ad|od|hone)/i),Fe=ut(/chrome/i)&&ut(/android/i),je={capture:!1,passive:!1};Oe=/\s+/g;ot="Sortable"+new Date().getTime();Tt=[],se={initializeByDefault:!0},zt={mount:function(e){for(var n in se)se.hasOwnProperty(n)&&!(n in e)&&(e[n]=se[n]);Tt.forEach(function(o){if(o.pluginName===e.pluginName)throw"Sortable: Cannot mount plugin ".concat(e.pluginName," more than once")}),Tt.push(e)},pluginEvent:function(e,n,o){var i=this;this.eventCanceled=!1,o.cancel=function(){i.eventCanceled=!0};var a=e+"Global";Tt.forEach(function(l){n[l.pluginName]&&(n[l.pluginName][a]&&n[l.pluginName][a](ht({sortable:n},o)),n.options[l.pluginName]&&n[l.pluginName][e]&&n[l.pluginName][e](ht({sortable:n},o)))})},initializePlugins:function(e,n,o,i){Tt.forEach(function(c){var h=c.pluginName;if(!(!e.options[h]&&!c.initializeByDefault)){var u=new c(e,n,e.options);u.sortable=e,u.options=e.options,e[h]=u,ft(o,u.defaults)}});for(var a in e.options)if(e.options.hasOwnProperty(a)){var l=this.modifyOption(e,a,e.options[a]);typeof l!="undefined"&&(e.options[a]=l)}},getEventProperties:function(e,n){var o={};return Tt.forEach(function(i){typeof i.eventProperties=="function"&&ft(o,i.eventProperties.call(n[i.pluginName],e))}),o},modifyOption:function(e,n,o){var i;return Tt.forEach(function(a){e[a.pluginName]&&a.optionListeners&&typeof a.optionListeners[n]=="function"&&(i=a.optionListeners[n].call(e[a.pluginName],o))}),i}};gn=["evt"],nt=function(e,n){var o=arguments.length>2&&arguments[2]!==void 0?arguments[2]:{},i=o.evt,a=an(o,gn);zt.pluginEvent.bind(_)(e,n,ht({dragEl:m,parentEl:q,ghostEl:H,rootEl:z,nextEl:Ct,lastDownEl:Kt,cloneEl:Y,cloneHidden:mt,dragStarted:Vt,putSortable:Q,activeSortable:_.active,originalEvent:i,oldIndex:Et,oldDraggableIndex:Ft,newIndex:rt,newDraggableIndex:vt,hideGhostForTarget:Ke,unhideGhostForTarget:Ue,cloneNowHidden:function(){mt=!0},cloneNowShown:function(){mt=!1},dispatchSortableEvent:function(c){tt({sortable:n,name:c,originalEvent:i})}},a))};At=!1,te=!1,ee=[],Wt=!1,qt=!1,de=[],ge=!1,ne=[],ie=typeof document!="undefined",Zt=$e,Pe=Rt||pt?"cssFloat":"float",vn=ie&&!Fe&&!$e&&"draggable"in document.createElement("div"),Ze=function(){if(ie){if(pt)return!1;var t=document.createElement("x");return t.style.cssText="pointer-events:auto",t.style.pointerEvents==="auto"}}(),Ge=function(e,n){var o=E(e),i=parseInt(o.width)-parseInt(o.paddingLeft)-parseInt(o.paddingRight)-parseInt(o.borderLeftWidth)-parseInt(o.borderRightWidth),a=Mt(e,0,n),l=Mt(e,1,n),c=a&&E(a),h=l&&E(l),u=c&&parseInt(c.marginLeft)+parseInt(c.marginRight)+X(a).width,p=h&&parseInt(h.marginLeft)+parseInt(h.marginRight)+X(l).width;if(o.display==="flex")return o.flexDirection==="column"||o.flexDirection==="column-reverse"?"vertical":"horizontal";if(o.display==="grid")return o.gridTemplateColumns.split(" ").length<=1?"vertical":"horizontal";if(a&&c.float&&c.float!=="none"){var f=c.float==="left"?"left":"right";return l&&(h.clear==="both"||h.clear===f)?"vertical":"horizontal"}return a&&(c.display==="block"||c.display==="flex"||c.display==="table"||c.display==="grid"||u>=i&&o[Pe]==="none"||l&&o[Pe]==="none"&&u+p>i)?"vertical":"horizontal"},mn=function(e,n,o){var i=o?e.left:e.top,a=o?e.right:e.bottom,l=o?e.width:e.height,c=o?n.left:n.top,h=o?n.right:n.bottom,u=o?n.width:n.height;return i===c||a===h||i+l/2===c+u/2},bn=function(e,n){var o;return ee.some(function(i){var a=i[ot].options.emptyInsertThreshold;if(!(!a||ye(i))){var l=X(i),c=e>=l.left-a&&e<=l.right+a,h=n>=l.top-a&&n<=l.bottom+a;if(c&&h)return o=i}}),o},Xe=function(e){function n(a,l){return function(c,h,u,p){var f=c.options.group.name&&h.options.group.name&&c.options.group.name===h.options.group.name;if(a==null&&(l||f))return!0;if(a==null||a===!1)return!1;if(l&&a==="clone")return a;if(typeof a=="function")return n(a(c,h,u,p),l)(c,h,u,p);var b=(l?c:h).options.group.name;return a===!0||typeof a=="string"&&a===b||a.join&&a.indexOf(b)>-1}}var o={},i=e.group;(!i||Xt(i)!="object")&&(i={name:i}),o.name=i.name,o.checkPull=n(i.pull,!0),o.checkPut=n(i.put),o.revertClone=i.revertClone,e.group=o},Ke=function(){!Ze&&H&&E(H,"display","none")},Ue=function(){!Ze&&H&&E(H,"display","")};ie&&!Fe&&document.addEventListener("click",function(t){if(te)return t.preventDefault(),t.stopPropagation&&t.stopPropagation(),t.stopImmediatePropagation&&t.stopImmediatePropagation(),te=!1,!1},!0);xt=function(e){if(m){e=e.touches?e.touches[0]:e;var n=bn(e.clientX,e.clientY);if(n){var o={};for(var i in e)e.hasOwnProperty(i)&&(o[i]=e[i]);o.target=o.rootEl=n,o.preventDefault=void 0,o.stopPropagation=void 0,n[ot]._onDragOver(o)}}},$n=function(e){m&&m.parentNode[ot]._isOutsideThisEl(e.target)};_.prototype={constructor:_,_isOutsideThisEl:function(e){!this.el.contains(e)&&e!==this.el&&(kt=null)},_getDirection:function(e,n){return typeof this.options.direction=="function"?this.options.direction.call(this,e,n,m):this.options.direction},_onTapStart:function(e){if(e.cancelable){var n=this,o=this.el,i=this.options,a=i.preventOnFilter,l=e.type,c=e.touches&&e.touches[0]||e.pointerType&&e.pointerType==="touch"&&e,h=(c||e).target,u=e.target.shadowRoot&&(e.path&&e.path[0]||e.composedPath&&e.composedPath()[0])||h,p=i.filter;if(An(o),!m&&!(/mousedown|pointerdown/.test(l)&&e.button!==0||i.disabled)&&!u.isContentEditable&&!(!this.nativeDraggable&&Pt&&h&&h.tagName.toUpperCase()==="SELECT")&&(h=ct(h,i.draggable,o,!1),!(h&&h.animated)&&Kt!==h)){if(Et=st(h),Ft=st(h,i.draggable),typeof p=="function"){if(p.call(this,e,h,this)){tt({sortable:n,rootEl:u,name:"filter",targetEl:h,toEl:o,fromEl:o}),nt("filter",n,{evt:e}),a&&e.preventDefault();return}}else if(p&&(p=p.split(",").some(function(f){if(f=ct(u,f.trim(),o,!1),f)return tt({sortable:n,rootEl:f,name:"filter",targetEl:h,fromEl:o,toEl:o}),nt("filter",n,{evt:e}),!0}),p)){a&&e.preventDefault();return}i.handle&&!ct(u,i.handle,o,!1)||this._prepareDragStart(e,c,h)}}},_prepareDragStart:function(e,n,o){var i=this,a=i.el,l=i.options,c=a.ownerDocument,h;if(o&&!m&&o.parentNode===a){var u=X(o);if(z=a,m=o,q=m.parentNode,Ct=m.nextSibling,Kt=o,Dt=l.group,_.dragged=m,St={target:m,clientX:(n||e).clientX,clientY:(n||e).clientY},Le=St.clientX-u.left,Ne=St.clientY-u.top,this._lastX=(n||e).clientX,this._lastY=(n||e).clientY,m.style["will-change"]="all",h=function(){if(nt("delayEnded",i,{evt:e}),_.eventCanceled){i._onDrop();return}i._disableDelayedDragEvents(),!Me&&i.nativeDraggable&&(m.draggable=!0),i._triggerDragStart(e,n),tt({sortable:i,name:"choose",originalEvent:e}),it(m,l.chosenClass,!0)},l.ignore.split(",").forEach(function(p){Re(m,p.trim(),he)}),P(c,"dragover",xt),P(c,"mousemove",xt),P(c,"touchmove",xt),l.supportPointer?(P(c,"pointerup",i._onDrop),!this.nativeDraggable&&P(c,"pointercancel",i._onDrop)):(P(c,"mouseup",i._onDrop),P(c,"touchend",i._onDrop),P(c,"touchcancel",i._onDrop)),Me&&this.nativeDraggable&&(this.options.touchStartThreshold=4,m.draggable=!0),nt("delayStart",this,{evt:e}),l.delay&&(!l.delayOnTouchOnly||n)&&(!this.nativeDraggable||!(Rt||pt))){if(_.eventCanceled){this._onDrop();return}l.supportPointer?(P(c,"pointerup",i._disableDelayedDrag),P(c,"pointercancel",i._disableDelayedDrag)):(P(c,"mouseup",i._disableDelayedDrag),P(c,"touchend",i._disableDelayedDrag),P(c,"touchcancel",i._disableDelayedDrag)),P(c,"mousemove",i._delayedDragTouchMoveHandler),P(c,"touchmove",i._delayedDragTouchMoveHandler),l.supportPointer&&P(c,"pointermove",i._delayedDragTouchMoveHandler),i._dragStartTimer=setTimeout(h,l.delay)}else h()}},_delayedDragTouchMoveHandler:function(e){var n=e.touches?e.touches[0]:e;Math.max(Math.abs(n.clientX-this._lastX),Math.abs(n.clientY-this._lastY))>=Math.floor(this.options.touchStartThreshold/(this.nativeDraggable&&window.devicePixelRatio||1))&&this._disableDelayedDrag()},_disableDelayedDrag:function(){m&&he(m),clearTimeout(this._dragStartTimer),this._disableDelayedDragEvents()},_disableDelayedDragEvents:function(){var e=this.el.ownerDocument;N(e,"mouseup",this._disableDelayedDrag),N(e,"touchend",this._disableDelayedDrag),N(e,"touchcancel",this._disableDelayedDrag),N(e,"pointerup",this._disableDelayedDrag),N(e,"pointercancel",this._disableDelayedDrag),N(e,"mousemove",this._delayedDragTouchMoveHandler),N(e,"touchmove",this._delayedDragTouchMoveHandler),N(e,"pointermove",this._delayedDragTouchMoveHandler)},_triggerDragStart:function(e,n){n=n||e.pointerType=="touch"&&e,!this.nativeDraggable||n?this.options.supportPointer?P(document,"pointermove",this._onTouchMove):n?P(document,"touchmove",this._onTouchMove):P(document,"mousemove",this._onTouchMove):(P(m,"dragend",this),P(z,"dragstart",this._onDragStart));try{document.selection?Jt(function(){document.selection.empty()}):window.getSelection().removeAllRanges()}catch(o){}},_dragStarted:function(e,n){if(At=!1,z&&m){nt("dragStarted",this,{evt:n}),this.nativeDraggable&&P(document,"dragover",$n);var o=this.options;!e&&it(m,o.dragClass,!1),it(m,o.ghostClass,!0),_.active=this,e&&this._appendGhost(),tt({sortable:this,name:"start",originalEvent:n})}else this._nulling()},_emulateDragOver:function(){if(lt){this._lastX=lt.clientX,this._lastY=lt.clientY,Ke();for(var e=document.elementFromPoint(lt.clientX,lt.clientY),n=e;e&&e.shadowRoot&&(e=e.shadowRoot.elementFromPoint(lt.clientX,lt.clientY),e!==n);)n=e;if(m.parentNode[ot]._isOutsideThisEl(e),n)do{if(n[ot]){var o=void 0;if(o=n[ot]._onDragOver({clientX:lt.clientX,clientY:lt.clientY,target:e,rootEl:n}),o&&!this.options.dragoverBubble)break}e=n}while(n=We(n));Ue()}},_onTouchMove:function(e){if(St){var n=this.options,o=n.fallbackTolerance,i=n.fallbackOffset,a=e.touches?e.touches[0]:e,l=H&&_t(H,!0),c=H&&l&&l.a,h=H&&l&&l.d,u=Zt&&I&&Ve(I),p=(a.clientX-St.clientX+i.x)/(c||1)+(u?u[0]-de[0]:0)/(c||1),f=(a.clientY-St.clientY+i.y)/(h||1)+(u?u[1]-de[1]:0)/(h||1);if(!_.active&&!At){if(o&&Math.max(Math.abs(a.clientX-this._lastX),Math.abs(a.clientY-this._lastY))<o)return;this._onDragStart(e,!0)}if(H){l?(l.e+=p-(le||0),l.f+=f-(ce||0)):l={a:1,b:0,c:0,d:1,e:p,f};var b="matrix(".concat(l.a,",").concat(l.b,",").concat(l.c,",").concat(l.d,",").concat(l.e,",").concat(l.f,")");E(H,"webkitTransform",b),E(H,"mozTransform",b),E(H,"msTransform",b),E(H,"transform",b),le=p,ce=f,lt=a}e.cancelable&&e.preventDefault()}},_appendGhost:function(){if(!H){var e=this.options.fallbackOnBody?document.body:z,n=X(m,!0,Zt,!0,e),o=this.options;if(Zt){for(I=e;E(I,"position")==="static"&&E(I,"transform")==="none"&&I!==document;)I=I.parentNode;I!==document.body&&I!==document.documentElement?(I===document&&(I=dt()),n.top+=I.scrollTop,n.left+=I.scrollLeft):I=dt(),de=Ve(I)}H=m.cloneNode(!0),it(H,o.ghostClass,!1),it(H,o.fallbackClass,!0),it(H,o.dragClass,!0),E(H,"transition",""),E(H,"transform",""),E(H,"box-sizing","border-box"),E(H,"margin",0),E(H,"top",n.top),E(H,"left",n.left),E(H,"width",n.width),E(H,"height",n.height),E(H,"opacity","0.8"),E(H,"position",Zt?"absolute":"fixed"),E(H,"zIndex","100000"),E(H,"pointerEvents","none"),_.ghost=H,e.appendChild(H),E(H,"transform-origin",Le/parseInt(H.style.width)*100+"% "+Ne/parseInt(H.style.height)*100+"%")}},_onDragStart:function(e,n){var o=this,i=e.dataTransfer,a=o.options;if(nt("dragStart",this,{evt:e}),_.eventCanceled){this._onDrop();return}nt("setupClone",this),_.eventCanceled||(Y=De(m),Y.removeAttribute("id"),Y.draggable=!1,Y.style["will-change"]="",this._hideClone(),it(Y,this.options.chosenClass,!1),_.clone=Y),o.cloneId=Jt(function(){nt("clone",o),!_.eventCanceled&&(o.options.removeCloneOnHide||z.insertBefore(Y,m),o._hideClone(),tt({sortable:o,name:"clone"}))}),!n&&it(m,a.dragClass,!0),n?(te=!0,o._loopId=setInterval(o._emulateDragOver,50)):(N(document,"mouseup",o._onDrop),N(document,"touchend",o._onDrop),N(document,"touchcancel",o._onDrop),i&&(i.effectAllowed="move",a.setData&&a.setData.call(o,i,m)),P(document,"drop",o),E(m,"transform","translateZ(0)")),At=!0,o._dragStartId=Jt(o._dragStarted.bind(o,n,e)),P(document,"selectstart",o),Vt=!0,window.getSelection().removeAllRanges(),Pt&&E(document.body,"user-select","none")},_onDragOver:function(e){var n=this.el,o=e.target,i,a,l,c=this.options,h=c.group,u=_.active,p=Dt===h,f=c.sort,b=Q||u,w,g=this,S=!1;if(ge)return;function s(M,W){nt(M,g,ht({evt:e,isOwner:p,axis:w?"vertical":"horizontal",revert:l,dragRect:i,targetRect:a,canSort:f,fromSortable:b,target:o,completed:V,onMove:function(Z,U){return Gt(z,n,m,i,Z,X(Z),e,U)},changed:L},W))}function d(){s("dragOverAnimationCapture"),g.captureAnimationState(),g!==b&&b.captureAnimationState()}function V(M){return s("dragOverCompleted",{insertion:M}),M&&(p?u._hideClone():u._showClone(g),g!==b&&(it(m,Q?Q.options.ghostClass:u.options.ghostClass,!1),it(m,c.ghostClass,!0)),Q!==g&&g!==_.active?Q=g:g===_.active&&Q&&(Q=null),b===g&&(g._ignoreWhileAnimating=o),g.animateAll(function(){s("dragOverAnimationComplete"),g._ignoreWhileAnimating=null}),g!==b&&(b.animateAll(),b._ignoreWhileAnimating=null)),(o===m&&!m.animated||o===n&&!o.animated)&&(kt=null),!c.dragoverBubble&&!e.rootEl&&o!==document&&(m.parentNode[ot]._isOutsideThisEl(e.target),!M&&xt(e)),!c.dragoverBubble&&e.stopPropagation&&e.stopPropagation(),S=!0}function L(){rt=st(m),vt=st(m,c.draggable),tt({sortable:g,name:"change",toEl:n,newIndex:rt,newDraggableIndex:vt,originalEvent:e})}if(e.preventDefault!==void 0&&e.cancelable&&e.preventDefault(),o=ct(o,c.draggable,n,!0),s("dragOver"),_.eventCanceled)return S;if(m.contains(e.target)||o.animated&&o.animatingX&&o.animatingY||g._ignoreWhileAnimating===o)return V(!1);if(te=!1,u&&!c.disabled&&(p?f||(l=q!==z):Q===this||(this.lastPutMode=Dt.checkPull(this,u,m,e))&&h.checkPut(this,u,m,e))){if(w=this._getDirection(e,o)==="vertical",i=X(m),s("dragOverValid"),_.eventCanceled)return S;if(l)return q=z,d(),this._hideClone(),s("revert"),_.eventCanceled||(Ct?z.insertBefore(m,Ct):z.appendChild(m)),V(!0);var k=ye(n,c.draggable);if(!k||Cn(e,w,this)&&!k.animated){if(k===m)return V(!1);if(k&&n===e.target&&(o=k),o&&(a=X(o)),Gt(z,n,m,i,o,a,e,!!o)!==!1)return d(),k&&k.nextSibling?n.insertBefore(m,k.nextSibling):n.appendChild(m),q=n,L(),V(!0)}else if(k&&xn(e,w,this)){var B=Mt(n,0,c,!0);if(B===m)return V(!1);if(o=B,a=X(o),Gt(z,n,m,i,o,a,e,!1)!==!1)return d(),n.insertBefore(m,B),q=n,L(),V(!0)}else if(o.parentNode===n){a=X(o);var j=0,r,F=m.parentNode!==n,T=!mn(m.animated&&m.toRect||i,o.animated&&o.toRect||a,w),K=w?"top":"left",J=He(o,"top","top")||He(m,"top","top"),C=J?J.scrollTop:void 0;kt!==o&&(r=a[K],Wt=!1,qt=!T&&c.invertSwap||F),j=wn(e,o,a,w,T?1:c.swapThreshold,c.invertedSwapThreshold==null?c.swapThreshold:c.invertedSwapThreshold,qt,kt===o);var y;if(j!==0){var v=st(m);do v-=j,y=q.children[v];while(y&&(E(y,"display")==="none"||y===H))}if(j===0||y===o)return V(!1);kt=o,jt=j;var A=o.nextElementSibling,x=!1;x=j===1;var O=Gt(z,n,m,i,o,a,e,x);if(O!==!1)return(O===1||O===-1)&&(x=O===1),ge=!0,setTimeout(Sn,30),d(),x&&!A?n.appendChild(m):o.parentNode.insertBefore(m,x?A:o),J&&Ye(J,0,C-J.scrollTop),q=m.parentNode,r!==void 0&&!qt&&(Ut=Math.abs(r-X(o)[K])),L(),V(!0)}if(n.contains(m))return V(!1)}return!1},_ignoreWhileAnimating:null,_offMoveEvents:function(){N(document,"mousemove",this._onTouchMove),N(document,"touchmove",this._onTouchMove),N(document,"pointermove",this._onTouchMove),N(document,"dragover",xt),N(document,"mousemove",xt),N(document,"touchmove",xt)},_offUpEvents:function(){var e=this.el.ownerDocument;N(e,"mouseup",this._onDrop),N(e,"touchend",this._onDrop),N(e,"pointerup",this._onDrop),N(e,"pointercancel",this._onDrop),N(e,"touchcancel",this._onDrop),N(document,"selectstart",this)},_onDrop:function(e){var n=this.el,o=this.options;if(rt=st(m),vt=st(m,o.draggable),nt("drop",this,{evt:e}),q=m&&m.parentNode,rt=st(m),vt=st(m,o.draggable),_.eventCanceled){this._nulling();return}At=!1,qt=!1,Wt=!1,clearInterval(this._loopId),clearTimeout(this._dragStartTimer),ve(this.cloneId),ve(this._dragStartId),this.nativeDraggable&&(N(document,"drop",this),N(n,"dragstart",this._onDragStart)),this._offMoveEvents(),this._offUpEvents(),Pt&&E(document.body,"user-select",""),E(m,"transform",""),e&&(Vt&&(e.cancelable&&e.preventDefault(),!o.dropBubble&&e.stopPropagation()),H&&H.parentNode&&H.parentNode.removeChild(H),(z===q||Q&&Q.lastPutMode!=="clone")&&Y&&Y.parentNode&&Y.parentNode.removeChild(Y),m&&(this.nativeDraggable&&N(m,"dragend",this),he(m),m.style["will-change"]="",Vt&&!At&&it(m,Q?Q.options.ghostClass:this.options.ghostClass,!1),it(m,this.options.chosenClass,!1),tt({sortable:this,name:"unchoose",toEl:q,newIndex:null,newDraggableIndex:null,originalEvent:e}),z!==q?(rt>=0&&(tt({rootEl:q,name:"add",toEl:q,fromEl:z,originalEvent:e}),tt({sortable:this,name:"remove",toEl:q,originalEvent:e}),tt({rootEl:q,name:"sort",toEl:q,fromEl:z,originalEvent:e}),tt({sortable:this,name:"sort",toEl:q,originalEvent:e})),Q&&Q.save()):rt!==Et&&rt>=0&&(tt({sortable:this,name:"update",toEl:q,originalEvent:e}),tt({sortable:this,name:"sort",toEl:q,originalEvent:e})),_.active&&((rt==null||rt===-1)&&(rt=Et,vt=Ft),tt({sortable:this,name:"end",toEl:q,originalEvent:e}),this.save()))),this._nulling()},_nulling:function(){nt("nulling",this),z=m=q=H=Ct=Y=Kt=mt=St=lt=Vt=rt=vt=Et=Ft=kt=jt=Q=Dt=_.dragged=_.ghost=_.clone=_.active=null,ne.forEach(function(e){e.checked=!0}),ne.length=le=ce=0},handleEvent:function(e){switch(e.type){case"drop":case"dragend":this._onDrop(e);break;case"dragenter":case"dragover":m&&(this._onDragOver(e),yn(e));break;case"selectstart":e.preventDefault();break}},toArray:function(){for(var e=[],n,o=this.el.children,i=0,a=o.length,l=this.options;i<a;i++)n=o[i],ct(n,l.draggable,this.el,!1)&&e.push(n.getAttribute(l.dataIdAttr)||kn(n));return e},sort:function(e,n){var o={},i=this.el;this.toArray().forEach(function(a,l){var c=i.children[l];ct(c,this.options.draggable,i,!1)&&(o[a]=c)},this),n&&this.captureAnimationState(),e.forEach(function(a){o[a]&&(i.removeChild(o[a]),i.appendChild(o[a]))}),n&&this.animateAll()},save:function(){var e=this.options.store;e&&e.set&&e.set(this)},closest:function(e,n){return ct(e,n||this.options.draggable,this.el,!1)},option:function(e,n){var o=this.options;if(n===void 0)return o[e];var i=zt.modifyOption(this,e,n);typeof i!="undefined"?o[e]=i:o[e]=n,e==="group"&&Xe(o)},destroy:function(){nt("destroy",this);var e=this.el;e[ot]=null,N(e,"mousedown",this._onTapStart),N(e,"touchstart",this._onTapStart),N(e,"pointerdown",this._onTapStart),this.nativeDraggable&&(N(e,"dragover",this),N(e,"dragenter",this)),Array.prototype.forEach.call(e.querySelectorAll("[draggable]"),function(n){n.removeAttribute("draggable")}),this._onDrop(),this._disableDelayedDragEvents(),ee.splice(ee.indexOf(this.el),1),this.el=e=null},_hideClone:function(){if(!mt){if(nt("hideClone",this),_.eventCanceled)return;E(Y,"display","none"),this.options.removeCloneOnHide&&Y.parentNode&&Y.parentNode.removeChild(Y),mt=!0}},_showClone:function(e){if(e.lastPutMode!=="clone"){this._hideClone();return}if(mt){if(nt("showClone",this),_.eventCanceled)return;m.parentNode==z&&!this.options.group.revertClone?z.insertBefore(Y,m):Ct?z.insertBefore(Y,Ct):z.appendChild(Y),this.options.group.revertClone&&this.animate(m,Y),E(Y,"display",""),mt=!1}}};ie&&P(document,"touchmove",function(t){(_.active||At)&&t.cancelable&&t.preventDefault()});_.utils={on:P,off:N,css:E,find:Re,is:function(e,n){return!!ct(e,n,e,!1)},extend:cn,throttle:ze,closest:ct,toggleClass:it,clone:De,index:st,nextTick:Jt,cancelNextTick:ve,detectDirection:Ge,getChild:Mt,expando:ot};_.get=function(t){return t[ot]};_.mount=function(){for(var t=arguments.length,e=new Array(t),n=0;n<t;n++)e[n]=arguments[n];e[0].constructor===Array&&(e=e[0]),e.forEach(function(o){if(!o.prototype||!o.prototype.constructor)throw"Sortable: Mounted plugin must be a constructor function, not ".concat({}.toString.call(o));o.utils&&(_.utils=ht(ht({},_.utils),o.utils)),zt.mount(o)})};_.create=function(t,e){return new _(t,e)};_.version=sn;G=[],be=!1;pe=ze(function(t,e,n,o){if(e.scroll){var i=(t.touches?t.touches[0]:t).clientX,a=(t.touches?t.touches[0]:t).clientY,l=e.scrollSensitivity,c=e.scrollSpeed,h=dt(),u=!1,p;me!==n&&(me=n,Qt(),Lt=e.scroll,p=e.scrollFn,Lt===!0&&(Lt=bt(n,!0)));var f=0,b=Lt;do{var w=b,g=X(w),S=g.top,s=g.bottom,d=g.left,V=g.right,L=g.width,k=g.height,B=void 0,j=void 0,r=w.scrollWidth,F=w.scrollHeight,T=E(w),K=w.scrollLeft,J=w.scrollTop;w===h?(B=L<r&&(T.overflowX==="auto"||T.overflowX==="scroll"||T.overflowX==="visible"),j=k<F&&(T.overflowY==="auto"||T.overflowY==="scroll"||T.overflowY==="visible")):(B=L<r&&(T.overflowX==="auto"||T.overflowX==="scroll"),j=k<F&&(T.overflowY==="auto"||T.overflowY==="scroll"));var C=B&&(Math.abs(V-i)<=l&&K+L<r)-(Math.abs(d-i)<=l&&!!K),y=j&&(Math.abs(s-a)<=l&&J+k<F)-(Math.abs(S-a)<=l&&!!J);if(!G[f])for(var v=0;v<=f;v++)G[v]||(G[v]={});(G[f].vx!=C||G[f].vy!=y||G[f].el!==w)&&(G[f].el=w,G[f].vx=C,G[f].vy=y,clearInterval(G[f].pid),(C!=0||y!=0)&&(u=!0,G[f].pid=setInterval(function(){o&&this.layer===0&&_.active._onTouchMove(oe);var A=G[this.layer].vy?G[this.layer].vy*c:0,x=G[this.layer].vx?G[this.layer].vx*c:0;typeof p=="function"&&p.call(_.dragged.parentNode[ot],x,A,t,oe,G[this.layer].el)!=="continue"||Ye(G[this.layer].el,x,A)}.bind({layer:f}),24))),f++}while(e.bubbleScroll&&b!==h&&(b=bt(b,!1)));be=u}},30),Je=function(e){var n=e.originalEvent,o=e.putSortable,i=e.dragEl,a=e.activeSortable,l=e.dispatchSortableEvent,c=e.hideGhostForTarget,h=e.unhideGhostForTarget;if(n){var u=o||a;c();var p=n.changedTouches&&n.changedTouches.length?n.changedTouches[0]:n,f=document.elementFromPoint(p.clientX,p.clientY);h(),u&&!u.el.contains(f)&&(l("spill"),this.onSpill({dragEl:i,putSortable:o}))}};Se.prototype={startIndex:null,dragStart:function(e){var n=e.oldDraggableIndex;this.startIndex=n},onSpill:function(e){var n=e.dragEl,o=e.putSortable;this.sortable.captureAnimationState(),o&&o.captureAnimationState();var i=Mt(this.sortable.el,this.startIndex,this.options);i?this.sortable.el.insertBefore(n,i):this.sortable.el.appendChild(n),this.sortable.animateAll(),o&&o.animateAll()},drop:Je};ft(Se,{pluginName:"revertOnSpill"});xe.prototype={onSpill:function(e){var n=e.dragEl,o=e.putSortable,i=o||this.sortable;i.captureAnimationState(),n.parentNode&&n.parentNode.removeChild(n),i.animateAll()},drop:Je};ft(xe,{pluginName:"removeOnSpill"});_.mount(new En);_.mount(xe,Se);Qe=_});var tn=ke((Ce,we)=>{(function(t,e){typeof Ce=="object"&&typeof we!="undefined"?we.exports=e():typeof define=="function"&&define.amd?define(e):(t=typeof globalThis!="undefined"?globalThis:t||self).dayjs=e()})(Ce,function(){"use strict";var t=1e3,e=6e4,n=36e5,o="millisecond",i="second",a="minute",l="hour",c="day",h="week",u="month",p="quarter",f="year",b="date",w="Invalid Date",g=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,S=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,s={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),ordinal:function(C){var y=["th","st","nd","rd"],v=C%100;return"["+C+(y[(v-20)%10]||y[v]||y[0])+"]"}},d=function(C,y,v){var A=String(C);return!A||A.length>=y?C:""+Array(y+1-A.length).join(v)+C},V={s:d,z:function(C){var y=-C.utcOffset(),v=Math.abs(y),A=Math.floor(v/60),x=v%60;return(y<=0?"+":"-")+d(A,2,"0")+":"+d(x,2,"0")},m:function C(y,v){if(y.date()<v.date())return-C(v,y);var A=12*(v.year()-y.year())+(v.month()-y.month()),x=y.clone().add(A,u),O=v-x<0,M=y.clone().add(A+(O?-1:1),u);return+(-(A+(v-x)/(O?x-M:M-x))||0)},a:function(C){return C<0?Math.ceil(C)||0:Math.floor(C)},p:function(C){return{M:u,y:f,w:h,d:c,D:b,h:l,m:a,s:i,ms:o,Q:p}[C]||String(C||"").toLowerCase().replace(/s$/,"")},u:function(C){return C===void 0}},L="en",k={};k[L]=s;var B="$isDayjsObject",j=function(C){return C instanceof K||!(!C||!C[B])},r=function C(y,v,A){var x;if(!y)return L;if(typeof y=="string"){var O=y.toLowerCase();k[O]&&(x=O),v&&(k[O]=v,x=O);var M=y.split("-");if(!x&&M.length>1)return C(M[0])}else{var W=y.name;k[W]=y,x=W}return!A&&x&&(L=x),x||!A&&L},F=function(C,y){if(j(C))return C.clone();var v=typeof y=="object"?y:{};return v.date=C,v.args=arguments,new K(v)},T=V;T.l=r,T.i=j,T.w=function(C,y){return F(C,{locale:y.$L,utc:y.$u,x:y.$x,$offset:y.$offset})};var K=function(){function C(v){this.$L=r(v.locale,null,!0),this.parse(v),this.$x=this.$x||v.x||{},this[B]=!0}var y=C.prototype;return y.parse=function(v){this.$d=function(A){var x=A.date,O=A.utc;if(x===null)return new Date(NaN);if(T.u(x))return new Date;if(x instanceof Date)return new Date(x);if(typeof x=="string"&&!/Z$/i.test(x)){var M=x.match(g);if(M){var W=M[2]-1||0,D=(M[7]||"0").substring(0,3);return O?new Date(Date.UTC(M[1],W,M[3]||1,M[4]||0,M[5]||0,M[6]||0,D)):new Date(M[1],W,M[3]||1,M[4]||0,M[5]||0,M[6]||0,D)}}return new Date(x)}(v),this.init()},y.init=function(){var v=this.$d;this.$y=v.getFullYear(),this.$M=v.getMonth(),this.$D=v.getDate(),this.$W=v.getDay(),this.$H=v.getHours(),this.$m=v.getMinutes(),this.$s=v.getSeconds(),this.$ms=v.getMilliseconds()},y.$utils=function(){return T},y.isValid=function(){return this.$d.toString()!==w},y.isSame=function(v,A){var x=F(v);return this.startOf(A)<=x&&x<=this.endOf(A)},y.isAfter=function(v,A){return F(v)<this.startOf(A)},y.isBefore=function(v,A){return this.endOf(A)<F(v)},y.$g=function(v,A,x){return T.u(v)?this[A]:this.set(x,v)},y.unix=function(){return Math.floor(this.valueOf()/1e3)},y.valueOf=function(){return this.$d.getTime()},y.startOf=function(v,A){var x=this,O=!!T.u(A)||A,M=T.p(v),W=function(yt,et){var gt=T.w(x.$u?Date.UTC(x.$y,et,yt):new Date(x.$y,et,yt),x);return O?gt:gt.endOf(c)},D=function(yt,et){return T.w(x.toDate()[yt].apply(x.toDate("s"),(O?[0,0,0,0]:[23,59,59,999]).slice(et)),x)},Z=this.$W,U=this.$M,at=this.$D,wt="set"+(this.$u?"UTC":"");switch(M){case f:return O?W(1,0):W(31,11);case u:return O?W(1,U):W(0,U+1);case h:var $t=this.$locale().weekStart||0,Ot=(Z<$t?Z+7:Z)-$t;return W(O?at-Ot:at+(6-Ot),U);case c:case b:return D(wt+"Hours",0);case l:return D(wt+"Minutes",1);case a:return D(wt+"Seconds",2);case i:return D(wt+"Milliseconds",3);default:return this.clone()}},y.endOf=function(v){return this.startOf(v,!1)},y.$set=function(v,A){var x,O=T.p(v),M="set"+(this.$u?"UTC":""),W=(x={},x[c]=M+"Date",x[b]=M+"Date",x[u]=M+"Month",x[f]=M+"FullYear",x[l]=M+"Hours",x[a]=M+"Minutes",x[i]=M+"Seconds",x[o]=M+"Milliseconds",x)[O],D=O===c?this.$D+(A-this.$W):A;if(O===u||O===f){var Z=this.clone().set(b,1);Z.$d[W](D),Z.init(),this.$d=Z.set(b,Math.min(this.$D,Z.daysInMonth())).$d}else W&&this.$d[W](D);return this.init(),this},y.set=function(v,A){return this.clone().$set(v,A)},y.get=function(v){return this[T.p(v)]()},y.add=function(v,A){var x,O=this;v=Number(v);var M=T.p(A),W=function(U){var at=F(O);return T.w(at.date(at.date()+Math.round(U*v)),O)};if(M===u)return this.set(u,this.$M+v);if(M===f)return this.set(f,this.$y+v);if(M===c)return W(1);if(M===h)return W(7);var D=(x={},x[a]=e,x[l]=n,x[i]=t,x)[M]||1,Z=this.$d.getTime()+v*D;return T.w(Z,this)},y.subtract=function(v,A){return this.add(-1*v,A)},y.format=function(v){var A=this,x=this.$locale();if(!this.isValid())return x.invalidDate||w;var O=v||"YYYY-MM-DDTHH:mm:ssZ",M=T.z(this),W=this.$H,D=this.$m,Z=this.$M,U=x.weekdays,at=x.months,wt=x.meridiem,$t=function(et,gt,Ht,Yt){return et&&(et[gt]||et(A,O))||Ht[gt].slice(0,Yt)},Ot=function(et){return T.s(W%12||12,et,"0")},yt=wt||function(et,gt,Ht){var Yt=et<12?"AM":"PM";return Ht?Yt.toLowerCase():Yt};return O.replace(S,function(et,gt){return gt||function(Ht){switch(Ht){case"YY":return String(A.$y).slice(-2);case"YYYY":return T.s(A.$y,4,"0");case"M":return Z+1;case"MM":return T.s(Z+1,2,"0");case"MMM":return $t(x.monthsShort,Z,at,3);case"MMMM":return $t(at,Z);case"D":return A.$D;case"DD":return T.s(A.$D,2,"0");case"d":return String(A.$W);case"dd":return $t(x.weekdaysMin,A.$W,U,2);case"ddd":return $t(x.weekdaysShort,A.$W,U,3);case"dddd":return U[A.$W];case"H":return String(W);case"HH":return T.s(W,2,"0");case"h":return Ot(1);case"hh":return Ot(2);case"a":return yt(W,D,!0);case"A":return yt(W,D,!1);case"m":return String(D);case"mm":return T.s(D,2,"0");case"s":return String(A.$s);case"ss":return T.s(A.$s,2,"0");case"SSS":return T.s(A.$ms,3,"0");case"Z":return M}return null}(et)||M.replace(":","")})},y.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},y.diff=function(v,A,x){var O,M=this,W=T.p(A),D=F(v),Z=(D.utcOffset()-this.utcOffset())*e,U=this-D,at=function(){return T.m(M,D)};switch(W){case f:O=at()/12;break;case u:O=at();break;case p:O=at()/3;break;case h:O=(U-Z)/6048e5;break;case c:O=(U-Z)/864e5;break;case l:O=U/n;break;case a:O=U/e;break;case i:O=U/t;break;default:O=U}return x?O:T.a(O)},y.daysInMonth=function(){return this.endOf(u).$D},y.$locale=function(){return k[this.$L]},y.locale=function(v,A){if(!v)return this.$L;var x=this.clone(),O=r(v,A,!0);return O&&(x.$L=O),x},y.clone=function(){return T.w(this.$d,this)},y.toDate=function(){return new Date(this.valueOf())},y.toJSON=function(){return this.isValid()?this.toISOString():null},y.toISOString=function(){return this.$d.toISOString()},y.toString=function(){return this.$d.toUTCString()},C}(),J=K.prototype;return F.prototype=J,[["$ms",o],["$s",i],["$m",a],["$H",l],["$W",c],["$M",u],["$y",f],["$D",b]].forEach(function(C){J[C[1]]=function(y){return this.$g(y,C[0],C[1])}}),F.extend=function(C,y){return C.$i||(C(y,K,F),C.$i=!0),F},F.locale=r,F.isDayjs=j,F.unix=function(C){return F(1e3*C)},F.en=k[L],F.Ls=k,F.p={},F})});var _n=ke(en=>{Ae();Ie();var re=tn();fetch("widgets/tvprogram/i18n/translations.json").then(t=>R(en,null,function*(){let e=yield t.json();$.extend(!0,systemDictionary,e)}));$.extend(!0,systemDictionary,{});vis.binds.tvprogram={version:Ee,showVersion:function(){vis.binds.tvprogram.version&&(console.log(`Version tvprogram: ${vis.binds.tvprogram.version}`),vis.binds.tvprogram.version=null)},pending:{},categories:null,channels:null,genres:null,tvprogram:[],infos:null,requests:[],search:{visTvprogram:null,bound:{},searchdata:[],searchresult:[],createWidget:function(t,e,n,o){return R(this,null,function*(){let i=$(`#${t}`);if(!i.length)return setTimeout(function(){vis.binds.tvprogram.search.createWidget(t,e,n,o)},100);if(console.log("createWidget start"),this.visTvprogram=vis.binds.tvprogram,!n.tvprogram_oid||n.tvprogram_oid=="")return;let[a,l]=this.visTvprogram.getInstanceInfo(n.tvprogram_oid);if(!l&&!a)return;let c=this.visTvprogram.realBackgroundColor($(`#${t}`)[0]);this.visTvprogram.checkStyle("background-color",$(`#${t}`)[0].style.cssText)==""&&$(`#${t}`).css("background-color",c);let h=parseInt(n.tvprogram_maxresults)||10,u=parseInt(n.tvprogram_heightRow)||35,p=parseInt(n.tvprogram_broadcastfontpercent)||75,f=n.tvprogram_highlightcolor||"yellow",b=n.tvprogram_showpictures||!1,w=n.tvprogram_dialogwidthpercent/100||.9,g=n.tvprogram_dialogheightpercent/100||.9;if(this.searchresult[l]||(this.searchresult[l]={}),this.searchresult[l][t]||(this.searchresult[l][t]=[]),this.searchdata[l]||(this.searchdata[l]={}),this.searchdata[l][t]||(this.searchdata[l][t]={datefrom:new Date().toISOString().split("T")[0],categoryfilter:"",textfilter:"",maxresults:h||10}),this.bound[l]||(this.bound[l]={}),this.bound[l][t]||(this.bound[l][t]=!1),l&&!this.bound[l][t]&&(vis.editMode||(this.bound[l][t]=!0,vis.binds.tvprogram.bindStates(i,[`${l}.config`,`${l}.favorites`,`${l}.channelfilter`],this.onChange.bind(this,t,e,n,o,l)))),this.visTvprogram.infos||(this.visTvprogram.infos=yield this.visTvprogram.loadServerInfosAsync(a)),this.visTvprogram.categories||(this.visTvprogram.categories=yield this.visTvprogram.loadCategories(a,t)),this.visTvprogram.channels||(this.visTvprogram.channels=yield this.visTvprogram.loadChannels(a,t)),this.visTvprogram.infos==null||!Object.prototype.hasOwnProperty.call(this.visTvprogram.infos,"tvprogram")||this.visTvprogram.categories.length==0||this.visTvprogram.channels.length==0)return;let S=this.visTvprogram.categories.map(k=>`<option value="${k.id}" ${this.searchdata[l][t].categoryfilter==k.id?" selected":""}>${k.title}</option>`);S=`<option value="" ${this.searchdata[l][t].categoryfilter==""?" selected":""}></option>${S}`,$(`#${t}broadcastdlg`).data({dialogwidthpercent:w,dialogheightpercent:g});let s="";s+=`<style> 
-`,s+=`#${t} * {
-`,s+=`   box-sizing: border-box; 
-`,s+=`} 
-`,s+=`#${t} .tv-search {
-`,s+=`   width: 100%; 
-`,s+=`   height: 100%; 
-`,s+=`   white-space:nowrap; 
-`,s+=`   display:flex; 
-`,s+=`   flex-direction: column; 
-`,s+=`} 
-`,s+=`#${t} .tv-form {
-`,s+=`   padding: 5px 0px; 
-`,s+=`} 
-`,s+=`#${t} .tv-result {
-`,s+=`   overflow: hidden; 
-`,s+=`   overflow-y: auto; 
-`,s+=`} 
-`,s+=`#${t} .tv-row {
-`,s+=`   margin: 0px; 
-`,s+=`   padding: 0px; 
-`,s+=`   width: 100%; 
-`,s+=`} 
-`,s+=`#${t} .tv-search .tv-row:nth-child(odd) {
-`,s+=`   background-color: rgba(128,127,127,.65); 
-`,s+=`   padding: 0px; 
-`,s+=`} 
-`,s+=`#${t} .tv-search .tv-row:nth-child(even) {
-`,s+=`   background-color: rgba(128,127,127,.55); 
-`,s+=`   padding: 0px; 
-`,s+=`} 
-`,s+=`#${t} .tv-item {
-`,s+=`   display: inline-block; 
-`,s+=`   vertical-align: middle; 
-`,s+=`   border: solid #80808033; 
-`,s+=`   border-width:1px 0px 0px 1px; 
-`,s+=`} 
-`,s+=`#${t} .channel {
-`,s+=`   width: ${u}px; 
-`,s+=`   height: ${u}px; 
-`,s+=`   padding: 1px; 
-`,s+=`   background-color: ${c}; 
-`,s+=`} 
-`,s+=`#${t} .broadcast {
-`,s+=`   height: ${u}px; 
-`,s+=`   padding: 3px; 
-`,s+=`   font-size: ${p}%; 
-`,s+=`   overflow: hidden; 
-`,s+=`   width: 100%; 
-`,s+=`} 
-`,s+=`#${t} .broadcastelement {
-`,s+=`   width: 100%; 
-`,s+=`   height: 100%; 
-`,s+=`   display: table-cell; 
-`,s+=`} 
-`,s+=`#${t} .broadcastelement .star  {
-`,s+=`   display: inline-block; 
-`,s+=`   margin: 0px 2px; 
-`,s+=`} 
-`,s+=`#${t} .broadcastelement .star svg {
-`,s+=`   height: 1em; 
-`,s+=`   width: 1em; 
-`,s+=`   position: relative; 
-`,s+=`   top: .125em; 
-`,s+=`} 
-`,s+=`#${t} .broadcastelement.selected .star svg path {
-`,s+=`   color: ${f}; 
-`,s+=`} 
-`,s+=`#${t} .broadcastelement.selected {
-`,s+=`   color: ${f}; 
-`,s+=`} 
-`,s+=`#${t} .broadcastimage {
-`,s+=`   height: ${u-7}px; 
-`,s+=`   padding-right: 3px; 
-`,s+=`   float: left; 
-`,s+=`} 
-`,s+=`.${t}.no-titlebar .ui-dialog-titlebar {
-`,s+=`   display:none; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg  {
-`,s+=`   z-index:12; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-container.tv-dlg-row {
-`,s+=`   height:100%; 
-`,s+=`   display:flex; 
-`,s+=`   flex-direction:row; 
-`,s+=`   overflow:hidden; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-container.tv-dlg-col {
-`,s+=`   height:100%; 
-`,s+=`   display:flex; 
-`,s+=`   flex-direction:column; 
-`,s+=`   overflow:hidden; 
-`,s+=`   font-size:75%; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-picture.tv-dlg-row {
-`,s+=`   width:50%; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-picture.tv-dlg-col {
-`,s+=`   height:30%; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-data {
-`,s+=`   overflow-y:auto; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-picture img {
-`,s+=`   width:auto; 
-`,s+=`   height:auto; 
-`,s+=`   max-width:100%; 
-`,s+=`   max-height:100%; 
-`,s+=`   display:block; 
-`,s+=`   margin:auto; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .event-picture img {
-`,s+=`   width:auto; 
-`,s+=`   height:auto; 
-`,s+=`   max-width:100%; 
-`,s+=`   max-height:100%; 
-`,s+=`   display:block; 
-`,s+=`   margin:auto; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .dialogcolumn.tv-dlg-row {
-`,s+=`   flex:1; 
-`,s+=`   padding:5px; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .dialogcolumn.tv-dlg-col {
-`,s+=`   padding:5px; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .button {
-`,s+=`   display:inline-block; 
-`,s+=`   width: 35px; 
-`,s+=`   height: 35px; 
-`,s+=`   vertical-align: middle; 
-`,s+=`   position: relative; 
-`,s+=`   float: right; 
-`,s+=`} 
-`,s+=`#${t}broadcastdlg .star.selected svg  {
-`,s+=`   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))
-`,s+=`} 
-`,s+=`#${t} .broadcastelement.selected .star svg path, #${t}broadcastdlg .star.selected {
-`,s+=`   color: ${f}; 
-`,s+=`} 
-`,s+=`</style> 
-`,s+='  <div class="svgcontainer">',s+='<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>',s+='<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>',s+='<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>',s+='<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>',s+="  </div>",s+=`  <form data-instance="${a}" data-dp="${l}" data-widgetid="${t}" data-maxresults="${h}" >`,s+='    <label for="tvsearch">Search:',s+=`      <input name="tvsearch" type="text" id="tvsearch" value="${this.searchdata[l][t].textfilter}" placeholder="Search">`,s+="    </label>",s+='    <label for="tvfrom">From:',s+=`      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="${this.visTvprogram.infos.tvprogram[0]}" max="${this.visTvprogram.infos.tvprogram[this.visTvprogram.infos.tvprogram.length-1]}" value="${this.searchdata[l][t].datefrom}">`,s+="    </label>",s+='    <label for="tvcategory">Category:',s+='      <select name="tvcategory" id="tvcategory" >',s+=S,s+="      </select>",s+="    </label>",s+="  <button>Search</Search>",s+="  </form>",$(`#${t} .tv-form`).html(s),$(`#${t} .tv-form form`).submit(this.onSubmitSearch.bind(this,t,e,n,o));let d,V;s="";let L=this.visTvprogram.getConfigFavorites(l);this.searchresult[l][t].map((k,B)=>{if(B+1>h)return;let j=this.visTvprogram.channels.find(T=>T.id==k.channel);d=L.indexOf(k.title)>-1,V=k.airDate,s+='    <ul class="tv-row">',s+='       <li class="tv-item channel">',s+=`          <img width="100%" height="100%" data-channelid="${j.channelId}" data-dp="${l}" data-instance="${a}" src="https://tvfueralle.de/channel-logos/${j.channelId}.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`,s+="       </li>",s+='       <li class="tv-item broadcast">',s+=`             <div class="broadcastelement ${d?"selected":""}" data-widgetid="${t}" data-eventid="${k.id}" data-viewdate="${V}" data-instance="${a}" data-dp="${l}" data-view="" >`,k.photo.url&&b&&(s+=`<div><img class="broadcastimage" src="https://tvfueralle.de${k.photo.url}"></div>`),s+='                 <div class="broadcasttitle">',s+=`                     ${k.title}`,s+=`                     <div class="star" data-viewdate="${V}" data-eventid="${k.id}" data-instance="${a}" data-dp="${l}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`,s+="                 </div>";let r=new Date(k.startTime),F=new Date(k.endTime);s+='                 <div class="broadcasttime">',s+=`${`0${r.getDate()}`.slice(-2)}.${`0${parseInt(r.getMonth()+1)}`.slice(-2)}.${`0${r.getFullYear()}`.slice(-4)} `,s+=`${`0${r.getHours()}`.slice(-2)}:${`0${r.getMinutes()}`.slice(-2)}`,s+=" - ",s+=`${`0${F.getHours()}`.slice(-2)}:${`0${F.getMinutes()}`.slice(-2)}`,s+="                 </div>",s+="             </div>",s+="       </li>",s+="    </ul>"}),$(`#${t} .tv-result`).html(s),$(`#${t} .tv-result .broadcastelement`).click(vis.binds.tvprogram.onclickBroadcast.bind(this.visTvprogram))})},onSubmitSearch:function(t,e,n,o,i){return R(this,null,function*(){let a=i.target,l=a.dataset.instance||"",c=a.dataset.dp||"";i.preventDefault();let h=$(a).find('[name="tvsearch"]').val(),u=$(a).find('[name="tvcategory"]').val(),p=$(a).find('[name="tvfrom"]').val();if(!this.parseDatestring(p))return!1;let f=this.visTvprogram.getConfigChannelfilter(c);f.length==0&&(f=this.visTvprogram.channels.reduce((s,d,V)=>(V<4&&s.push(d.id),s),[])),this.searchdata[c]||(this.searchdata[c]={}),this.searchdata[c][t]=Object.assign(this.searchdata[c][t],{datefrom:p,categoryfilter:[u],textfilter:h});let b=new Date,w=this.parseDatestring(p);b.getDate()==w.getDate()&&b.getMonth()==w.getMonth()&&b.getFullYear()==w.getFullYear()?(w.setHours(b.getHours()),w.setMinutes(b.getMinutes()),w.setSeconds(b.getSeconds())):(w.setHours(0),w.setMinutes(0),w.setSeconds(0));let g=new Date(b);g.setDate(g.getDate()+10);let S={channelfilter:f,datefrom:w,datetill:g,categoryfilter:u==""?[]:[parseInt(u)],textfilter:h,maxresults:this.searchdata[c][t].maxresults};if(h==""&&u=="")return!1;this.searchresult[c][t]=yield this.visTvprogram.getServerBroadcastFindAsync(l,S),this.createWidget(t,e,n,o)})},parseDatestring:function(t){let e=t.split(/\D/),n=new Date(e[0],--e[1],e[2]);return n&&n.getMonth()==e[1]?n:!1},onChange:function(t,e,n,o,i,a,l){let c=a.type.split(".");(c[3]=="config"||c[3]=="favorites"||c[3]=="channelfilter"||c[3]=="show")&&c[4]=="val"&&(console.log(`changed ${t} type:${a.type} val:${l}`),this.createWidget(t,e,n,o))}},control:{visTvprogram:null,bound:{},programdata:{},favorites:void 0,timer:{},createWidget:function(t,e,n,o){return R(this,null,function*(){let i=$(`#${t}`);if(!i.length)return setTimeout(function(){vis.binds.tvprogram.control.createWidget(t,e,n,o)},100);if(console.log("createWidget control start"),this.visTvprogram=vis.binds.tvprogram,!n.tvprogram_oid||n.tvprogram_oid=="")return;let[a,l]=this.visTvprogram.getInstanceInfo(n.tvprogram_oid);if(!l&&!a||(this.visTvprogram.categories=yield this.visTvprogram.loadCategories(a,t),this.visTvprogram.channels=yield this.visTvprogram.loadChannels(a,t),this.visTvprogram.channels.length==0||this.visTvprogram.categories.length==0))return;let c=this.visTvprogram.realBackgroundColor($(`#${t}`)[0]);this.visTvprogram.checkStyle("background-color",$(`#${t}`)[0].style.cssText)==""&&$(`#${t}`).css("background-color",c);let h=this.visTvprogram.getConfigChannelfilter(l);h.length==0&&(h=this.visTvprogram.channels.reduce((k,B,j)=>(j<4&&k.push(B.id),k),[]));let u=n.tvprogram_time||"";this.programdata[l]||(this.programdata[l]={});let p=this.parseTime(u);this.programdata[l][t]=yield this.visTvprogram.getServerBroadcastRangeAsync(a,h,p,p),this.bound[l]||(this.bound[l]={}),this.bound[l][t]||(this.bound[l][t]=!1),l&&!this.bound[l][t]&&(vis.editMode||(this.bound[l][t]=!0,vis.binds.tvprogram.bindStates(i,[`${l}.config`,`${l}.favorites`,`${l}.channelfilter`],this.onChange.bind(this,t,e,n,o,l))));let f=parseInt(n.tvprogram_heightRow)||35,b=parseInt(n.tvprogram_broadcastfontpercent)||75,w=n.tvprogram_highlightcolor||"yellow",g=n.tvprogram_showpictures||!1,S=n.tvprogram_dialogwidthpercent/100||.9,s=n.tvprogram_dialogheightpercent/100||.9;$(`#${t}broadcastdlg`).data({dialogwidthpercent:S,dialogheightpercent:s});let d="";d+=`<style> 
-`,d+=`#${t} * {
-`,d+=`   box-sizing: border-box; 
-`,d+=`} 
-`,d+=`#${t} .tv-control {
-`,d+=`   width: 100%; 
-`,d+=`   height: 100%; 
-`,d+=`   white-space:nowrap; 
-`,d+=`   display:flex; 
-`,d+=`   flex-direction: column; 
-`,d+=`   overflow: hidden; 
-`,d+=`   overflow-y: auto; 
-`,d+=`} 
-`,d+=`#${t} .tv-row {
-`,d+=`   margin: 0px; 
-`,d+=`   padding: 0px; 
-`,d+=`   width: 100%; 
-`,d+=`} 
-`,d+=`#${t} .tv-control .tv-row:nth-child(odd) {
-`,d+=`   background-color: rgba(128,127,127,.65); 
-`,d+=`   padding: 0px; 
-`,d+=`} 
-`,d+=`#${t} .tv-control .tv-row:nth-child(even) {
-`,d+=`   background-color: rgba(128,127,127,.55); 
-`,d+=`   padding: 0px; 
-`,d+=`} 
-`,d+=`#${t} .tv-item {
-`,d+=`   display: inline-block; 
-`,d+=`   vertical-align: middle; 
-`,d+=`   border: solid #80808033; 
-`,d+=`   border-width:1px 0px 0px 1px; 
-`,d+=`} 
-`,d+=`#${t} .channel {
-`,d+=`   width: ${f}px; 
-`,d+=`   height: ${f}px; 
-`,d+=`   padding: 1px; 
-`,d+=`   background-color: ${c}; 
-`,d+=`} 
-`,d+=`#${t} .broadcast {
-`,d+=`   height: ${f}px; 
-`,d+=`   padding: 3px; 
-`,d+=`   font-size: ${b}%; 
-`,d+=`   overflow: hidden; 
-`,d+=`   width: 100%; 
-`,d+=`} 
-`,d+=`#${t} .broadcastelement {
-`,d+=`   width: 100%; 
-`,d+=`   height: 100%; 
-`,d+=`   display: table-cell; 
-`,d+=`} 
-`,d+=`#${t} .broadcastelement .star  {
-`,d+=`   display: inline-block; 
-`,d+=`   margin: 0px 2px; 
-`,d+=`} 
-`,d+=`#${t} .broadcastelement .star svg {
-`,d+=`   height: 1em; 
-`,d+=`   width: 1em; 
-`,d+=`   position: relative; 
-`,d+=`   top: .125em; 
-`,d+=`} 
-`,d+=`#${t} .broadcastelement.selected .star svg path {
-`,d+=`   color: ${w}; 
-`,d+=`} 
-`,d+=`#${t} .broadcastelement.selected {
-`,d+=`   color: ${w}; 
-`,d+=`} 
-`,d+=`#${t} .broadcastimage {
-`,d+=`   height: ${f-7}px; 
-`,d+=`   padding-right: 3px; 
-`,d+=`   float: left; 
-`,d+=`} 
-`,d+=`.${t}.no-titlebar .ui-dialog-titlebar {
-`,d+=`   display:none; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg  {
-`,d+=`   z-index:12; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-container.tv-dlg-row {
-`,d+=`   height:100%; 
-`,d+=`   display:flex; 
-`,d+=`   flex-direction:row; 
-`,d+=`   overflow:hidden; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-container.tv-dlg-col {
-`,d+=`   height:100%; 
-`,d+=`   display:flex; 
-`,d+=`   flex-direction:column; 
-`,d+=`   overflow:hidden; 
-`,d+=`   font-size:75%; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-picture.tv-dlg-row {
-`,d+=`   width:50%; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-picture.tv-dlg-col {
-`,d+=`   height:30%; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-data {
-`,d+=`   overflow-y:auto; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-picture img {
-`,d+=`   width:auto; 
-`,d+=`   height:auto; 
-`,d+=`   max-width:100%; 
-`,d+=`   max-height:100%; 
-`,d+=`   display:block; 
-`,d+=`   margin:auto; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .event-picture img {
-`,d+=`   width:auto; 
-`,d+=`   height:auto; 
-`,d+=`   max-width:100%; 
-`,d+=`   max-height:100%; 
-`,d+=`   display:block; 
-`,d+=`   margin:auto; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .dialogcolumn.tv-dlg-row {
-`,d+=`   flex:1; 
-`,d+=`   padding:5px; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .dialogcolumn.tv-dlg-col {
-`,d+=`   padding:5px; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .button {
-`,d+=`   display:inline-block; 
-`,d+=`   width: 35px; 
-`,d+=`   height: 35px; 
-`,d+=`   vertical-align: middle; 
-`,d+=`   position: relative; 
-`,d+=`   float: right; 
-`,d+=`} 
-`,d+=`#${t}broadcastdlg .star.selected svg  {
-`,d+=`   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))
-`,d+=`} 
-`,d+=`#${t} .broadcastelement.selected .star svg path, #${t}broadcastdlg .star.selected {
-`,d+=`   color: ${w}; 
-`,d+=`} 
-`,d+=`</style> 
-`,d+='  <div class="svgcontainer">',d+='<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>',d+='<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>',d+='<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>',d+='<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>',d+="  </div>";let V,L=this.visTvprogram.getConfigFavorites(l);this.programdata[l][t].map(k=>{k.events.map(B=>{let j=this.visTvprogram.getDate(B.startTime,0),r=this.visTvprogram.channels.find(K=>K.id==B.channel);V=L.indexOf(B.title)>-1,d+='    <ul class="tv-row">',d+='       <li class="tv-item channel">',d+=`          <img width="100%" height="100%" data-channelid="${r.channelId}" data-dp="${l}" src="https://tvfueralle.de/channel-logos/${r.channelId}.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`,d+="       </li>",d+='       <li class="tv-item broadcast">',d+=`             <div class="broadcastelement ${V?"selected":""}" data-widgetid="${t}" data-eventid="${B.id}" data-viewdate="${j}" data-instance="${a}" data-dp="${l}" data-view="${e}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`,B.photo.url&&g&&(d+=`<div><img class="broadcastimage" src="https://tvfueralle.de${B.photo.url}"></div>`),d+='                 <div class="broadcasttitle">',d+=`                     ${B.title}`,d+=`                     <div class="star" data-viewdate="${j}" data-eventid="${B.id}" data-instance="${a}" data-dp="${l}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`,d+="                 </div>";let F=new Date(B.startTime),T=new Date(B.endTime);d+='                 <div class="broadcasttime">',d+=`${`0${F.getHours()}`.slice(-2)}:${`0${F.getMinutes()}`.slice(-2)}`,d+=" - ",d+=`${`0${T.getHours()}`.slice(-2)}:${`0${T.getMinutes()}`.slice(-2)}`,d+="                 </div>",d+="             </div>",d+="       </li>",d+="    </ul>"})}),$(`#${t} .tv-control`).html(d),this.timer[t]||clearInterval(this.timer[t]),this.timer[t]=setTimeout(()=>{vis.binds.tvprogram.control.createWidget(t,e,n,o)},1e3*60*5)})},parseTime:function(t){let e,n,o=new Date(t);if(o instanceof Date&&!isNaN(o))return o;if(t=="")return new Date;let i=t.split("/"),a=120;return i.length>1&&parseInt(i[1].trim())>0&&(a=parseInt(i[1].trim())),i=i[0].split(":"),n=new Date,n.setHours(parseInt(i[0])),n.setMinutes(parseInt(i[1])),n.setSeconds(0),e=new Date(n),n.setMinutes(n.getMinutes()+a),new Date<n?e:e.setDate(e.getDate()+1)},onChange:function(t,e,n,o,i,a,l){let c=a.type.split(".");(c[3]=="config"||c[3]=="favorites"||c[3]=="channelfilter"||c[3]=="show")&&c[4]=="val"&&(console.log(`changed ${t} type:${a.type} val:${l}`),this.tvprogram=[],this.createWidget(t,e,n,o))}},favorites:{visTvprogram:null,pending:{},bound:{},favorites:void 0,timer:{},createWidget:function(t,e,n,o){return R(this,null,function*(){let i=$(`#${t}`);if(!i.length)return setTimeout(function(){vis.binds.tvprogram.favorites.createWidget(t,e,n,o)},100);console.log("createWidget start"),this.visTvprogram=vis.binds.tvprogram;let a=n.tvprogram_showweekday||!1,l=n.tvprogram_maxfavorites||10,c=n.tvprogram_highlightcolor||"yellow",h=n.tvprogram_channelname||!1,u,p,f={weekday:"short"},b={month:"2-digit",day:"2-digit"},w={hour:"2-digit",minute:"2-digit"};if(!n.tvprogram_oid||(u=vis.binds.tvprogram.getTvprogramId(n.tvprogram_oid.trim()))==!1||!n.tvprogram_oid||(p=vis.binds.tvprogram.getInstance(n.tvprogram_oid.trim()))==!1)return;let g=this.visTvprogram.realBackgroundColor($(`#${t}`)[0]);this.visTvprogram.checkStyle("background-color",$(`#${t}`)[0].style.cssText)==""&&$(`#${t}`).css("background-color",g),this.bound[u]||(this.bound[u]={}),this.bound[u][t]||(this.bound[u][t]=!1),u&&!this.bound[u][t]&&(vis.editMode||(this.bound[u][t]=!0,vis.binds.tvprogram.bindStates(i,[`${u}.config`,`${u}.favorites`],this.onChange.bind(this,t,e,n,o,u))));let S=this.visTvprogram.getConfigFavorites(u);if(!this.favorites||!this.favorites[u]&&S){let d=yield this.visTvprogram.getFavoritesDataAsync(p,S);this.favorites||(this.favorites=[]),this.favorites[u]=d,this.createWidget(t,e,n,o)}if(!this.favorites||!this.favorites[u])return;let s="";s+=`<style> 
-`,s+=`#${t} .tv-fav {
-`,s+=`   width: 100%;
-`,s+=`} 
-`,s+=`#${t} .tv-fav td{
-`,s+=`   white-space: nowrap;
-`,s+=`} 
-`,s+=`#${t} .tv-left {
-`,s+=`   text-align: left;
-`,s+=`   width: 1%;
-`,s+=`} 
-`,s+=`#${t} .tv-full {
-`,s+=`   width: 50%;
-`,s+=`} 
-`,s+=`#${t} .tv-fav .star {
-`,s+=`   width: 1em;
-`,s+=`   height: 1em;
-`,s+=`   color: ${c}; 
-`,s+=`} 
-`,s+=`#${t} .tv-center {
-`,s+=`   text-align: center;
-`,s+=`   width: 1%;
-`,s+=`} 
-`,s+=`#${t} .tv-icon {
-`,s+=`   height: 1em; 
-`,s+=`   width: 1em; 
-`,s+=`} 
-`,s+=`</style> 
-`,s+='  <div class="svgcontainer">',s+='<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>',s+="  </div>",s+='<table class="tv-fav">',this.favorites[u]=this.favorites[u].filter(d=>new Date(d.endTime)>=new Date),this.favorites[u].forEach(function(d,V){let L=new Date,k=new Date(d.startTime),B=new Date(d.endTime);V<l&&(vis.binds.tvprogram.compareDate(L,k)?s+='        <tr class="tv-today">':s+="        <tr>",s+=`<td class="tv-left" data-viewdate="${d.viewdate}" data-eventid="${d.id}" data-instance="${p}" data-dp="${u}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>`,a&&(s+=`           <td class="tv-left">${k.toLocaleString(vis.language,f)}</td>`),s+=`           <td class="tv-left">${k.toLocaleString(vis.language,b)}</td>`,s+=`           <td class="tv-left">${k.toLocaleString(vis.language,w)}</td>`,s+='           <td class="tv-left">-</td>',s+=`           <td class="tv-left">${B.toLocaleString(vis.language,w)}</td>`,h?s+=`           <td class="tv-left">${d.channelname}</td>`:(s+='           <td class="tv-center tv-tdicon">',s+=`              <img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${d.channelid}.png" alt="" class="tv-icon">`,s+="           </td>"),s+=`           <td class="tv-full">${d.title}</td>`,s+="        </tr>")}),s+="</table>            ",$(`#${t}`).html(s),this.timer[t]?(clearInterval(this.timer[t]),this.timer[t]=setInterval(vis.binds.tvprogram.favorites.createWidget.bind(this,t,e,n,o),1e3*60)):this.timer[t]=setInterval(vis.binds.tvprogram.favorites.createWidget.bind(this,t,e,n,o),1e3*60)})},onChange:function(t,e,n,o,i,a,l){let c=a.type.split(".");(c[3]=="config"||c[3]=="favorites"||c[3]=="channelfilter"||c[3]=="show")&&c[4]=="val"&&(console.log(`changed ${t} type:${a.type} val:${l}`),this.favorites=[],this.createWidget(t,e,n,o))}},time1:{visTvprogram:null,tvprogram:{},bound:{},timer:{},pending:{},measures:{},scroll:{},today:{},viewday:{},olddata:{},createWidget:function(t,e,n,o){return R(this,null,function*(){let i=$(`#${t}`);if(!i.length)return setTimeout(function(){vis.binds.tvprogram.time1.createWidget(t,e,n,o)},100);if(console.log(`createWidget start ${t}`),this.visTvprogram=vis.binds.tvprogram,!n.tvprogram_oid||n.tvprogram_oid=="")return;let[a,l]=this.visTvprogram.getInstanceInfo(n.tvprogram_oid);if(!l&&!a)return;let c=n.tvprogram_highlightcolor||"yellow";this.olddata[t]||(this.olddata[t]=n),(!this.measures[t]||JSON.stringify(this.olddata[t])!=JSON.stringify(n))&&(this.measures[t]={origwidthItem:parseInt(n.tvprogram_widthItem)||120,timeItem:30,heightRow:parseInt(n.tvprogram_heightRow)||35,scrollbarWidth:this.getScrollbarWidth(),markerpositionpercent:n.tvprogram_markerpositionpercent/100||.25,dialogwidthpercent:n.tvprogram_dialogwidthpercent/100||.9,dialogheightpercent:n.tvprogram_dialogheightpercent/100||.9,showpictures:n.tvprogram_showpictures||!1}),$(`#${t}broadcastdlg`).data({dialogwidthpercent:this.measures[t].dialogwidthpercent,dialogheightpercent:this.measures[t].dialogheightpercent}),this.measures[t].widthItem||(this.measures[t].widthItem=this.measures[t].origwidthItem),((this.today||{})[t]||{}).prevday||$(`#${t} .tv-container`).html("Datapoints loading..."),console.log("Load Data"),this.visTvprogram.categories||(this.visTvprogram.categories=yield this.visTvprogram.loadCategories(a,t)),this.visTvprogram.channels||(this.visTvprogram.channels=yield this.visTvprogram.loadChannels(a,t)),this.visTvprogram.genres||(this.visTvprogram.genres=yield this.visTvprogram.loadGenres(a,t));function h(T){return!T||Object.keys(T)==0}this.today[t]||(this.today[t]={today:new Date,prevday:null}),this.scroll[t]||(this.scroll[t]={time:new Date(0),position:0,marker:0,timeout:null,automatic:0}),console.log("Calc Date");let u=this.visTvprogram.calcDate(this.today[t].today),p=this.visTvprogram.getDate(u,0);this.viewday[t]||(this.viewday[t]={viewday:p,prevday:null}),this.viewday[t].viewday=p;let f=this.visTvprogram.getDate(u,0);if(h(this.tvprogram[p])&&(this.tvprogram[p]=yield this.visTvprogram.loadProgram(a,t,p)),this.visTvprogram.categories.length==0||this.visTvprogram.categories[0]==="request"||this.visTvprogram.channels.length==0||this.visTvprogram.channels[0]==="request"||this.visTvprogram.genres.length==0||this.visTvprogram.genres[0]==="request"||h(this.tvprogram[p]))return;this.viewday[t].viewday!=this.viewday[t].prevday&&(this.viewday[t].prevday=this.viewday[t].viewday),this.bound[l]||(this.bound[l]={}),this.bound[l][t]||(this.bound[l][t]=!1),l&&!this.bound[l][t]&&(vis.editMode||(this.bound[l][t]=!0,vis.binds.tvprogram.bindStates(i,[`${l}.config`,`${l}.cmd`,`${l}.favorites`,`${l}.channelfilter`,`${l}.show`],this.onChange.bind(this,t,e,n,o,a)))),this.onclickChannelSave.name=="onclickChannelSave"&&(this.onclickChannelSave=this.onclickChannelSave.bind(this)),console.log("Calc Channels");let b=this.visTvprogram.getConfigChannelfilter(l);b.length==0&&(b=this.visTvprogram.channels.reduce((T,K,J)=>(J<4&&T.push(K.id),T),[])),console.log("Calc styles");let w=this.measures[t].widthItem,g=this.measures[t].heightRow,S=this.measures[t].heightRow,s=this.visTvprogram.realBackgroundColor($(`#${t}`)[0]);this.visTvprogram.checkStyle("background-color",$(`#${t}`)[0].style.cssText)==""&&$(`#${t}`).css("background-color",s);let d=48*w+g,V=n.tvprogram_headerfontpercent||125,L=n.tvprogram_broadcastfontpercent||75,k=0,B=$(`#${t}`).height()-S,j=(b.length+1)*S;j<B?k=j:k=B-this.measures[t].scrollbarWidth,console.log(`Display day:${p}`),console.log("Output CSS");let r="";r+=`<style> 
-`,r+=`#${t} * {
-`,r+=`   box-sizing: border-box; 
-`,r+=`} 
-`,r+=`#${t} .tv-container {
-`,r+=`   width: 100%; 
-`,r+=`   height: 100%; 
-`,r+=`   white-space:nowrap; 
-`,r+=`   display:flex; 
-`,r+=`   flex-direction: column; 
-`,r+=`} 
-`,r+=`#${t} .navcontainer {
-`,r+=`   width: 100%; 
-`,r+=`} 
-`,r+=`#${t} .scrollcontainer {
-`,r+=`   flex-grow: 1; 
-`,r+=`   overflow:auto; 
-`,r+=`   width:100%; 
-`,r+=`} 
-`,r+=`#${t} .tv-row {
-`,r+=`   margin: 0px; 
-`,r+=`   padding: 0px; 
-`,r+=`   width: ${d}px; 
-`,r+=`} 
-`,r+=`#${t} .tv-item {
-`,r+=`   display: inline-block; 
-`,r+=`   vertical-align: middle; 
-`,r+=`   border: solid #80808033; 
-`,r+=`   border-width:1px 0px 0px 1px; 
-`,r+=`} 
-`,r+=`#${t} .tv-head-time {
-`,r+=`   position:sticky; 
-`,r+=`   position: -webkit-sticky; 
-`,r+=`   top:0px; 
-`,r+=`   z-index:11; 
-`,r+=`   background-color: ${s}; 
-`,r+=`} 
-`,r+=`#${t} .tv-head-left {
-`,r+=`   position:sticky; 
-`,r+=`   position: -webkit-sticky; 
-`,r+=`   left:0; 
-`,r+=`   z-index:11; 
-`,r+=`   background-color: ${s}; 
-`,r+=`} 
-`,r+=`#${t} svg rect {
-`,r+=`   fill: ${$(`#${t}`).css("color")}; 
-`,r+=`} 
-`,r+=`#${t} .channel {
-`,r+=`   width: ${S}px; 
-`,r+=`   height: ${S}px; 
-`,r+=`   padding: 1px; 
-`,r+=`} 
-`,r+=`#${t} .time {
-`,r+=`   width: ${w}px; 
-`,r+=`   height: ${S}px; 
-`,r+=`   font-weight: 700; 
-`,r+=`   font-size: ${V}%; 
-`,r+=`   padding: 5px 5px; 
-`,r+=`} 
-`,r+=`#${t} .time:after {
-`,r+=`   content:""; 
-`,r+=`   display: inline-block; 
-`,r+=`   vertical-align:middle; 
-`,r+=`   height: 100%; 
-`,r+=`} 
-`,r+=`#${t} .time span {
-`,r+=`   vertical-align:middle; 
-`,r+=`} 
-`,r+=`#${t} .broadcast {
-`,r+=`   height: ${S}px; 
-`,r+=`   padding: 3px; 
-`,r+=`   font-size: ${L}%; 
-`,r+=`   overflow: hidden; 
-`,r+=`} 
-`,r+=`#${t} .broadcastelement {
-`,r+=`   width: 100%; 
-`,r+=`   height: 100%; 
-`,r+=`   display: table-cell; 
-`,r+=`} 
-`,r+=`#${t} .broadcastelement.hide {
-`,r+=`   display: none; 
-`,r+=`} 
-`,r+=`#${t} .broadcastelement .star  {
-`,r+=`   display: inline-block; 
-`,r+=`   margin: 0px 2px; 
-`,r+=`} 
-`,r+=`#${t} .broadcastelement .star svg {
-`,r+=`   height: 1em; 
-`,r+=`   width: 1em; 
-`,r+=`   position: relative; 
-`,r+=`   top: .125em; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .star.selected svg  {
-`,r+=`   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))
-`,r+=`} 
-`,r+=`#${t} .broadcastelement.selected .star svg path, #${t}broadcastdlg .star.selected {
-`,r+=`   color: ${c}; 
-`,r+=`} 
-`,r+=`#${t} .broadcastelement.selected {
-`,r+=`   color: ${c}; 
-`,r+=`   background-color: ${this.visTvprogram.colorToRGBA(c,".1")}; 
-`,r+=`} 
-`,r+=`#${t} .broadcastimage {
-`,r+=`   height: ${S-7}px; 
-`,r+=`   padding-right: 3px; 
-`,r+=`   float: left; 
-`,r+=`} 
-`,r+=`#${t} .button {
-`,r+=`   display:inline-block; 
-`,r+=`   width: ${S}px; 
-`,r+=`   height: ${S}px; 
-`,r+=`   background-color: ${s}; 
-`,r+=`   vertical-align: middle; 
-`,r+=`   padding: 5px 5px; 
-`,r+=`} 
-`,r+=`#${t} .dateinfo {
-`,r+=`   height: ${S}px; 
-`,r+=`   padding: 5px 5px; 
-`,r+=`   position: absolute; 
-`,r+=`   right: 0px; 
-`,r+=`   border: 0px; 
-`,r+=`} 
-`,r+=`#${t} .dateinfo:after {
-`,r+=`   content:""; 
-`,r+=`   display: inline-block; 
-`,r+=`   vertical-align:middle; 
-`,r+=`   height: 100%; 
-`,r+=`} 
-`,r+=`#${t} .dateinfo span {
-`,r+=`   vertical-align:middle; 
-`,r+=`} 
-`,r+=`.ui-dialog.${t} {
-`,r+=`   z-index:12; 
-`,r+=`} 
-`,r+=`.clearfix {
-`,r+=`   clear:both; 
-`,r+=`   content:""; 
-`,r+=`   display:table; 
-`,r+=`} 
-`,r+=`#${t}channeldlg .chselect-container {
-`,r+=`} 
-`,r+=`#${t}channeldlg ul.channel {
-`,r+=`   margin:0px; 
-`,r+=`   padding:0px; 
-`,r+=`} 
-`,r+=`#${t}channeldlg .listitem  {
-`,r+=`   float: left; 
-`,r+=`} 
-`,r+=`#${t}channeldlg .listitem .channel {
-`,r+=`   list-style: none; 
-`,r+=`} 
-`,r+=`#${t}channeldlg .items  {
-`,r+=`   list-style: none; 
-`,r+=`   margin:0px; 
-`,r+=`   padding:0px; 
-`,r+=`} 
-`,r+=`#${t}channeldlg .channel {
-`,r+=`   margin:5px; 
-`,r+=`   width: ${S*1.5}px; 
-`,r+=`   height: ${S*1.5}px; 
-`,r+=`   list-style: none; 
-`,r+=`} 
-`,r+=`#${t}channeldlg .items .channel[selected] {
-`,r+=`   background-color:lightgray; 
-`,r+=`} 
-`,r+=`.${t}.no-titlebar .ui-dialog-titlebar {
-`,r+=`   display:none; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg  {
-`,r+=`   z-index:12; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-container.tv-dlg-row {
-`,r+=`   height:100%; 
-`,r+=`   display:flex; 
-`,r+=`   flex-direction:row; 
-`,r+=`   overflow:hidden; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-container.tv-dlg-col {
-`,r+=`   height:100%; 
-`,r+=`   display:flex; 
-`,r+=`   flex-direction:column; 
-`,r+=`   overflow:hidden; 
-`,r+=`   font-size:75%; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-picture.tv-dlg-row {
-`,r+=`   width:50%; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-picture.tv-dlg-col {
-`,r+=`   height:30%; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-data {
-`,r+=`   overflow-y:auto; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-picture img {
-`,r+=`   width:auto; 
-`,r+=`   height:auto; 
-`,r+=`   max-width:100%; 
-`,r+=`   max-height:100%; 
-`,r+=`   display:block; 
-`,r+=`   margin:auto; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .event-picture img {
-`,r+=`   width:auto; 
-`,r+=`   height:auto; 
-`,r+=`   max-width:100%; 
-`,r+=`   max-height:100%; 
-`,r+=`   display:block; 
-`,r+=`   margin:auto; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .dialogcolumn.tv-dlg-row {
-`,r+=`   flex:1; 
-`,r+=`   padding:5px; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .dialogcolumn.tv-dlg-col {
-`,r+=`   padding:5px; 
-`,r+=`} 
-`,r+=`#${t}broadcastdlg .button {
-`,r+=`   display:inline-block; 
-`,r+=`   width: 35px; 
-`,r+=`   height: 35px; 
-`,r+=`   vertical-align: middle; 
-`,r+=`   position: relative; 
-`,r+=`   float: right; 
-`,r+=`} 
-`,r+=`#${t} .tooltip {
-`,r+=`   position: relative; 
-`,r+=`} 
-`,r+=`#${t} .tooltip span[role=tooltip] {
-`,r+=`   display: none; 
-`,r+=`} 
-`,r+=`#${t} .tooltip:hover span[role=tooltip] {
-`,r+=`   display: block; 
-`,r+=`   position: absolute; 
-`,r+=`   left: 3em; 
-`,r+=`   border: 1px solid; 
-`,r+=`   font-size: 75%; 
-`,r+=`   padding: 0.2em; 
-`,r+=`   z-index: 100; 
-`,r+=`   background-color: ${s}; 
-`,r+=`} 
-`,r+=`#${t} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#${t} ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {
-`,r+=`   background-color: rgba(128, 128, 128, 0.65); 
-`,r+=`} 
-`,r+=`#${t} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#${t} ul.tv-row:nth-child(odd)> li.time:nth-child(even) {
-`,r+=`   background-color: rgba(128, 128, 128, 0.55); 
-`,r+=`} 
-`,r+=`#${t} .scrollcontainer ul.tv-row:nth-child(even)> li.broadcast:nth-child(odd) {
-`,r+=`   background-color: rgba(128, 128, 128, 0.45); 
-`,r+=`} 
-`,r+=`#${t} .scrollcontainer ul.tv-row:nth-child(even)> li.broadcast:nth-child(even) {
-`,r+=`   background-color: rgba(128, 128, 128, 0.35); 
-`,r+=`} 
-`,r+=`#${t} .line {
-`,r+=`   position: absolute; 
-`,r+=`   top: 0; 
-`,r+=`   width: 2px; 
-`,r+=`   background-color: red; 
-`,r+=`   opacity: 0.8; 
-`,r+=`   z-index: 10; 
-`,r+=`   height: ${k}px; 
-`,r+=`   float: left; 
-`,r+=`} 
-`,r+=`#${t} .disable-select {
-`,r+=`   -webkit-user-select: none; 
-`,r+=`   -moz-user-select: none; 
-`,r+=`   -ms-user-select: none; 
-`,r+=`   -user-select: none; 
-`,r+=`} 
-`,r+=`#${t} .staricon {
-`,r+=`     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='currentColor' d='M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z' /></svg>"); 
-`,r+=`} 
-`,r+=`</style> 
-`,console.log("Output SVG"),r+='  <div class="svgcontainer">',r+='<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="check-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></symbol></svg>',r+='<svg style="display:none;"><symbol id="cancel-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></symbol></svg>',r+='<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="burger-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></symbol></svg>',r+='<svg style="display:none;"><symbol id="nav-prevD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="nav-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="nav-nextD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="zoom-minus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="zoom-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M19,19H15V21H19A2,2 0 0,0 21,19V15H19M19,3H15V5H19V9H21V5A2,2 0 0,0 19,3M5,5H9V3H5A2,2 0 0,0 3,5V9H5M5,15H3V19A2,2 0 0,0 5,21H9V19H5V15Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="zoom-plus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>',r+='<svg style="display:none;"><symbol id="hide-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z" /></symbol></svg>',r+="  </div>",console.log("Output Navigation"),r+='  <div class="navcontainer">',r+='    <ul class="tv-row tv-head-top">',r+=this.getButtonHeader(p).join(""),r+="    </ul>",r+="  </div>",console.log("Output tvprogram"),r+='  <div class="scrollcontainer">',r+='    <ul class="tv-row tv-head-time">',r+='      <div class="line"></div>',r+='      <li class="tv-item tv-head-left channel">',r+="      </li>",r+=this.getTimetable().join(""),r+="    </ul>",this.getEvents(this.tvprogram[f],b).map(T=>{r+='    <ul class="tv-row">',r+=this.getBroadcasts4Channel(T,t,e,f,l,a).join(""),r+="    </ul>"}),$(`#${t} .tv-container`).html(r),this.visTvprogram.getConfigShow(l)==1?$(`#${t} .broadcastelement:not(".selected") > *`).show():$(`#${t} .broadcastelement:not(".selected") > *`).hide(),console.log("Connect Buttone events"),$(`#${t} .burger`).click(function(T,K,J,C){vis.binds.tvprogram.time1.onclickChannel(T,J,K,C)}.bind(this,t,l,a)),$(`#${t} .button.nav.prevD`).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,t,e,n,o)),$(`#${t} .button.nav.nextD`).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,t,e,n,o)),$(`#${t} .button.nav.center`).off("click.onClickDay").on("click.onClickDay",this.onClickDay.bind(this,t,e,n,o)),$(`#${t} .button.zoom.minus`).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,t,e,n,o)),$(`#${t} .button.zoom.plus`).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,t,e,n,o)),$(`#${t} .button.zoom.center`).off("click.onClickZoom").on("click.onClickZoom",this.onClickZoom.bind(this,t,e,n,o)),$(`#${t} .button.hide`).off("click.onClickHide").on("click.onClickHide",this.onClickHide.bind(this,a,l,t)),$(`#${t} .scrollcontainer`).scroll(function(T){this.scroll[T].automatic==0&&(this.scroll[T].automatic=2),this.scroll[T].time=new Date,this.calcScroll(T)}.bind(this,t)),this.visTvprogram.copyStyles("font",$(`#${t}`).get(0),$(`#${t}broadcastdlg`).get(0)),this.visTvprogram.copyStyles("color",$(`#${t}`).get(0),$(`#${t}broadcastdlg`).get(0)),this.visTvprogram.copyStyles("background-color",$(`#${t}`).get(0),$(`#${t}broadcastdlg`).get(0)),this.updateMarker(t,this.today[t].today),this.timer[t]?(clearInterval(this.timer[t]),this.timer[t]=setInterval(this.updateMarker.bind(this,t,this.today[t].today),15e3)):this.timer[t]=setInterval(this.updateMarker.bind(this,t,this.today[t].today),15e3),this.scroll[t].position==0?(this.calcScroll(t),this.setScroll(t)):this.setScroll(t),console.log("Output done")})},onClickHide:function(t,e){this.visTvprogram.toggleShow(t,e)},onClickZoom:function(t,e,n,o,i){$(i.currentTarget).hasClass("plus")&&(this.measures[t].widthItem=this.measures[t].widthItem+this.measures[t].origwidthItem/4,console.log("Click Zoom plus")),$(i.currentTarget).hasClass("minus")&&(this.measures[t].widthItem=this.measures[t].widthItem-this.measures[t].origwidthItem/4,console.log("Click Zoom minus")),$(i.currentTarget).hasClass("center")&&(this.measures[t].widthItem=this.measures[t].origwidthItem,console.log("Click Zoom center")),this.measures[t].widthItem<20&&(this.measures[t].widthItem=this.measures[t].origwidthItem,console.log("Click Zoom Max zoom reached, reset")),this.calcScroll(t),this.createWidget(t,e,n,o)},onClickDay:function(t,e,n,o,i){console.log(`ClickNav:${$(i.currentTarget).attr("class")}`);let a=0;$(i.currentTarget).hasClass("prevD")&&(a=-1),$(i.currentTarget).hasClass("nextD")&&(a=1);let l=re(this.today[t].today).add(a,"day"),c=re(l).diff(re(),"day");$(i.currentTarget).hasClass("center")?(this.today[t].today=new Date,this.scroll[t].position=0):c>-5&&c<5&&(this.today[t].prevday=new Date(this.today[t].today),this.today[t].today=l.toDate(),console.log(`Navigate to date: ${re(l).format()}`)),this.scroll[t].time=new Date(0),this.createWidget(t,e,n,o)},calcScroll:function(t){let e=$(`#${t} .scrollcontainer`).get(0);e&&(e.scrollLeft==0||this.scroll[t].position==0?this.scroll[t].position=this.scroll[t].marker/e.scrollWidth:this.scroll[t].position=(e.scrollLeft+e.clientWidth*this.measures[t].markerpositionpercent)/e.scrollWidth)},setScroll:function(t){try{let e=$(`#${t} .scrollcontainer`).get(0);if(!e.scrollWidth)return;e.scrollLeft=this.scroll[t].position*e.scrollWidth-e.clientWidth*this.measures[t].markerpositionpercent}catch(e){console.log(e)}},updateMarker:function(t,e){if(this.scroll[t].automatic==2&&new Date-this.scroll[t].time<90*1e3)return;this.scroll[t].automatic=0,this.visTvprogram.calcDate(e).toLocaleDateString()!=this.visTvprogram.calcDate(new Date).toLocaleDateString()?$(`#${t} .line`).hide():$(`#${t} .line`).show();let n=this.measures[t].widthItem,o=this.measures[t].timeItem,i=this.measures[t].heightRow,a=new Date(this.visTvprogram.calcDate(new Date));a.setHours(5),a.setMinutes(0),a.setSeconds(0);let l=new Date(a);l.setDate(l.getDate()+1);let h=i+Math.floor((new Date-a)/6e4/o*n*10)/10;$(`#${t} .line`).css("left",`${h}px`),this.scroll[t].marker=h,this.scroll[t].position=0,this.calcScroll(t),this.scroll[t].timeout&&clearTimeout(this.scroll[t].timeout),this.scroll[t].automatic=1,this.scroll[t].timeout=window.setTimeout(function(){this.scroll[t].automatic=0,clearTimeout(this.scroll[t].timeout),this.scroll[t].timeout=null}.bind(this),500),this.setScroll(t)},getScrollbarWidth:function(){let t=document.createElement("div");t.className="scrollbar-measure",t.style.cssText="width: 100px;height: 100px;overflow: scroll;position: absolute;top: -9999px;",document.body.appendChild(t);let e=t.offsetWidth-t.clientWidth;return document.body.removeChild(t),e},getChannels:function(t,e=[]){let n=[];return e.map(o=>{let i=t.find(a=>a.id==o);n.push(`<li class="listitem channel" data-order="${i.order}" data-id="${i.id}" selected><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${i.channelId}.png" alt="" class="channel-logo"></li>`)}),t.sort((o,i)=>o.order+(e.indexOf(o.id)==-1)*1e5-(i.order+(e.indexOf(i.id)==-1)*1e5)).map(o=>{e.findIndex(i=>i==o.id)==-1&&n.push(`<li class="listitem channel" data-order="${o.order}" data-id="${o.id}"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${o.channelId}.png" alt="" class="channel-logo"></li>`)}),n},onclickChannelSave:function(t,e){let n=t.dataset.widgetid;if(e){let i=t.dataset.dp||"",a=t.dataset.instance||"";this.visTvprogram.setConfigChannelfilter(a,i,$(`#${n}channeldlg .chselect-container .channel[selected]`).toArray().map(l=>parseInt(l.dataset.id)))}document.querySelector(`#${n}channeldlg dialog`).close()},onclickChannel:function(t,e,n){let o=!1,i=this.visTvprogram.channels,a=this.visTvprogram.getConfigChannelfilter(n);a.length==0&&(a=i.reduce((S,s,d)=>(d<4&&S.push(s.id),S),[]));let l=$(`#${t}`).width()*this.measures[t].dialogwidthpercent,c=$(`#${t}`).height()*this.measures[t].dialogheightpercent,{top:h,left:u}=$(`#${t}`).position(),p=h+($(`#${t}`).height()-c)/2,f=u+($(`#${t}`).width()-l)/2,b="";b+=`<dialog class="${t}broadcastdialog" style="margin:0;width:${l}px;height:${c}px;top:${p}px;left:${f}px">`,b+='  <div class="chselect-container clearfix">',b+=`    <ul class="listitem channel" data-instance="${e}" data-dp="${n}" data-widgetid="${t}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`,b+=`    <ul class="listitem channel" data-widgetid="${t}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`,b+="  </div>",b+='  <div class="chselect-container clearfix sortable">',b+='  <ul class="items">',b+=this.getChannels(i,a).join(`
-`),b+="  </ul>",b+="  </div>",$(`#${t}channeldlg`).html(b),$(".chselect-container .items .channel").click(function(){if(console.log("channel click"),o)return;let S=$(this).parent().find("[selected]").last();this.dataset.id&&($(this).attr("selected")?$(this).removeAttr("selected"):$(this).attr("selected","")),$(this).attr("selected")?$(this).insertAfter(S):$(this).parent().children().sort(function(s,d){return s.dataset.order+($(s).attr("selected")!="selected")*1e5-(d.dataset.order+($(d).attr("selected")!="selected")*1e5)}).appendTo($(this).parent())});let w=document.querySelector(".chselect-container.sortable .items");new Qe(w,{animation:150,filter:"li:not([selected])",onMove:function(S){if(!S.related.hasAttribute("selected"))return!1}}),this.visTvprogram.copyStyles("font",$(`#${t}`).get(0),$(`#${t}channeldlg`).get(0)),this.visTvprogram.copyStyles("color",$(`#${t}`).get(0),$(`#${t}channeldlg`).get(0)),this.visTvprogram.copyStyles("background-color",$(`#${t}`).get(0),$(`#${t}channeldlg`).get(0)),document.querySelector(`#${t}channeldlg dialog`).showModal()},getBroadcasts4Channel:function(t,e,n,o,i,a){let l=this.measures[e].widthItem,c=this.measures[e].timeItem,h=this.visTvprogram.getConfigFavorites(i),u,p=new Date(t.events[0].airDate);p.setHours(5),p.setMinutes(0);let f=new Date(p);f.setDate(f.getDate()+1);let b=this.visTvprogram.channels.find(d=>d.id==t.channel),w=[],g="";g+='    <li class="tv-item tv-head-left channel">',g+=`      <img width="100%" height="100%" data-instance="${a}" data-channelid="${b.channelId}" data-dp="${i}" src="https://tvfueralle.de/channel-logos/${b.channelId}.png" alt="" class="channel-logo"  onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`,g+="    </li>",w.push(g);for(let d=0;d<t.events.length;d++){let V=t.events[d],L=new Date(V.startTime),k=new Date(V.endTime);L>=f||k<=p||(d==0&&L>p&&w.push(`<li class="tv-item broadcast" style="left:0px; width:${Math.floor((L-p)/6e4/c*l*10)/10}px;"></li>`),L<p&&(L=p),k>f&&(k=f),u=h.indexOf(V.title)>-1,g="",g+='<li class="tv-item broadcast" style="',g+=`left:${Math.floor((L-p)/6e4/c*l*10)/10}px;`,g+=`width:${Math.floor((k-L)/6e4/c*l*10)/10}px;">`,g+=`<div class="broadcastelement ${u?"selected":""}" data-widgetid="${e}" data-eventid="${V.id}" data-viewdate="${o}" data-instance="${a}" data-dp="${i}" data-view="${n}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`,V.photo.url&&this.measures[e].showpictures&&(g+=`<div><img class="broadcastimage" src="https://tvfueralle.de${V.photo.url}"></div>`),g+=`<div class="broadcasttitle">${V.title}`,g+=`<div class="star" data-viewdate="${o}" data-eventid="${V.id}" data-dp="${i}" data-instance="${a}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`,g+="</div>",g+='<div class="broadcasttime">',g+=`${`0${L.getHours()}`.slice(-2)}:${`0${L.getMinutes()}`.slice(-2)}`,g+=" - ",g+=`${`0${k.getHours()}`.slice(-2)}:${`0${k.getMinutes()}`.slice(-2)}`,g+="</div></div></li>",w.push(g))}let S=new Date(t.events[t.events.length-1].startTime),s=new Date(t.events[t.events.length-1].endTime);return S<f&&s<f&&(S=s,s=f,g="",g+='<li class="tv-item broadcast" style="',g+=`left:${Math.floor((S-p)/6e4/c*l*10)/10}px;`,g+=`width:${Math.floor((s-S)/6e4/c*l*10)/10}px;">`,g+="</li>",w.push(g)),w},getEvents:function(t,e){let n=[],o;return t.map(i=>{(o=e.indexOf(i.channel))>-1&&(n[o]||(n[o]={}),n[o].events||(n[o].events=[]),n[o].channel=i.channel,n[o].events.push(i))}),n},getTimetable:function(){let t=[];for(let e=0;e<24;e++)t.push(`<li class="tv-item time"><span>${`0${e}`.slice(-2)}:00</span></li>`),t.push(`<li class="tv-item time"><span>${`0${e}`.slice(-2)}:30</span></li>`);return[].concat(t.slice(10),t.slice(0,10))},getButtonHeader:function(t){let e=[];return e.push('<li class="tv-item tv-head-topleft tv-head-left button burger tooltip"><span role="tooltip">Menu</span><svg width="100%" height="100%" ><use xlink:href="#burger-icon"></use></svg></li>'),e.push('<li class="tv-item button nav prevD tooltip"><span role="tooltip">Previous day</span><svg width="100%" height="100%" ><use xlink:href="#nav-prevD-icon"></use></svg></li>'),e.push('<li class="tv-item button nav center tooltip"><span role="tooltip">Today</span><svg width="100%" height="100%" ><use xlink:href="#nav-center-icon"></use></svg></li>'),e.push('<li class="tv-item button nav nextD tooltip"><span role="tooltip">Next day</span><svg width="100%" height="100%" ><use xlink:href="#nav-nextD-icon"></use></svg></li>'),e.push('<li class="tv-item button zoom minus tooltip"><span role="tooltip">Zoom in</span><svg width="100%" height="100%" ><use xlink:href="#zoom-minus-icon"></use></svg></li>'),e.push('<li class="tv-item button zoom center tooltip"><span role="tooltip">Zoom normal</span><svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg></li>'),e.push('<li class="tv-item button zoom plus tooltip"><span role="tooltip">Zoom out</span><svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg></li>'),e.push('<li class="tv-item button hide tooltip"><span role="tooltip">Hide Non-Favorites</span><svg width="100%" height="100%" ><use xlink:href="#hide-icon"></use></svg></li>'),e.push(`<li class="tv-item dateinfo">${new Date(t).toLocaleDateString(navigator.language,{weekday:"short"})}, ${new Date(t).toLocaleDateString()}</li>`),e},onChange:function(t,e,n,o,i,a,l){return R(this,null,function*(){let c=a.type.split(".");if((c[3]=="config"||c[3]=="favorites"||c[3]=="channelfilter"||c[3]=="show")&&c[4]=="val"&&(console.log(`changed ${t} type:${a.type} val:${l}`),this.createWidget(t,e,n,o)),c[3]=="cmd"&&c[4]=="val"&&l&&l!=""){console.log(`changed ${t} type:${a.type} val:${l}`);let h=l.split("|");if(h[0]=="new"){if(h[1]!="program"){this[h[1]]=yield this.visTvprogram.getServerDataAsync(i,t,h[1]),this.createWidget(t,e,n,o);return}h[1]=="program"&&this.tvprogram[h[2]]&&this.visTvprogram.loadProgram(i,t,h[2],function(u,p,f,b,w,g){if(g!="error"&&g!="nodata"){this.tvprogram[w]=g,this.createWidget(u,p,f,b);return}}.bind(this,t,e,n,o,h[2]))}}})}},checkStyle:function(t,e){return e.split(";").reduce((n,o)=>o.split(":")[0].trim()==t?o.split(":")[1].trim():n,"")},realBackgroundColor:function(t){let e="rgba(0, 0, 0, 0)",n="transparent";if(!t)return e;let o=window.getComputedStyle(t).backgroundColor;return o===e||o===n?this.realBackgroundColor(t.parentElement):o},onclickBroadcast:function(t){return R(this,null,function*(){let e=t.currentTarget?t.currentTarget:t,n=e.dataset.eventid||0,o=e.dataset.widgetid||0,i=e.dataset.viewdate||0,a=e.dataset.instance||"",l=e.dataset.dp||"";if(n==0||o==0)return;let c=yield this.getServerBroadcastAsync(a,n,i),h=$(`#${o}broadcastdlg`).data(),u=new Date(c.startTime),p=new Date(c.endTime),f=c.content.category?this.categories.find(v=>v.id==c.content.category):null,b=c.channel?this.channels.find(v=>v.id==c.channel):null,w="";w+=b?`${b.name} `:"",w+=`${`0${u.getHours()}`.slice(-2)}:${`0${u.getMinutes()}`.slice(-2)}`,w+=" - ",w+=`${`0${p.getHours()}`.slice(-2)}:${`0${p.getMinutes()}`.slice(-2)}`;let g="";g+=c.content.country?`${c.content.country} `:"",g+=c.content.year?`${c.content.year} `:"",g+=f?`${f.title} `:"";let S="",s="";c.content.seasonNumber&&(S=c.content.seasonNumber,S=S<100?`S${`0${S}`.slice(-2)}`:`S${S}`),c.content.episodeNumber&&(s=c.content.episodeNumber,s=s<100?`E${`0${s}`.slice(-2)}`:`E${s}`),g+=S||s?`${S+s} `:"";let d=c.content.texts.Long.value?c.content.texts.Long.value:c.content.texts.VeryShort.value?c.content.texts.VeryShort.value:"",V=c.photo.url?`https://tvfueralle.de${c.photo.url}`:"https://tvfueralle.de/tv-logo-no-image.svg",k=this.getConfigFavorites(l).indexOf(c.title)>-1,B=$(`#${o}`).width()*h.dialogwidthpercent>$(`#${o}`).height()*h.dialogheightpercent?" tv-dlg-row":" tv-dlg-col",j=$(`#${o}`).width()*h.dialogwidthpercent,r=$(`#${o}`).height()*h.dialogheightpercent,{top:F,left:T}=$(`#${o}`).position(),K=F+($(`#${o}`).height()-r)/2,J=T+($(`#${o}`).width()-j)/2,C="";C+=`<dialog class="${o}broadcastdialog" style="margin:0;width:${j}px;height:${r}px;top:${K}px;left:${J}px">`,C+=`  <div class="event-container${B}" data-eventid="${c.id}">`,C+=`    <div class="event-picture dialogcolumn${B}">`,C+=`    <img src="${V}">`,C+="    </div>",C+=`    <div class="event-data dialogcolumn${B}">`,C+='      <div class="buttoncontainer">',C+=`          <div class="record button" data-viewdate="${i}" data-eventid="${c.id}" data-instance="${a}" data-dp="${l}" onclick="return vis.binds.tvprogram.onclickRecord(this,event)"><svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg></div>`,C+=`          <div class="copy button" data-widgetid="${o}" onclick="return vis.binds.tvprogram.onclickCopy(this,event)"><svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg></div>`,C+=`          <div class="star button ${k?"selected":""}" data-viewdate="${i}" data-eventid="${c.id}" data-instance="${a}" data-dp="${l}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`,u<new Date&&new Date<p&&(C+=`        <div class="channelselect button" data-instance="${a}" data-dp="${l}" data-channelid="${b.channelId}" onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)"><svg width="100%" height="100%" ><use xlink:href="#switch-icon"></use></svg></div>`),C+="      </div>",C+=`      <div style="padding: 0px 0px 5px;">${w}</div>`,C+=`      <div style="font-weight: bold;padding: 0px 0px 5px;">${c.title}</div>`,C+=`      <div style="padding: 0px 0px 5px;">${g}</div>`,C+=`      <div>${d}</div>`,C+="    </div>",C+="  </div>",C+="  </div>",C+='</dialog">',$(`#${o}broadcastdlg`).html(C),this.copyStyles("font",$(`#${o}`).get(0),$(`#${o}broadcastdlg dialog`).get(0)),this.copyStyles("color",$(`#${o}`).get(0),$(`#${o}broadcastdlg dialog`).get(0)),this.copyStyles("background-color",$(`#${o}`).get(0),$(`#${o}broadcastdlg dialog`).get(0));let y=document.querySelector(`#${o}broadcastdlg dialog`);$(`#${o}broadcastdlg`).click(function(){y.close()}),y.showModal()})},onclickRecord:function(t,e){return R(this,null,function*(){let n=t.dataset.instance||"",o=t.dataset.dp||"",i=t.dataset.eventid||0,a=t.dataset.viewdate||0;if(i==0||a==0)return;e.stopPropagation();let l=yield this.getServerBroadcastAsync(n,i,a),c=l.channel?this.channels.find(u=>u.id==l.channel):null,h={startTime:l.startTime,endTime:l.endTime,title:l.title,channel:l.channel,channelid:c.channelId,channelname:c.name,eventid:l.id};this.setValueAckAsync(n,`${o}.record`,JSON.stringify(h))})},onclickCopy:function(t,e){let n=t.dataset.widgetid||"",o=document.createElement("textarea");o.value=$(`#${n}broadcastdlg .event-data`).get(0).outerText,document.body.appendChild(o),o.focus(),o.select(),document.execCommand("copy"),document.body.removeChild(o),e.stopPropagation()},copyStyles:function(t,e,n){let o=window.getComputedStyle(e),i=window.getComputedStyle(n);for(let a=o.length;a--;)o[a].startsWith(t)&&o.getPropertyValue(o[a])!=i.getPropertyValue(o[a])&&n.style.setProperty(o[a],o.getPropertyValue(o[a]))},colorToRGBA:function(t,e=1){let n=document.createElement("canvas");n.height=1,n.width=1;let o=n.getContext("2d");o.fillStyle=t,o.fillRect(0,0,1,1);let i=o.getImageData(0,0,1,1).data;return`rgba(${i[0]},${i[1]},${i[2]},${e})`},onclickChannelSwitch:function(t,e){let n=t.dataset.channelid||"",o=t.dataset.dp||"",i=t.dataset.instance||"";this.setValueAckAsync(i,`${o}.selectchannel`,n),e.stopPropagation()},onclickFavorite:function(t,e){return R(this,null,function*(){let n=t.dataset.dp||"",o=t.dataset.instance||"",i=t.dataset.eventid||0,a=t.dataset.viewdate||0;if(e.stopPropagation(),i==0||a==0)return;let l=yield this.getServerBroadcastAsync(o,i,a),c=this.getConfigFavorites(n),h=c.indexOf(l.title);h>-1?(c.splice(h,1),$(t).hasClass("button")&&$(t).removeClass("selected")):(c.push(l.title),$(t).hasClass("button")&&$(t).addClass("selected")),this.setConfigFavorites(o,n,c)})},getConfig:function(t){let e,n=vis.states.attr(`${t}.config.val`);return typeof n!="undefined"&&n!=="null"&&n!==""?e=JSON.parse(n):e={},e},getConfigFavorites:function(t){let e,n=vis.states.attr(`${t}.favorites.val`);return typeof n!="undefined"&&n!=="null"&&n!==""?e=JSON.parse(n):e=[],e},setConfigFavorites:function(t,e,n){this.setValueAckAsync(t,`${e}.favorites`,JSON.stringify(n))},getConfigChannelfilter:function(t){let e,n=vis.states.attr(`${t}.channelfilter.val`);return typeof n!="undefined"&&n!=="null"&&n!==""?e=JSON.parse(n):e=[],e},setConfigChannelfilter:function(t,e,n){this.setValueAckAsync(t,`${e}.channelfilter`,JSON.stringify(n))},getConfigShow:function(t){let e,n=vis.states.attr(`${t}.show.val`);return typeof n!="undefined"&&n!=="null"&&n!==""?e=JSON.parse(n):e=1,e},setConfigShow:function(t,e,n){this.setValueAckAsync(t,`${e}.show`,JSON.stringify(n))},toggleShow:function(t,e){let n=this.getConfigShow(e);n==null&&(n=0),n=n==1?0:1,this.setConfigShow(t,e,n)},getServerBroadcast:function(t,e,n,o){console.log(`getServerBroadcast request ${e}.${n}`),vis.conn.sendTo(t,"getServerBroadcast",{eventid:e,viewdate:n},function(i){i!="error"&&i!="nodata"?console.log(`getServerBroadcast received ok ${t}.${n}.${e}`):console.log(`getServerBroadcast received ${i}`),o&&o(i)}.bind(this))},getServerBroadcastAsync:function(t,e,n){return R(this,null,function*(){return console.log(`getServerBroadcast request ${e}.${n}`),yield this.sendToAsync(t,"getServerBroadcast",{eventid:e,viewdate:n})})},events:{},serverdata:{},getServerData:function(t,e,n,o){let i=t+n;Object.prototype.hasOwnProperty.call(this.serverdata,i)&&o(this.serverdata[i]),Object.prototype.hasOwnProperty.call(this.events,i)||(this.events[i]=[]);let a=this.events[i];a.find(l=>l.key==e)||a.push({key:e,cb:o}),vis.conn.sendTo(t,"getServerData",n,l=>{if(l!="error"&&l!="nodata"?console.log(`getServerData received ${t}.${n} ${JSON.stringify(l).substring(0,100)}`):console.log(`getServerData received err ${l}`),this.serverdata[i]=l,!Object.prototype.hasOwnProperty.call(this.events,i))return;let c=this.events[i];for(let h=0;h<c.length;h++)c[h].cb(l);delete this.events[i]})},getServerDataAsync:function(t,e,n){return R(this,null,function*(){console.log(`getServerData ${n}`);let o=t+n;return Object.prototype.hasOwnProperty.call(this.events,o)||(this.events[o]=[]),yield this.sendToAsync(t,"getServerData",n)})},getServerTVProgram:function(t,e,n,o){let i=`${t}program.${n}`;if(Object.prototype.hasOwnProperty.call(this.serverdata,i)&&o(this.serverdata[i]),Object.prototype.hasOwnProperty.call(this.events,i)){this.events[i].find(a=>a.key==e)||this.events[i].push({key:e,cb:o});return}this.events[i]=[{key:e,cb:o}],vis.conn.sendTo(t,"getServerTVProgram",n,function(a){if(a!="error"&&a!="nodata"?console.log(`getServerTVProgram received ${t}.${n}nodata`):(console.log(`getServerTVProgram received ${t}.${n} ok`),this.serverdata[i]=a),!!Object.prototype.hasOwnProperty.call(this.events,i)){for(let l=0;l<this.events[i].length;l++)this.events[i][l].cb(a);delete this.events[i]}}.bind(this))},getServerTVProgramAsync:function(t,e,n){return R(this,null,function*(){return console.log(`getServerTVProgram ${n}`),yield this.sendToAsync(t,"getServerTVProgram",n)})},getFavoritesData:function(t,e=[],n){console.log(`getFavoritesData request ${t}.favorites`),vis.conn.sendTo(t,"getFavoritesData",e,o=>{o!="error"&&o!="nodata"?console.log(`getFavoritesData received ok ${o.length}`):console.log(`getFavoritesData received ${t}.favorites`),n&&n(o)})},getFavoritesDataAsync:function(n){return R(this,arguments,function*(t,e=[]){return console.log(`getFavoritesData request ${t}.favorites`),yield this.sendToAsync(t,"getFavoritesData",e)})},getServerInfo:function(t,e){console.log("getServerInfo request "),vis.conn.sendTo(t,"getServerInfo",{},n=>{console.log("getServerInfo received ok "),e&&e(n)})},getServerInfoAsync:function(t){return R(this,null,function*(){return console.log("getServerInfo request "),yield this.sendToAsync(t,"getServerInfo",{})})},getServerBroadcastNow:function(t,e,n){console.log("getServerBroadcastNow request "),vis.conn.sendTo(t,"getServerBroadcastNow",e,function(o){o!="error"&&o!="nodata"?console.log(`getServerBroadcastNow received ok ${o.length}`):console.log("getServerBroadcastNow received "),n&&n(o)}.bind(this))},getServerBroadcastNowAsync:function(t,e){return R(this,null,function*(){return console.log("getServerBroadcastNow request "),yield this.sendToAsync(t,"getServerBroadcastNow",e)})},getServerBroadcastRangeAsync:function(t,e,n,o){return R(this,null,function*(){return console.log("getServerBroadcastRange request "),yield this.sendToAsync(t,"getServerBroadcastRange",{channelfilter:e,startdate:n,enddate:o})})},getServerBroadcastDate:function(t,e,n,o){console.log("getServerBroadcastDate request "),vis.conn.sendTo(t,"getServerBroadcastDate",{channelfilter:e,date:n},function(i){i!="error"&&i!="nodata"?console.log(`getServerBroadcastDate received ok ${i.length}`):console.error(`getServerBroadcastDate received ${i}`),o&&o(i)}.bind(this))},getServerBroadcastDateAsync:function(t,e,n){return R(this,null,function*(){return console.log("getServerBroadcastDate request "),yield this.sendToAsync(t,"getServerBroadcastDate",{channelfilter:e,date:n})})},getServerBroadcastFind:function(t,e,n){console.log("getServerBroadcastFind request "),vis.conn.sendTo(t,"getServerBroadcastFind",e,function(o){o!="error"&&o!="nodata"?console.log(`getServerBroadcastFind received ok ${o.length}`):console.log("getServerBroadcastFind received ");let i=[];o.map(a=>{a.events.map(l=>i.push(l))}),o=i.sort((a,l)=>new Date(a.startTime)-new Date(l.startTime)),n&&n(o)}.bind(this))},getServerBroadcastFindAsync:function(t,e){return R(this,null,function*(){console.log("getServerBroadcastFind request ");let n=yield this.sendToAsync(t,"getServerBroadcastFind",e),o=[];return n.map(i=>{i.events.map(a=>o.push(a))}),n=o.sort((i,a)=>new Date(i.startTime)-new Date(a.startTime)),n})},setValueAck:function(t,e,n){console.log("setValueAck request "),vis.conn.sendTo(t,"setValueAck",{id:e,value:n})},setValueAckAsync:function(t,e,n){return R(this,null,function*(){return console.log("setValueAck request "),yield this.sendToAsync(t,"setValueAck",{id:e,value:n})})},sendToAsync:function(t,e,n){return R(this,null,function*(){return console.log(`sendToAsync ${e} ${n}`),new Promise((o,i)=>{try{vis.conn.sendTo(t,e,n,function(a){o(a)})}catch(a){i(a)}})})},loadServerInfosAsync:function(t){return R(this,null,function*(){return this.infos=[],yield this.getServerInfoAsync(t)})},loadCategories:function(t,e){return R(this,null,function*(){return console.log("loadCategories"),yield this.getServerDataAsync(t,e,"categories")})},loadChannels:function(t,e){return R(this,null,function*(){return console.log("loadChannels"),yield this.getServerDataAsync(t,e,"channels")})},loadGenres:function(t,e){return R(this,null,function*(){return console.log("loadGenres"),yield this.getServerDataAsync(t,e,"genres")})},loadProgram:function(t,e,n){return R(this,null,function*(){return console.log(`loadProgram ${n}`),yield this.getServerTVProgramAsync(t,e,n)})},calcDate:function(t){let e=new Date(t),n=e.getHours()+e.getMinutes()/60;return n>=0&&n<5&&e.setDate(e.getDate()-1),e},getDate:function(t,e){let n=new Date(t);return n.setDate(n.getDate()+e),`${n.getFullYear()}-${`0${n.getMonth()+1}`.slice(-2)}-${`0${n.getDate()}`.slice(-2)}`},compareDate:function(t,e){return t.getDate()==e.getDate()&&t.getMonth()==e.getMonth()&&t.getYear()==e.getYear()},getTvprogramId:function(t){let e=t.split(".");return e.length<2?"":(e=e.slice(0,3),e.join("."))},getInstance:function(t){let e=t.split(".");return e.length<2?"":(e=e.slice(0,2),e.join("."))},getInstanceInfo:function(t){console.log("getInstanceInfo");let e=t.trim().split(".");return e.length<2?[null,null]:[e.slice(0,2).join("."),e.slice(0,3).join(".")]},bindStates:function(t,e,n){console.log("bindStates");let o=$(t),i=o.data("bound");if(i)for(let a=0;a<i.length;a++)vis.states.unbind(i[a],n);o.data("bound",null),o.data("bindHandler",null),vis.conn.gettingStates=0,vis.conn.getStates(e,function(a,l){vis.conn.subscribe(e);for(let c=0;c<e.length;c++)e[c]=`${e[c]}.val`,vis.states.bind(e[c],n);vis.binds.tvprogram.updateStates(l),o.data("bound",e),o.data("bindHandler",n)}.bind({change_callback:n}))},updateStates:function(t){for(let e in t){if(!Object.prototype.hasOwnProperty.call(t,e))continue;let n=t[e];try{if(vis.editMode)vis.states[`${e}.val`]=n.val,vis.states[`${e}.ts`]=n.ts,vis.states[`${e}.ack`]=n.ack,vis.states[`${e}.lc`]=n.lc,n.q!==void 0&&n.q!==null&&(vis.states[`${e}.q`]=n.q);else{let o={};o[`${e}.val`]=n.val,o[`${e}.ts`]=n.ts,o[`${e}.ack`]=n.ack,o[`${e}.lc`]=n.lc,n.q!==void 0&&n.q!==null&&(o[`${e}.q`]=n.q),vis.states.attr(o)}}catch(o){console.error(`Error: can't create states object for ${e}(${o})`)}}}};vis.binds.tvprogram.showVersion();jQuery.fn.mydelay=function(t,e){return t=jQuery.fx&&jQuery.fx.speeds[t]||t,e=e||"fx",this.queue(e,function(n,o){let i=window.setTimeout(n,t);o.stop=function(){window.clearTimeout(i)}})}});_n();})();
+"use strict";
+(() => {
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __esm = (fn, res) => function __init() {
+    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  };
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value) => {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value) => {
+        try {
+          step(generator.throw(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
+
+  // ../package.json
+  var version;
+  var init_package = __esm({
+    "../package.json"() {
+      version = "2.2.0";
+    }
+  });
+
+  // ../node_modules/sortablejs/modular/sortable.esm.js
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) {
+        symbols = symbols.filter(function(sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
+      }
+      keys.push.apply(keys, symbols);
+    }
+    return keys;
+  }
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function(key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function(key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+    return target;
+  }
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function(obj2) {
+        return typeof obj2;
+      };
+    } else {
+      _typeof = function(obj2) {
+        return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
+      };
+    }
+    return _typeof(obj);
+  }
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+    return obj;
+  }
+  function _extends() {
+    _extends = Object.assign || function(target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    };
+    return _extends.apply(this, arguments);
+  }
+  function _objectWithoutPropertiesLoose(source, excluded) {
+    if (source == null)
+      return {};
+    var target = {};
+    var sourceKeys = Object.keys(source);
+    var key, i;
+    for (i = 0; i < sourceKeys.length; i++) {
+      key = sourceKeys[i];
+      if (excluded.indexOf(key) >= 0)
+        continue;
+      target[key] = source[key];
+    }
+    return target;
+  }
+  function _objectWithoutProperties(source, excluded) {
+    if (source == null)
+      return {};
+    var target = _objectWithoutPropertiesLoose(source, excluded);
+    var key, i;
+    if (Object.getOwnPropertySymbols) {
+      var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+      for (i = 0; i < sourceSymbolKeys.length; i++) {
+        key = sourceSymbolKeys[i];
+        if (excluded.indexOf(key) >= 0)
+          continue;
+        if (!Object.prototype.propertyIsEnumerable.call(source, key))
+          continue;
+        target[key] = source[key];
+      }
+    }
+    return target;
+  }
+  function userAgent(pattern) {
+    if (typeof window !== "undefined" && window.navigator) {
+      return !!/* @__PURE__ */ navigator.userAgent.match(pattern);
+    }
+  }
+  function on(el, event, fn) {
+    el.addEventListener(event, fn, !IE11OrLess && captureMode);
+  }
+  function off(el, event, fn) {
+    el.removeEventListener(event, fn, !IE11OrLess && captureMode);
+  }
+  function matches(el, selector) {
+    if (!selector)
+      return;
+    selector[0] === ">" && (selector = selector.substring(1));
+    if (el) {
+      try {
+        if (el.matches) {
+          return el.matches(selector);
+        } else if (el.msMatchesSelector) {
+          return el.msMatchesSelector(selector);
+        } else if (el.webkitMatchesSelector) {
+          return el.webkitMatchesSelector(selector);
+        }
+      } catch (_) {
+        return false;
+      }
+    }
+    return false;
+  }
+  function getParentOrHost(el) {
+    return el.host && el !== document && el.host.nodeType ? el.host : el.parentNode;
+  }
+  function closest(el, selector, ctx, includeCTX) {
+    if (el) {
+      ctx = ctx || document;
+      do {
+        if (selector != null && (selector[0] === ">" ? el.parentNode === ctx && matches(el, selector) : matches(el, selector)) || includeCTX && el === ctx) {
+          return el;
+        }
+        if (el === ctx)
+          break;
+      } while (el = getParentOrHost(el));
+    }
+    return null;
+  }
+  function toggleClass(el, name, state) {
+    if (el && name) {
+      if (el.classList) {
+        el.classList[state ? "add" : "remove"](name);
+      } else {
+        var className = (" " + el.className + " ").replace(R_SPACE, " ").replace(" " + name + " ", " ");
+        el.className = (className + (state ? " " + name : "")).replace(R_SPACE, " ");
+      }
+    }
+  }
+  function css(el, prop, val) {
+    var style = el && el.style;
+    if (style) {
+      if (val === void 0) {
+        if (document.defaultView && document.defaultView.getComputedStyle) {
+          val = document.defaultView.getComputedStyle(el, "");
+        } else if (el.currentStyle) {
+          val = el.currentStyle;
+        }
+        return prop === void 0 ? val : val[prop];
+      } else {
+        if (!(prop in style) && prop.indexOf("webkit") === -1) {
+          prop = "-webkit-" + prop;
+        }
+        style[prop] = val + (typeof val === "string" ? "" : "px");
+      }
+    }
+  }
+  function matrix(el, selfOnly) {
+    var appliedTransforms = "";
+    if (typeof el === "string") {
+      appliedTransforms = el;
+    } else {
+      do {
+        var transform = css(el, "transform");
+        if (transform && transform !== "none") {
+          appliedTransforms = transform + " " + appliedTransforms;
+        }
+      } while (!selfOnly && (el = el.parentNode));
+    }
+    var matrixFn = window.DOMMatrix || window.WebKitCSSMatrix || window.CSSMatrix || window.MSCSSMatrix;
+    return matrixFn && new matrixFn(appliedTransforms);
+  }
+  function find(ctx, tagName, iterator) {
+    if (ctx) {
+      var list = ctx.getElementsByTagName(tagName), i = 0, n = list.length;
+      if (iterator) {
+        for (; i < n; i++) {
+          iterator(list[i], i);
+        }
+      }
+      return list;
+    }
+    return [];
+  }
+  function getWindowScrollingElement() {
+    var scrollingElement = document.scrollingElement;
+    if (scrollingElement) {
+      return scrollingElement;
+    } else {
+      return document.documentElement;
+    }
+  }
+  function getRect(el, relativeToContainingBlock, relativeToNonStaticParent, undoScale, container) {
+    if (!el.getBoundingClientRect && el !== window)
+      return;
+    var elRect, top, left, bottom, right, height, width;
+    if (el !== window && el.parentNode && el !== getWindowScrollingElement()) {
+      elRect = el.getBoundingClientRect();
+      top = elRect.top;
+      left = elRect.left;
+      bottom = elRect.bottom;
+      right = elRect.right;
+      height = elRect.height;
+      width = elRect.width;
+    } else {
+      top = 0;
+      left = 0;
+      bottom = window.innerHeight;
+      right = window.innerWidth;
+      height = window.innerHeight;
+      width = window.innerWidth;
+    }
+    if ((relativeToContainingBlock || relativeToNonStaticParent) && el !== window) {
+      container = container || el.parentNode;
+      if (!IE11OrLess) {
+        do {
+          if (container && container.getBoundingClientRect && (css(container, "transform") !== "none" || relativeToNonStaticParent && css(container, "position") !== "static")) {
+            var containerRect = container.getBoundingClientRect();
+            top -= containerRect.top + parseInt(css(container, "border-top-width"));
+            left -= containerRect.left + parseInt(css(container, "border-left-width"));
+            bottom = top + elRect.height;
+            right = left + elRect.width;
+            break;
+          }
+        } while (container = container.parentNode);
+      }
+    }
+    if (undoScale && el !== window) {
+      var elMatrix = matrix(container || el), scaleX = elMatrix && elMatrix.a, scaleY = elMatrix && elMatrix.d;
+      if (elMatrix) {
+        top /= scaleY;
+        left /= scaleX;
+        width /= scaleX;
+        height /= scaleY;
+        bottom = top + height;
+        right = left + width;
+      }
+    }
+    return {
+      top,
+      left,
+      bottom,
+      right,
+      width,
+      height
+    };
+  }
+  function isScrolledPast(el, elSide, parentSide) {
+    var parent = getParentAutoScrollElement(el, true), elSideVal = getRect(el)[elSide];
+    while (parent) {
+      var parentSideVal = getRect(parent)[parentSide], visible = void 0;
+      if (parentSide === "top" || parentSide === "left") {
+        visible = elSideVal >= parentSideVal;
+      } else {
+        visible = elSideVal <= parentSideVal;
+      }
+      if (!visible)
+        return parent;
+      if (parent === getWindowScrollingElement())
+        break;
+      parent = getParentAutoScrollElement(parent, false);
+    }
+    return false;
+  }
+  function getChild(el, childNum, options, includeDragEl) {
+    var currentChild = 0, i = 0, children = el.children;
+    while (i < children.length) {
+      if (children[i].style.display !== "none" && children[i] !== Sortable.ghost && (includeDragEl || children[i] !== Sortable.dragged) && closest(children[i], options.draggable, el, false)) {
+        if (currentChild === childNum) {
+          return children[i];
+        }
+        currentChild++;
+      }
+      i++;
+    }
+    return null;
+  }
+  function lastChild(el, selector) {
+    var last = el.lastElementChild;
+    while (last && (last === Sortable.ghost || css(last, "display") === "none" || selector && !matches(last, selector))) {
+      last = last.previousElementSibling;
+    }
+    return last || null;
+  }
+  function index(el, selector) {
+    var index2 = 0;
+    if (!el || !el.parentNode) {
+      return -1;
+    }
+    while (el = el.previousElementSibling) {
+      if (el.nodeName.toUpperCase() !== "TEMPLATE" && el !== Sortable.clone && (!selector || matches(el, selector))) {
+        index2++;
+      }
+    }
+    return index2;
+  }
+  function getRelativeScrollOffset(el) {
+    var offsetLeft = 0, offsetTop = 0, winScroller = getWindowScrollingElement();
+    if (el) {
+      do {
+        var elMatrix = matrix(el), scaleX = elMatrix.a, scaleY = elMatrix.d;
+        offsetLeft += el.scrollLeft * scaleX;
+        offsetTop += el.scrollTop * scaleY;
+      } while (el !== winScroller && (el = el.parentNode));
+    }
+    return [offsetLeft, offsetTop];
+  }
+  function indexOfObject(arr, obj) {
+    for (var i in arr) {
+      if (!arr.hasOwnProperty(i))
+        continue;
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key) && obj[key] === arr[i][key])
+          return Number(i);
+      }
+    }
+    return -1;
+  }
+  function getParentAutoScrollElement(el, includeSelf) {
+    if (!el || !el.getBoundingClientRect)
+      return getWindowScrollingElement();
+    var elem = el;
+    var gotSelf = false;
+    do {
+      if (elem.clientWidth < elem.scrollWidth || elem.clientHeight < elem.scrollHeight) {
+        var elemCSS = css(elem);
+        if (elem.clientWidth < elem.scrollWidth && (elemCSS.overflowX == "auto" || elemCSS.overflowX == "scroll") || elem.clientHeight < elem.scrollHeight && (elemCSS.overflowY == "auto" || elemCSS.overflowY == "scroll")) {
+          if (!elem.getBoundingClientRect || elem === document.body)
+            return getWindowScrollingElement();
+          if (gotSelf || includeSelf)
+            return elem;
+          gotSelf = true;
+        }
+      }
+    } while (elem = elem.parentNode);
+    return getWindowScrollingElement();
+  }
+  function extend(dst, src) {
+    if (dst && src) {
+      for (var key in src) {
+        if (src.hasOwnProperty(key)) {
+          dst[key] = src[key];
+        }
+      }
+    }
+    return dst;
+  }
+  function isRectEqual(rect1, rect2) {
+    return Math.round(rect1.top) === Math.round(rect2.top) && Math.round(rect1.left) === Math.round(rect2.left) && Math.round(rect1.height) === Math.round(rect2.height) && Math.round(rect1.width) === Math.round(rect2.width);
+  }
+  function throttle(callback, ms) {
+    return function() {
+      if (!_throttleTimeout) {
+        var args = arguments, _this = this;
+        if (args.length === 1) {
+          callback.call(_this, args[0]);
+        } else {
+          callback.apply(_this, args);
+        }
+        _throttleTimeout = setTimeout(function() {
+          _throttleTimeout = void 0;
+        }, ms);
+      }
+    };
+  }
+  function cancelThrottle() {
+    clearTimeout(_throttleTimeout);
+    _throttleTimeout = void 0;
+  }
+  function scrollBy(el, x, y) {
+    el.scrollLeft += x;
+    el.scrollTop += y;
+  }
+  function clone(el) {
+    var Polymer = window.Polymer;
+    var $2 = window.jQuery || window.Zepto;
+    if (Polymer && Polymer.dom) {
+      return Polymer.dom(el).cloneNode(true);
+    } else if ($2) {
+      return $2(el).clone(true)[0];
+    } else {
+      return el.cloneNode(true);
+    }
+  }
+  function getChildContainingRectFromElement(container, options, ghostEl2) {
+    var rect = {};
+    Array.from(container.children).forEach(function(child) {
+      var _rect$left, _rect$top, _rect$right, _rect$bottom;
+      if (!closest(child, options.draggable, container, false) || child.animated || child === ghostEl2)
+        return;
+      var childRect = getRect(child);
+      rect.left = Math.min((_rect$left = rect.left) !== null && _rect$left !== void 0 ? _rect$left : Infinity, childRect.left);
+      rect.top = Math.min((_rect$top = rect.top) !== null && _rect$top !== void 0 ? _rect$top : Infinity, childRect.top);
+      rect.right = Math.max((_rect$right = rect.right) !== null && _rect$right !== void 0 ? _rect$right : -Infinity, childRect.right);
+      rect.bottom = Math.max((_rect$bottom = rect.bottom) !== null && _rect$bottom !== void 0 ? _rect$bottom : -Infinity, childRect.bottom);
+    });
+    rect.width = rect.right - rect.left;
+    rect.height = rect.bottom - rect.top;
+    rect.x = rect.left;
+    rect.y = rect.top;
+    return rect;
+  }
+  function AnimationStateManager() {
+    var animationStates = [], animationCallbackId;
+    return {
+      captureAnimationState: function captureAnimationState() {
+        animationStates = [];
+        if (!this.options.animation)
+          return;
+        var children = [].slice.call(this.el.children);
+        children.forEach(function(child) {
+          if (css(child, "display") === "none" || child === Sortable.ghost)
+            return;
+          animationStates.push({
+            target: child,
+            rect: getRect(child)
+          });
+          var fromRect = _objectSpread2({}, animationStates[animationStates.length - 1].rect);
+          if (child.thisAnimationDuration) {
+            var childMatrix = matrix(child, true);
+            if (childMatrix) {
+              fromRect.top -= childMatrix.f;
+              fromRect.left -= childMatrix.e;
+            }
+          }
+          child.fromRect = fromRect;
+        });
+      },
+      addAnimationState: function addAnimationState(state) {
+        animationStates.push(state);
+      },
+      removeAnimationState: function removeAnimationState(target) {
+        animationStates.splice(indexOfObject(animationStates, {
+          target
+        }), 1);
+      },
+      animateAll: function animateAll(callback) {
+        var _this = this;
+        if (!this.options.animation) {
+          clearTimeout(animationCallbackId);
+          if (typeof callback === "function")
+            callback();
+          return;
+        }
+        var animating = false, animationTime = 0;
+        animationStates.forEach(function(state) {
+          var time = 0, target = state.target, fromRect = target.fromRect, toRect = getRect(target), prevFromRect = target.prevFromRect, prevToRect = target.prevToRect, animatingRect = state.rect, targetMatrix = matrix(target, true);
+          if (targetMatrix) {
+            toRect.top -= targetMatrix.f;
+            toRect.left -= targetMatrix.e;
+          }
+          target.toRect = toRect;
+          if (target.thisAnimationDuration) {
+            if (isRectEqual(prevFromRect, toRect) && !isRectEqual(fromRect, toRect) && // Make sure animatingRect is on line between toRect & fromRect
+            (animatingRect.top - toRect.top) / (animatingRect.left - toRect.left) === (fromRect.top - toRect.top) / (fromRect.left - toRect.left)) {
+              time = calculateRealTime(animatingRect, prevFromRect, prevToRect, _this.options);
+            }
+          }
+          if (!isRectEqual(toRect, fromRect)) {
+            target.prevFromRect = fromRect;
+            target.prevToRect = toRect;
+            if (!time) {
+              time = _this.options.animation;
+            }
+            _this.animate(target, animatingRect, toRect, time);
+          }
+          if (time) {
+            animating = true;
+            animationTime = Math.max(animationTime, time);
+            clearTimeout(target.animationResetTimer);
+            target.animationResetTimer = setTimeout(function() {
+              target.animationTime = 0;
+              target.prevFromRect = null;
+              target.fromRect = null;
+              target.prevToRect = null;
+              target.thisAnimationDuration = null;
+            }, time);
+            target.thisAnimationDuration = time;
+          }
+        });
+        clearTimeout(animationCallbackId);
+        if (!animating) {
+          if (typeof callback === "function")
+            callback();
+        } else {
+          animationCallbackId = setTimeout(function() {
+            if (typeof callback === "function")
+              callback();
+          }, animationTime);
+        }
+        animationStates = [];
+      },
+      animate: function animate(target, currentRect, toRect, duration) {
+        if (duration) {
+          css(target, "transition", "");
+          css(target, "transform", "");
+          var elMatrix = matrix(this.el), scaleX = elMatrix && elMatrix.a, scaleY = elMatrix && elMatrix.d, translateX = (currentRect.left - toRect.left) / (scaleX || 1), translateY = (currentRect.top - toRect.top) / (scaleY || 1);
+          target.animatingX = !!translateX;
+          target.animatingY = !!translateY;
+          css(target, "transform", "translate3d(" + translateX + "px," + translateY + "px,0)");
+          this.forRepaintDummy = repaint(target);
+          css(target, "transition", "transform " + duration + "ms" + (this.options.easing ? " " + this.options.easing : ""));
+          css(target, "transform", "translate3d(0,0,0)");
+          typeof target.animated === "number" && clearTimeout(target.animated);
+          target.animated = setTimeout(function() {
+            css(target, "transition", "");
+            css(target, "transform", "");
+            target.animated = false;
+            target.animatingX = false;
+            target.animatingY = false;
+          }, duration);
+        }
+      }
+    };
+  }
+  function repaint(target) {
+    return target.offsetWidth;
+  }
+  function calculateRealTime(animatingRect, fromRect, toRect, options) {
+    return Math.sqrt(Math.pow(fromRect.top - animatingRect.top, 2) + Math.pow(fromRect.left - animatingRect.left, 2)) / Math.sqrt(Math.pow(fromRect.top - toRect.top, 2) + Math.pow(fromRect.left - toRect.left, 2)) * options.animation;
+  }
+  function dispatchEvent(_ref) {
+    var sortable = _ref.sortable, rootEl2 = _ref.rootEl, name = _ref.name, targetEl = _ref.targetEl, cloneEl2 = _ref.cloneEl, toEl = _ref.toEl, fromEl = _ref.fromEl, oldIndex2 = _ref.oldIndex, newIndex2 = _ref.newIndex, oldDraggableIndex2 = _ref.oldDraggableIndex, newDraggableIndex2 = _ref.newDraggableIndex, originalEvent = _ref.originalEvent, putSortable2 = _ref.putSortable, extraEventProperties = _ref.extraEventProperties;
+    sortable = sortable || rootEl2 && rootEl2[expando];
+    if (!sortable)
+      return;
+    var evt, options = sortable.options, onName = "on" + name.charAt(0).toUpperCase() + name.substr(1);
+    if (window.CustomEvent && !IE11OrLess && !Edge) {
+      evt = new CustomEvent(name, {
+        bubbles: true,
+        cancelable: true
+      });
+    } else {
+      evt = document.createEvent("Event");
+      evt.initEvent(name, true, true);
+    }
+    evt.to = toEl || rootEl2;
+    evt.from = fromEl || rootEl2;
+    evt.item = targetEl || rootEl2;
+    evt.clone = cloneEl2;
+    evt.oldIndex = oldIndex2;
+    evt.newIndex = newIndex2;
+    evt.oldDraggableIndex = oldDraggableIndex2;
+    evt.newDraggableIndex = newDraggableIndex2;
+    evt.originalEvent = originalEvent;
+    evt.pullMode = putSortable2 ? putSortable2.lastPutMode : void 0;
+    var allEventProperties = _objectSpread2(_objectSpread2({}, extraEventProperties), PluginManager.getEventProperties(name, sortable));
+    for (var option2 in allEventProperties) {
+      evt[option2] = allEventProperties[option2];
+    }
+    if (rootEl2) {
+      rootEl2.dispatchEvent(evt);
+    }
+    if (options[onName]) {
+      options[onName].call(sortable, evt);
+    }
+  }
+  function _dispatchEvent(info) {
+    dispatchEvent(_objectSpread2({
+      putSortable,
+      cloneEl,
+      targetEl: dragEl,
+      rootEl,
+      oldIndex,
+      oldDraggableIndex,
+      newIndex,
+      newDraggableIndex
+    }, info));
+  }
+  function Sortable(el, options) {
+    if (!(el && el.nodeType && el.nodeType === 1)) {
+      throw "Sortable: `el` must be an HTMLElement, not ".concat({}.toString.call(el));
+    }
+    this.el = el;
+    this.options = options = _extends({}, options);
+    el[expando] = this;
+    var defaults2 = {
+      group: null,
+      sort: true,
+      disabled: false,
+      store: null,
+      handle: null,
+      draggable: /^[uo]l$/i.test(el.nodeName) ? ">li" : ">*",
+      swapThreshold: 1,
+      // percentage; 0 <= x <= 1
+      invertSwap: false,
+      // invert always
+      invertedSwapThreshold: null,
+      // will be set to same as swapThreshold if default
+      removeCloneOnHide: true,
+      direction: function direction() {
+        return _detectDirection(el, this.options);
+      },
+      ghostClass: "sortable-ghost",
+      chosenClass: "sortable-chosen",
+      dragClass: "sortable-drag",
+      ignore: "a, img",
+      filter: null,
+      preventOnFilter: true,
+      animation: 0,
+      easing: null,
+      setData: function setData(dataTransfer, dragEl2) {
+        dataTransfer.setData("Text", dragEl2.textContent);
+      },
+      dropBubble: false,
+      dragoverBubble: false,
+      dataIdAttr: "data-id",
+      delay: 0,
+      delayOnTouchOnly: false,
+      touchStartThreshold: (Number.parseInt ? Number : window).parseInt(window.devicePixelRatio, 10) || 1,
+      forceFallback: false,
+      fallbackClass: "sortable-fallback",
+      fallbackOnBody: false,
+      fallbackTolerance: 0,
+      fallbackOffset: {
+        x: 0,
+        y: 0
+      },
+      // Disabled on Safari: #1571; Enabled on Safari IOS: #2244
+      supportPointer: Sortable.supportPointer !== false && "PointerEvent" in window && (!Safari || IOS),
+      emptyInsertThreshold: 5
+    };
+    PluginManager.initializePlugins(this, el, defaults2);
+    for (var name in defaults2) {
+      !(name in options) && (options[name] = defaults2[name]);
+    }
+    _prepareGroup(options);
+    for (var fn in this) {
+      if (fn.charAt(0) === "_" && typeof this[fn] === "function") {
+        this[fn] = this[fn].bind(this);
+      }
+    }
+    this.nativeDraggable = options.forceFallback ? false : supportDraggable;
+    if (this.nativeDraggable) {
+      this.options.touchStartThreshold = 1;
+    }
+    if (options.supportPointer) {
+      on(el, "pointerdown", this._onTapStart);
+    } else {
+      on(el, "mousedown", this._onTapStart);
+      on(el, "touchstart", this._onTapStart);
+    }
+    if (this.nativeDraggable) {
+      on(el, "dragover", this);
+      on(el, "dragenter", this);
+    }
+    sortables.push(this.el);
+    options.store && options.store.get && this.sort(options.store.get(this) || []);
+    _extends(this, AnimationStateManager());
+  }
+  function _globalDragOver(evt) {
+    if (evt.dataTransfer) {
+      evt.dataTransfer.dropEffect = "move";
+    }
+    evt.cancelable && evt.preventDefault();
+  }
+  function _onMove(fromEl, toEl, dragEl2, dragRect, targetEl, targetRect, originalEvent, willInsertAfter) {
+    var evt, sortable = fromEl[expando], onMoveFn = sortable.options.onMove, retVal;
+    if (window.CustomEvent && !IE11OrLess && !Edge) {
+      evt = new CustomEvent("move", {
+        bubbles: true,
+        cancelable: true
+      });
+    } else {
+      evt = document.createEvent("Event");
+      evt.initEvent("move", true, true);
+    }
+    evt.to = toEl;
+    evt.from = fromEl;
+    evt.dragged = dragEl2;
+    evt.draggedRect = dragRect;
+    evt.related = targetEl || toEl;
+    evt.relatedRect = targetRect || getRect(toEl);
+    evt.willInsertAfter = willInsertAfter;
+    evt.originalEvent = originalEvent;
+    fromEl.dispatchEvent(evt);
+    if (onMoveFn) {
+      retVal = onMoveFn.call(sortable, evt, originalEvent);
+    }
+    return retVal;
+  }
+  function _disableDraggable(el) {
+    el.draggable = false;
+  }
+  function _unsilent() {
+    _silent = false;
+  }
+  function _ghostIsFirst(evt, vertical, sortable) {
+    var firstElRect = getRect(getChild(sortable.el, 0, sortable.options, true));
+    var childContainingRect = getChildContainingRectFromElement(sortable.el, sortable.options, ghostEl);
+    var spacer = 10;
+    return vertical ? evt.clientX < childContainingRect.left - spacer || evt.clientY < firstElRect.top && evt.clientX < firstElRect.right : evt.clientY < childContainingRect.top - spacer || evt.clientY < firstElRect.bottom && evt.clientX < firstElRect.left;
+  }
+  function _ghostIsLast(evt, vertical, sortable) {
+    var lastElRect = getRect(lastChild(sortable.el, sortable.options.draggable));
+    var childContainingRect = getChildContainingRectFromElement(sortable.el, sortable.options, ghostEl);
+    var spacer = 10;
+    return vertical ? evt.clientX > childContainingRect.right + spacer || evt.clientY > lastElRect.bottom && evt.clientX > lastElRect.left : evt.clientY > childContainingRect.bottom + spacer || evt.clientX > lastElRect.right && evt.clientY > lastElRect.top;
+  }
+  function _getSwapDirection(evt, target, targetRect, vertical, swapThreshold, invertedSwapThreshold, invertSwap, isLastTarget) {
+    var mouseOnAxis = vertical ? evt.clientY : evt.clientX, targetLength = vertical ? targetRect.height : targetRect.width, targetS1 = vertical ? targetRect.top : targetRect.left, targetS2 = vertical ? targetRect.bottom : targetRect.right, invert = false;
+    if (!invertSwap) {
+      if (isLastTarget && targetMoveDistance < targetLength * swapThreshold) {
+        if (!pastFirstInvertThresh && (lastDirection === 1 ? mouseOnAxis > targetS1 + targetLength * invertedSwapThreshold / 2 : mouseOnAxis < targetS2 - targetLength * invertedSwapThreshold / 2)) {
+          pastFirstInvertThresh = true;
+        }
+        if (!pastFirstInvertThresh) {
+          if (lastDirection === 1 ? mouseOnAxis < targetS1 + targetMoveDistance : mouseOnAxis > targetS2 - targetMoveDistance) {
+            return -lastDirection;
+          }
+        } else {
+          invert = true;
+        }
+      } else {
+        if (mouseOnAxis > targetS1 + targetLength * (1 - swapThreshold) / 2 && mouseOnAxis < targetS2 - targetLength * (1 - swapThreshold) / 2) {
+          return _getInsertDirection(target);
+        }
+      }
+    }
+    invert = invert || invertSwap;
+    if (invert) {
+      if (mouseOnAxis < targetS1 + targetLength * invertedSwapThreshold / 2 || mouseOnAxis > targetS2 - targetLength * invertedSwapThreshold / 2) {
+        return mouseOnAxis > targetS1 + targetLength / 2 ? 1 : -1;
+      }
+    }
+    return 0;
+  }
+  function _getInsertDirection(target) {
+    if (index(dragEl) < index(target)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+  function _generateId(el) {
+    var str = el.tagName + el.className + el.src + el.href + el.textContent, i = str.length, sum = 0;
+    while (i--) {
+      sum += str.charCodeAt(i);
+    }
+    return sum.toString(36);
+  }
+  function _saveInputCheckedState(root) {
+    savedInputChecked.length = 0;
+    var inputs = root.getElementsByTagName("input");
+    var idx = inputs.length;
+    while (idx--) {
+      var el = inputs[idx];
+      el.checked && savedInputChecked.push(el);
+    }
+  }
+  function _nextTick(fn) {
+    return setTimeout(fn, 0);
+  }
+  function _cancelNextTick(id) {
+    return clearTimeout(id);
+  }
+  function AutoScrollPlugin() {
+    function AutoScroll() {
+      this.defaults = {
+        scroll: true,
+        forceAutoScrollFallback: false,
+        scrollSensitivity: 30,
+        scrollSpeed: 10,
+        bubbleScroll: true
+      };
+      for (var fn in this) {
+        if (fn.charAt(0) === "_" && typeof this[fn] === "function") {
+          this[fn] = this[fn].bind(this);
+        }
+      }
+    }
+    AutoScroll.prototype = {
+      dragStarted: function dragStarted(_ref) {
+        var originalEvent = _ref.originalEvent;
+        if (this.sortable.nativeDraggable) {
+          on(document, "dragover", this._handleAutoScroll);
+        } else {
+          if (this.options.supportPointer) {
+            on(document, "pointermove", this._handleFallbackAutoScroll);
+          } else if (originalEvent.touches) {
+            on(document, "touchmove", this._handleFallbackAutoScroll);
+          } else {
+            on(document, "mousemove", this._handleFallbackAutoScroll);
+          }
+        }
+      },
+      dragOverCompleted: function dragOverCompleted(_ref2) {
+        var originalEvent = _ref2.originalEvent;
+        if (!this.options.dragOverBubble && !originalEvent.rootEl) {
+          this._handleAutoScroll(originalEvent);
+        }
+      },
+      drop: function drop3() {
+        if (this.sortable.nativeDraggable) {
+          off(document, "dragover", this._handleAutoScroll);
+        } else {
+          off(document, "pointermove", this._handleFallbackAutoScroll);
+          off(document, "touchmove", this._handleFallbackAutoScroll);
+          off(document, "mousemove", this._handleFallbackAutoScroll);
+        }
+        clearPointerElemChangedInterval();
+        clearAutoScrolls();
+        cancelThrottle();
+      },
+      nulling: function nulling() {
+        touchEvt$1 = scrollRootEl = scrollEl = scrolling = pointerElemChangedInterval = lastAutoScrollX = lastAutoScrollY = null;
+        autoScrolls.length = 0;
+      },
+      _handleFallbackAutoScroll: function _handleFallbackAutoScroll(evt) {
+        this._handleAutoScroll(evt, true);
+      },
+      _handleAutoScroll: function _handleAutoScroll(evt, fallback) {
+        var _this = this;
+        var x = (evt.touches ? evt.touches[0] : evt).clientX, y = (evt.touches ? evt.touches[0] : evt).clientY, elem = document.elementFromPoint(x, y);
+        touchEvt$1 = evt;
+        if (fallback || this.options.forceAutoScrollFallback || Edge || IE11OrLess || Safari) {
+          autoScroll(evt, this.options, elem, fallback);
+          var ogElemScroller = getParentAutoScrollElement(elem, true);
+          if (scrolling && (!pointerElemChangedInterval || x !== lastAutoScrollX || y !== lastAutoScrollY)) {
+            pointerElemChangedInterval && clearPointerElemChangedInterval();
+            pointerElemChangedInterval = setInterval(function() {
+              var newElem = getParentAutoScrollElement(document.elementFromPoint(x, y), true);
+              if (newElem !== ogElemScroller) {
+                ogElemScroller = newElem;
+                clearAutoScrolls();
+              }
+              autoScroll(evt, _this.options, newElem, fallback);
+            }, 10);
+            lastAutoScrollX = x;
+            lastAutoScrollY = y;
+          }
+        } else {
+          if (!this.options.bubbleScroll || getParentAutoScrollElement(elem, true) === getWindowScrollingElement()) {
+            clearAutoScrolls();
+            return;
+          }
+          autoScroll(evt, this.options, getParentAutoScrollElement(elem, false), false);
+        }
+      }
+    };
+    return _extends(AutoScroll, {
+      pluginName: "scroll",
+      initializeByDefault: true
+    });
+  }
+  function clearAutoScrolls() {
+    autoScrolls.forEach(function(autoScroll2) {
+      clearInterval(autoScroll2.pid);
+    });
+    autoScrolls = [];
+  }
+  function clearPointerElemChangedInterval() {
+    clearInterval(pointerElemChangedInterval);
+  }
+  function Revert() {
+  }
+  function Remove() {
+  }
+  var version2, IE11OrLess, Edge, FireFox, Safari, IOS, ChromeForAndroid, captureMode, R_SPACE, _throttleTimeout, expando, plugins, defaults, PluginManager, _excluded, pluginEvent2, dragEl, parentEl, ghostEl, rootEl, nextEl, lastDownEl, cloneEl, cloneHidden, oldIndex, newIndex, oldDraggableIndex, newDraggableIndex, activeGroup, putSortable, awaitingDragStarted, ignoreNextClick, sortables, tapEvt, touchEvt, lastDx, lastDy, tapDistanceLeft, tapDistanceTop, moved, lastTarget, lastDirection, pastFirstInvertThresh, isCircumstantialInvert, targetMoveDistance, ghostRelativeParent, ghostRelativeParentInitialScroll, _silent, savedInputChecked, documentExists, PositionGhostAbsolutely, CSSFloatProperty, supportDraggable, supportCssPointerEvents, _detectDirection, _dragElInRowColumn, _detectNearestEmptySortable, _prepareGroup, _hideGhostForTarget, _unhideGhostForTarget, nearestEmptyInsertDetectEvent, _checkOutsideTargetEl, autoScrolls, scrollEl, scrollRootEl, scrolling, lastAutoScrollX, lastAutoScrollY, touchEvt$1, pointerElemChangedInterval, autoScroll, drop, sortable_esm_default;
+  var init_sortable_esm = __esm({
+    "../node_modules/sortablejs/modular/sortable.esm.js"() {
+      version2 = "1.15.6";
+      IE11OrLess = userAgent(/(?:Trident.*rv[ :]?11\.|msie|iemobile|Windows Phone)/i);
+      Edge = userAgent(/Edge/i);
+      FireFox = userAgent(/firefox/i);
+      Safari = userAgent(/safari/i) && !userAgent(/chrome/i) && !userAgent(/android/i);
+      IOS = userAgent(/iP(ad|od|hone)/i);
+      ChromeForAndroid = userAgent(/chrome/i) && userAgent(/android/i);
+      captureMode = {
+        capture: false,
+        passive: false
+      };
+      R_SPACE = /\s+/g;
+      expando = "Sortable" + (/* @__PURE__ */ new Date()).getTime();
+      plugins = [];
+      defaults = {
+        initializeByDefault: true
+      };
+      PluginManager = {
+        mount: function mount(plugin) {
+          for (var option2 in defaults) {
+            if (defaults.hasOwnProperty(option2) && !(option2 in plugin)) {
+              plugin[option2] = defaults[option2];
+            }
+          }
+          plugins.forEach(function(p) {
+            if (p.pluginName === plugin.pluginName) {
+              throw "Sortable: Cannot mount plugin ".concat(plugin.pluginName, " more than once");
+            }
+          });
+          plugins.push(plugin);
+        },
+        pluginEvent: function pluginEvent(eventName, sortable, evt) {
+          var _this = this;
+          this.eventCanceled = false;
+          evt.cancel = function() {
+            _this.eventCanceled = true;
+          };
+          var eventNameGlobal = eventName + "Global";
+          plugins.forEach(function(plugin) {
+            if (!sortable[plugin.pluginName])
+              return;
+            if (sortable[plugin.pluginName][eventNameGlobal]) {
+              sortable[plugin.pluginName][eventNameGlobal](_objectSpread2({
+                sortable
+              }, evt));
+            }
+            if (sortable.options[plugin.pluginName] && sortable[plugin.pluginName][eventName]) {
+              sortable[plugin.pluginName][eventName](_objectSpread2({
+                sortable
+              }, evt));
+            }
+          });
+        },
+        initializePlugins: function initializePlugins(sortable, el, defaults2, options) {
+          plugins.forEach(function(plugin) {
+            var pluginName = plugin.pluginName;
+            if (!sortable.options[pluginName] && !plugin.initializeByDefault)
+              return;
+            var initialized = new plugin(sortable, el, sortable.options);
+            initialized.sortable = sortable;
+            initialized.options = sortable.options;
+            sortable[pluginName] = initialized;
+            _extends(defaults2, initialized.defaults);
+          });
+          for (var option2 in sortable.options) {
+            if (!sortable.options.hasOwnProperty(option2))
+              continue;
+            var modified = this.modifyOption(sortable, option2, sortable.options[option2]);
+            if (typeof modified !== "undefined") {
+              sortable.options[option2] = modified;
+            }
+          }
+        },
+        getEventProperties: function getEventProperties(name, sortable) {
+          var eventProperties = {};
+          plugins.forEach(function(plugin) {
+            if (typeof plugin.eventProperties !== "function")
+              return;
+            _extends(eventProperties, plugin.eventProperties.call(sortable[plugin.pluginName], name));
+          });
+          return eventProperties;
+        },
+        modifyOption: function modifyOption(sortable, name, value) {
+          var modifiedValue;
+          plugins.forEach(function(plugin) {
+            if (!sortable[plugin.pluginName])
+              return;
+            if (plugin.optionListeners && typeof plugin.optionListeners[name] === "function") {
+              modifiedValue = plugin.optionListeners[name].call(sortable[plugin.pluginName], value);
+            }
+          });
+          return modifiedValue;
+        }
+      };
+      _excluded = ["evt"];
+      pluginEvent2 = function pluginEvent3(eventName, sortable) {
+        var _ref = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, originalEvent = _ref.evt, data = _objectWithoutProperties(_ref, _excluded);
+        PluginManager.pluginEvent.bind(Sortable)(eventName, sortable, _objectSpread2({
+          dragEl,
+          parentEl,
+          ghostEl,
+          rootEl,
+          nextEl,
+          lastDownEl,
+          cloneEl,
+          cloneHidden,
+          dragStarted: moved,
+          putSortable,
+          activeSortable: Sortable.active,
+          originalEvent,
+          oldIndex,
+          oldDraggableIndex,
+          newIndex,
+          newDraggableIndex,
+          hideGhostForTarget: _hideGhostForTarget,
+          unhideGhostForTarget: _unhideGhostForTarget,
+          cloneNowHidden: function cloneNowHidden() {
+            cloneHidden = true;
+          },
+          cloneNowShown: function cloneNowShown() {
+            cloneHidden = false;
+          },
+          dispatchSortableEvent: function dispatchSortableEvent(name) {
+            _dispatchEvent({
+              sortable,
+              name,
+              originalEvent
+            });
+          }
+        }, data));
+      };
+      awaitingDragStarted = false;
+      ignoreNextClick = false;
+      sortables = [];
+      pastFirstInvertThresh = false;
+      isCircumstantialInvert = false;
+      ghostRelativeParentInitialScroll = [];
+      _silent = false;
+      savedInputChecked = [];
+      documentExists = typeof document !== "undefined";
+      PositionGhostAbsolutely = IOS;
+      CSSFloatProperty = Edge || IE11OrLess ? "cssFloat" : "float";
+      supportDraggable = documentExists && !ChromeForAndroid && !IOS && "draggable" in document.createElement("div");
+      supportCssPointerEvents = function() {
+        if (!documentExists)
+          return;
+        if (IE11OrLess) {
+          return false;
+        }
+        var el = document.createElement("x");
+        el.style.cssText = "pointer-events:auto";
+        return el.style.pointerEvents === "auto";
+      }();
+      _detectDirection = function _detectDirection2(el, options) {
+        var elCSS = css(el), elWidth = parseInt(elCSS.width) - parseInt(elCSS.paddingLeft) - parseInt(elCSS.paddingRight) - parseInt(elCSS.borderLeftWidth) - parseInt(elCSS.borderRightWidth), child1 = getChild(el, 0, options), child2 = getChild(el, 1, options), firstChildCSS = child1 && css(child1), secondChildCSS = child2 && css(child2), firstChildWidth = firstChildCSS && parseInt(firstChildCSS.marginLeft) + parseInt(firstChildCSS.marginRight) + getRect(child1).width, secondChildWidth = secondChildCSS && parseInt(secondChildCSS.marginLeft) + parseInt(secondChildCSS.marginRight) + getRect(child2).width;
+        if (elCSS.display === "flex") {
+          return elCSS.flexDirection === "column" || elCSS.flexDirection === "column-reverse" ? "vertical" : "horizontal";
+        }
+        if (elCSS.display === "grid") {
+          return elCSS.gridTemplateColumns.split(" ").length <= 1 ? "vertical" : "horizontal";
+        }
+        if (child1 && firstChildCSS["float"] && firstChildCSS["float"] !== "none") {
+          var touchingSideChild2 = firstChildCSS["float"] === "left" ? "left" : "right";
+          return child2 && (secondChildCSS.clear === "both" || secondChildCSS.clear === touchingSideChild2) ? "vertical" : "horizontal";
+        }
+        return child1 && (firstChildCSS.display === "block" || firstChildCSS.display === "flex" || firstChildCSS.display === "table" || firstChildCSS.display === "grid" || firstChildWidth >= elWidth && elCSS[CSSFloatProperty] === "none" || child2 && elCSS[CSSFloatProperty] === "none" && firstChildWidth + secondChildWidth > elWidth) ? "vertical" : "horizontal";
+      };
+      _dragElInRowColumn = function _dragElInRowColumn2(dragRect, targetRect, vertical) {
+        var dragElS1Opp = vertical ? dragRect.left : dragRect.top, dragElS2Opp = vertical ? dragRect.right : dragRect.bottom, dragElOppLength = vertical ? dragRect.width : dragRect.height, targetS1Opp = vertical ? targetRect.left : targetRect.top, targetS2Opp = vertical ? targetRect.right : targetRect.bottom, targetOppLength = vertical ? targetRect.width : targetRect.height;
+        return dragElS1Opp === targetS1Opp || dragElS2Opp === targetS2Opp || dragElS1Opp + dragElOppLength / 2 === targetS1Opp + targetOppLength / 2;
+      };
+      _detectNearestEmptySortable = function _detectNearestEmptySortable2(x, y) {
+        var ret;
+        sortables.some(function(sortable) {
+          var threshold = sortable[expando].options.emptyInsertThreshold;
+          if (!threshold || lastChild(sortable))
+            return;
+          var rect = getRect(sortable), insideHorizontally = x >= rect.left - threshold && x <= rect.right + threshold, insideVertically = y >= rect.top - threshold && y <= rect.bottom + threshold;
+          if (insideHorizontally && insideVertically) {
+            return ret = sortable;
+          }
+        });
+        return ret;
+      };
+      _prepareGroup = function _prepareGroup2(options) {
+        function toFn(value, pull) {
+          return function(to, from, dragEl2, evt) {
+            var sameGroup = to.options.group.name && from.options.group.name && to.options.group.name === from.options.group.name;
+            if (value == null && (pull || sameGroup)) {
+              return true;
+            } else if (value == null || value === false) {
+              return false;
+            } else if (pull && value === "clone") {
+              return value;
+            } else if (typeof value === "function") {
+              return toFn(value(to, from, dragEl2, evt), pull)(to, from, dragEl2, evt);
+            } else {
+              var otherGroup = (pull ? to : from).options.group.name;
+              return value === true || typeof value === "string" && value === otherGroup || value.join && value.indexOf(otherGroup) > -1;
+            }
+          };
+        }
+        var group = {};
+        var originalGroup = options.group;
+        if (!originalGroup || _typeof(originalGroup) != "object") {
+          originalGroup = {
+            name: originalGroup
+          };
+        }
+        group.name = originalGroup.name;
+        group.checkPull = toFn(originalGroup.pull, true);
+        group.checkPut = toFn(originalGroup.put);
+        group.revertClone = originalGroup.revertClone;
+        options.group = group;
+      };
+      _hideGhostForTarget = function _hideGhostForTarget2() {
+        if (!supportCssPointerEvents && ghostEl) {
+          css(ghostEl, "display", "none");
+        }
+      };
+      _unhideGhostForTarget = function _unhideGhostForTarget2() {
+        if (!supportCssPointerEvents && ghostEl) {
+          css(ghostEl, "display", "");
+        }
+      };
+      if (documentExists && !ChromeForAndroid) {
+        document.addEventListener("click", function(evt) {
+          if (ignoreNextClick) {
+            evt.preventDefault();
+            evt.stopPropagation && evt.stopPropagation();
+            evt.stopImmediatePropagation && evt.stopImmediatePropagation();
+            ignoreNextClick = false;
+            return false;
+          }
+        }, true);
+      }
+      nearestEmptyInsertDetectEvent = function nearestEmptyInsertDetectEvent2(evt) {
+        if (dragEl) {
+          evt = evt.touches ? evt.touches[0] : evt;
+          var nearest = _detectNearestEmptySortable(evt.clientX, evt.clientY);
+          if (nearest) {
+            var event = {};
+            for (var i in evt) {
+              if (evt.hasOwnProperty(i)) {
+                event[i] = evt[i];
+              }
+            }
+            event.target = event.rootEl = nearest;
+            event.preventDefault = void 0;
+            event.stopPropagation = void 0;
+            nearest[expando]._onDragOver(event);
+          }
+        }
+      };
+      _checkOutsideTargetEl = function _checkOutsideTargetEl2(evt) {
+        if (dragEl) {
+          dragEl.parentNode[expando]._isOutsideThisEl(evt.target);
+        }
+      };
+      Sortable.prototype = /** @lends Sortable.prototype */
+      {
+        constructor: Sortable,
+        _isOutsideThisEl: function _isOutsideThisEl(target) {
+          if (!this.el.contains(target) && target !== this.el) {
+            lastTarget = null;
+          }
+        },
+        _getDirection: function _getDirection(evt, target) {
+          return typeof this.options.direction === "function" ? this.options.direction.call(this, evt, target, dragEl) : this.options.direction;
+        },
+        _onTapStart: function _onTapStart(evt) {
+          if (!evt.cancelable)
+            return;
+          var _this = this, el = this.el, options = this.options, preventOnFilter = options.preventOnFilter, type = evt.type, touch = evt.touches && evt.touches[0] || evt.pointerType && evt.pointerType === "touch" && evt, target = (touch || evt).target, originalTarget = evt.target.shadowRoot && (evt.path && evt.path[0] || evt.composedPath && evt.composedPath()[0]) || target, filter = options.filter;
+          _saveInputCheckedState(el);
+          if (dragEl) {
+            return;
+          }
+          if (/mousedown|pointerdown/.test(type) && evt.button !== 0 || options.disabled) {
+            return;
+          }
+          if (originalTarget.isContentEditable) {
+            return;
+          }
+          if (!this.nativeDraggable && Safari && target && target.tagName.toUpperCase() === "SELECT") {
+            return;
+          }
+          target = closest(target, options.draggable, el, false);
+          if (target && target.animated) {
+            return;
+          }
+          if (lastDownEl === target) {
+            return;
+          }
+          oldIndex = index(target);
+          oldDraggableIndex = index(target, options.draggable);
+          if (typeof filter === "function") {
+            if (filter.call(this, evt, target, this)) {
+              _dispatchEvent({
+                sortable: _this,
+                rootEl: originalTarget,
+                name: "filter",
+                targetEl: target,
+                toEl: el,
+                fromEl: el
+              });
+              pluginEvent2("filter", _this, {
+                evt
+              });
+              preventOnFilter && evt.preventDefault();
+              return;
+            }
+          } else if (filter) {
+            filter = filter.split(",").some(function(criteria) {
+              criteria = closest(originalTarget, criteria.trim(), el, false);
+              if (criteria) {
+                _dispatchEvent({
+                  sortable: _this,
+                  rootEl: criteria,
+                  name: "filter",
+                  targetEl: target,
+                  fromEl: el,
+                  toEl: el
+                });
+                pluginEvent2("filter", _this, {
+                  evt
+                });
+                return true;
+              }
+            });
+            if (filter) {
+              preventOnFilter && evt.preventDefault();
+              return;
+            }
+          }
+          if (options.handle && !closest(originalTarget, options.handle, el, false)) {
+            return;
+          }
+          this._prepareDragStart(evt, touch, target);
+        },
+        _prepareDragStart: function _prepareDragStart(evt, touch, target) {
+          var _this = this, el = _this.el, options = _this.options, ownerDocument = el.ownerDocument, dragStartFn;
+          if (target && !dragEl && target.parentNode === el) {
+            var dragRect = getRect(target);
+            rootEl = el;
+            dragEl = target;
+            parentEl = dragEl.parentNode;
+            nextEl = dragEl.nextSibling;
+            lastDownEl = target;
+            activeGroup = options.group;
+            Sortable.dragged = dragEl;
+            tapEvt = {
+              target: dragEl,
+              clientX: (touch || evt).clientX,
+              clientY: (touch || evt).clientY
+            };
+            tapDistanceLeft = tapEvt.clientX - dragRect.left;
+            tapDistanceTop = tapEvt.clientY - dragRect.top;
+            this._lastX = (touch || evt).clientX;
+            this._lastY = (touch || evt).clientY;
+            dragEl.style["will-change"] = "all";
+            dragStartFn = function dragStartFn2() {
+              pluginEvent2("delayEnded", _this, {
+                evt
+              });
+              if (Sortable.eventCanceled) {
+                _this._onDrop();
+                return;
+              }
+              _this._disableDelayedDragEvents();
+              if (!FireFox && _this.nativeDraggable) {
+                dragEl.draggable = true;
+              }
+              _this._triggerDragStart(evt, touch);
+              _dispatchEvent({
+                sortable: _this,
+                name: "choose",
+                originalEvent: evt
+              });
+              toggleClass(dragEl, options.chosenClass, true);
+            };
+            options.ignore.split(",").forEach(function(criteria) {
+              find(dragEl, criteria.trim(), _disableDraggable);
+            });
+            on(ownerDocument, "dragover", nearestEmptyInsertDetectEvent);
+            on(ownerDocument, "mousemove", nearestEmptyInsertDetectEvent);
+            on(ownerDocument, "touchmove", nearestEmptyInsertDetectEvent);
+            if (options.supportPointer) {
+              on(ownerDocument, "pointerup", _this._onDrop);
+              !this.nativeDraggable && on(ownerDocument, "pointercancel", _this._onDrop);
+            } else {
+              on(ownerDocument, "mouseup", _this._onDrop);
+              on(ownerDocument, "touchend", _this._onDrop);
+              on(ownerDocument, "touchcancel", _this._onDrop);
+            }
+            if (FireFox && this.nativeDraggable) {
+              this.options.touchStartThreshold = 4;
+              dragEl.draggable = true;
+            }
+            pluginEvent2("delayStart", this, {
+              evt
+            });
+            if (options.delay && (!options.delayOnTouchOnly || touch) && (!this.nativeDraggable || !(Edge || IE11OrLess))) {
+              if (Sortable.eventCanceled) {
+                this._onDrop();
+                return;
+              }
+              if (options.supportPointer) {
+                on(ownerDocument, "pointerup", _this._disableDelayedDrag);
+                on(ownerDocument, "pointercancel", _this._disableDelayedDrag);
+              } else {
+                on(ownerDocument, "mouseup", _this._disableDelayedDrag);
+                on(ownerDocument, "touchend", _this._disableDelayedDrag);
+                on(ownerDocument, "touchcancel", _this._disableDelayedDrag);
+              }
+              on(ownerDocument, "mousemove", _this._delayedDragTouchMoveHandler);
+              on(ownerDocument, "touchmove", _this._delayedDragTouchMoveHandler);
+              options.supportPointer && on(ownerDocument, "pointermove", _this._delayedDragTouchMoveHandler);
+              _this._dragStartTimer = setTimeout(dragStartFn, options.delay);
+            } else {
+              dragStartFn();
+            }
+          }
+        },
+        _delayedDragTouchMoveHandler: function _delayedDragTouchMoveHandler(e) {
+          var touch = e.touches ? e.touches[0] : e;
+          if (Math.max(Math.abs(touch.clientX - this._lastX), Math.abs(touch.clientY - this._lastY)) >= Math.floor(this.options.touchStartThreshold / (this.nativeDraggable && window.devicePixelRatio || 1))) {
+            this._disableDelayedDrag();
+          }
+        },
+        _disableDelayedDrag: function _disableDelayedDrag() {
+          dragEl && _disableDraggable(dragEl);
+          clearTimeout(this._dragStartTimer);
+          this._disableDelayedDragEvents();
+        },
+        _disableDelayedDragEvents: function _disableDelayedDragEvents() {
+          var ownerDocument = this.el.ownerDocument;
+          off(ownerDocument, "mouseup", this._disableDelayedDrag);
+          off(ownerDocument, "touchend", this._disableDelayedDrag);
+          off(ownerDocument, "touchcancel", this._disableDelayedDrag);
+          off(ownerDocument, "pointerup", this._disableDelayedDrag);
+          off(ownerDocument, "pointercancel", this._disableDelayedDrag);
+          off(ownerDocument, "mousemove", this._delayedDragTouchMoveHandler);
+          off(ownerDocument, "touchmove", this._delayedDragTouchMoveHandler);
+          off(ownerDocument, "pointermove", this._delayedDragTouchMoveHandler);
+        },
+        _triggerDragStart: function _triggerDragStart(evt, touch) {
+          touch = touch || evt.pointerType == "touch" && evt;
+          if (!this.nativeDraggable || touch) {
+            if (this.options.supportPointer) {
+              on(document, "pointermove", this._onTouchMove);
+            } else if (touch) {
+              on(document, "touchmove", this._onTouchMove);
+            } else {
+              on(document, "mousemove", this._onTouchMove);
+            }
+          } else {
+            on(dragEl, "dragend", this);
+            on(rootEl, "dragstart", this._onDragStart);
+          }
+          try {
+            if (document.selection) {
+              _nextTick(function() {
+                document.selection.empty();
+              });
+            } else {
+              window.getSelection().removeAllRanges();
+            }
+          } catch (err) {
+          }
+        },
+        _dragStarted: function _dragStarted(fallback, evt) {
+          awaitingDragStarted = false;
+          if (rootEl && dragEl) {
+            pluginEvent2("dragStarted", this, {
+              evt
+            });
+            if (this.nativeDraggable) {
+              on(document, "dragover", _checkOutsideTargetEl);
+            }
+            var options = this.options;
+            !fallback && toggleClass(dragEl, options.dragClass, false);
+            toggleClass(dragEl, options.ghostClass, true);
+            Sortable.active = this;
+            fallback && this._appendGhost();
+            _dispatchEvent({
+              sortable: this,
+              name: "start",
+              originalEvent: evt
+            });
+          } else {
+            this._nulling();
+          }
+        },
+        _emulateDragOver: function _emulateDragOver() {
+          if (touchEvt) {
+            this._lastX = touchEvt.clientX;
+            this._lastY = touchEvt.clientY;
+            _hideGhostForTarget();
+            var target = document.elementFromPoint(touchEvt.clientX, touchEvt.clientY);
+            var parent = target;
+            while (target && target.shadowRoot) {
+              target = target.shadowRoot.elementFromPoint(touchEvt.clientX, touchEvt.clientY);
+              if (target === parent)
+                break;
+              parent = target;
+            }
+            dragEl.parentNode[expando]._isOutsideThisEl(target);
+            if (parent) {
+              do {
+                if (parent[expando]) {
+                  var inserted = void 0;
+                  inserted = parent[expando]._onDragOver({
+                    clientX: touchEvt.clientX,
+                    clientY: touchEvt.clientY,
+                    target,
+                    rootEl: parent
+                  });
+                  if (inserted && !this.options.dragoverBubble) {
+                    break;
+                  }
+                }
+                target = parent;
+              } while (parent = getParentOrHost(parent));
+            }
+            _unhideGhostForTarget();
+          }
+        },
+        _onTouchMove: function _onTouchMove(evt) {
+          if (tapEvt) {
+            var options = this.options, fallbackTolerance = options.fallbackTolerance, fallbackOffset = options.fallbackOffset, touch = evt.touches ? evt.touches[0] : evt, ghostMatrix = ghostEl && matrix(ghostEl, true), scaleX = ghostEl && ghostMatrix && ghostMatrix.a, scaleY = ghostEl && ghostMatrix && ghostMatrix.d, relativeScrollOffset = PositionGhostAbsolutely && ghostRelativeParent && getRelativeScrollOffset(ghostRelativeParent), dx = (touch.clientX - tapEvt.clientX + fallbackOffset.x) / (scaleX || 1) + (relativeScrollOffset ? relativeScrollOffset[0] - ghostRelativeParentInitialScroll[0] : 0) / (scaleX || 1), dy = (touch.clientY - tapEvt.clientY + fallbackOffset.y) / (scaleY || 1) + (relativeScrollOffset ? relativeScrollOffset[1] - ghostRelativeParentInitialScroll[1] : 0) / (scaleY || 1);
+            if (!Sortable.active && !awaitingDragStarted) {
+              if (fallbackTolerance && Math.max(Math.abs(touch.clientX - this._lastX), Math.abs(touch.clientY - this._lastY)) < fallbackTolerance) {
+                return;
+              }
+              this._onDragStart(evt, true);
+            }
+            if (ghostEl) {
+              if (ghostMatrix) {
+                ghostMatrix.e += dx - (lastDx || 0);
+                ghostMatrix.f += dy - (lastDy || 0);
+              } else {
+                ghostMatrix = {
+                  a: 1,
+                  b: 0,
+                  c: 0,
+                  d: 1,
+                  e: dx,
+                  f: dy
+                };
+              }
+              var cssMatrix = "matrix(".concat(ghostMatrix.a, ",").concat(ghostMatrix.b, ",").concat(ghostMatrix.c, ",").concat(ghostMatrix.d, ",").concat(ghostMatrix.e, ",").concat(ghostMatrix.f, ")");
+              css(ghostEl, "webkitTransform", cssMatrix);
+              css(ghostEl, "mozTransform", cssMatrix);
+              css(ghostEl, "msTransform", cssMatrix);
+              css(ghostEl, "transform", cssMatrix);
+              lastDx = dx;
+              lastDy = dy;
+              touchEvt = touch;
+            }
+            evt.cancelable && evt.preventDefault();
+          }
+        },
+        _appendGhost: function _appendGhost() {
+          if (!ghostEl) {
+            var container = this.options.fallbackOnBody ? document.body : rootEl, rect = getRect(dragEl, true, PositionGhostAbsolutely, true, container), options = this.options;
+            if (PositionGhostAbsolutely) {
+              ghostRelativeParent = container;
+              while (css(ghostRelativeParent, "position") === "static" && css(ghostRelativeParent, "transform") === "none" && ghostRelativeParent !== document) {
+                ghostRelativeParent = ghostRelativeParent.parentNode;
+              }
+              if (ghostRelativeParent !== document.body && ghostRelativeParent !== document.documentElement) {
+                if (ghostRelativeParent === document)
+                  ghostRelativeParent = getWindowScrollingElement();
+                rect.top += ghostRelativeParent.scrollTop;
+                rect.left += ghostRelativeParent.scrollLeft;
+              } else {
+                ghostRelativeParent = getWindowScrollingElement();
+              }
+              ghostRelativeParentInitialScroll = getRelativeScrollOffset(ghostRelativeParent);
+            }
+            ghostEl = dragEl.cloneNode(true);
+            toggleClass(ghostEl, options.ghostClass, false);
+            toggleClass(ghostEl, options.fallbackClass, true);
+            toggleClass(ghostEl, options.dragClass, true);
+            css(ghostEl, "transition", "");
+            css(ghostEl, "transform", "");
+            css(ghostEl, "box-sizing", "border-box");
+            css(ghostEl, "margin", 0);
+            css(ghostEl, "top", rect.top);
+            css(ghostEl, "left", rect.left);
+            css(ghostEl, "width", rect.width);
+            css(ghostEl, "height", rect.height);
+            css(ghostEl, "opacity", "0.8");
+            css(ghostEl, "position", PositionGhostAbsolutely ? "absolute" : "fixed");
+            css(ghostEl, "zIndex", "100000");
+            css(ghostEl, "pointerEvents", "none");
+            Sortable.ghost = ghostEl;
+            container.appendChild(ghostEl);
+            css(ghostEl, "transform-origin", tapDistanceLeft / parseInt(ghostEl.style.width) * 100 + "% " + tapDistanceTop / parseInt(ghostEl.style.height) * 100 + "%");
+          }
+        },
+        _onDragStart: function _onDragStart(evt, fallback) {
+          var _this = this;
+          var dataTransfer = evt.dataTransfer;
+          var options = _this.options;
+          pluginEvent2("dragStart", this, {
+            evt
+          });
+          if (Sortable.eventCanceled) {
+            this._onDrop();
+            return;
+          }
+          pluginEvent2("setupClone", this);
+          if (!Sortable.eventCanceled) {
+            cloneEl = clone(dragEl);
+            cloneEl.removeAttribute("id");
+            cloneEl.draggable = false;
+            cloneEl.style["will-change"] = "";
+            this._hideClone();
+            toggleClass(cloneEl, this.options.chosenClass, false);
+            Sortable.clone = cloneEl;
+          }
+          _this.cloneId = _nextTick(function() {
+            pluginEvent2("clone", _this);
+            if (Sortable.eventCanceled)
+              return;
+            if (!_this.options.removeCloneOnHide) {
+              rootEl.insertBefore(cloneEl, dragEl);
+            }
+            _this._hideClone();
+            _dispatchEvent({
+              sortable: _this,
+              name: "clone"
+            });
+          });
+          !fallback && toggleClass(dragEl, options.dragClass, true);
+          if (fallback) {
+            ignoreNextClick = true;
+            _this._loopId = setInterval(_this._emulateDragOver, 50);
+          } else {
+            off(document, "mouseup", _this._onDrop);
+            off(document, "touchend", _this._onDrop);
+            off(document, "touchcancel", _this._onDrop);
+            if (dataTransfer) {
+              dataTransfer.effectAllowed = "move";
+              options.setData && options.setData.call(_this, dataTransfer, dragEl);
+            }
+            on(document, "drop", _this);
+            css(dragEl, "transform", "translateZ(0)");
+          }
+          awaitingDragStarted = true;
+          _this._dragStartId = _nextTick(_this._dragStarted.bind(_this, fallback, evt));
+          on(document, "selectstart", _this);
+          moved = true;
+          window.getSelection().removeAllRanges();
+          if (Safari) {
+            css(document.body, "user-select", "none");
+          }
+        },
+        // Returns true - if no further action is needed (either inserted or another condition)
+        _onDragOver: function _onDragOver(evt) {
+          var el = this.el, target = evt.target, dragRect, targetRect, revert, options = this.options, group = options.group, activeSortable = Sortable.active, isOwner = activeGroup === group, canSort = options.sort, fromSortable = putSortable || activeSortable, vertical, _this = this, completedFired = false;
+          if (_silent)
+            return;
+          function dragOverEvent(name, extra) {
+            pluginEvent2(name, _this, _objectSpread2({
+              evt,
+              isOwner,
+              axis: vertical ? "vertical" : "horizontal",
+              revert,
+              dragRect,
+              targetRect,
+              canSort,
+              fromSortable,
+              target,
+              completed,
+              onMove: function onMove(target2, after2) {
+                return _onMove(rootEl, el, dragEl, dragRect, target2, getRect(target2), evt, after2);
+              },
+              changed
+            }, extra));
+          }
+          function capture() {
+            dragOverEvent("dragOverAnimationCapture");
+            _this.captureAnimationState();
+            if (_this !== fromSortable) {
+              fromSortable.captureAnimationState();
+            }
+          }
+          function completed(insertion) {
+            dragOverEvent("dragOverCompleted", {
+              insertion
+            });
+            if (insertion) {
+              if (isOwner) {
+                activeSortable._hideClone();
+              } else {
+                activeSortable._showClone(_this);
+              }
+              if (_this !== fromSortable) {
+                toggleClass(dragEl, putSortable ? putSortable.options.ghostClass : activeSortable.options.ghostClass, false);
+                toggleClass(dragEl, options.ghostClass, true);
+              }
+              if (putSortable !== _this && _this !== Sortable.active) {
+                putSortable = _this;
+              } else if (_this === Sortable.active && putSortable) {
+                putSortable = null;
+              }
+              if (fromSortable === _this) {
+                _this._ignoreWhileAnimating = target;
+              }
+              _this.animateAll(function() {
+                dragOverEvent("dragOverAnimationComplete");
+                _this._ignoreWhileAnimating = null;
+              });
+              if (_this !== fromSortable) {
+                fromSortable.animateAll();
+                fromSortable._ignoreWhileAnimating = null;
+              }
+            }
+            if (target === dragEl && !dragEl.animated || target === el && !target.animated) {
+              lastTarget = null;
+            }
+            if (!options.dragoverBubble && !evt.rootEl && target !== document) {
+              dragEl.parentNode[expando]._isOutsideThisEl(evt.target);
+              !insertion && nearestEmptyInsertDetectEvent(evt);
+            }
+            !options.dragoverBubble && evt.stopPropagation && evt.stopPropagation();
+            return completedFired = true;
+          }
+          function changed() {
+            newIndex = index(dragEl);
+            newDraggableIndex = index(dragEl, options.draggable);
+            _dispatchEvent({
+              sortable: _this,
+              name: "change",
+              toEl: el,
+              newIndex,
+              newDraggableIndex,
+              originalEvent: evt
+            });
+          }
+          if (evt.preventDefault !== void 0) {
+            evt.cancelable && evt.preventDefault();
+          }
+          target = closest(target, options.draggable, el, true);
+          dragOverEvent("dragOver");
+          if (Sortable.eventCanceled)
+            return completedFired;
+          if (dragEl.contains(evt.target) || target.animated && target.animatingX && target.animatingY || _this._ignoreWhileAnimating === target) {
+            return completed(false);
+          }
+          ignoreNextClick = false;
+          if (activeSortable && !options.disabled && (isOwner ? canSort || (revert = parentEl !== rootEl) : putSortable === this || (this.lastPutMode = activeGroup.checkPull(this, activeSortable, dragEl, evt)) && group.checkPut(this, activeSortable, dragEl, evt))) {
+            vertical = this._getDirection(evt, target) === "vertical";
+            dragRect = getRect(dragEl);
+            dragOverEvent("dragOverValid");
+            if (Sortable.eventCanceled)
+              return completedFired;
+            if (revert) {
+              parentEl = rootEl;
+              capture();
+              this._hideClone();
+              dragOverEvent("revert");
+              if (!Sortable.eventCanceled) {
+                if (nextEl) {
+                  rootEl.insertBefore(dragEl, nextEl);
+                } else {
+                  rootEl.appendChild(dragEl);
+                }
+              }
+              return completed(true);
+            }
+            var elLastChild = lastChild(el, options.draggable);
+            if (!elLastChild || _ghostIsLast(evt, vertical, this) && !elLastChild.animated) {
+              if (elLastChild === dragEl) {
+                return completed(false);
+              }
+              if (elLastChild && el === evt.target) {
+                target = elLastChild;
+              }
+              if (target) {
+                targetRect = getRect(target);
+              }
+              if (_onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, !!target) !== false) {
+                capture();
+                if (elLastChild && elLastChild.nextSibling) {
+                  el.insertBefore(dragEl, elLastChild.nextSibling);
+                } else {
+                  el.appendChild(dragEl);
+                }
+                parentEl = el;
+                changed();
+                return completed(true);
+              }
+            } else if (elLastChild && _ghostIsFirst(evt, vertical, this)) {
+              var firstChild = getChild(el, 0, options, true);
+              if (firstChild === dragEl) {
+                return completed(false);
+              }
+              target = firstChild;
+              targetRect = getRect(target);
+              if (_onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, false) !== false) {
+                capture();
+                el.insertBefore(dragEl, firstChild);
+                parentEl = el;
+                changed();
+                return completed(true);
+              }
+            } else if (target.parentNode === el) {
+              targetRect = getRect(target);
+              var direction = 0, targetBeforeFirstSwap, differentLevel = dragEl.parentNode !== el, differentRowCol = !_dragElInRowColumn(dragEl.animated && dragEl.toRect || dragRect, target.animated && target.toRect || targetRect, vertical), side1 = vertical ? "top" : "left", scrolledPastTop = isScrolledPast(target, "top", "top") || isScrolledPast(dragEl, "top", "top"), scrollBefore = scrolledPastTop ? scrolledPastTop.scrollTop : void 0;
+              if (lastTarget !== target) {
+                targetBeforeFirstSwap = targetRect[side1];
+                pastFirstInvertThresh = false;
+                isCircumstantialInvert = !differentRowCol && options.invertSwap || differentLevel;
+              }
+              direction = _getSwapDirection(evt, target, targetRect, vertical, differentRowCol ? 1 : options.swapThreshold, options.invertedSwapThreshold == null ? options.swapThreshold : options.invertedSwapThreshold, isCircumstantialInvert, lastTarget === target);
+              var sibling;
+              if (direction !== 0) {
+                var dragIndex = index(dragEl);
+                do {
+                  dragIndex -= direction;
+                  sibling = parentEl.children[dragIndex];
+                } while (sibling && (css(sibling, "display") === "none" || sibling === ghostEl));
+              }
+              if (direction === 0 || sibling === target) {
+                return completed(false);
+              }
+              lastTarget = target;
+              lastDirection = direction;
+              var nextSibling = target.nextElementSibling, after = false;
+              after = direction === 1;
+              var moveVector = _onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, after);
+              if (moveVector !== false) {
+                if (moveVector === 1 || moveVector === -1) {
+                  after = moveVector === 1;
+                }
+                _silent = true;
+                setTimeout(_unsilent, 30);
+                capture();
+                if (after && !nextSibling) {
+                  el.appendChild(dragEl);
+                } else {
+                  target.parentNode.insertBefore(dragEl, after ? nextSibling : target);
+                }
+                if (scrolledPastTop) {
+                  scrollBy(scrolledPastTop, 0, scrollBefore - scrolledPastTop.scrollTop);
+                }
+                parentEl = dragEl.parentNode;
+                if (targetBeforeFirstSwap !== void 0 && !isCircumstantialInvert) {
+                  targetMoveDistance = Math.abs(targetBeforeFirstSwap - getRect(target)[side1]);
+                }
+                changed();
+                return completed(true);
+              }
+            }
+            if (el.contains(dragEl)) {
+              return completed(false);
+            }
+          }
+          return false;
+        },
+        _ignoreWhileAnimating: null,
+        _offMoveEvents: function _offMoveEvents() {
+          off(document, "mousemove", this._onTouchMove);
+          off(document, "touchmove", this._onTouchMove);
+          off(document, "pointermove", this._onTouchMove);
+          off(document, "dragover", nearestEmptyInsertDetectEvent);
+          off(document, "mousemove", nearestEmptyInsertDetectEvent);
+          off(document, "touchmove", nearestEmptyInsertDetectEvent);
+        },
+        _offUpEvents: function _offUpEvents() {
+          var ownerDocument = this.el.ownerDocument;
+          off(ownerDocument, "mouseup", this._onDrop);
+          off(ownerDocument, "touchend", this._onDrop);
+          off(ownerDocument, "pointerup", this._onDrop);
+          off(ownerDocument, "pointercancel", this._onDrop);
+          off(ownerDocument, "touchcancel", this._onDrop);
+          off(document, "selectstart", this);
+        },
+        _onDrop: function _onDrop(evt) {
+          var el = this.el, options = this.options;
+          newIndex = index(dragEl);
+          newDraggableIndex = index(dragEl, options.draggable);
+          pluginEvent2("drop", this, {
+            evt
+          });
+          parentEl = dragEl && dragEl.parentNode;
+          newIndex = index(dragEl);
+          newDraggableIndex = index(dragEl, options.draggable);
+          if (Sortable.eventCanceled) {
+            this._nulling();
+            return;
+          }
+          awaitingDragStarted = false;
+          isCircumstantialInvert = false;
+          pastFirstInvertThresh = false;
+          clearInterval(this._loopId);
+          clearTimeout(this._dragStartTimer);
+          _cancelNextTick(this.cloneId);
+          _cancelNextTick(this._dragStartId);
+          if (this.nativeDraggable) {
+            off(document, "drop", this);
+            off(el, "dragstart", this._onDragStart);
+          }
+          this._offMoveEvents();
+          this._offUpEvents();
+          if (Safari) {
+            css(document.body, "user-select", "");
+          }
+          css(dragEl, "transform", "");
+          if (evt) {
+            if (moved) {
+              evt.cancelable && evt.preventDefault();
+              !options.dropBubble && evt.stopPropagation();
+            }
+            ghostEl && ghostEl.parentNode && ghostEl.parentNode.removeChild(ghostEl);
+            if (rootEl === parentEl || putSortable && putSortable.lastPutMode !== "clone") {
+              cloneEl && cloneEl.parentNode && cloneEl.parentNode.removeChild(cloneEl);
+            }
+            if (dragEl) {
+              if (this.nativeDraggable) {
+                off(dragEl, "dragend", this);
+              }
+              _disableDraggable(dragEl);
+              dragEl.style["will-change"] = "";
+              if (moved && !awaitingDragStarted) {
+                toggleClass(dragEl, putSortable ? putSortable.options.ghostClass : this.options.ghostClass, false);
+              }
+              toggleClass(dragEl, this.options.chosenClass, false);
+              _dispatchEvent({
+                sortable: this,
+                name: "unchoose",
+                toEl: parentEl,
+                newIndex: null,
+                newDraggableIndex: null,
+                originalEvent: evt
+              });
+              if (rootEl !== parentEl) {
+                if (newIndex >= 0) {
+                  _dispatchEvent({
+                    rootEl: parentEl,
+                    name: "add",
+                    toEl: parentEl,
+                    fromEl: rootEl,
+                    originalEvent: evt
+                  });
+                  _dispatchEvent({
+                    sortable: this,
+                    name: "remove",
+                    toEl: parentEl,
+                    originalEvent: evt
+                  });
+                  _dispatchEvent({
+                    rootEl: parentEl,
+                    name: "sort",
+                    toEl: parentEl,
+                    fromEl: rootEl,
+                    originalEvent: evt
+                  });
+                  _dispatchEvent({
+                    sortable: this,
+                    name: "sort",
+                    toEl: parentEl,
+                    originalEvent: evt
+                  });
+                }
+                putSortable && putSortable.save();
+              } else {
+                if (newIndex !== oldIndex) {
+                  if (newIndex >= 0) {
+                    _dispatchEvent({
+                      sortable: this,
+                      name: "update",
+                      toEl: parentEl,
+                      originalEvent: evt
+                    });
+                    _dispatchEvent({
+                      sortable: this,
+                      name: "sort",
+                      toEl: parentEl,
+                      originalEvent: evt
+                    });
+                  }
+                }
+              }
+              if (Sortable.active) {
+                if (newIndex == null || newIndex === -1) {
+                  newIndex = oldIndex;
+                  newDraggableIndex = oldDraggableIndex;
+                }
+                _dispatchEvent({
+                  sortable: this,
+                  name: "end",
+                  toEl: parentEl,
+                  originalEvent: evt
+                });
+                this.save();
+              }
+            }
+          }
+          this._nulling();
+        },
+        _nulling: function _nulling() {
+          pluginEvent2("nulling", this);
+          rootEl = dragEl = parentEl = ghostEl = nextEl = cloneEl = lastDownEl = cloneHidden = tapEvt = touchEvt = moved = newIndex = newDraggableIndex = oldIndex = oldDraggableIndex = lastTarget = lastDirection = putSortable = activeGroup = Sortable.dragged = Sortable.ghost = Sortable.clone = Sortable.active = null;
+          savedInputChecked.forEach(function(el) {
+            el.checked = true;
+          });
+          savedInputChecked.length = lastDx = lastDy = 0;
+        },
+        handleEvent: function handleEvent(evt) {
+          switch (evt.type) {
+            case "drop":
+            case "dragend":
+              this._onDrop(evt);
+              break;
+            case "dragenter":
+            case "dragover":
+              if (dragEl) {
+                this._onDragOver(evt);
+                _globalDragOver(evt);
+              }
+              break;
+            case "selectstart":
+              evt.preventDefault();
+              break;
+          }
+        },
+        /**
+         * Serializes the item into an array of string.
+         * @returns {String[]}
+         */
+        toArray: function toArray() {
+          var order = [], el, children = this.el.children, i = 0, n = children.length, options = this.options;
+          for (; i < n; i++) {
+            el = children[i];
+            if (closest(el, options.draggable, this.el, false)) {
+              order.push(el.getAttribute(options.dataIdAttr) || _generateId(el));
+            }
+          }
+          return order;
+        },
+        /**
+         * Sorts the elements according to the array.
+         * @param  {String[]}  order  order of the items
+         */
+        sort: function sort(order, useAnimation) {
+          var items = {}, rootEl2 = this.el;
+          this.toArray().forEach(function(id, i) {
+            var el = rootEl2.children[i];
+            if (closest(el, this.options.draggable, rootEl2, false)) {
+              items[id] = el;
+            }
+          }, this);
+          useAnimation && this.captureAnimationState();
+          order.forEach(function(id) {
+            if (items[id]) {
+              rootEl2.removeChild(items[id]);
+              rootEl2.appendChild(items[id]);
+            }
+          });
+          useAnimation && this.animateAll();
+        },
+        /**
+         * Save the current sorting
+         */
+        save: function save() {
+          var store = this.options.store;
+          store && store.set && store.set(this);
+        },
+        /**
+         * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+         * @param   {HTMLElement}  el
+         * @param   {String}       [selector]  default: `options.draggable`
+         * @returns {HTMLElement|null}
+         */
+        closest: function closest$1(el, selector) {
+          return closest(el, selector || this.options.draggable, this.el, false);
+        },
+        /**
+         * Set/get option
+         * @param   {string} name
+         * @param   {*}      [value]
+         * @returns {*}
+         */
+        option: function option(name, value) {
+          var options = this.options;
+          if (value === void 0) {
+            return options[name];
+          } else {
+            var modifiedValue = PluginManager.modifyOption(this, name, value);
+            if (typeof modifiedValue !== "undefined") {
+              options[name] = modifiedValue;
+            } else {
+              options[name] = value;
+            }
+            if (name === "group") {
+              _prepareGroup(options);
+            }
+          }
+        },
+        /**
+         * Destroy
+         */
+        destroy: function destroy() {
+          pluginEvent2("destroy", this);
+          var el = this.el;
+          el[expando] = null;
+          off(el, "mousedown", this._onTapStart);
+          off(el, "touchstart", this._onTapStart);
+          off(el, "pointerdown", this._onTapStart);
+          if (this.nativeDraggable) {
+            off(el, "dragover", this);
+            off(el, "dragenter", this);
+          }
+          Array.prototype.forEach.call(el.querySelectorAll("[draggable]"), function(el2) {
+            el2.removeAttribute("draggable");
+          });
+          this._onDrop();
+          this._disableDelayedDragEvents();
+          sortables.splice(sortables.indexOf(this.el), 1);
+          this.el = el = null;
+        },
+        _hideClone: function _hideClone() {
+          if (!cloneHidden) {
+            pluginEvent2("hideClone", this);
+            if (Sortable.eventCanceled)
+              return;
+            css(cloneEl, "display", "none");
+            if (this.options.removeCloneOnHide && cloneEl.parentNode) {
+              cloneEl.parentNode.removeChild(cloneEl);
+            }
+            cloneHidden = true;
+          }
+        },
+        _showClone: function _showClone(putSortable2) {
+          if (putSortable2.lastPutMode !== "clone") {
+            this._hideClone();
+            return;
+          }
+          if (cloneHidden) {
+            pluginEvent2("showClone", this);
+            if (Sortable.eventCanceled)
+              return;
+            if (dragEl.parentNode == rootEl && !this.options.group.revertClone) {
+              rootEl.insertBefore(cloneEl, dragEl);
+            } else if (nextEl) {
+              rootEl.insertBefore(cloneEl, nextEl);
+            } else {
+              rootEl.appendChild(cloneEl);
+            }
+            if (this.options.group.revertClone) {
+              this.animate(dragEl, cloneEl);
+            }
+            css(cloneEl, "display", "");
+            cloneHidden = false;
+          }
+        }
+      };
+      if (documentExists) {
+        on(document, "touchmove", function(evt) {
+          if ((Sortable.active || awaitingDragStarted) && evt.cancelable) {
+            evt.preventDefault();
+          }
+        });
+      }
+      Sortable.utils = {
+        on,
+        off,
+        css,
+        find,
+        is: function is(el, selector) {
+          return !!closest(el, selector, el, false);
+        },
+        extend,
+        throttle,
+        closest,
+        toggleClass,
+        clone,
+        index,
+        nextTick: _nextTick,
+        cancelNextTick: _cancelNextTick,
+        detectDirection: _detectDirection,
+        getChild,
+        expando
+      };
+      Sortable.get = function(element) {
+        return element[expando];
+      };
+      Sortable.mount = function() {
+        for (var _len = arguments.length, plugins2 = new Array(_len), _key = 0; _key < _len; _key++) {
+          plugins2[_key] = arguments[_key];
+        }
+        if (plugins2[0].constructor === Array)
+          plugins2 = plugins2[0];
+        plugins2.forEach(function(plugin) {
+          if (!plugin.prototype || !plugin.prototype.constructor) {
+            throw "Sortable: Mounted plugin must be a constructor function, not ".concat({}.toString.call(plugin));
+          }
+          if (plugin.utils)
+            Sortable.utils = _objectSpread2(_objectSpread2({}, Sortable.utils), plugin.utils);
+          PluginManager.mount(plugin);
+        });
+      };
+      Sortable.create = function(el, options) {
+        return new Sortable(el, options);
+      };
+      Sortable.version = version2;
+      autoScrolls = [];
+      scrolling = false;
+      autoScroll = throttle(function(evt, options, rootEl2, isFallback) {
+        if (!options.scroll)
+          return;
+        var x = (evt.touches ? evt.touches[0] : evt).clientX, y = (evt.touches ? evt.touches[0] : evt).clientY, sens = options.scrollSensitivity, speed = options.scrollSpeed, winScroller = getWindowScrollingElement();
+        var scrollThisInstance = false, scrollCustomFn;
+        if (scrollRootEl !== rootEl2) {
+          scrollRootEl = rootEl2;
+          clearAutoScrolls();
+          scrollEl = options.scroll;
+          scrollCustomFn = options.scrollFn;
+          if (scrollEl === true) {
+            scrollEl = getParentAutoScrollElement(rootEl2, true);
+          }
+        }
+        var layersOut = 0;
+        var currentParent = scrollEl;
+        do {
+          var el = currentParent, rect = getRect(el), top = rect.top, bottom = rect.bottom, left = rect.left, right = rect.right, width = rect.width, height = rect.height, canScrollX = void 0, canScrollY = void 0, scrollWidth = el.scrollWidth, scrollHeight = el.scrollHeight, elCSS = css(el), scrollPosX = el.scrollLeft, scrollPosY = el.scrollTop;
+          if (el === winScroller) {
+            canScrollX = width < scrollWidth && (elCSS.overflowX === "auto" || elCSS.overflowX === "scroll" || elCSS.overflowX === "visible");
+            canScrollY = height < scrollHeight && (elCSS.overflowY === "auto" || elCSS.overflowY === "scroll" || elCSS.overflowY === "visible");
+          } else {
+            canScrollX = width < scrollWidth && (elCSS.overflowX === "auto" || elCSS.overflowX === "scroll");
+            canScrollY = height < scrollHeight && (elCSS.overflowY === "auto" || elCSS.overflowY === "scroll");
+          }
+          var vx = canScrollX && (Math.abs(right - x) <= sens && scrollPosX + width < scrollWidth) - (Math.abs(left - x) <= sens && !!scrollPosX);
+          var vy = canScrollY && (Math.abs(bottom - y) <= sens && scrollPosY + height < scrollHeight) - (Math.abs(top - y) <= sens && !!scrollPosY);
+          if (!autoScrolls[layersOut]) {
+            for (var i = 0; i <= layersOut; i++) {
+              if (!autoScrolls[i]) {
+                autoScrolls[i] = {};
+              }
+            }
+          }
+          if (autoScrolls[layersOut].vx != vx || autoScrolls[layersOut].vy != vy || autoScrolls[layersOut].el !== el) {
+            autoScrolls[layersOut].el = el;
+            autoScrolls[layersOut].vx = vx;
+            autoScrolls[layersOut].vy = vy;
+            clearInterval(autoScrolls[layersOut].pid);
+            if (vx != 0 || vy != 0) {
+              scrollThisInstance = true;
+              autoScrolls[layersOut].pid = setInterval(function() {
+                if (isFallback && this.layer === 0) {
+                  Sortable.active._onTouchMove(touchEvt$1);
+                }
+                var scrollOffsetY = autoScrolls[this.layer].vy ? autoScrolls[this.layer].vy * speed : 0;
+                var scrollOffsetX = autoScrolls[this.layer].vx ? autoScrolls[this.layer].vx * speed : 0;
+                if (typeof scrollCustomFn === "function") {
+                  if (scrollCustomFn.call(Sortable.dragged.parentNode[expando], scrollOffsetX, scrollOffsetY, evt, touchEvt$1, autoScrolls[this.layer].el) !== "continue") {
+                    return;
+                  }
+                }
+                scrollBy(autoScrolls[this.layer].el, scrollOffsetX, scrollOffsetY);
+              }.bind({
+                layer: layersOut
+              }), 24);
+            }
+          }
+          layersOut++;
+        } while (options.bubbleScroll && currentParent !== winScroller && (currentParent = getParentAutoScrollElement(currentParent, false)));
+        scrolling = scrollThisInstance;
+      }, 30);
+      drop = function drop2(_ref) {
+        var originalEvent = _ref.originalEvent, putSortable2 = _ref.putSortable, dragEl2 = _ref.dragEl, activeSortable = _ref.activeSortable, dispatchSortableEvent = _ref.dispatchSortableEvent, hideGhostForTarget = _ref.hideGhostForTarget, unhideGhostForTarget = _ref.unhideGhostForTarget;
+        if (!originalEvent)
+          return;
+        var toSortable = putSortable2 || activeSortable;
+        hideGhostForTarget();
+        var touch = originalEvent.changedTouches && originalEvent.changedTouches.length ? originalEvent.changedTouches[0] : originalEvent;
+        var target = document.elementFromPoint(touch.clientX, touch.clientY);
+        unhideGhostForTarget();
+        if (toSortable && !toSortable.el.contains(target)) {
+          dispatchSortableEvent("spill");
+          this.onSpill({
+            dragEl: dragEl2,
+            putSortable: putSortable2
+          });
+        }
+      };
+      Revert.prototype = {
+        startIndex: null,
+        dragStart: function dragStart(_ref2) {
+          var oldDraggableIndex2 = _ref2.oldDraggableIndex;
+          this.startIndex = oldDraggableIndex2;
+        },
+        onSpill: function onSpill(_ref3) {
+          var dragEl2 = _ref3.dragEl, putSortable2 = _ref3.putSortable;
+          this.sortable.captureAnimationState();
+          if (putSortable2) {
+            putSortable2.captureAnimationState();
+          }
+          var nextSibling = getChild(this.sortable.el, this.startIndex, this.options);
+          if (nextSibling) {
+            this.sortable.el.insertBefore(dragEl2, nextSibling);
+          } else {
+            this.sortable.el.appendChild(dragEl2);
+          }
+          this.sortable.animateAll();
+          if (putSortable2) {
+            putSortable2.animateAll();
+          }
+        },
+        drop
+      };
+      _extends(Revert, {
+        pluginName: "revertOnSpill"
+      });
+      Remove.prototype = {
+        onSpill: function onSpill2(_ref4) {
+          var dragEl2 = _ref4.dragEl, putSortable2 = _ref4.putSortable;
+          var parentSortable = putSortable2 || this.sortable;
+          parentSortable.captureAnimationState();
+          dragEl2.parentNode && dragEl2.parentNode.removeChild(dragEl2);
+          parentSortable.animateAll();
+        },
+        drop
+      };
+      _extends(Remove, {
+        pluginName: "removeOnSpill"
+      });
+      Sortable.mount(new AutoScrollPlugin());
+      Sortable.mount(Remove, Revert);
+      sortable_esm_default = Sortable;
+    }
+  });
+
+  // ../node_modules/dayjs/dayjs.min.js
+  var require_dayjs_min = __commonJS({
+    "../node_modules/dayjs/dayjs.min.js"(exports, module) {
+      !function(t, e) {
+        "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
+      }(exports, function() {
+        "use strict";
+        var t = 1e3, e = 6e4, n = 36e5, r = "millisecond", i = "second", s = "minute", u = "hour", a = "day", o = "week", c = "month", f = "quarter", h = "year", d = "date", l = "Invalid Date", $2 = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(t2) {
+          var e2 = ["th", "st", "nd", "rd"], n2 = t2 % 100;
+          return "[" + t2 + (e2[(n2 - 20) % 10] || e2[n2] || e2[0]) + "]";
+        } }, m = function(t2, e2, n2) {
+          var r2 = String(t2);
+          return !r2 || r2.length >= e2 ? t2 : "" + Array(e2 + 1 - r2.length).join(n2) + t2;
+        }, v = { s: m, z: function(t2) {
+          var e2 = -t2.utcOffset(), n2 = Math.abs(e2), r2 = Math.floor(n2 / 60), i2 = n2 % 60;
+          return (e2 <= 0 ? "+" : "-") + m(r2, 2, "0") + ":" + m(i2, 2, "0");
+        }, m: function t2(e2, n2) {
+          if (e2.date() < n2.date())
+            return -t2(n2, e2);
+          var r2 = 12 * (n2.year() - e2.year()) + (n2.month() - e2.month()), i2 = e2.clone().add(r2, c), s2 = n2 - i2 < 0, u2 = e2.clone().add(r2 + (s2 ? -1 : 1), c);
+          return +(-(r2 + (n2 - i2) / (s2 ? i2 - u2 : u2 - i2)) || 0);
+        }, a: function(t2) {
+          return t2 < 0 ? Math.ceil(t2) || 0 : Math.floor(t2);
+        }, p: function(t2) {
+          return { M: c, y: h, w: o, d: a, D: d, h: u, m: s, s: i, ms: r, Q: f }[t2] || String(t2 || "").toLowerCase().replace(/s$/, "");
+        }, u: function(t2) {
+          return void 0 === t2;
+        } }, g = "en", D = {};
+        D[g] = M;
+        var p = "$isDayjsObject", S = function(t2) {
+          return t2 instanceof _ || !(!t2 || !t2[p]);
+        }, w = function t2(e2, n2, r2) {
+          var i2;
+          if (!e2)
+            return g;
+          if ("string" == typeof e2) {
+            var s2 = e2.toLowerCase();
+            D[s2] && (i2 = s2), n2 && (D[s2] = n2, i2 = s2);
+            var u2 = e2.split("-");
+            if (!i2 && u2.length > 1)
+              return t2(u2[0]);
+          } else {
+            var a2 = e2.name;
+            D[a2] = e2, i2 = a2;
+          }
+          return !r2 && i2 && (g = i2), i2 || !r2 && g;
+        }, O = function(t2, e2) {
+          if (S(t2))
+            return t2.clone();
+          var n2 = "object" == typeof e2 ? e2 : {};
+          return n2.date = t2, n2.args = arguments, new _(n2);
+        }, b = v;
+        b.l = w, b.i = S, b.w = function(t2, e2) {
+          return O(t2, { locale: e2.$L, utc: e2.$u, x: e2.$x, $offset: e2.$offset });
+        };
+        var _ = function() {
+          function M2(t2) {
+            this.$L = w(t2.locale, null, true), this.parse(t2), this.$x = this.$x || t2.x || {}, this[p] = true;
+          }
+          var m2 = M2.prototype;
+          return m2.parse = function(t2) {
+            this.$d = function(t3) {
+              var e2 = t3.date, n2 = t3.utc;
+              if (null === e2)
+                return /* @__PURE__ */ new Date(NaN);
+              if (b.u(e2))
+                return /* @__PURE__ */ new Date();
+              if (e2 instanceof Date)
+                return new Date(e2);
+              if ("string" == typeof e2 && !/Z$/i.test(e2)) {
+                var r2 = e2.match($2);
+                if (r2) {
+                  var i2 = r2[2] - 1 || 0, s2 = (r2[7] || "0").substring(0, 3);
+                  return n2 ? new Date(Date.UTC(r2[1], i2, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2)) : new Date(r2[1], i2, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2);
+                }
+              }
+              return new Date(e2);
+            }(t2), this.init();
+          }, m2.init = function() {
+            var t2 = this.$d;
+            this.$y = t2.getFullYear(), this.$M = t2.getMonth(), this.$D = t2.getDate(), this.$W = t2.getDay(), this.$H = t2.getHours(), this.$m = t2.getMinutes(), this.$s = t2.getSeconds(), this.$ms = t2.getMilliseconds();
+          }, m2.$utils = function() {
+            return b;
+          }, m2.isValid = function() {
+            return !(this.$d.toString() === l);
+          }, m2.isSame = function(t2, e2) {
+            var n2 = O(t2);
+            return this.startOf(e2) <= n2 && n2 <= this.endOf(e2);
+          }, m2.isAfter = function(t2, e2) {
+            return O(t2) < this.startOf(e2);
+          }, m2.isBefore = function(t2, e2) {
+            return this.endOf(e2) < O(t2);
+          }, m2.$g = function(t2, e2, n2) {
+            return b.u(t2) ? this[e2] : this.set(n2, t2);
+          }, m2.unix = function() {
+            return Math.floor(this.valueOf() / 1e3);
+          }, m2.valueOf = function() {
+            return this.$d.getTime();
+          }, m2.startOf = function(t2, e2) {
+            var n2 = this, r2 = !!b.u(e2) || e2, f2 = b.p(t2), l2 = function(t3, e3) {
+              var i2 = b.w(n2.$u ? Date.UTC(n2.$y, e3, t3) : new Date(n2.$y, e3, t3), n2);
+              return r2 ? i2 : i2.endOf(a);
+            }, $3 = function(t3, e3) {
+              return b.w(n2.toDate()[t3].apply(n2.toDate("s"), (r2 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e3)), n2);
+            }, y2 = this.$W, M3 = this.$M, m3 = this.$D, v2 = "set" + (this.$u ? "UTC" : "");
+            switch (f2) {
+              case h:
+                return r2 ? l2(1, 0) : l2(31, 11);
+              case c:
+                return r2 ? l2(1, M3) : l2(0, M3 + 1);
+              case o:
+                var g2 = this.$locale().weekStart || 0, D2 = (y2 < g2 ? y2 + 7 : y2) - g2;
+                return l2(r2 ? m3 - D2 : m3 + (6 - D2), M3);
+              case a:
+              case d:
+                return $3(v2 + "Hours", 0);
+              case u:
+                return $3(v2 + "Minutes", 1);
+              case s:
+                return $3(v2 + "Seconds", 2);
+              case i:
+                return $3(v2 + "Milliseconds", 3);
+              default:
+                return this.clone();
+            }
+          }, m2.endOf = function(t2) {
+            return this.startOf(t2, false);
+          }, m2.$set = function(t2, e2) {
+            var n2, o2 = b.p(t2), f2 = "set" + (this.$u ? "UTC" : ""), l2 = (n2 = {}, n2[a] = f2 + "Date", n2[d] = f2 + "Date", n2[c] = f2 + "Month", n2[h] = f2 + "FullYear", n2[u] = f2 + "Hours", n2[s] = f2 + "Minutes", n2[i] = f2 + "Seconds", n2[r] = f2 + "Milliseconds", n2)[o2], $3 = o2 === a ? this.$D + (e2 - this.$W) : e2;
+            if (o2 === c || o2 === h) {
+              var y2 = this.clone().set(d, 1);
+              y2.$d[l2]($3), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
+            } else
+              l2 && this.$d[l2]($3);
+            return this.init(), this;
+          }, m2.set = function(t2, e2) {
+            return this.clone().$set(t2, e2);
+          }, m2.get = function(t2) {
+            return this[b.p(t2)]();
+          }, m2.add = function(r2, f2) {
+            var d2, l2 = this;
+            r2 = Number(r2);
+            var $3 = b.p(f2), y2 = function(t2) {
+              var e2 = O(l2);
+              return b.w(e2.date(e2.date() + Math.round(t2 * r2)), l2);
+            };
+            if ($3 === c)
+              return this.set(c, this.$M + r2);
+            if ($3 === h)
+              return this.set(h, this.$y + r2);
+            if ($3 === a)
+              return y2(1);
+            if ($3 === o)
+              return y2(7);
+            var M3 = (d2 = {}, d2[s] = e, d2[u] = n, d2[i] = t, d2)[$3] || 1, m3 = this.$d.getTime() + r2 * M3;
+            return b.w(m3, this);
+          }, m2.subtract = function(t2, e2) {
+            return this.add(-1 * t2, e2);
+          }, m2.format = function(t2) {
+            var e2 = this, n2 = this.$locale();
+            if (!this.isValid())
+              return n2.invalidDate || l;
+            var r2 = t2 || "YYYY-MM-DDTHH:mm:ssZ", i2 = b.z(this), s2 = this.$H, u2 = this.$m, a2 = this.$M, o2 = n2.weekdays, c2 = n2.months, f2 = n2.meridiem, h2 = function(t3, n3, i3, s3) {
+              return t3 && (t3[n3] || t3(e2, r2)) || i3[n3].slice(0, s3);
+            }, d2 = function(t3) {
+              return b.s(s2 % 12 || 12, t3, "0");
+            }, $3 = f2 || function(t3, e3, n3) {
+              var r3 = t3 < 12 ? "AM" : "PM";
+              return n3 ? r3.toLowerCase() : r3;
+            };
+            return r2.replace(y, function(t3, r3) {
+              return r3 || function(t4) {
+                switch (t4) {
+                  case "YY":
+                    return String(e2.$y).slice(-2);
+                  case "YYYY":
+                    return b.s(e2.$y, 4, "0");
+                  case "M":
+                    return a2 + 1;
+                  case "MM":
+                    return b.s(a2 + 1, 2, "0");
+                  case "MMM":
+                    return h2(n2.monthsShort, a2, c2, 3);
+                  case "MMMM":
+                    return h2(c2, a2);
+                  case "D":
+                    return e2.$D;
+                  case "DD":
+                    return b.s(e2.$D, 2, "0");
+                  case "d":
+                    return String(e2.$W);
+                  case "dd":
+                    return h2(n2.weekdaysMin, e2.$W, o2, 2);
+                  case "ddd":
+                    return h2(n2.weekdaysShort, e2.$W, o2, 3);
+                  case "dddd":
+                    return o2[e2.$W];
+                  case "H":
+                    return String(s2);
+                  case "HH":
+                    return b.s(s2, 2, "0");
+                  case "h":
+                    return d2(1);
+                  case "hh":
+                    return d2(2);
+                  case "a":
+                    return $3(s2, u2, true);
+                  case "A":
+                    return $3(s2, u2, false);
+                  case "m":
+                    return String(u2);
+                  case "mm":
+                    return b.s(u2, 2, "0");
+                  case "s":
+                    return String(e2.$s);
+                  case "ss":
+                    return b.s(e2.$s, 2, "0");
+                  case "SSS":
+                    return b.s(e2.$ms, 3, "0");
+                  case "Z":
+                    return i2;
+                }
+                return null;
+              }(t3) || i2.replace(":", "");
+            });
+          }, m2.utcOffset = function() {
+            return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
+          }, m2.diff = function(r2, d2, l2) {
+            var $3, y2 = this, M3 = b.p(d2), m3 = O(r2), v2 = (m3.utcOffset() - this.utcOffset()) * e, g2 = this - m3, D2 = function() {
+              return b.m(y2, m3);
+            };
+            switch (M3) {
+              case h:
+                $3 = D2() / 12;
+                break;
+              case c:
+                $3 = D2();
+                break;
+              case f:
+                $3 = D2() / 3;
+                break;
+              case o:
+                $3 = (g2 - v2) / 6048e5;
+                break;
+              case a:
+                $3 = (g2 - v2) / 864e5;
+                break;
+              case u:
+                $3 = g2 / n;
+                break;
+              case s:
+                $3 = g2 / e;
+                break;
+              case i:
+                $3 = g2 / t;
+                break;
+              default:
+                $3 = g2;
+            }
+            return l2 ? $3 : b.a($3);
+          }, m2.daysInMonth = function() {
+            return this.endOf(c).$D;
+          }, m2.$locale = function() {
+            return D[this.$L];
+          }, m2.locale = function(t2, e2) {
+            if (!t2)
+              return this.$L;
+            var n2 = this.clone(), r2 = w(t2, e2, true);
+            return r2 && (n2.$L = r2), n2;
+          }, m2.clone = function() {
+            return b.w(this.$d, this);
+          }, m2.toDate = function() {
+            return new Date(this.valueOf());
+          }, m2.toJSON = function() {
+            return this.isValid() ? this.toISOString() : null;
+          }, m2.toISOString = function() {
+            return this.$d.toISOString();
+          }, m2.toString = function() {
+            return this.$d.toUTCString();
+          }, M2;
+        }(), k = _.prototype;
+        return O.prototype = k, [["$ms", r], ["$s", i], ["$m", s], ["$H", u], ["$W", a], ["$M", c], ["$y", h], ["$D", d]].forEach(function(t2) {
+          k[t2[1]] = function(e2) {
+            return this.$g(e2, t2[0], t2[1]);
+          };
+        }), O.extend = function(t2, e2) {
+          return t2.$i || (t2(e2, _, O), t2.$i = true), O;
+        }, O.locale = w, O.isDayjs = S, O.unix = function(t2) {
+          return O(1e3 * t2);
+        }, O.en = D[g], O.Ls = D, O.p = {}, O;
+      });
+    }
+  });
+
+  // tvprogram/js/tvprogram.js
+  var require_tvprogram = __commonJS({
+    "tvprogram/js/tvprogram.js"(exports) {
+      init_package();
+      init_sortable_esm();
+      var dayjs = require_dayjs_min();
+      fetch("widgets/tvprogram/i18n/translations.json").then((res) => __async(exports, null, function* () {
+        const i18n = yield res.json();
+        $.extend(true, systemDictionary, i18n);
+      }));
+      $.extend(true, systemDictionary, {
+        // Add your translations here, e.g.:
+        // "size": {
+        // 	"en": "Size",
+        // 	"de": "Größe",
+        // 	"ru": "Размер",
+        // 	"pt": "Tamanho",
+        // 	"nl": "Grootte",
+        // 	"fr": "Taille",
+        // 	"it": "Dimensione",
+        // 	"es": "Talla",
+        // 	"pl": "Rozmiar",
+        // 	"zh-cn": "尺寸"
+        // }
+      });
+      vis.binds["tvprogram"] = {
+        version,
+        showVersion: function() {
+          if (vis.binds["tvprogram"].version) {
+            console.log(`Version tvprogram: ${vis.binds["tvprogram"].version}`);
+            vis.binds["tvprogram"].version = null;
+          }
+        },
+        pending: {},
+        categories: null,
+        channels: null,
+        genres: null,
+        tvprogram: [],
+        infos: null,
+        requests: [],
+        search: {
+          visTvprogram: null,
+          bound: {},
+          searchdata: [],
+          searchresult: [],
+          createWidget: function(widgetID, view, data, style) {
+            return __async(this, null, function* () {
+              const $div = $(`#${widgetID}`);
+              if (!$div.length) {
+                return setTimeout(function() {
+                  vis.binds["tvprogram"].search.createWidget(widgetID, view, data, style);
+                }, 100);
+              }
+              console.log("createWidget start");
+              this.visTvprogram = vis.binds["tvprogram"];
+              if (!data.tvprogram_oid || data.tvprogram_oid == "") {
+                return;
+              }
+              let [instance, tvprogram_oid] = this.visTvprogram.getInstanceInfo(data.tvprogram_oid);
+              if (!tvprogram_oid && !instance) {
+                return;
+              }
+              const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
+              if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
+                $(`#${widgetID}`).css("background-color", backgroundColor);
+              }
+              const maxresults = parseInt(data.tvprogram_maxresults) || 10;
+              const heightrow = parseInt(data.tvprogram_heightRow) || 35;
+              const broadcastfontpercent = parseInt(data.tvprogram_broadcastfontpercent) || 75;
+              const highlightcolor = data.tvprogram_highlightcolor || "yellow";
+              const showpictures = data.tvprogram_showpictures || false;
+              const dialogwidthpercent = data.tvprogram_dialogwidthpercent / 100 || 0.9;
+              const dialogheightpercent = data.tvprogram_dialogheightpercent / 100 || 0.9;
+              if (!this.searchresult[tvprogram_oid]) {
+                this.searchresult[tvprogram_oid] = {};
+              }
+              if (!this.searchresult[tvprogram_oid][widgetID]) {
+                this.searchresult[tvprogram_oid][widgetID] = [];
+              }
+              if (!this.searchdata[tvprogram_oid]) {
+                this.searchdata[tvprogram_oid] = {};
+              }
+              if (!this.searchdata[tvprogram_oid][widgetID]) {
+                this.searchdata[tvprogram_oid][widgetID] = {
+                  datefrom: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
+                  categoryfilter: "",
+                  textfilter: "",
+                  maxresults: maxresults || 10
+                };
+              }
+              if (!this.bound[tvprogram_oid]) {
+                this.bound[tvprogram_oid] = {};
+              }
+              if (!this.bound[tvprogram_oid][widgetID]) {
+                this.bound[tvprogram_oid][widgetID] = false;
+              }
+              if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
+                if (!vis.editMode) {
+                  this.bound[tvprogram_oid][widgetID] = true;
+                  vis.binds["tvprogram"].bindStates(
+                    $div,
+                    [
+                      `${tvprogram_oid}.config`,
+                      `${tvprogram_oid}.favorites`,
+                      `${tvprogram_oid}.channelfilter`,
+                      `${tvprogram_oid}.optchnlogopath`
+                    ],
+                    this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
+                  );
+                }
+              }
+              if (!this.visTvprogram.infos) {
+                this.visTvprogram.infos = yield this.visTvprogram.loadServerInfosAsync(instance);
+              }
+              if (!this.visTvprogram.categories) {
+                this.visTvprogram.categories = yield this.visTvprogram.loadCategories(instance, widgetID);
+              }
+              if (!this.visTvprogram.channels) {
+                this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+              }
+              if (this.visTvprogram.infos == null || !Object.prototype.hasOwnProperty.call(this.visTvprogram.infos, "tvprogram")) {
+                return;
+              }
+              if (this.visTvprogram.categories.length == 0) {
+                return;
+              }
+              if (this.visTvprogram.channels.length == 0) {
+                return;
+              }
+              let categoriesoptions = this.visTvprogram.categories.map(
+                (cat) => `<option value="${cat.id}" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == cat.id ? " selected" : ""}>${cat.title}</option>`
+              );
+              categoriesoptions = `<option value="" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == "" ? " selected" : ""}></option>${categoriesoptions}`;
+              $(`#${widgetID}broadcastdlg`).data({
+                dialogwidthpercent,
+                dialogheightpercent
+              });
+              let text = "";
+              text += "<style> \n";
+              text += `#${widgetID} * {
+`;
+              text += "   box-sizing: border-box; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-search {
+`;
+              text += "   width: 100%; \n";
+              text += "   height: 100%; \n";
+              text += "   white-space:nowrap; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction: column; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-form {
+`;
+              text += "   padding: 5px 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-result {
+`;
+              text += "   overflow: hidden; \n";
+              text += "   overflow-y: auto; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-row {
+`;
+              text += "   margin: 0px; \n";
+              text += "   padding: 0px; \n";
+              text += "   width: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-search .tv-row:nth-child(odd) {
+`;
+              text += "   background-color: rgba(128,127,127,.65); \n";
+              text += "   padding: 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-search .tv-row:nth-child(even) {
+`;
+              text += "   background-color: rgba(128,127,127,.55); \n";
+              text += "   padding: 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-item {
+`;
+              text += "   display: inline-block; \n";
+              text += "   vertical-align: middle; \n";
+              text += "   border: solid #80808033; \n";
+              text += "   border-width:1px 0px 0px 1px; \n";
+              text += "} \n";
+              text += `#${widgetID} .channel {
+`;
+              text += `   width: ${heightrow}px; 
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   border-width: 0px; \n";
+              text += `   background-color: ${backgroundColor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcast {
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   padding: 3px; \n";
+              text += `   font-size: ${broadcastfontpercent}%; 
+`;
+              text += "   overflow: hidden; \n";
+              text += "   width: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement {
+`;
+              text += "   width: 100%; \n";
+              text += "   height: 100%; \n";
+              text += "   display: table-cell; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement .star  {
+`;
+              text += "   display: inline-block; \n";
+              text += "   margin: 0px 2px; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement .star svg {
+`;
+              text += "   height: 1em; \n";
+              text += "   width: 1em; \n";
+              text += "   position: relative; \n";
+              text += "   top: .125em; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected .star svg path {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcastimage {
+`;
+              text += `   height: ${heightrow - 7}px; 
+`;
+              text += "   padding-right: 3px; \n";
+              text += "   float: left; \n";
+              text += "} \n";
+              text += `.${widgetID}.no-titlebar .ui-dialog-titlebar {
+`;
+              text += "   display:none; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg  {
+`;
+              text += "   z-index:12; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-container.tv-dlg-row {
+`;
+              text += "   height:100%; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction:row; \n";
+              text += "   overflow:hidden; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-container.tv-dlg-col {
+`;
+              text += "   height:100%; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction:column; \n";
+              text += "   overflow:hidden; \n";
+              text += "   font-size:75%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture.tv-dlg-row {
+`;
+              text += "   width:50%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture.tv-dlg-col {
+`;
+              text += "   height:30%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-data {
+`;
+              text += "   overflow-y:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture img {
+`;
+              text += "   width:auto; \n";
+              text += "   height:auto; \n";
+              text += "   max-width:100%; \n";
+              text += "   max-height:100%; \n";
+              text += "   display:block; \n";
+              text += "   margin:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture img {
+`;
+              text += "   width:auto; \n";
+              text += "   height:auto; \n";
+              text += "   max-width:100%; \n";
+              text += "   max-height:100%; \n";
+              text += "   display:block; \n";
+              text += "   margin:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .dialogcolumn.tv-dlg-row {
+`;
+              text += "   flex:1; \n";
+              text += "   padding:5px; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .dialogcolumn.tv-dlg-col {
+`;
+              text += "   padding:5px; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .button {
+`;
+              text += "   display:inline-block; \n";
+              text += "   width: 35px; \n";
+              text += "   height: 35px; \n";
+              text += "   vertical-align: middle; \n";
+              text += "   position: relative; \n";
+              text += "   float: right; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .star.selected svg  {
+`;
+              text += "   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += "</style> \n";
+              text += '  <div class="svgcontainer">';
+              text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
+              text += "  </div>";
+              text += `  <form data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID}" data-maxresults="${maxresults}" >`;
+              text += '    <label for="tvsearch">Search:';
+              text += `      <input name="tvsearch" type="text" id="tvsearch" value="${this.searchdata[tvprogram_oid][widgetID].textfilter}" placeholder="Search">`;
+              text += "    </label>";
+              text += '    <label for="tvfrom">From:';
+              text += `      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="${this.visTvprogram.infos.tvprogram[0]}" max="${this.visTvprogram.infos.tvprogram[this.visTvprogram.infos.tvprogram.length - 1]}" value="${this.searchdata[tvprogram_oid][widgetID].datefrom}">`;
+              text += "    </label>";
+              text += '    <label for="tvcategory">Category:';
+              text += '      <select name="tvcategory" id="tvcategory" >';
+              text += categoriesoptions;
+              text += "      </select>";
+              text += "    </label>";
+              text += "  <button>Search</Search>";
+              text += "  </form>";
+              $(`#${widgetID} .tv-form`).html(text);
+              $(`#${widgetID} .tv-form form`).submit(this.onSubmitSearch.bind(this, widgetID, view, data, style));
+              let favhighlight, viewdate;
+              let logopath = this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || "https://tvfueralle.de/channel-logos/";
+              text = "";
+              const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+              this.searchresult[tvprogram_oid][widgetID].map((event, i) => {
+                if (i + 1 > maxresults) {
+                  return;
+                }
+                const channel = this.visTvprogram.channels.find((ch) => ch.id == event.channel);
+                favhighlight = favorites.indexOf(event.title) > -1;
+                viewdate = event.airDate;
+                text += '    <ul class="tv-row">';
+                text += '       <li class="tv-item channel">';
+                text += `          <img width="100%" height="100%" 
+                                        data-instance="${instance}" 
+                                        data-channelid="${channel.channelId}" 
+                                        data-dp="${tvprogram_oid}" 
+                                        data-instance="${instance}" 
+                                        src="${logopath}${channel.channelId}.png"  
+                                        alt="" class="channel-logo"  
+                                        onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
+                text += "       </li>";
+                text += '       <li class="tv-item broadcast">';
+                text += `             <div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="" >`;
+                if (event.photo.url && showpictures) {
+                  text += `<div><img class="broadcastimage" src="https://tvfueralle.de${event.photo.url}"></div>`;
+                }
+                text += '                 <div class="broadcasttitle">';
+                text += `                     ${event.title}`;
+                text += `                     <div class="star" data-viewdate="${viewdate}" data-eventid="${event.id}" data-instance="${instance}" data-dp="${tvprogram_oid}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+                text += "                 </div>";
+                const startTime = new Date(event.startTime);
+                const endTime = new Date(event.endTime);
+                text += '                 <div class="broadcasttime">';
+                text += `${`0${startTime.getDate()}`.slice(-2)}.${`0${parseInt(startTime.getMonth() + 1)}`.slice(
+                  -2
+                )}.${`0${startTime.getFullYear()}`.slice(-4)} `;
+                text += `${`0${startTime.getHours()}`.slice(-2)}:${`0${startTime.getMinutes()}`.slice(-2)}`;
+                text += " - ";
+                text += `${`0${endTime.getHours()}`.slice(-2)}:${`0${endTime.getMinutes()}`.slice(-2)}`;
+                text += "                 </div>";
+                text += "             </div>";
+                text += "       </li>";
+                text += "    </ul>";
+              });
+              $(`#${widgetID} .tv-result`).html(text);
+              $(`#${widgetID} .tv-result .broadcastelement`).click(
+                vis.binds.tvprogram.onclickBroadcast.bind(this.visTvprogram)
+              );
+            });
+          },
+          onSubmitSearch: function(widgetID, view, data, style, evt) {
+            return __async(this, null, function* () {
+              const el = evt.target;
+              const instance = el.dataset.instance || "";
+              const tvprogram_oid = el.dataset.dp || "";
+              evt.preventDefault();
+              const isearch = $(el).find('[name="tvsearch"]').val();
+              const icategory = $(el).find('[name="tvcategory"]').val();
+              const ifrom = $(el).find('[name="tvfrom"]').val();
+              if (!this.parseDatestring(ifrom)) {
+                return false;
+              }
+              let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+              if (channelfilter.length == 0) {
+                channelfilter = this.visTvprogram.channels.reduce((acc, el2, i) => {
+                  if (i < 4) {
+                    acc.push(el2.id);
+                  }
+                  return acc;
+                }, []);
+              }
+              if (!this.searchdata[tvprogram_oid]) {
+                this.searchdata[tvprogram_oid] = {};
+              }
+              this.searchdata[tvprogram_oid][widgetID] = Object.assign(this.searchdata[tvprogram_oid][widgetID], {
+                datefrom: ifrom,
+                categoryfilter: [icategory],
+                textfilter: isearch
+              });
+              const today = /* @__PURE__ */ new Date();
+              const dFrom = this.parseDatestring(ifrom);
+              if (today.getDate() == dFrom.getDate() && today.getMonth() == dFrom.getMonth() && today.getFullYear() == dFrom.getFullYear()) {
+                dFrom.setHours(today.getHours());
+                dFrom.setMinutes(today.getMinutes());
+                dFrom.setSeconds(today.getSeconds());
+              } else {
+                dFrom.setHours(0);
+                dFrom.setMinutes(0);
+                dFrom.setSeconds(0);
+              }
+              const dTill = new Date(today);
+              dTill.setDate(dTill.getDate() + 10);
+              const obj = {
+                channelfilter,
+                datefrom: dFrom,
+                datetill: dTill,
+                categoryfilter: icategory == "" ? [] : [parseInt(icategory)],
+                textfilter: isearch,
+                maxresults: this.searchdata[tvprogram_oid][widgetID].maxresults
+              };
+              if (isearch == "" && icategory == "") {
+                return false;
+              }
+              this.searchresult[tvprogram_oid][widgetID] = yield this.visTvprogram.getServerBroadcastFindAsync(
+                instance,
+                obj
+              );
+              this.createWidget(widgetID, view, data, style);
+            });
+          },
+          parseDatestring: function(datestring) {
+            const b = datestring.split(/\D/);
+            const d = new Date(b[0], --b[1], b[2]);
+            return d && d.getMonth() == b[1] ? d : false;
+          },
+          onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
+            const dp = e.type.split(".");
+            if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
+              console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
+              this.createWidget(widgetID, view, data, style);
+            }
+          }
+        },
+        control: {
+          visTvprogram: null,
+          bound: {},
+          programdata: {},
+          favorites: void 0,
+          timer: {},
+          createWidget: function(widgetID, view, data, style) {
+            return __async(this, null, function* () {
+              const $div = $(`#${widgetID}`);
+              if (!$div.length) {
+                return setTimeout(function() {
+                  vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
+                }, 100);
+              }
+              console.log("createWidget control start");
+              this.visTvprogram = vis.binds["tvprogram"];
+              if (!data.tvprogram_oid || data.tvprogram_oid == "") {
+                return;
+              }
+              let [instance, tvprogram_oid] = this.visTvprogram.getInstanceInfo(data.tvprogram_oid);
+              if (!tvprogram_oid && !instance) {
+                return;
+              }
+              this.visTvprogram.categories = yield this.visTvprogram.loadCategories(instance, widgetID);
+              this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+              if (this.visTvprogram.channels.length == 0 || this.visTvprogram.categories.length == 0) {
+                return;
+              }
+              const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
+              if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
+                $(`#${widgetID}`).css("background-color", backgroundColor);
+              }
+              let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+              if (channelfilter.length == 0) {
+                channelfilter = this.visTvprogram.channels.reduce((acc, el, i) => {
+                  if (i < 4) {
+                    acc.push(el.id);
+                  }
+                  return acc;
+                }, []);
+              }
+              const time = data.tvprogram_time || "";
+              if (!this.programdata[tvprogram_oid]) {
+                this.programdata[tvprogram_oid] = {};
+              }
+              let startDate = this.parseTime(time);
+              this.programdata[tvprogram_oid][widgetID] = yield this.visTvprogram.getServerBroadcastRangeAsync(
+                instance,
+                channelfilter,
+                startDate,
+                startDate
+              );
+              if (!this.bound[tvprogram_oid]) {
+                this.bound[tvprogram_oid] = {};
+              }
+              if (!this.bound[tvprogram_oid][widgetID]) {
+                this.bound[tvprogram_oid][widgetID] = false;
+              }
+              if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
+                if (!vis.editMode) {
+                  this.bound[tvprogram_oid][widgetID] = true;
+                  vis.binds["tvprogram"].bindStates(
+                    $div,
+                    [
+                      `${tvprogram_oid}.config`,
+                      `${tvprogram_oid}.favorites`,
+                      `${tvprogram_oid}.channelfilter`,
+                      `${tvprogram_oid}.optchnlogopath`
+                    ],
+                    this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
+                  );
+                }
+              }
+              const heightrow = parseInt(data.tvprogram_heightRow) || 35;
+              const broadcastfontpercent = parseInt(data.tvprogram_broadcastfontpercent) || 75;
+              const highlightcolor = data.tvprogram_highlightcolor || "yellow";
+              const showpictures = data.tvprogram_showpictures || false;
+              const dialogwidthpercent = data.tvprogram_dialogwidthpercent / 100 || 0.9;
+              const dialogheightpercent = data.tvprogram_dialogheightpercent / 100 || 0.9;
+              $(`#${widgetID}broadcastdlg`).data({
+                dialogwidthpercent,
+                dialogheightpercent
+              });
+              let text = "";
+              text += "<style> \n";
+              text += `#${widgetID} * {
+`;
+              text += "   box-sizing: border-box; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-control {
+`;
+              text += "   width: 100%; \n";
+              text += "   height: 100%; \n";
+              text += "   white-space:nowrap; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction: column; \n";
+              text += "   overflow: hidden; \n";
+              text += "   overflow-y: auto; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-row {
+`;
+              text += "   margin: 0px; \n";
+              text += "   padding: 0px; \n";
+              text += "   width: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-control .tv-row:nth-child(odd) {
+`;
+              text += "   background-color: rgba(128,127,127,.65); \n";
+              text += "   padding: 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-control .tv-row:nth-child(even) {
+`;
+              text += "   background-color: rgba(128,127,127,.55); \n";
+              text += "   padding: 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-item {
+`;
+              text += "   display: inline-block; \n";
+              text += "   vertical-align: middle; \n";
+              text += "   border: solid #80808033; \n";
+              text += "   border-width:1px 0px 0px 1px; \n";
+              text += "} \n";
+              text += `#${widgetID} .channel {
+`;
+              text += `   width: ${heightrow}px; 
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   border-width: 0px; \n";
+              text += `   background-color: ${backgroundColor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcast {
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   padding: 3px; \n";
+              text += `   font-size: ${broadcastfontpercent}%; 
+`;
+              text += "   overflow: hidden; \n";
+              text += "   width: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement {
+`;
+              text += "   width: 100%; \n";
+              text += "   height: 100%; \n";
+              text += "   display: table-cell; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement .star  {
+`;
+              text += "   display: inline-block; \n";
+              text += "   margin: 0px 2px; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement .star svg {
+`;
+              text += "   height: 1em; \n";
+              text += "   width: 1em; \n";
+              text += "   position: relative; \n";
+              text += "   top: .125em; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected .star svg path {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcastimage {
+`;
+              text += `   height: ${heightrow - 7}px; 
+`;
+              text += "   padding-right: 3px; \n";
+              text += "   float: left; \n";
+              text += "} \n";
+              text += `.${widgetID}.no-titlebar .ui-dialog-titlebar {
+`;
+              text += "   display:none; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg  {
+`;
+              text += "   z-index:12; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-container.tv-dlg-row {
+`;
+              text += "   height:100%; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction:row; \n";
+              text += "   overflow:hidden; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-container.tv-dlg-col {
+`;
+              text += "   height:100%; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction:column; \n";
+              text += "   overflow:hidden; \n";
+              text += "   font-size:75%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture.tv-dlg-row {
+`;
+              text += "   width:50%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture.tv-dlg-col {
+`;
+              text += "   height:30%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-data {
+`;
+              text += "   overflow-y:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture img {
+`;
+              text += "   width:auto; \n";
+              text += "   height:auto; \n";
+              text += "   max-width:100%; \n";
+              text += "   max-height:100%; \n";
+              text += "   display:block; \n";
+              text += "   margin:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture img {
+`;
+              text += "   width:auto; \n";
+              text += "   height:auto; \n";
+              text += "   max-width:100%; \n";
+              text += "   max-height:100%; \n";
+              text += "   display:block; \n";
+              text += "   margin:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .dialogcolumn.tv-dlg-row {
+`;
+              text += "   flex:1; \n";
+              text += "   padding:5px; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .dialogcolumn.tv-dlg-col {
+`;
+              text += "   padding:5px; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .button {
+`;
+              text += "   display:inline-block; \n";
+              text += "   width: 35px; \n";
+              text += "   height: 35px; \n";
+              text += "   vertical-align: middle; \n";
+              text += "   position: relative; \n";
+              text += "   float: right; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .star.selected svg  {
+`;
+              text += "   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += "</style> \n";
+              text += '  <div class="svgcontainer">';
+              text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
+              text += "  </div>";
+              let favhighlight;
+              const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+              let logopath = this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || "https://tvfueralle.de/channel-logos/";
+              this.programdata[tvprogram_oid][widgetID].map((ch) => {
+                ch.events.map((event) => {
+                  let viewdate = this.visTvprogram.getDate(event.startTime, 0);
+                  const channel = this.visTvprogram.channels.find((ch2) => ch2.id == event.channel);
+                  favhighlight = favorites.indexOf(event.title) > -1;
+                  text += '    <ul class="tv-row">';
+                  text += '       <li class="tv-item channel">';
+                  text += `          <img width="100%" height="100%" 
+                        data-instance="${instance}" 
+                        data-channelid="${channel.channelId}" 
+                        data-dp="${tvprogram_oid}" 
+                        src="${logopath}${channel.channelId}.png" 
+                        alt="" 
+                        class="channel-logo"  
+                        onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
+                  text += "       </li>";
+                  text += '       <li class="tv-item broadcast">';
+                  text += `             <div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+                  if (event.photo.url && showpictures) {
+                    text += `<div><img class="broadcastimage" src="https://tvfueralle.de${event.photo.url}"></div>`;
+                  }
+                  text += '                 <div class="broadcasttitle">';
+                  text += `                     ${event.title}`;
+                  text += `                     <div class="star" data-viewdate="${viewdate}" data-eventid="${event.id}" data-instance="${instance}" data-dp="${tvprogram_oid}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+                  text += "                 </div>";
+                  const startTime = new Date(event.startTime);
+                  const endTime = new Date(event.endTime);
+                  text += '                 <div class="broadcasttime">';
+                  text += `${`0${startTime.getHours()}`.slice(-2)}:${`0${startTime.getMinutes()}`.slice(-2)}`;
+                  text += " - ";
+                  text += `${`0${endTime.getHours()}`.slice(-2)}:${`0${endTime.getMinutes()}`.slice(-2)}`;
+                  text += "                 </div>";
+                  text += "             </div>";
+                  text += "       </li>";
+                  text += "    </ul>";
+                });
+              });
+              $(`#${widgetID} .tv-control`).html(text);
+              if (!this.timer[widgetID]) {
+                clearInterval(this.timer[widgetID]);
+              }
+              this.timer[widgetID] = setTimeout(
+                () => {
+                  vis.binds["tvprogram"].control.createWidget(widgetID, view, data, style);
+                },
+                1e3 * 60 * 5
+              );
+            });
+          },
+          parseTime: function(time) {
+            let startDate;
+            let endDate;
+            const date = new Date(time);
+            if (date instanceof Date && !isNaN(date)) {
+              return date;
+            }
+            if (time == "") {
+              return /* @__PURE__ */ new Date();
+            }
+            let iTime = time.split("/");
+            let duration = 120;
+            if (iTime.length > 1 && parseInt(iTime[1].trim()) > 0) {
+              duration = parseInt(iTime[1].trim());
+            }
+            iTime = iTime[0].split(":");
+            endDate = /* @__PURE__ */ new Date();
+            endDate.setHours(parseInt(iTime[0]));
+            endDate.setMinutes(parseInt(iTime[1]));
+            endDate.setSeconds(0);
+            startDate = new Date(endDate);
+            endDate.setMinutes(endDate.getMinutes() + duration);
+            if (/* @__PURE__ */ new Date() < endDate) {
+              return startDate;
+            }
+            return startDate.setDate(startDate.getDate() + 1);
+          },
+          onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
+            const dp = e.type.split(".");
+            if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
+              console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
+              this.tvprogram = [];
+              this.createWidget(widgetID, view, data, style);
+            }
+          }
+        },
+        favorites: {
+          visTvprogram: null,
+          pending: {},
+          bound: {},
+          favorites: void 0,
+          timer: {},
+          createWidget: function(widgetID, view, data, style) {
+            return __async(this, null, function* () {
+              const $div = $(`#${widgetID}`);
+              if (!$div.length) {
+                return setTimeout(function() {
+                  vis.binds["tvprogram"].favorites.createWidget(widgetID, view, data, style);
+                }, 100);
+              }
+              console.log("createWidget start");
+              this.visTvprogram = vis.binds["tvprogram"];
+              const showweekday = data.tvprogram_showweekday || false;
+              const maxfavorites = data.tvprogram_maxfavorites || 10;
+              const highlightcolor = data.tvprogram_highlightcolor || "yellow";
+              const channelname = data.tvprogram_channelname || false;
+              let tvprogram_oid;
+              let instance;
+              const weekday_options = { weekday: "short" };
+              const date_options = { month: "2-digit", day: "2-digit" };
+              const time_options = { hour: "2-digit", minute: "2-digit" };
+              if (!data.tvprogram_oid || (tvprogram_oid = vis.binds["tvprogram"].getTvprogramId(data.tvprogram_oid.trim())) == false) {
+                return;
+              }
+              if (!data.tvprogram_oid || (instance = vis.binds["tvprogram"].getInstance(data.tvprogram_oid.trim())) == false) {
+                return;
+              }
+              const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
+              if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
+                $(`#${widgetID}`).css("background-color", backgroundColor);
+              }
+              if (!this.bound[tvprogram_oid]) {
+                this.bound[tvprogram_oid] = {};
+              }
+              if (!this.bound[tvprogram_oid][widgetID]) {
+                this.bound[tvprogram_oid][widgetID] = false;
+              }
+              if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
+                if (!vis.editMode) {
+                  this.bound[tvprogram_oid][widgetID] = true;
+                  vis.binds["tvprogram"].bindStates(
+                    $div,
+                    [`${tvprogram_oid}.config`, `${tvprogram_oid}.favorites`, `${tvprogram_oid}.optchnlogopath`],
+                    this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
+                  );
+                }
+              }
+              const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+              if (!this.favorites || !this.favorites[tvprogram_oid] && favorites) {
+                let favoritesData = yield this.visTvprogram.getFavoritesDataAsync(instance, favorites);
+                if (!this.favorites) {
+                  this.favorites = [];
+                }
+                this.favorites[tvprogram_oid] = favoritesData;
+                this.createWidget(widgetID, view, data, style);
+              }
+              if (!this.favorites || !this.favorites[tvprogram_oid]) {
+                return;
+              }
+              let text = "";
+              text += "<style> \n";
+              text += `#${widgetID} .tv-fav {
+`;
+              text += "   width: 100%;\n";
+              text += "} \n";
+              text += `#${widgetID} .tv-fav td{
+`;
+              text += "   white-space: nowrap;\n";
+              text += "} \n";
+              text += `#${widgetID} .tv-left {
+`;
+              text += "   text-align: left;\n";
+              text += "   width: 1%;\n";
+              text += "} \n";
+              text += `#${widgetID} .tv-full {
+`;
+              text += "   width: 50%;\n";
+              text += "} \n";
+              text += `#${widgetID} .tv-fav .star {
+`;
+              text += "   width: 1em;\n";
+              text += "   height: 1em;\n";
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .tv-center {
+`;
+              text += "   text-align: center;\n";
+              text += "   width: 1%;\n";
+              text += "} \n";
+              text += `#${widgetID} .tv-icon {
+`;
+              text += "   height: 1em; \n";
+              text += "   width: 1em; \n";
+              text += "} \n";
+              text += "</style> \n";
+              text += '  <div class="svgcontainer">';
+              text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
+              text += "  </div>";
+              text += '<table class="tv-fav">';
+              this.favorites[tvprogram_oid] = this.favorites[tvprogram_oid].filter(
+                (el) => new Date(el.endTime) >= /* @__PURE__ */ new Date()
+              );
+              let logopath = this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || "https://tvfueralle.de/channel-logos/";
+              this.favorites[tvprogram_oid].forEach(function(favorite, index2) {
+                const today = /* @__PURE__ */ new Date();
+                const startTime = new Date(favorite.startTime);
+                const endTime = new Date(favorite.endTime);
+                if (index2 < maxfavorites) {
+                  vis.binds["tvprogram"].compareDate(today, startTime) ? text += '        <tr class="tv-today">' : text += "        <tr>";
+                  text += `<td class="tv-left" data-viewdate="${favorite.viewdate}" data-eventid="${favorite.id}" data-instance="${instance}" data-dp="${tvprogram_oid}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>`;
+                  if (showweekday) {
+                    text += `           <td class="tv-left">${startTime.toLocaleString(
+                      vis.language,
+                      weekday_options
+                    )}</td>`;
+                  }
+                  text += `           <td class="tv-left">${startTime.toLocaleString(
+                    vis.language,
+                    date_options
+                  )}</td>`;
+                  text += `           <td class="tv-left">${startTime.toLocaleString(
+                    vis.language,
+                    time_options
+                  )}</td>`;
+                  text += '           <td class="tv-left">-</td>';
+                  text += `           <td class="tv-left">${endTime.toLocaleString(vis.language, time_options)}</td>`;
+                  if (channelname) {
+                    text += `           <td class="tv-left">${favorite.channelname}</td>`;
+                  } else {
+                    text += '           <td class="tv-center tv-tdicon">';
+                    text += `              <img width="100%" height="100%" src="${logopath}${favorite.channelId}.png" alt="" class="tv-icon">`;
+                    text += "           </td>";
+                  }
+                  text += `           <td class="tv-full">${favorite.title}</td>`;
+                  text += "        </tr>";
+                }
+              });
+              text += "</table>            ";
+              $(`#${widgetID}`).html(text);
+              if (!this.timer[widgetID]) {
+                this.timer[widgetID] = setInterval(
+                  vis.binds["tvprogram"].favorites.createWidget.bind(this, widgetID, view, data, style),
+                  1e3 * 60
+                );
+              } else {
+                clearInterval(this.timer[widgetID]);
+                this.timer[widgetID] = setInterval(
+                  vis.binds["tvprogram"].favorites.createWidget.bind(this, widgetID, view, data, style),
+                  1e3 * 60
+                );
+              }
+            });
+          },
+          onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
+            const dp = e.type.split(".");
+            if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
+              console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
+              this.favorites = [];
+              this.createWidget(widgetID, view, data, style);
+            }
+          }
+        },
+        time1: {
+          visTvprogram: null,
+          tvprogram: {},
+          bound: {},
+          timer: {},
+          pending: {},
+          measures: {},
+          scroll: {},
+          today: {},
+          viewday: {},
+          olddata: {},
+          createWidget: function(widgetID, view, data, style) {
+            return __async(this, null, function* () {
+              const $div = $(`#${widgetID}`);
+              if (!$div.length) {
+                return setTimeout(function() {
+                  vis.binds["tvprogram"].time1.createWidget(widgetID, view, data, style);
+                }, 100);
+              }
+              console.log(`createWidget start ${widgetID}`);
+              this.visTvprogram = vis.binds["tvprogram"];
+              if (!data.tvprogram_oid || data.tvprogram_oid == "") {
+                return;
+              }
+              let [instance, tvprogram_oid] = this.visTvprogram.getInstanceInfo(data.tvprogram_oid);
+              if (!tvprogram_oid && !instance) {
+                return;
+              }
+              const highlightcolor = data.tvprogram_highlightcolor || "yellow";
+              if (!this.olddata[widgetID]) {
+                this.olddata[widgetID] = data;
+              }
+              if (!this.measures[widgetID] || JSON.stringify(this.olddata[widgetID]) != JSON.stringify(data)) {
+                this.measures[widgetID] = {
+                  origwidthItem: parseInt(data.tvprogram_widthItem) || 120,
+                  timeItem: 30,
+                  heightRow: parseInt(data.tvprogram_heightRow) || 35,
+                  scrollbarWidth: this.getScrollbarWidth(),
+                  markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
+                  dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
+                  dialogheightpercent: data.tvprogram_dialogheightpercent / 100 || 0.9,
+                  showpictures: data.tvprogram_showpictures || false
+                };
+              }
+              $(`#${widgetID}broadcastdlg`).data({
+                dialogwidthpercent: this.measures[widgetID].dialogwidthpercent,
+                dialogheightpercent: this.measures[widgetID].dialogheightpercent
+              });
+              if (!this.measures[widgetID].widthItem) {
+                this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
+              }
+              if (!((this.today || {})[widgetID] || {}).prevday) {
+                $(`#${widgetID} .tv-container`).html("Datapoints loading...");
+              }
+              console.log("Load Data");
+              if (!this.visTvprogram.categories) {
+                this.visTvprogram.categories = yield this.visTvprogram.loadCategories(instance, widgetID);
+              }
+              if (!this.visTvprogram.channels) {
+                this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+              }
+              if (!this.visTvprogram.genres) {
+                this.visTvprogram.genres = yield this.visTvprogram.loadGenres(instance, widgetID);
+              }
+              function check(prop) {
+                if (!prop) {
+                  return true;
+                }
+                if (Object.keys(prop) == 0) {
+                  return true;
+                }
+                return false;
+              }
+              if (!this.today[widgetID]) {
+                this.today[widgetID] = { today: /* @__PURE__ */ new Date(), prevday: null };
+              }
+              if (!this.scroll[widgetID]) {
+                this.scroll[widgetID] = { time: /* @__PURE__ */ new Date(0), position: 0, marker: 0, timeout: null, automatic: 0 };
+              }
+              console.log("Calc Date");
+              const d = this.visTvprogram.calcDate(this.today[widgetID].today);
+              const datestring = this.visTvprogram.getDate(d, 0);
+              if (!this.viewday[widgetID]) {
+                this.viewday[widgetID] = { viewday: datestring, prevday: null };
+              }
+              this.viewday[widgetID].viewday = datestring;
+              const viewdate = this.visTvprogram.getDate(d, 0);
+              if (check(this.tvprogram[datestring])) {
+                this.tvprogram[datestring] = yield this.visTvprogram.loadProgram(instance, widgetID, datestring);
+              }
+              if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") {
+                return;
+              }
+              if (this.visTvprogram.channels.length == 0 || this.visTvprogram.channels[0] === "request") {
+                return;
+              }
+              if (this.visTvprogram.genres.length == 0 || this.visTvprogram.genres[0] === "request") {
+                return;
+              }
+              if (check(this.tvprogram[datestring])) {
+                return;
+              }
+              if (this.viewday[widgetID]["viewday"] != this.viewday[widgetID]["prevday"]) {
+                this.viewday[widgetID]["prevday"] = this.viewday[widgetID]["viewday"];
+              }
+              if (!this.bound[tvprogram_oid]) {
+                this.bound[tvprogram_oid] = {};
+              }
+              if (!this.bound[tvprogram_oid][widgetID]) {
+                this.bound[tvprogram_oid][widgetID] = false;
+              }
+              if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
+                if (!vis.editMode) {
+                  this.bound[tvprogram_oid][widgetID] = true;
+                  vis.binds["tvprogram"].bindStates(
+                    $div,
+                    [
+                      `${tvprogram_oid}.config`,
+                      `${tvprogram_oid}.cmd`,
+                      `${tvprogram_oid}.favorites`,
+                      `${tvprogram_oid}.channelfilter`,
+                      `${tvprogram_oid}.show`,
+                      `${tvprogram_oid}.optchnlogopath`
+                    ],
+                    this.onChange.bind(this, widgetID, view, data, style, instance)
+                  );
+                }
+              }
+              if (this.onclickChannelSave.name == "onclickChannelSave") {
+                this.onclickChannelSave = this.onclickChannelSave.bind(this);
+              }
+              console.log("Calc Channels");
+              let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+              if (channelfilter.length == 0) {
+                channelfilter = this.visTvprogram.channels.reduce((acc, el, i) => {
+                  if (i < 4) {
+                    acc.push(el.id);
+                  }
+                  return acc;
+                }, []);
+              }
+              console.log("Calc styles");
+              const widthitem = this.measures[widgetID].widthItem;
+              const widthchannel = this.measures[widgetID].heightRow;
+              const heightrow = this.measures[widgetID].heightRow;
+              const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
+              if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
+                $(`#${widgetID}`).css("background-color", backgroundColor);
+              }
+              const widthtvrow = 48 * widthitem + widthchannel;
+              const headerfontpercent = data.tvprogram_headerfontpercent || 125;
+              const broadcastfontpercent = data.tvprogram_broadcastfontpercent || 75;
+              let lineheight = 0;
+              const widgetheight = $(`#${widgetID}`).height() - heightrow;
+              const contentheight = (channelfilter.length + 1) * heightrow;
+              if (contentheight < widgetheight) {
+                lineheight = contentheight;
+              } else {
+                lineheight = widgetheight - this.measures[widgetID].scrollbarWidth;
+              }
+              console.log(`Display day:${datestring}`);
+              console.log("Output CSS");
+              let text = "";
+              text += "<style> \n";
+              text += `#${widgetID} * {
+`;
+              text += "   box-sizing: border-box; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-container {
+`;
+              text += "   width: 100%; \n";
+              text += "   height: 100%; \n";
+              text += "   white-space:nowrap; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction: column; \n";
+              text += "} \n";
+              text += `#${widgetID} .navcontainer {
+`;
+              text += "   width: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .scrollcontainer {
+`;
+              text += "   flex-grow: 1; \n";
+              text += "   overflow:auto; \n";
+              text += "   width:100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-row {
+`;
+              text += "   margin: 0px; \n";
+              text += "   padding: 0px; \n";
+              text += `   width: ${widthtvrow}px; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .tv-item {
+`;
+              text += "   display: inline-block; \n";
+              text += "   vertical-align: middle; \n";
+              text += "   border: solid #80808033; \n";
+              text += "   border-width:1px 0px 0px 1px; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-head-time {
+`;
+              text += "   position:sticky; \n";
+              text += "   position: -webkit-sticky; \n";
+              text += "   top:0px; \n";
+              text += "   z-index:11; \n";
+              text += `   background-color: ${backgroundColor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .tv-head-left {
+`;
+              text += "   position:sticky; \n";
+              text += "   position: -webkit-sticky; \n";
+              text += "   left:0; \n";
+              text += "   z-index:11; \n";
+              text += "} \n";
+              text += `#${widgetID} .tv-head-background {
+`;
+              text += `   background-color: ${backgroundColor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} svg rect {
+`;
+              text += `   fill: ${$(`#${widgetID}`).css("color")}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .channel {
+`;
+              text += `   width: ${heightrow}px; 
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   border-width: 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .time {
+`;
+              text += `   width: ${widthitem}px; 
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   font-weight: 700; \n";
+              text += `   font-size: ${headerfontpercent}%; 
+`;
+              text += "   padding: 5px 5px; \n";
+              text += "} \n";
+              text += `#${widgetID} .time:after {
+`;
+              text += '   content:""; \n';
+              text += "   display: inline-block; \n";
+              text += "   vertical-align:middle; \n";
+              text += "   height: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .time span {
+`;
+              text += "   vertical-align:middle; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcast {
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   padding: 3px; \n";
+              text += `   font-size: ${broadcastfontpercent}%; 
+`;
+              text += "   overflow: hidden; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement {
+`;
+              text += "   width: 100%; \n";
+              text += "   height: 100%; \n";
+              text += "   display: table-cell; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.hide {
+`;
+              text += "   display: none; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement .star  {
+`;
+              text += "   display: inline-block; \n";
+              text += "   margin: 0px 2px; \n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement .star svg {
+`;
+              text += "   height: 1em; \n";
+              text += "   width: 1em; \n";
+              text += "   position: relative; \n";
+              text += "   top: .125em; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .star.selected svg  {
+`;
+              text += "   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n";
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcastelement.selected {
+`;
+              text += `   color: ${highlightcolor}; 
+`;
+              text += `   background-color: ${this.visTvprogram.colorToRGBA(highlightcolor, ".1")}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .broadcastimage {
+`;
+              text += `   height: ${heightrow - 7}px; 
+`;
+              text += "   padding-right: 3px; \n";
+              text += "   float: left; \n";
+              text += "} \n";
+              text += `#${widgetID} .button {
+`;
+              text += "   display:inline-block; \n";
+              text += `   width: ${heightrow}px; 
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += `   background-color: ${backgroundColor}; 
+`;
+              text += "   vertical-align: middle; \n";
+              text += "   padding: 5px 5px; \n";
+              text += "} \n";
+              text += `#${widgetID} .dateinfo {
+`;
+              text += `   height: ${heightrow}px; 
+`;
+              text += "   padding: 5px 5px; \n";
+              text += "   position: absolute; \n";
+              text += "   right: 0px; \n";
+              text += "   border: 0px; \n";
+              text += "} \n";
+              text += `#${widgetID} .dateinfo:after {
+`;
+              text += '   content:""; \n';
+              text += "   display: inline-block; \n";
+              text += "   vertical-align:middle; \n";
+              text += "   height: 100%; \n";
+              text += "} \n";
+              text += `#${widgetID} .dateinfo span {
+`;
+              text += "   vertical-align:middle; \n";
+              text += "} \n";
+              text += `.ui-dialog.${widgetID} {
+`;
+              text += "   z-index:12; \n";
+              text += "} \n";
+              text += ".clearfix {\n";
+              text += "   clear:both; \n";
+              text += '   content:""; \n';
+              text += "   display:table; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .chselect-container {
+`;
+              text += "} \n";
+              text += `#${widgetID}channeldlg ul.channel {
+`;
+              text += "   margin:0px; \n";
+              text += "   padding:0px; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .listitem  {
+`;
+              text += "   float: left; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .listitem .channel {
+`;
+              text += "   list-style: none; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .items  {
+`;
+              text += "   list-style: none; \n";
+              text += "   margin:0px; \n";
+              text += "   padding:0px; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .channel {
+`;
+              text += "   margin:5px; \n";
+              text += `   width: ${heightrow * 1.5}px; 
+`;
+              text += `   height: ${heightrow * 1.5}px; 
+`;
+              text += "   list-style: none; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .items .channel[selected] {
+`;
+              text += "   background-color:lightgray; \n";
+              text += "} \n";
+              text += `.${widgetID}.no-titlebar .ui-dialog-titlebar {
+`;
+              text += "   display:none; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg  {
+`;
+              text += "   z-index:12; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-container.tv-dlg-row {
+`;
+              text += "   height:100%; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction:row; \n";
+              text += "   overflow:hidden; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-container.tv-dlg-col {
+`;
+              text += "   height:100%; \n";
+              text += "   display:flex; \n";
+              text += "   flex-direction:column; \n";
+              text += "   overflow:hidden; \n";
+              text += "   font-size:75%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture.tv-dlg-row {
+`;
+              text += "   width:50%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture.tv-dlg-col {
+`;
+              text += "   height:30%; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-data {
+`;
+              text += "   overflow-y:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture img {
+`;
+              text += "   width:auto; \n";
+              text += "   height:auto; \n";
+              text += "   max-width:100%; \n";
+              text += "   max-height:100%; \n";
+              text += "   display:block; \n";
+              text += "   margin:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .event-picture img {
+`;
+              text += "   width:auto; \n";
+              text += "   height:auto; \n";
+              text += "   max-width:100%; \n";
+              text += "   max-height:100%; \n";
+              text += "   display:block; \n";
+              text += "   margin:auto; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .dialogcolumn.tv-dlg-row {
+`;
+              text += "   flex:1; \n";
+              text += "   padding:5px; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .dialogcolumn.tv-dlg-col {
+`;
+              text += "   padding:5px; \n";
+              text += "} \n";
+              text += `#${widgetID}broadcastdlg .button {
+`;
+              text += "   display:inline-block; \n";
+              text += "   width: 35px; \n";
+              text += "   height: 35px; \n";
+              text += "   vertical-align: middle; \n";
+              text += "   position: relative; \n";
+              text += "   float: right; \n";
+              text += "} \n";
+              text += `#${widgetID} .tooltip {
+`;
+              text += "   position: relative; \n";
+              text += "} \n";
+              text += `#${widgetID} .tooltip span[role=tooltip] {
+`;
+              text += "   display: none; \n";
+              text += "} \n";
+              text += `#${widgetID} .tooltip:hover span[role=tooltip] {
+`;
+              text += "   display: block; \n";
+              text += "   position: absolute; \n";
+              text += "   left: 3em; \n";
+              text += "   border: 1px solid; \n";
+              text += "   font-size: 75%; \n";
+              text += "   padding: 0.2em; \n";
+              text += "   z-index: 100; \n";
+              text += `   background-color: ${backgroundColor}; 
+`;
+              text += "} \n";
+              text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#${widgetID} ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {
+`;
+              text += "   background-color: rgba(128, 128, 128, 0.65); \n";
+              text += "} \n";
+              text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#${widgetID} ul.tv-row:nth-child(odd)> li.time:nth-child(even) {
+`;
+              text += "   background-color: rgba(128, 128, 128, 0.55); \n";
+              text += "} \n";
+              text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(even)> li.broadcast:nth-child(odd) {
+`;
+              text += "   background-color: rgba(128, 128, 128, 0.45); \n";
+              text += "} \n";
+              text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(even)> li.broadcast:nth-child(even) {
+`;
+              text += "   background-color: rgba(128, 128, 128, 0.35); \n";
+              text += "} \n";
+              text += `#${widgetID} .line {
+`;
+              text += "   position: absolute; \n";
+              text += "   top: 0; \n";
+              text += "   width: 2px; \n";
+              text += "   background-color: red; \n";
+              text += "   opacity: 0.8; \n";
+              text += "   z-index: 10; \n";
+              text += `   height: ${lineheight}px; 
+`;
+              text += "   float: left; \n";
+              text += "} \n";
+              text += `#${widgetID} .disable-select {
+`;
+              text += "   -webkit-user-select: none; \n";
+              text += "   -moz-user-select: none; \n";
+              text += "   -ms-user-select: none; \n";
+              text += "   -user-select: none; \n";
+              text += "} \n";
+              text += `#${widgetID} .staricon {
+`;
+              text += `     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='currentColor' d='M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z' /></svg>"); 
+`;
+              text += "} \n";
+              text += "</style> \n";
+              console.log("Output SVG");
+              text += '  <div class="svgcontainer">';
+              text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="check-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="cancel-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="copy-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="switch-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21,3H3C1.89,3 1,3.89 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5C23,3.89 22.1,3 21,3M21,17H3V5H21M16,11L9,15V7" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="burger-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="nav-prevD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="nav-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="nav-nextD-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="zoom-minus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="zoom-center-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M19,19H15V21H19A2,2 0 0,0 21,19V15H19M19,3H15V5H19V9H21V5A2,2 0 0,0 19,3M5,5H9V3H5A2,2 0 0,0 3,5V9H5M5,15H3V19A2,2 0 0,0 5,21H9V19H5V15Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="zoom-plus-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
+              text += '<svg style="display:none;"><symbol id="hide-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z" /></symbol></svg>';
+              text += "  </div>";
+              console.log("Output Navigation");
+              text += '  <div class="navcontainer">';
+              text += '    <ul class="tv-row tv-head-top">';
+              text += this.getButtonHeader(datestring).join("");
+              text += "    </ul>";
+              text += "  </div>";
+              console.log("Output tvprogram");
+              text += '  <div class="scrollcontainer">';
+              text += '    <ul class="tv-row tv-head-time">';
+              text += '      <div class="line"></div>';
+              text += '      <li class="tv-item tv-head-left channel">';
+              text += "      </li>";
+              text += this.getTimetable().join("");
+              text += "    </ul>";
+              const events = this.getEvents(this.tvprogram[viewdate], channelfilter);
+              events.map((el) => {
+                text += '    <ul class="tv-row">';
+                text += this.getBroadcasts4Channel(el, widgetID, view, viewdate, tvprogram_oid, instance).join("");
+                text += "    </ul>";
+              });
+              $(`#${widgetID} .tv-container`).html(text);
+              if (this.visTvprogram.getConfigShow(tvprogram_oid) == 1) {
+                $(`#${widgetID} .broadcastelement:not(".selected") > *`).show();
+              } else {
+                $(`#${widgetID} .broadcastelement:not(".selected") > *`).hide();
+              }
+              console.log("Connect Buttone events");
+              $(`#${widgetID} .burger`).click(
+                function(widgetID2, tvprogram_oid2, instance2, el) {
+                  vis.binds.tvprogram.time1.onclickChannel(widgetID2, instance2, tvprogram_oid2, el);
+                }.bind(this, widgetID, tvprogram_oid, instance)
+              );
+              $(`#${widgetID} .button.nav.prevD`).off("click.onClickDay").on("click.onClickDay", this.onClickDay.bind(this, widgetID, view, data, style));
+              $(`#${widgetID} .button.nav.nextD`).off("click.onClickDay").on("click.onClickDay", this.onClickDay.bind(this, widgetID, view, data, style));
+              $(`#${widgetID} .button.nav.center`).off("click.onClickDay").on("click.onClickDay", this.onClickDay.bind(this, widgetID, view, data, style));
+              $(`#${widgetID} .button.zoom.minus`).off("click.onClickZoom").on("click.onClickZoom", this.onClickZoom.bind(this, widgetID, view, data, style));
+              $(`#${widgetID} .button.zoom.plus`).off("click.onClickZoom").on("click.onClickZoom", this.onClickZoom.bind(this, widgetID, view, data, style));
+              $(`#${widgetID} .button.zoom.center`).off("click.onClickZoom").on("click.onClickZoom", this.onClickZoom.bind(this, widgetID, view, data, style));
+              $(`#${widgetID} .button.hide`).off("click.onClickHide").on("click.onClickHide", this.onClickHide.bind(this, instance, tvprogram_oid, widgetID));
+              $(`#${widgetID} .scrollcontainer`).scroll(
+                function(widgetID2) {
+                  if (this.scroll[widgetID2].automatic == 0) {
+                    this.scroll[widgetID2].automatic = 2;
+                  }
+                  this.scroll[widgetID2].time = /* @__PURE__ */ new Date();
+                  this.calcScroll(widgetID2);
+                }.bind(this, widgetID)
+              );
+              this.visTvprogram.copyStyles("font", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
+              this.visTvprogram.copyStyles("color", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
+              this.visTvprogram.copyStyles(
+                "background-color",
+                $(`#${widgetID}`).get(0),
+                $(`#${widgetID}broadcastdlg`).get(0)
+              );
+              this.updateMarker(widgetID, this.today[widgetID].today);
+              if (!this.timer[widgetID]) {
+                this.timer[widgetID] = setInterval(
+                  this.updateMarker.bind(this, widgetID, this.today[widgetID].today),
+                  15e3
+                );
+              } else {
+                clearInterval(this.timer[widgetID]);
+                this.timer[widgetID] = setInterval(
+                  this.updateMarker.bind(this, widgetID, this.today[widgetID].today),
+                  15e3
+                );
+              }
+              if (this.scroll[widgetID].position == 0) {
+                this.calcScroll(widgetID);
+                this.setScroll(widgetID);
+              } else {
+                this.setScroll(widgetID);
+              }
+              console.log("Output done");
+            });
+          },
+          onClickHide: function(instance, tvprogram) {
+            this.visTvprogram.toggleShow(instance, tvprogram);
+          },
+          onClickZoom: function(widgetID, view, data, style, el) {
+            if ($(el.currentTarget).hasClass("plus")) {
+              this.measures[widgetID].widthItem = this.measures[widgetID].widthItem + this.measures[widgetID].origwidthItem / 4;
+              console.log("Click Zoom plus");
+            }
+            if ($(el.currentTarget).hasClass("minus")) {
+              this.measures[widgetID].widthItem = this.measures[widgetID].widthItem - this.measures[widgetID].origwidthItem / 4;
+              console.log("Click Zoom minus");
+            }
+            if ($(el.currentTarget).hasClass("center")) {
+              this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
+              console.log("Click Zoom center");
+            }
+            if (this.measures[widgetID].widthItem < 20) {
+              this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
+              console.log("Click Zoom Max zoom reached, reset");
+            }
+            this.calcScroll(widgetID);
+            this.createWidget(widgetID, view, data, style);
+          },
+          onClickDay: function(widgetID, view, data, style, el) {
+            console.log(`ClickNav:${$(el.currentTarget).attr("class")}`);
+            let day = 0;
+            if ($(el.currentTarget).hasClass("prevD")) {
+              day = -1;
+            }
+            if ($(el.currentTarget).hasClass("nextD")) {
+              day = 1;
+            }
+            let newDate = dayjs(this.today[widgetID]["today"]).add(day, "day");
+            let diffDate = dayjs(newDate).diff(dayjs(), "day");
+            if (!$(el.currentTarget).hasClass("center")) {
+              if (diffDate > -5 && diffDate < 5) {
+                this.today[widgetID]["prevday"] = new Date(this.today[widgetID]["today"]);
+                this.today[widgetID]["today"] = newDate.toDate();
+                console.log(`Navigate to date: ${dayjs(newDate).format()}`);
+              }
+            } else {
+              this.today[widgetID]["today"] = /* @__PURE__ */ new Date();
+              this.scroll[widgetID].position = 0;
+            }
+            this.scroll[widgetID].time = /* @__PURE__ */ new Date(0);
+            this.createWidget(widgetID, view, data, style);
+          },
+          calcScroll: function(widgetID) {
+            const el = $(`#${widgetID} .scrollcontainer`).get(0);
+            if (!el) {
+              return;
+            }
+            if (el.scrollLeft == 0 || this.scroll[widgetID].position == 0) {
+              this.scroll[widgetID].position = this.scroll[widgetID].marker / el.scrollWidth;
+            } else {
+              this.scroll[widgetID].position = (el.scrollLeft + el.clientWidth * this.measures[widgetID].markerpositionpercent) / el.scrollWidth;
+            }
+          },
+          setScroll: function(widgetID) {
+            try {
+              const el = $(`#${widgetID} .scrollcontainer`).get(0);
+              if (!el.scrollWidth) {
+                return;
+              }
+              el.scrollLeft = this.scroll[widgetID].position * el.scrollWidth - el.clientWidth * this.measures[widgetID].markerpositionpercent;
+            } catch (e) {
+              console.log(e);
+            }
+          },
+          updateMarker: function(widgetID, today) {
+            if (this.scroll[widgetID].automatic == 2 && /* @__PURE__ */ new Date() - this.scroll[widgetID].time < 90 * 1e3) {
+              return;
+            }
+            this.scroll[widgetID].automatic = 0;
+            if (this.visTvprogram.calcDate(today).toLocaleDateString() != this.visTvprogram.calcDate(/* @__PURE__ */ new Date()).toLocaleDateString()) {
+              $(`#${widgetID} .line`).hide();
+            } else {
+              $(`#${widgetID} .line`).show();
+            }
+            const wItem = this.measures[widgetID].widthItem;
+            const tItem = this.measures[widgetID].timeItem;
+            const wChannel = this.measures[widgetID].heightRow;
+            const sTime = new Date(this.visTvprogram.calcDate(/* @__PURE__ */ new Date()));
+            sTime.setHours(5);
+            sTime.setMinutes(0);
+            sTime.setSeconds(0);
+            const eTime = new Date(sTime);
+            eTime.setDate(eTime.getDate() + 1);
+            const startTime = /* @__PURE__ */ new Date();
+            const left = wChannel + Math.floor((startTime - sTime) / 6e4 / tItem * wItem * 10) / 10;
+            $(`#${widgetID} .line`).css("left", `${left}px`);
+            this.scroll[widgetID].marker = left;
+            this.scroll[widgetID].position = 0;
+            this.calcScroll(widgetID);
+            if (this.scroll[widgetID].timeout) {
+              clearTimeout(this.scroll[widgetID].timeout);
+            }
+            this.scroll[widgetID].automatic = 1;
+            this.scroll[widgetID].timeout = window.setTimeout(
+              function() {
+                this.scroll[widgetID].automatic = 0;
+                clearTimeout(this.scroll[widgetID].timeout);
+                this.scroll[widgetID].timeout = null;
+              }.bind(this),
+              500
+            );
+            this.setScroll(widgetID);
+          },
+          getScrollbarWidth: function() {
+            const scrollDiv = document.createElement("div");
+            scrollDiv.className = "scrollbar-measure";
+            scrollDiv.style.cssText = "width: 100px;height: 100px;overflow: scroll;position: absolute;top: -9999px;";
+            document.body.appendChild(scrollDiv);
+            const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+            document.body.removeChild(scrollDiv);
+            return scrollbarWidth;
+          },
+          getChannels: function(channels, filter = []) {
+            const cc = [];
+            filter.map((el) => {
+              const ch = channels.find((el1) => el1.id == el);
+              cc.push(
+                `<li class="listitem channel" data-order="${ch.order}" data-id="${ch.id}" selected><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${ch.channelId}.png" alt="" class="channel-logo"></li>`
+              );
+            });
+            channels.sort(
+              (a, b) => a.order + (filter.indexOf(a.id) == -1) * 1e5 - (b.order + (filter.indexOf(b.id) == -1) * 1e5)
+            ).map((el) => {
+              if (filter.findIndex((el1) => el1 == el.id) == -1) {
+                cc.push(
+                  `<li class="listitem channel" data-order="${el.order}" data-id="${el.id}"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${el.channelId}.png" alt="" class="channel-logo"></li>`
+                );
+              }
+            });
+            return cc;
+          },
+          onclickChannelSave: function(el, save2) {
+            const widgetID = el.dataset.widgetid;
+            if (save2) {
+              const tvprogram_oid = el.dataset.dp || "";
+              const instance = el.dataset.instance || "";
+              this.visTvprogram.setConfigChannelfilter(
+                instance,
+                tvprogram_oid,
+                $(`#${widgetID}channeldlg .chselect-container .channel[selected]`).toArray().map((el2) => parseInt(el2.dataset.id))
+              );
+            }
+            let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
+            dialog.close();
+          },
+          onclickChannel: function(widgetID, instance, tvprogram_oid) {
+            let isSorting = false;
+            const channels = this.visTvprogram.channels;
+            let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+            if (channelfilter.length == 0) {
+              channelfilter = channels.reduce((acc, el, i) => {
+                if (i < 4) {
+                  acc.push(el.id);
+                }
+                return acc;
+              }, []);
+            }
+            let width = $(`#${widgetID}`).width() * this.measures[widgetID].dialogwidthpercent;
+            let height = $(`#${widgetID}`).height() * this.measures[widgetID].dialogheightpercent;
+            let { top: elTop, left: elLeft } = $(`#${widgetID}`).position();
+            let top = elTop + ($(`#${widgetID}`).height() - height) / 2;
+            let left = elLeft + ($(`#${widgetID}`).width() - width) / 2;
+            let text = "";
+            text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
+            text += '  <div class="chselect-container clearfix">';
+            text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
+            text += `    <ul class="listitem channel" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
+            text += "  </div>";
+            text += '  <div class="chselect-container clearfix sortable">';
+            text += '  <ul class="items">';
+            text += this.getChannels(channels, channelfilter).join("\n");
+            text += "  </ul>";
+            text += "  </div>";
+            $(`#${widgetID}channeldlg`).html(text);
+            $(".chselect-container .items .channel").click(function() {
+              console.log("channel click");
+              if (isSorting) {
+                return;
+              }
+              const target = $(this).parent().find("[selected]").last();
+              if (this.dataset.id) {
+                $(this).attr("selected") ? $(this).removeAttr("selected") : $(this).attr("selected", "");
+              }
+              if ($(this).attr("selected")) {
+                $(this).insertAfter(target);
+              } else {
+                $(this).parent().children().sort(function(a, b) {
+                  return a.dataset.order + ($(a).attr("selected") != "selected") * 1e5 - (b.dataset.order + ($(b).attr("selected") != "selected") * 1e5);
+                }).appendTo($(this).parent());
+              }
+            });
+            let grid = document.querySelector(".chselect-container.sortable .items");
+            new sortable_esm_default(grid, {
+              animation: 150,
+              filter: "li:not([selected])",
+              onMove: function(evt) {
+                if (!evt.related.hasAttribute("selected")) {
+                  return false;
+                }
+              }
+            });
+            this.visTvprogram.copyStyles("font", $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
+            this.visTvprogram.copyStyles("color", $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
+            this.visTvprogram.copyStyles(
+              "background-color",
+              $(`#${widgetID}`).get(0),
+              $(`#${widgetID}channeldlg`).get(0)
+            );
+            let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
+            dialog.showModal();
+          },
+          getBroadcasts4Channel: function(el, widgetID, view, viewdate, tvprogram_oid, instance) {
+            const wItem = this.measures[widgetID].widthItem;
+            const tItem = this.measures[widgetID].timeItem;
+            const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
+            let favhighlight;
+            const sTime = new Date(el.events[0].airDate);
+            sTime.setHours(5);
+            sTime.setMinutes(0);
+            const eTime = new Date(sTime);
+            eTime.setDate(eTime.getDate() + 1);
+            const channel = this.visTvprogram.channels.find((ch) => ch.id == el.channel);
+            let logopath = this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || "https://tvfueralle.de/channel-logos/";
+            const aa = [];
+            let text = "";
+            text += '    <li class="tv-item tv-head-left tv-head-background channel">';
+            text += `      <img width="100%" height="100%" 
+                data-instance="${instance}" 
+                data-channelid="${channel.channelId}" 
+                data-dp="${tvprogram_oid}" 
+                src="${logopath}${channel.channelId}.png" 
+                alt="" class="channel-logo"
+                onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
+            text += "    </li>";
+            aa.push(text);
+            for (let i = 0; i < el.events.length; i++) {
+              const event = el.events[i];
+              let startTime2 = new Date(event.startTime);
+              let endTime2 = new Date(event.endTime);
+              if (startTime2 >= eTime) {
+                continue;
+              }
+              if (endTime2 <= sTime) {
+                continue;
+              }
+              if (i == 0 && startTime2 > sTime) {
+                aa.push(
+                  `<li class="tv-item broadcast" style="left:0px; width:${Math.floor((startTime2 - sTime) / 6e4 / tItem * wItem * 10) / 10}px;"></li>`
+                );
+              }
+              if (startTime2 < sTime) {
+                startTime2 = sTime;
+              }
+              if (endTime2 > eTime) {
+                endTime2 = eTime;
+              }
+              favhighlight = favorites.indexOf(event.title) > -1;
+              text = "";
+              text += '<li class="tv-item broadcast" style="';
+              text += `left:${Math.floor((startTime2 - sTime) / 6e4 / tItem * wItem * 10) / 10}px;`;
+              text += `width:${Math.floor((endTime2 - startTime2) / 6e4 / tItem * wItem * 10) / 10}px;">`;
+              text += `<div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+              if (event.photo.url && this.measures[widgetID].showpictures) {
+                text += `<div><img class="broadcastimage" src="https://tvfueralle.de${event.photo.url}"></div>`;
+              }
+              text += `<div class="broadcasttitle">${event.title}`;
+              text += `<div class="star" data-viewdate="${viewdate}" data-eventid="${event.id}" data-dp="${tvprogram_oid}" data-instance="${instance}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+              text += "</div>";
+              text += '<div class="broadcasttime">';
+              text += `${`0${startTime2.getHours()}`.slice(-2)}:${`0${startTime2.getMinutes()}`.slice(-2)}`;
+              text += " - ";
+              text += `${`0${endTime2.getHours()}`.slice(-2)}:${`0${endTime2.getMinutes()}`.slice(-2)}`;
+              text += "</div></div></li>";
+              aa.push(text);
+            }
+            let startTime = new Date(el.events[el.events.length - 1].startTime);
+            let endTime = new Date(el.events[el.events.length - 1].endTime);
+            if (startTime < eTime && endTime < eTime) {
+              startTime = endTime;
+              endTime = eTime;
+              text = "";
+              text += '<li class="tv-item broadcast" style="';
+              text += `left:${Math.floor((startTime - sTime) / 6e4 / tItem * wItem * 10) / 10}px;`;
+              text += `width:${Math.floor((endTime - startTime) / 6e4 / tItem * wItem * 10) / 10}px;">`;
+              text += "</li>";
+              aa.push(text);
+            }
+            return aa;
+          },
+          getEvents: function(tvprogram, filter) {
+            const tv = [];
+            let i;
+            tvprogram.map((el) => {
+              if ((i = filter.indexOf(el.channel)) > -1) {
+                if (!tv[i]) {
+                  tv[i] = {};
+                }
+                if (!tv[i].events) {
+                  tv[i].events = [];
+                }
+                tv[i].channel = el.channel;
+                tv[i].events.push(el);
+              }
+            });
+            return tv;
+          },
+          getTimetable: function() {
+            const tt = [];
+            for (let i = 0; i < 24; i++) {
+              tt.push(`<li class="tv-item time"><span>${`0${i}`.slice(-2)}:00</span></li>`);
+              tt.push(`<li class="tv-item time"><span>${`0${i}`.slice(-2)}:30</span></li>`);
+            }
+            return [].concat(tt.slice(10), tt.slice(0, 10));
+          },
+          getButtonHeader: function(datestring) {
+            const hh = [];
+            hh.push(
+              '<li class="tv-item tv-head-topleft tv-head-left button burger tooltip"><span role="tooltip">Menu</span><svg width="100%" height="100%" ><use xlink:href="#burger-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button nav prevD tooltip"><span role="tooltip">Previous day</span><svg width="100%" height="100%" ><use xlink:href="#nav-prevD-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button nav center tooltip"><span role="tooltip">Today</span><svg width="100%" height="100%" ><use xlink:href="#nav-center-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button nav nextD tooltip"><span role="tooltip">Next day</span><svg width="100%" height="100%" ><use xlink:href="#nav-nextD-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button zoom minus tooltip"><span role="tooltip">Zoom in</span><svg width="100%" height="100%" ><use xlink:href="#zoom-minus-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button zoom center tooltip"><span role="tooltip">Zoom normal</span><svg width="100%" height="100%" ><use xlink:href="#zoom-center-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button zoom plus tooltip"><span role="tooltip">Zoom out</span><svg width="100%" height="100%" ><use xlink:href="#zoom-plus-icon"></use></svg></li>'
+            );
+            hh.push(
+              '<li class="tv-item button hide tooltip"><span role="tooltip">Hide Non-Favorites</span><svg width="100%" height="100%" ><use xlink:href="#hide-icon"></use></svg></li>'
+            );
+            hh.push(
+              `<li class="tv-item dateinfo">${new Date(datestring).toLocaleDateString(navigator.language, {
+                weekday: "short"
+              })}, ${new Date(datestring).toLocaleDateString()}</li>`
+            );
+            return hh;
+          },
+          onChange: function(widgetID, view, data, style, instance, e, newVal) {
+            return __async(this, null, function* () {
+              const dp = e.type.split(".");
+              if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
+                console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
+                this.createWidget(widgetID, view, data, style);
+              }
+              if (dp[3] == "cmd" && dp[4] == "val") {
+                if (newVal && newVal != "") {
+                  console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
+                  const obj = newVal.split("|");
+                  if (obj[0] == "new") {
+                    if (obj[1] != "program") {
+                      this[obj[1]] = yield this.visTvprogram.getServerDataAsync(instance, widgetID, obj[1]);
+                      this.createWidget(widgetID, view, data, style);
+                      return;
+                    }
+                    if (obj[1] == "program") {
+                      if (this.tvprogram[obj[2]]) {
+                        this.visTvprogram.loadProgram(
+                          instance,
+                          widgetID,
+                          obj[2],
+                          function(widgetID2, view2, data2, style2, datestring, serverdata) {
+                            if (serverdata != "error" && serverdata != "nodata") {
+                              this.tvprogram[datestring] = serverdata;
+                              this.createWidget(widgetID2, view2, data2, style2);
+                              return;
+                            }
+                          }.bind(this, widgetID, view, data, style, obj[2])
+                        );
+                      }
+                    }
+                  }
+                }
+              }
+            });
+          }
+        },
+        checkStyle: function(attr, str) {
+          return str.split(";").reduce((acc, el) => el.split(":")[0].trim() == attr ? el.split(":")[1].trim() : acc, "");
+        },
+        realBackgroundColor: function(elem) {
+          const transparent = "rgba(0, 0, 0, 0)";
+          const transparentIE11 = "transparent";
+          if (!elem) {
+            return transparent;
+          }
+          const bg = window.getComputedStyle(elem).backgroundColor;
+          if (bg === transparent || bg === transparentIE11) {
+            return this.realBackgroundColor(elem.parentElement);
+          }
+          return bg;
+        },
+        onclickBroadcast: function(evt) {
+          return __async(this, null, function* () {
+            const el = evt.currentTarget ? evt.currentTarget : evt;
+            const eventid = el.dataset.eventid || 0;
+            const widgetID = el.dataset.widgetid || 0;
+            const viewdate = el.dataset.viewdate || 0;
+            const instance = el.dataset.instance || "";
+            const tvprogram_oid = el.dataset.dp || "";
+            if (eventid == 0 || widgetID == 0) {
+              return;
+            }
+            const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate);
+            const measures = $(`#${widgetID}broadcastdlg`).data();
+            const startTime = new Date(event.startTime);
+            const endTime = new Date(event.endTime);
+            const category = event.content.category ? this.categories.find((el2) => el2.id == event.content.category) : null;
+            const channel = event.channel ? this.channels.find((el2) => el2.id == event.channel) : null;
+            let channeltime = "";
+            channeltime += channel ? `${channel.name} ` : "";
+            channeltime += `${`0${startTime.getHours()}`.slice(-2)}:${`0${startTime.getMinutes()}`.slice(-2)}`;
+            channeltime += " - ";
+            channeltime += `${`0${endTime.getHours()}`.slice(-2)}:${`0${endTime.getMinutes()}`.slice(-2)}`;
+            let meta = "";
+            meta += event.content.country ? `${event.content.country} ` : "";
+            meta += event.content.year ? `${event.content.year} ` : "";
+            meta += category ? `${category.title} ` : "";
+            let season = "", episode = "";
+            if (event.content.seasonNumber) {
+              season = event.content.seasonNumber;
+              season = season < 100 ? `S${`0${season}`.slice(-2)}` : `S${season}`;
+            }
+            if (event.content.episodeNumber) {
+              episode = event.content.episodeNumber;
+              episode = episode < 100 ? `E${`0${episode}`.slice(-2)}` : `E${episode}`;
+            }
+            meta += season || episode ? `${season + episode} ` : "";
+            const content = event.content.texts.Long.value ? event.content.texts.Long.value : event.content.texts.VeryShort.value ? event.content.texts.VeryShort.value : "";
+            const photourl = event.photo.url ? `https://tvfueralle.de${event.photo.url}` : "https://tvfueralle.de/tv-logo-no-image.svg";
+            const favorites = this.getConfigFavorites(tvprogram_oid);
+            const favhighlight = favorites.indexOf(event.title) > -1;
+            const layout = $(`#${widgetID}`).width() * measures.dialogwidthpercent > $(`#${widgetID}`).height() * measures.dialogheightpercent ? " tv-dlg-row" : " tv-dlg-col";
+            let width = $(`#${widgetID}`).width() * measures.dialogwidthpercent;
+            let height = $(`#${widgetID}`).height() * measures.dialogheightpercent;
+            let { top: elTop, left: elLeft } = $(`#${widgetID}`).position();
+            let top = elTop + ($(`#${widgetID}`).height() - height) / 2;
+            let left = elLeft + ($(`#${widgetID}`).width() - width) / 2;
+            let text = "";
+            text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
+            text += `  <div class="event-container${layout}" data-eventid="${event.id}">`;
+            text += `    <div class="event-picture dialogcolumn${layout}">`;
+            text += `    <img src="${photourl}">`;
+            text += "    </div>";
+            text += `    <div class="event-data dialogcolumn${layout}">`;
+            text += '      <div class="buttoncontainer">';
+            text += `          <div class="record button" 
+                                data-viewdate="${viewdate}" 
+                                data-eventid="${event.id}" 
+                                data-instance="${instance}" 
+                                data-dp="${tvprogram_oid}" 
+                                onclick="return vis.binds.tvprogram.onclickRecord(this,event)">
+                                <svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg></div>`;
+            text += `          <div class="copy button" 
+                                data-widgetid="${widgetID}" 
+                                onclick="return vis.binds.tvprogram.onclickCopy(this,event)">
+                            <svg width="100%" height="100%" ><use xlink:href="#copy-icon"></use></svg></div>`;
+            text += `          <div class="star button ${favhighlight ? "selected" : ""}" 
+                                data-viewdate="${viewdate}" 
+                                data-eventid="${event.id}" 
+                                data-instance="${instance}" 
+                                data-dp="${tvprogram_oid}" 
+                                onclick="return vis.binds.tvprogram.onclickFavorite(this,event)">
+                            <svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+            if (startTime < /* @__PURE__ */ new Date() && /* @__PURE__ */ new Date() < endTime) {
+              text += `        <div class="channelselect button" 
+                                data-instance="${instance}" 
+                                data-dp="${tvprogram_oid}" 
+                                data-channelid="${channel.channelId}"
+                                onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">
+                            <svg width="100%" height="100%" ><use xlink:href="#switch-icon"></use></svg></div>`;
+            }
+            text += "      </div>";
+            text += `      <div style="padding: 0px 0px 5px;">${channeltime}</div>`;
+            text += `      <div style="font-weight: bold;padding: 0px 0px 5px;">${event.title}</div>`;
+            text += `      <div style="padding: 0px 0px 5px;">${meta}</div>`;
+            text += `      <div>${content}</div>`;
+            text += "    </div>";
+            text += "  </div>";
+            text += "  </div>";
+            text += `</dialog">`;
+            $(`#${widgetID}broadcastdlg`).html(text);
+            this.copyStyles("font", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg dialog`).get(0));
+            this.copyStyles("color", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg dialog`).get(0));
+            this.copyStyles("background-color", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg dialog`).get(0));
+            let dialog = document.querySelector(`#${widgetID}broadcastdlg dialog`);
+            $(`#${widgetID}broadcastdlg`).click(function() {
+              dialog.close();
+            });
+            dialog.showModal();
+          });
+        },
+        onclickRecord: function(el, evt) {
+          return __async(this, null, function* () {
+            const instance = el.dataset.instance || "";
+            const tvprogram_oid = el.dataset.dp || "";
+            const eventid = el.dataset.eventid || 0;
+            const viewdate = el.dataset.viewdate || 0;
+            if (eventid == 0 || viewdate == 0) {
+              return;
+            }
+            evt.stopPropagation();
+            const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate);
+            const channel = event.channel ? this.channels.find((el2) => el2.id == event.channel) : null;
+            const record = {
+              startTime: event.startTime,
+              endTime: event.endTime,
+              title: event.title,
+              channel: event.channel,
+              channelid: channel.channelId,
+              channelname: channel.name,
+              eventid: event.id
+            };
+            this.setValueAckAsync(instance, `${tvprogram_oid}.record`, JSON.stringify(record));
+          });
+        },
+        onclickCopy: function(el, evt) {
+          const widgetID = el.dataset.widgetid || "";
+          const aux = document.createElement("textarea");
+          aux.value = $(`#${widgetID}broadcastdlg .event-data`).get(0).outerText;
+          document.body.appendChild(aux);
+          aux.focus();
+          aux.select();
+          document.execCommand("copy");
+          document.body.removeChild(aux);
+          evt.stopPropagation();
+        },
+        copyStyles: function(startsWith, from, to) {
+          const cssFrom = window.getComputedStyle(from);
+          const cssTo = window.getComputedStyle(to);
+          for (let i = cssFrom.length; i--; ) {
+            if (cssFrom[i].startsWith(startsWith)) {
+              if (cssFrom.getPropertyValue(cssFrom[i]) != cssTo.getPropertyValue(cssFrom[i])) {
+                to.style.setProperty(cssFrom[i], cssFrom.getPropertyValue(cssFrom[i]));
+              }
+            }
+          }
+        },
+        colorToRGBA: function(color, alpha = 1) {
+          const cvs = document.createElement("canvas");
+          cvs.height = 1;
+          cvs.width = 1;
+          const ctx = cvs.getContext("2d");
+          ctx.fillStyle = color;
+          ctx.fillRect(0, 0, 1, 1);
+          const carr = ctx.getImageData(0, 0, 1, 1).data;
+          return `rgba(${carr[0]},${carr[1]},${carr[2]},${alpha})`;
+        },
+        onclickChannelSwitch: function(el, evt) {
+          const channelid = el.dataset.channelid || "";
+          const tvprogram_oid = el.dataset.dp || "";
+          const instance = el.dataset.instance || "";
+          this.setValueAckAsync(instance, `${tvprogram_oid}.selectchannel`, channelid);
+          evt.stopPropagation();
+        },
+        onclickFavorite: function(el, evt) {
+          return __async(this, null, function* () {
+            const tvprogram_oid = el.dataset.dp || "";
+            const instance = el.dataset.instance || "";
+            const eventid = el.dataset.eventid || 0;
+            const viewdate = el.dataset.viewdate || 0;
+            evt.stopPropagation();
+            if (eventid == 0 || viewdate == 0) {
+              return;
+            }
+            const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate);
+            const favorites = this.getConfigFavorites(tvprogram_oid);
+            const index2 = favorites.indexOf(event.title);
+            if (index2 > -1) {
+              favorites.splice(index2, 1);
+              if ($(el).hasClass("button")) {
+                $(el).removeClass("selected");
+              }
+            } else {
+              favorites.push(event.title);
+              if ($(el).hasClass("button")) {
+                $(el).addClass("selected");
+              }
+            }
+            this.setConfigFavorites(instance, tvprogram_oid, favorites);
+          });
+        },
+        getConfig: function(tvprogram_oid) {
+          let config;
+          const attr = vis.states.attr(`${tvprogram_oid}.config.val`);
+          if (typeof attr !== "undefined" && attr !== "null" && attr !== "") {
+            config = JSON.parse(attr);
+          } else {
+            config = {};
+          }
+          return config;
+        },
+        getConfigFavorites: function(tvprogram_oid) {
+          let favorites;
+          const attr = vis.states.attr(`${tvprogram_oid}.favorites.val`);
+          if (typeof attr !== "undefined" && attr !== "null" && attr !== "") {
+            favorites = JSON.parse(attr);
+          } else {
+            favorites = [];
+          }
+          return favorites;
+        },
+        getOptChannelLogoPath: function(tvprogram_oid) {
+          let logopath;
+          const attr = vis.states.attr(`${tvprogram_oid}.optchnlogopath.val`);
+          if (typeof attr !== "undefined" && attr !== "null" && attr !== "") {
+            logopath = attr;
+          } else {
+            logopath = "";
+          }
+          return logopath;
+        },
+        setConfigFavorites: function(instance, tvprogram_oid, favorites) {
+          this.setValueAckAsync(instance, `${tvprogram_oid}.favorites`, JSON.stringify(favorites));
+        },
+        getConfigChannelfilter: function(tvprogram_oid) {
+          let channelfilter;
+          const attr = vis.states.attr(`${tvprogram_oid}.channelfilter.val`);
+          if (typeof attr !== "undefined" && attr !== "null" && attr !== "") {
+            channelfilter = JSON.parse(attr);
+          } else {
+            channelfilter = [];
+          }
+          return channelfilter;
+        },
+        setConfigChannelfilter: function(instance, tvprogram_oid, channelfilter) {
+          this.setValueAckAsync(instance, `${tvprogram_oid}.channelfilter`, JSON.stringify(channelfilter));
+        },
+        getConfigShow: function(tvprogram_oid) {
+          let show;
+          const attr = vis.states.attr(`${tvprogram_oid}.show.val`);
+          if (typeof attr !== "undefined" && attr !== "null" && attr !== "") {
+            show = JSON.parse(attr);
+          } else {
+            show = 1;
+          }
+          return show;
+        },
+        setConfigShow: function(instance, tvprogram_oid, show) {
+          this.setValueAckAsync(instance, `${tvprogram_oid}.show`, JSON.stringify(show));
+        },
+        toggleShow: function(instance, tvprogram_oid) {
+          let show = this.getConfigShow(tvprogram_oid);
+          if (show == void 0) {
+            show = 0;
+          }
+          show = show == 1 ? 0 : 1;
+          this.setConfigShow(instance, tvprogram_oid, show);
+        },
+        getServerBroadcast: function(instance, eventid, viewdate, callback) {
+          console.log(`getServerBroadcast request ${eventid}.${viewdate}`);
+          vis.conn.sendTo(
+            instance,
+            "getServerBroadcast",
+            { eventid, viewdate },
+            function(data) {
+              if (data != "error" && data != "nodata") {
+                console.log(`getServerBroadcast received ok ${instance}.${viewdate}.${eventid}`);
+              } else {
+                console.log(`getServerBroadcast received ${data}`);
+              }
+              if (callback) {
+                callback(data);
+              }
+            }.bind(this)
+          );
+        },
+        getServerBroadcastAsync: function(instance, eventid, viewdate) {
+          return __async(this, null, function* () {
+            console.log(`getServerBroadcast request ${eventid}.${viewdate}`);
+            return yield this.sendToAsync(instance, "getServerBroadcast", { eventid, viewdate });
+          });
+        },
+        events: {},
+        serverdata: {},
+        getServerData: function(instance, widgetID, dataname, callback) {
+          const dataid = instance + dataname;
+          if (Object.prototype.hasOwnProperty.call(this.serverdata, dataid)) {
+            callback(this.serverdata[dataid]);
+          }
+          if (!Object.prototype.hasOwnProperty.call(this.events, dataid)) {
+            this.events[dataid] = [];
+          }
+          const obj = this.events[dataid];
+          if (!obj.find((el) => el.key == widgetID)) {
+            obj.push({ key: widgetID, cb: callback });
+          }
+          vis.conn.sendTo(instance, "getServerData", dataname, (data) => {
+            if (data != "error" && data != "nodata") {
+              console.log(`getServerData received ${instance}.${dataname} ${JSON.stringify(data).substring(0, 100)}`);
+            } else {
+              console.log(`getServerData received err ${data}`);
+            }
+            this.serverdata[dataid] = data;
+            if (!Object.prototype.hasOwnProperty.call(this.events, dataid)) {
+              return;
+            }
+            const obj2 = this.events[dataid];
+            for (let i = 0; i < obj2.length; i++) {
+              obj2[i].cb(data);
+            }
+            delete this.events[dataid];
+          });
+        },
+        getServerDataAsync: function(instance, widgetID, dataname) {
+          return __async(this, null, function* () {
+            console.log(`getServerData ${dataname}`);
+            const dataid = instance + dataname;
+            if (!Object.prototype.hasOwnProperty.call(this.events, dataid)) {
+              this.events[dataid] = [];
+            }
+            return yield this.sendToAsync(instance, "getServerData", dataname);
+          });
+        },
+        getServerTVProgram: function(instance, widgetID, dataname, callback) {
+          const name = `${instance}program.${dataname}`;
+          if (Object.prototype.hasOwnProperty.call(this.serverdata, name)) {
+            callback(this.serverdata[name]);
+          }
+          if (Object.prototype.hasOwnProperty.call(this.events, name)) {
+            if (!this.events[name].find((el) => el.key == widgetID)) {
+              this.events[name].push({ key: widgetID, cb: callback });
+            }
+            return;
+          }
+          this.events[name] = [{ key: widgetID, cb: callback }];
+          vis.conn.sendTo(
+            instance,
+            "getServerTVProgram",
+            dataname,
+            function(data) {
+              if (data != "error" && data != "nodata") {
+                console.log(`getServerTVProgram received ${instance}.${dataname}nodata`);
+              } else {
+                console.log(`getServerTVProgram received ${instance}.${dataname} ok`);
+                this.serverdata[name] = data;
+              }
+              if (!Object.prototype.hasOwnProperty.call(this.events, name)) {
+                return;
+              }
+              for (let i = 0; i < this.events[name].length; i++) {
+                this.events[name][i].cb(data);
+              }
+              delete this.events[name];
+            }.bind(this)
+          );
+        },
+        getServerTVProgramAsync: function(instance, widgetID, dataname) {
+          return __async(this, null, function* () {
+            console.log(`getServerTVProgram ${dataname}`);
+            return yield this.sendToAsync(instance, "getServerTVProgram", dataname);
+          });
+        },
+        getFavoritesData: function(instance, favorites = [], callback) {
+          console.log(`getFavoritesData request ${instance}.favorites`);
+          vis.conn.sendTo(instance, "getFavoritesData", favorites, (data) => {
+            if (data != "error" && data != "nodata") {
+              console.log(`getFavoritesData received ok ${data.length}`);
+            } else {
+              console.log(`getFavoritesData received ${instance}.favorites`);
+            }
+            if (callback) {
+              callback(data);
+            }
+          });
+        },
+        getFavoritesDataAsync: function(_0) {
+          return __async(this, arguments, function* (instance, favorites = []) {
+            console.log(`getFavoritesData request ${instance}.favorites`);
+            return yield this.sendToAsync(instance, "getFavoritesData", favorites);
+          });
+        },
+        getServerInfo: function(instance, callback) {
+          console.log("getServerInfo request ");
+          vis.conn.sendTo(instance, "getServerInfo", {}, (data) => {
+            console.log("getServerInfo received ok ");
+            if (callback) {
+              callback(data);
+            }
+          });
+        },
+        getServerInfoAsync: function(instance) {
+          return __async(this, null, function* () {
+            console.log("getServerInfo request ");
+            return yield this.sendToAsync(instance, "getServerInfo", {});
+          });
+        },
+        getServerBroadcastNow: function(instance, channelfilter, callback) {
+          console.log("getServerBroadcastNow request ");
+          vis.conn.sendTo(
+            instance,
+            "getServerBroadcastNow",
+            channelfilter,
+            function(data) {
+              if (data != "error" && data != "nodata") {
+                console.log(`getServerBroadcastNow received ok ${data.length}`);
+              } else {
+                console.log("getServerBroadcastNow received ");
+              }
+              if (callback) {
+                callback(data);
+              }
+            }.bind(this)
+          );
+        },
+        getServerBroadcastNowAsync: function(instance, channelfilter) {
+          return __async(this, null, function* () {
+            console.log("getServerBroadcastNow request ");
+            return yield this.sendToAsync(instance, "getServerBroadcastNow", channelfilter);
+          });
+        },
+        getServerBroadcastRangeAsync: function(instance, channelfilter, startdate, enddate) {
+          return __async(this, null, function* () {
+            console.log("getServerBroadcastRange request ");
+            return yield this.sendToAsync(instance, "getServerBroadcastRange", { channelfilter, startdate, enddate });
+          });
+        },
+        getServerBroadcastDate: function(instance, channelfilter, date, callback) {
+          console.log("getServerBroadcastDate request ");
+          vis.conn.sendTo(
+            instance,
+            "getServerBroadcastDate",
+            { channelfilter, date },
+            function(data) {
+              if (data != "error" && data != "nodata") {
+                console.log(`getServerBroadcastDate received ok ${data.length}`);
+              } else {
+                console.error(`getServerBroadcastDate received ${data}`);
+              }
+              if (callback) {
+                callback(data);
+              }
+            }.bind(this)
+          );
+        },
+        getServerBroadcastDateAsync: function(instance, channelfilter, date) {
+          return __async(this, null, function* () {
+            console.log("getServerBroadcastDate request ");
+            return yield this.sendToAsync(instance, "getServerBroadcastDate", { channelfilter, date });
+          });
+        },
+        getServerBroadcastFind: function(instance, obj, callback) {
+          console.log("getServerBroadcastFind request ");
+          vis.conn.sendTo(
+            instance,
+            "getServerBroadcastFind",
+            obj,
+            function(data) {
+              if (data != "error" && data != "nodata") {
+                console.log(`getServerBroadcastFind received ok ${data.length}`);
+              } else {
+                console.log("getServerBroadcastFind received ");
+              }
+              const serverdata = [];
+              data.map((ch) => {
+                ch.events.map((event) => serverdata.push(event));
+              });
+              data = serverdata.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+              if (callback) {
+                callback(data);
+              }
+            }.bind(this)
+          );
+        },
+        getServerBroadcastFindAsync: function(instance, obj) {
+          return __async(this, null, function* () {
+            console.log("getServerBroadcastFind request ");
+            let data = yield this.sendToAsync(instance, "getServerBroadcastFind", obj);
+            const serverdata = [];
+            data.map((ch) => {
+              ch.events.map((event) => serverdata.push(event));
+            });
+            data = serverdata.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+            return data;
+          });
+        },
+        setValueAck: function(instance, id, value) {
+          console.log("setValueAck request ");
+          vis.conn.sendTo(instance, "setValueAck", { id, value });
+        },
+        setValueAckAsync: function(instance, id, value) {
+          return __async(this, null, function* () {
+            console.log("setValueAck request ");
+            return yield this.sendToAsync(instance, "setValueAck", { id, value });
+          });
+        },
+        sendToAsync: function(instance, command, sendData) {
+          return __async(this, null, function* () {
+            console.log(`sendToAsync ${command} ${sendData}`);
+            return new Promise((resolve, reject) => {
+              try {
+                vis.conn.sendTo(instance, command, sendData, function(receiveData) {
+                  resolve(receiveData);
+                });
+              } catch (error) {
+                reject(error);
+              }
+            });
+          });
+        },
+        loadServerInfosAsync: function(instance) {
+          return __async(this, null, function* () {
+            this.infos = [];
+            return yield this.getServerInfoAsync(instance);
+          });
+        },
+        loadCategories: function(instance, widgetID) {
+          return __async(this, null, function* () {
+            console.log("loadCategories");
+            return yield this.getServerDataAsync(instance, widgetID, "categories");
+          });
+        },
+        loadChannels: function(instance, widgetID) {
+          return __async(this, null, function* () {
+            console.log("loadChannels");
+            return yield this.getServerDataAsync(instance, widgetID, "channels");
+          });
+        },
+        loadGenres: function(instance, widgetID) {
+          return __async(this, null, function* () {
+            console.log("loadGenres");
+            return yield this.getServerDataAsync(instance, widgetID, "genres");
+          });
+        },
+        loadProgram: function(instance, widgetID, datestring) {
+          return __async(this, null, function* () {
+            console.log(`loadProgram ${datestring}`);
+            return yield this.getServerTVProgramAsync(instance, widgetID, datestring);
+          });
+        },
+        calcDate: function(datum) {
+          const d = new Date(datum);
+          const time = d.getHours() + d.getMinutes() / 60;
+          if (time >= 0 && time < 5) {
+            d.setDate(d.getDate() - 1);
+          }
+          return d;
+        },
+        getDate: function(d, add) {
+          const d1 = new Date(d);
+          d1.setDate(d1.getDate() + add);
+          return `${d1.getFullYear()}-${`0${d1.getMonth() + 1}`.slice(-2)}-${`0${d1.getDate()}`.slice(-2)}`;
+        },
+        compareDate: function(adate, bdate) {
+          return adate.getDate() == bdate.getDate() && adate.getMonth() == bdate.getMonth() && adate.getYear() == bdate.getYear();
+        },
+        getTvprogramId: function(tvprogram_oid) {
+          let idParts = tvprogram_oid.split(".");
+          if (idParts.length < 2) {
+            return "";
+          }
+          idParts = idParts.slice(0, 3);
+          return idParts.join(".");
+        },
+        getInstance: function(tvprogram_oid) {
+          let idParts = tvprogram_oid.split(".");
+          if (idParts.length < 2) {
+            return "";
+          }
+          idParts = idParts.slice(0, 2);
+          return idParts.join(".");
+        },
+        getInstanceInfo: function(tvprogram_oid) {
+          console.log("getInstanceInfo");
+          let idParts = tvprogram_oid.trim().split(".");
+          if (idParts.length < 2) {
+            return [null, null];
+          }
+          return [
+            idParts.slice(0, 2).join("."),
+            // instance
+            idParts.slice(0, 3).join(".")
+            // tvprogram id
+          ];
+        },
+        bindStates: function(elem, bound, change_callback) {
+          console.log("bindStates");
+          const $div = $(elem);
+          const boundstates = $div.data("bound");
+          if (boundstates) {
+            for (let i = 0; i < boundstates.length; i++) {
+              vis.states.unbind(boundstates[i], change_callback);
+            }
+          }
+          $div.data("bound", null);
+          $div.data("bindHandler", null);
+          vis.conn.gettingStates = 0;
+          vis.conn.getStates(
+            bound,
+            function(error, states) {
+              vis.conn.subscribe(bound);
+              for (let i = 0; i < bound.length; i++) {
+                bound[i] = `${bound[i]}.val`;
+                vis.states.bind(bound[i], change_callback);
+              }
+              vis.binds["tvprogram"].updateStates(states);
+              $div.data("bound", bound);
+              $div.data("bindHandler", change_callback);
+            }.bind({ change_callback })
+          );
+        },
+        updateStates: function(states) {
+          for (const id in states) {
+            if (!Object.prototype.hasOwnProperty.call(states, id)) {
+              continue;
+            }
+            const obj = states[id];
+            try {
+              if (vis.editMode) {
+                vis.states[`${id}.val`] = obj.val;
+                vis.states[`${id}.ts`] = obj.ts;
+                vis.states[`${id}.ack`] = obj.ack;
+                vis.states[`${id}.lc`] = obj.lc;
+                if (obj.q !== void 0 && obj.q !== null) {
+                  vis.states[`${id}.q`] = obj.q;
+                }
+              } else {
+                const oo = {};
+                oo[`${id}.val`] = obj.val;
+                oo[`${id}.ts`] = obj.ts;
+                oo[`${id}.ack`] = obj.ack;
+                oo[`${id}.lc`] = obj.lc;
+                if (obj.q !== void 0 && obj.q !== null) {
+                  oo[`${id}.q`] = obj.q;
+                }
+                vis.states.attr(oo);
+              }
+            } catch (e) {
+              console.error(`Error: can't create states object for ${id}(${e})`);
+            }
+          }
+        }
+      };
+      vis.binds["tvprogram"].showVersion();
+      jQuery.fn.mydelay = function(time, type) {
+        time = jQuery.fx ? jQuery.fx.speeds[time] || time : time;
+        type = type || "fx";
+        return this.queue(type, function(next, hooks) {
+          const timeout = window.setTimeout(next, time);
+          hooks.stop = function() {
+            window.clearTimeout(timeout);
+          };
+        });
+      };
+    }
+  });
+  require_tvprogram();
+})();
 /*! Bundled license information:
 
 sortablejs/modular/sortable.esm.js:
