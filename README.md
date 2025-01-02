@@ -833,6 +833,11 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 2.3.0 (2025-01-02)
+
+- add datapoint for optional channel icons
+- add logic in the widgets
+
 ### 2.2.0 (2024-12-16)
 
 - remove jquery-ui dependency
@@ -901,4 +906,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Copyright (c) 2024 oweitman <oweitman@gmx.de>
+Copyright (c) 2025 oweitman <oweitman@gmx.de>

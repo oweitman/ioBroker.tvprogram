@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "news": {
+      "2.3.0": {
+        "en": "add datapoint for optional channel icons\nadd logic in the widgets",
+        "de": "datenpunkt für optionale kanalsymbole hinzufügen\nlogik in den widgets hinzufügen",
+        "ru": "добавить точку данных для дополнительных значков канала\nдобавить логику в виджеты",
+        "pt": "adicionar datapoint para ícones de canal opcionais\nadicionar lógica nos widgets",
+        "nl": "datapoint toevoegen voor optionele kanaalpictogrammen\nlogica toevoegen aan de widgets",
+        "fr": "ajouter un point de données pour les icônes de canal optionnelles\najouter la logique dans les widgets",
+        "it": "aggiungere datapoint per le icone dei canali opzionali\naggiungere logica nei widget",
+        "es": "añadir punto de datos para iconos de canales opcionales\nañadir lógica en los widgets",
+        "pl": "dodaj punkt danych dla opcjonalnych ikon kanału\ndodaj logikę w widgetach",
+        "uk": "додати точку даних для додаткових іконок каналів\nдодати логіку в віджетах",
+        "zh-cn": "为可选频道图标添加数据点\n在部件中添加逻辑"
+      },
       "2.2.0": {
         "en": "remove jquery-ui dependency\nfix dialog is visible on view switch, now it's modal\nfix adapter icon\nfix eslint errors\nswitch some callbacks to promises\nremove unused code",
         "de": "jquery-ui abhängigkeit\nfix dialog ist sichtbar auf ansicht schalter, jetzt ist es modal\nadapter-symbol\neslint fehler beheben\neinige rückrufe zu versprechen wechseln\nungenutzten code entfernen",
@@ -80,19 +93,6 @@
         "pl": "podpowiedzi do przycisków w widgecie czasu / przeszukiwanie całego tekstu, aby znaleźć także reżyserów i aktorów / dodawanie opcji showpictures w czasie, widżet sterowania i wyszukiwania / ulepszanie dokumentacji",
         "zh-cn": "时间小部件中的按钮的工具提示/在整个文本中搜索还可以找到导演和演员/在时间中添加showpictures选项，控制和搜索小部件/改进文档",
         "uk": "підказки для кнопок у віджеті часу / пошук по всьому тексту, щоб також знайти режисерів і акторів / додайте опцію показу картинок у часі, віджет керування та пошуку / вдосконалення документації"
-      },
-      "1.0.0": {
-        "en": "fix bug with endless scroll in firefox / set version number to 1.0 due adapter now in stable repository",
-        "de": "Behebung eines Fehlers mit endlosem Bildlauf in Firefox / Setzen der Versionsnummer auf 1.0 aufgrund des Adapters jetzt im stabilen Repository",
-        "ru": "исправить ошибку с бесконечной прокруткой в ​​firefox / установить номер версии на 1.0 из-за адаптера теперь в стабильном репозитории",
-        "pt": "corrigir bug com scroll infinito no firefox / definir número da versão para 1.0 devido ao adaptador agora no repositório estável",
-        "nl": "fix bug met eindeloze scroll in firefox / set versienummer naar 1.0 vanwege adapter nu in stabiele repository",
-        "fr": "correction d'un bug avec le défilement sans fin dans Firefox / définir le numéro de version sur 1.0 en raison de l'adaptateur maintenant dans le référentiel stable",
-        "it": "correzione bug con scorrimento infinito in firefox / imposta il numero di versione su 1.0 dovuto l'adattatore ora nel repository stabile",
-        "es": "Corregir error con desplazamiento sin fin en Firefox / establecer el número de versión en 1.0 Adaptador debido ahora en repositorio estable",
-        "pl": "napraw błąd z niekończącym się przewijaniem w firefox / set numer wersji 1.0 z powodu adaptera teraz w stabilnym repozytorium",
-        "zh-cn": "修复了在firefox中无休止滚动的错误/现在将版本号设置为1.0到期的适配器已在稳定的存储库中",
-        "uk": "виправлено помилку з нескінченним прокручуванням у firefox / встановлено номер версії 1.0 через те, що адаптер тепер у стабільному репозиторії"
       }
     },
     "titleLang": {
