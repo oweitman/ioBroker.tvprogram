@@ -388,7 +388,6 @@ vis.binds['tvprogram'] = {
             let favhighlight, viewdate;
             let logopath =
                 this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || 'https://tvfueralle.de/channel-logos/';
-
             text = '';
             const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
             this.searchresult[tvprogram_oid][widgetID].map((event, i) => {
@@ -807,7 +806,6 @@ vis.binds['tvprogram'] = {
             const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
             let logopath =
                 this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || 'https://tvfueralle.de/channel-logos/';
-
             this.programdata[tvprogram_oid][widgetID].map(ch => {
                 ch.events.map(event => {
                     let viewdate = this.visTvprogram.getDate(event.startTime, 0);
@@ -1030,7 +1028,6 @@ vis.binds['tvprogram'] = {
             );
             let logopath =
                 this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || 'https://tvfueralle.de/channel-logos/';
-
             this.favorites[tvprogram_oid].forEach(function (favorite, index) {
                 const today = new Date();
                 const startTime = new Date(favorite.startTime);
@@ -1455,6 +1452,18 @@ vis.binds['tvprogram'] = {
             text += '} \n';
 
             text += `#${widgetID}channeldlg .chselect-container {\n`;
+            text += '} \n';
+
+            text += `#${widgetID}channeldlg .chselect-container .channel[selected]{\n`;
+            text += '   opacity: 1; \n';
+            text += '} \n';
+
+            text += `#${widgetID}channeldlg .chselect-container .channel{\n`;
+            text += '   opacity: 0.5; \n';
+            text += '} \n';
+
+            text += `#${widgetID}channeldlg .chselect-container .channel .btn {\n`;
+            text += '   opacity: 1; \n';
             text += '} \n';
 
             text += `#${widgetID}channeldlg ul.channel {\n`;
@@ -1893,16 +1902,14 @@ vis.binds['tvprogram'] = {
             document.body.removeChild(scrollDiv);
             return scrollbarWidth;
         },
-        getChannels: function (channels, filter = []) {
+        getChannels: function (channels, filter = [], tvprogram_oid) {
             const cc = [];
+            let logopath =
+                vis.binds['tvprogram'].getOptChannelLogoPath(tvprogram_oid) || 'https://tvfueralle.de/channel-logos/';
             filter.map(el => {
                 const ch = channels.find(el1 => el1.id == el);
                 cc.push(
-                    `<li class="listitem channel" data-order="${ch.order}" data-id="${
-                        ch.id
-                    }" selected><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${
-                        ch.channelId
-                    }.png" alt="" class="channel-logo"></li>`,
+                    `<li class="listitem channel" data-order="${ch.order}" data-id="${ch.id}" selected><img width="100%" height="100%" src="${logopath}${ch.channelId}.png" alt="" class="channel-logo"></li>`,
                 );
             });
             channels
@@ -1915,11 +1922,7 @@ vis.binds['tvprogram'] = {
                 .map(el => {
                     if (filter.findIndex(el1 => el1 == el.id) == -1) {
                         cc.push(
-                            `<li class="listitem channel" data-order="${el.order}" data-id="${
-                                el.id
-                            }"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${
-                                el.channelId
-                            }.png" alt="" class="channel-logo"></li>`,
+                            `<li class="listitem channel" data-order="${el.order}" data-id="${el.id}"><img width="100%" height="100%" src="${logopath}${el.channelId}.png" alt="" class="channel-logo"></li>`,
                         );
                     }
                 });
@@ -1966,15 +1969,15 @@ vis.binds['tvprogram'] = {
                 tvprogram_oid
             }" data-widgetid="${
                 widgetID
-            }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
+            }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
             text += `    <ul class="listitem channel" data-widgetid="${
                 widgetID
-            }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
+            }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
             text += '  </div>';
 
             text += '  <div class="chselect-container clearfix sortable">';
             text += '  <ul class="items">';
-            text += this.getChannels(channels, channelfilter).join('\n');
+            text += this.getChannels(channels, channelfilter, tvprogram_oid).join('\n');
             text += '  </ul>';
             text += '  </div>';
             $(`#${widgetID}channeldlg`).html(text);
@@ -2039,7 +2042,6 @@ vis.binds['tvprogram'] = {
             const channel = this.visTvprogram.channels.find(ch => ch.id == el.channel);
             let logopath =
                 this.visTvprogram.getOptChannelLogoPath(tvprogram_oid) || 'https://tvfueralle.de/channel-logos/';
-
             const aa = [];
             let text = '';
             text += '    <li class="tv-item tv-head-left tv-head-background channel">';

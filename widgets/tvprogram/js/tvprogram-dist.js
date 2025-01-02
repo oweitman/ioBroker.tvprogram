@@ -32,7 +32,7 @@
   var version;
   var init_package = __esm({
     "../package.json"() {
-      version = "2.3.1";
+      version = "3.0.0";
     }
   });
 
@@ -3888,6 +3888,18 @@
               text += `#${widgetID}channeldlg .chselect-container {
 `;
               text += "} \n";
+              text += `#${widgetID}channeldlg .chselect-container .channel[selected]{
+`;
+              text += "   opacity: 1; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .chselect-container .channel{
+`;
+              text += "   opacity: 0.5; \n";
+              text += "} \n";
+              text += `#${widgetID}channeldlg .chselect-container .channel .btn {
+`;
+              text += "   opacity: 1; \n";
+              text += "} \n";
               text += `#${widgetID}channeldlg ul.channel {
 `;
               text += "   margin:0px; \n";
@@ -4263,12 +4275,13 @@
             document.body.removeChild(scrollDiv);
             return scrollbarWidth;
           },
-          getChannels: function(channels, filter = []) {
+          getChannels: function(channels, filter = [], tvprogram_oid) {
             const cc = [];
+            let logopath = vis.binds["tvprogram"].getOptChannelLogoPath(tvprogram_oid) || "https://tvfueralle.de/channel-logos/";
             filter.map((el) => {
               const ch = channels.find((el1) => el1.id == el);
               cc.push(
-                `<li class="listitem channel" data-order="${ch.order}" data-id="${ch.id}" selected><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${ch.channelId}.png" alt="" class="channel-logo"></li>`
+                `<li class="listitem channel" data-order="${ch.order}" data-id="${ch.id}" selected><img width="100%" height="100%" src="${logopath}${ch.channelId}.png" alt="" class="channel-logo"></li>`
               );
             });
             channels.sort(
@@ -4276,7 +4289,7 @@
             ).map((el) => {
               if (filter.findIndex((el1) => el1 == el.id) == -1) {
                 cc.push(
-                  `<li class="listitem channel" data-order="${el.order}" data-id="${el.id}"><img width="100%" height="100%" src="https://tvfueralle.de/channel-logos/${el.channelId}.png" alt="" class="channel-logo"></li>`
+                  `<li class="listitem channel" data-order="${el.order}" data-id="${el.id}"><img width="100%" height="100%" src="${logopath}${el.channelId}.png" alt="" class="channel-logo"></li>`
                 );
               }
             });
@@ -4316,12 +4329,12 @@
             let text = "";
             text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
             text += '  <div class="chselect-container clearfix">';
-            text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
-            text += `    <ul class="listitem channel" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
+            text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
+            text += `    <ul class="listitem channel" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
             text += "  </div>";
             text += '  <div class="chselect-container clearfix sortable">';
             text += '  <ul class="items">';
-            text += this.getChannels(channels, channelfilter).join("\n");
+            text += this.getChannels(channels, channelfilter, tvprogram_oid).join("\n");
             text += "  </ul>";
             text += "  </div>";
             $(`#${widgetID}channeldlg`).html(text);
