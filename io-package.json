@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "news": {
+      "3.0.2": {
+        "en": "improve debug messages",
+        "de": "debug-nachrichten verbessern",
+        "ru": "улучшить отладочные сообщения",
+        "pt": "melhorar as mensagens de depuração",
+        "nl": "debugberichten verbeteren",
+        "fr": "améliorer les messages de débogage",
+        "it": "migliorare i messaggi di debug",
+        "es": "mejorar los mensajes de depuración",
+        "pl": "poprawianie wiadomości debugowania",
+        "uk": "покращувати повідомлення про відключення",
+        "zh-cn": "改进调试消息"
+      },
       "3.0.1": {
         "en": "fix channel select dialog\nfix css classes",
         "de": "wählen sie den dialog aus\ncss klassen reparieren",
@@ -80,19 +93,6 @@
         "pl": "Zmień polecenie sento z getFavorites Datax do getFavorites Dane\nprzełącz na eslint\nkompletna przeróbka programu tvprogram do przełączania z połączenia zwrotnego na oczekiwanie",
         "uk": "Зміна відправної команди від getFavorites Datax для getFavorites Дані\nперемикач до eslint\nповна робота телепрограми для переходу від зворотного зв'язку",
         "zh-cn": "从 Favorites 更改发送命令 Datax 获取最爱 数据\n切换到 eslint\n完成 tvprogram 的重修, 从回调到等待"
-      },
-      "2.0.2": {
-        "en": "fix jsonconfig\nadd node 22 to testing",
-        "de": "jsonconfig herunterladen\nknoten 22 zum testen hinzufügen",
-        "ru": "исправить jsonconfig\nдобавить узел 22 к тестированию",
-        "pt": "corrigir jsonconfig\nadicionar nó 22 para testar",
-        "nl": "fix jsonconfig\nnode 22 toevoegen aan het testen",
-        "fr": "réparer jsonconfig\najouter le noeud 22 aux essais",
-        "it": "correzione di jsonconfig\naggiungere nodo 22 al test",
-        "es": "jsonconfig\nañadir nodo 22 a las pruebas",
-        "pl": "fix jsonconfig\ndodać węzeł 22 do badania",
-        "uk": "виправлено jsonconfig\nдодати вузол 22 для тестування",
-        "zh-cn": "修复json配置\n在测试中添加节点 22"
       }
     },
     "titleLang": {

@@ -834,6 +834,10 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 3.0.2 (2025-01-02)
+
+- improve debug messages
+
 ### 3.0.1 (2025-01-02)
 
 - fix channel select dialog
