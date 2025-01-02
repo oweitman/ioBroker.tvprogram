@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "news": {
+      "3.0.1": {
+        "en": "fix channel select dialog\nfix css classes",
+        "de": "wählen sie den dialog aus\ncss klassen reparieren",
+        "ru": "диалог выбора канала\nклассы",
+        "pt": "corrigir o canal selecionar diálogo\ncorrigir classes de css",
+        "nl": "kanaal selecteren-dialoog\ncss-klassen repareren",
+        "fr": "correction de la boîte de dialogue de sélection du canal\nfixer les classes css",
+        "it": "correzione del canale selezionare finestra di dialogo\ncorrezione di classi di css",
+        "es": "seleccionar el canal\narreglar clases de css",
+        "pl": "ustawić okno wyboru kanału\nwyrównać klasy css",
+        "uk": "виправити канал вибрати діалог\nфіксувати заняття css",
+        "zh-cn": "固定频道选择对话框\n固定 cs 类"
+      },
       "3.0.0": {
         "en": "TVs as a device, this is a major change because all data points have to be deleted manually by the user\nimprove datapoint creation",
         "de": "TVs als Gerät, dies ist eine große Änderung, weil alle Datenpunkte manuell vom Benutzer gelöscht werden müssen\nverbesserung der datenpunkt-erstellung",
@@ -80,19 +93,6 @@
         "pl": "fix jsonconfig\ndodać węzeł 22 do badania",
         "uk": "виправлено jsonconfig\nдодати вузол 22 для тестування",
         "zh-cn": "修复json配置\n在测试中添加节点 22"
-      },
-      "2.0.1": {
-        "en": "fix lint errors",
-        "de": "lint fehler beheben",
-        "ru": "исправление ошибок линта",
-        "pt": "corrigir erros de lint",
-        "nl": "fix pluisfouten",
-        "fr": "corriger les erreurs de linte",
-        "it": "correggere gli errori di lintuizione",
-        "es": "corregir errores lint",
-        "pl": "naprawić błędy lintu",
-        "uk": "виправлено помилки в розмітці",
-        "zh-cn": "修正错误"
       }
     },
     "titleLang": {

@@ -834,6 +834,11 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 3.0.1 (2025-01-02)
+
+- fix channel select dialog
+- fix css classes
+
 ### 3.0.0 (2025-01-02)
 
 - TVs as a device, this is a major change because all data points have to be deleted manually by the user
