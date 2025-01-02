@@ -596,7 +596,7 @@ copy 1_0_19_283D_3FB_1_C00000_0_0_0.png ard.png
 copy 1_0_19_2B66_3F3_1_C00000_0_0_0.png zdf.png
 copy 1_0_19_EF10_421_1_C00000_0_0_0.png rtl.png
 copy 1_0_19_EF15_421_1_C00000_0_0_0.png rtl2.png
-copy 1_0_19_2E9B_411_1_C00000_0_0_0.png superrtl.png
+copy 1_0_19_2E9B_411_1_C00000_0_0_0.png srtl.png
 copy 1_0_19_2EAF_411_1_C00000_0_0_0.png nitro.png
 copy 1_0_19_EF74_3F9_1_C00000_0_0_0.png sat1.png
 copy 1_0_19_EF75_3F9_1_C00000_0_0_0.png pro7.png
@@ -609,13 +609,13 @@ copy 1_0_19_2B7A_3F3_1_C00000_0_0_0.png zdfneo.png
 copy 1_0_19_2B98_3F2_1_C00000_0_0_0.png kika.png
 copy 1_0_19_2B8E_3F2_1_C00000_0_0_0.png 3sat.png
 copy 1_0_19_285B_401_1_C00000_0_0_0.png phoenix.png
-copy 1_0_19_157C_41F_1_C00000_0_0_0.png disneyplus.png
+copy 1_0_19_157C_41F_1_C00000_0_0_0.png disney.png
 copy 1_0_19_2871_425_1_C00000_0_0_0.png mdr.png
 copy 1_0_19_286F_425_1_C00000_0_0_0.png rbb.png
 copy 1_0_19_283F_3FB_1_C00000_0_0_0.png sw3.png
-copy 1_0_19_1581_41F_1_C00000_0_0_0.png sport1.png
+copy 1_0_19_1581_41F_1_C00000_0_0_0.png sport1de.png
 copy 1_0_19_283E_3FB_1_C00000_0_0_0.png arte.png
-copy 1_0_19_526C_41D_1_C00000_0_0_0.png anixe.png
+copy 1_0_19_526C_41D_1_C00000_0_0_0.png anixehd.png
 copy 1_0_19_151A_455_1_C00000_0_0_0.png dmax.png
 copy 1_0_19_2855_401_1_C00000_0_0_0.png bayern3.png
 copy 1_0_19_2873_425_1_C00000_0_0_0.png hessen3.png
@@ -633,7 +633,8 @@ copy 1_0_19_2888_40F_1_C00000_0_0_0.png one.png
 copy 1_0_19_2889_40F_1_C00000_0_0_0.png alpha.png
 copy 1_0_1_445F_453_1_C00000_0_0_0.png welt.png
 copy 1_0_1_772D_416_1_C00000_0_0_0.png eurosp.png
-copy 1_0_1_7000_436_1_C00000_0_0_0.png comedycentral.png  
+copy 1_0_1_76C8_40E_1_C00000_0_0_0.png comedycentral.png  
+copy 1_0_1_2F1D_441_1_C00000_0_0_0.png rtlnitro.png  
   </code></pre>
 </details>
 
