@@ -834,6 +834,10 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 3.0.3 (2025-01-03)
+
+- fix datapoint creation and overwriting states
+
 ### 3.0.2 (2025-01-02)
 
 - improve debug messages

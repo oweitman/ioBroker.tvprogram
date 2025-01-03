@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "news": {
+      "3.0.3": {
+        "en": "fix datapoint creation and overwriting states",
+        "de": "datenpunkt-erstellung und überschreiben von staaten festlegen",
+        "ru": "фиксации создания точек данных и надписи состояний",
+        "pt": "corrigir a criação de datapoint e estados de substituição",
+        "nl": "fix datapoint aanmaken en overschrijven staten",
+        "fr": "fixer les états de création et d'écrasement des points de données",
+        "it": "fissare la creazione di datapoint e gli stati di sovrascrittura",
+        "es": "fijar la creación de puntos de datos y estados de sobreescritura",
+        "pl": "ustaw stany tworzenia i nadpisywania danych",
+        "uk": "виправити створення та перезаписування даних",
+        "zh-cn": "固定数据点创建和覆盖状态"
+      },
       "3.0.2": {
         "en": "improve debug messages",
         "de": "debug-nachrichten verbessern",
@@ -80,19 +93,6 @@
         "pl": "usunąć zależność jquery- ui\nfix okno jest widoczne na przełączniku widoku, teraz jest modalne\nikona adaptera\nnaprawić błędy eslintu\nprzełączanie niektórych zwrotów na obietnice\nusunąć niewykorzystany kod",
         "uk": "видалити jquery-ui залежностей\nвиправити діалог видимий на перемикачі перегляду, тепер він модальний\nіконка адаптера\nвиправити помилки eslint\nпереключити деякі виклики для обіцянок\nвидалити невикористаний код",
         "zh-cn": "删除对jquery-ui的依赖\n在视图开关上可见固定对话框, 现在它是模式\n修正适配器图标\n修正 eslint 错误\n将一些回调改为承诺\n删除未使用的代码"
-      },
-      "2.1.0": {
-        "en": "Change sento command from getFavoritesDatax to getFavoritesData\nswitch to eslint\ncomplete rework of tvprogram to switch from callback to await",
-        "de": "Change sento Befehl von getFavorites Datax to getFavorites Daten\nschalten auf eslint\nkomplettes nacharbeiten von tvprogram, um vom rückruf zu warten",
-        "ru": "Изменение команды от getFavorites Datax to getFavorites Данные\nпереход на eslint\nполная переработка tvprogram для перехода от обратного вызова к ожиданию",
-        "pt": "Alterar comando sendo de getFavorites Datax para obterFavorites Dados\nmudar para eslint\nretrabalho completo de tvprogram para mudar de callback para esperar",
-        "nl": "Sento-opdracht van getFavorieten wijzigen Datax te krijgenFavorieten Gegevens\nschakelen naar eslint\nvolledige bewerking van tv-programma om over te schakelen van callback naar wacht",
-        "fr": "Changer la commande sendo de getFavorites Datax pour obtenirFavorites Données\npasser à eslint\nretravail complet du programme tv pour passer du callback à l'attente",
-        "it": "Cambia il comando sento da getFavorites Datax per ottenereFavorites Dati\npassare a eslint\nrielaborazione completa di tvprogram per passare dal callback per attendere",
-        "es": "Cambio comando sento de getFavorites Datax para conseguirFavorites Datos\ncambiar a eslint\nretrabajo completo de tvprogram para cambiar de callback a esperar",
-        "pl": "Zmień polecenie sento z getFavorites Datax do getFavorites Dane\nprzełącz na eslint\nkompletna przeróbka programu tvprogram do przełączania z połączenia zwrotnego na oczekiwanie",
-        "uk": "Зміна відправної команди від getFavorites Datax для getFavorites Дані\nперемикач до eslint\nповна робота телепрограми для переходу від зворотного зв'язку",
-        "zh-cn": "从 Favorites 更改发送命令 Datax 获取最爱 数据\n切换到 eslint\n完成 tvprogram 的重修, 从回调到等待"
       }
     },
     "titleLang": {
