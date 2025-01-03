@@ -32,7 +32,7 @@
   var version;
   var init_package = __esm({
     "../package.json"() {
-      version = "3.0.0";
+      version = "3.0.2";
     }
   });
 
@@ -3739,7 +3739,7 @@
               text += "   position:sticky; \n";
               text += "   position: -webkit-sticky; \n";
               text += "   top:0px; \n";
-              text += "   z-index:11; \n";
+              text += "   z-index:12; \n";
               text += `   background-color: ${backgroundColor}; 
 `;
               text += "} \n";

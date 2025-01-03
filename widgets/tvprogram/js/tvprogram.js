@@ -1318,7 +1318,7 @@ vis.binds['tvprogram'] = {
             text += '   position:sticky; \n';
             text += '   position: -webkit-sticky; \n';
             text += '   top:0px; \n';
-            text += '   z-index:11; \n';
+            text += '   z-index:12; \n';
             text += `   background-color: ${backgroundColor}; \n`;
             text += '} \n';
 
