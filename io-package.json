@@ -4,21 +4,8 @@
     "version": "3.0.5",
     "news": {
       "3.0.5": {
-        "en": "upgrade jscontroller dependency",
-        "de": "upgrade jscontroller abhängigkeit",
-        "ru": "обновление jscontroller зависимость",
-        "pt": "upgrade jscontroller dependência",
-        "nl": "upgrade jscontroller afhankelijkheid",
-        "fr": "mise à jour de la dépendance de jscontroller",
-        "it": "aumento della dipendenza da jscontroller",
-        "es": "actualización jscontroller dependencia",
-        "pl": "upgrade nscontroller dependent",
-        "uk": "модернізація залежності jscontroller",
-        "zh-cn": "升级jscontrol 依赖性"
-      },
-      "3.0.4": {
-        "en": "remove check for certifates in axios due to expired certificate of data provider",
-        "de": "entfernen sie die prüfung von certifates in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
+        "en": "remove check for certificates in axios due to expired certificate of data provider",
+        "de": "entfernen sie die prüfung von Zertifikate in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
         "ru": "удалить чек на сертифаты в аксиосе из-за истечения срока действия сертификата поставщика данных",
         "pt": "remover verificação para certifates no axios devido ao certificado expirado do provedor de dados",
         "nl": "verwijder controle op certifiaten in axio's als gevolg van verlopen certificaat van data provider",
