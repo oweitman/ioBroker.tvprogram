@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tvprogram",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
   "author": {
     "name": "oweitman",

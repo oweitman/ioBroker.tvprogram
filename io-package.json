@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "news": {
+      "3.0.4": {
+        "en": "remove check for certifates in axios due to expired certificate of data provider",
+        "de": "entfernen sie die prüfung von certifates in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
+        "ru": "удалить чек на сертифаты в аксиосе из-за истечения срока действия сертификата поставщика данных",
+        "pt": "remover verificação para certifates no axios devido ao certificado expirado do provedor de dados",
+        "nl": "verwijder controle op certifiaten in axio's als gevolg van verlopen certificaat van data provider",
+        "fr": "supprimer le contrôle des certificats en axios en raison de l'expiration du certificat du fournisseur de données",
+        "it": "rimuovere il controllo per i certificati in assio a causa del certificato scaduto del fornitore di dati",
+        "es": "retirar el cheque para certifados en axios debido al certificado caducado del proveedor de datos",
+        "pl": "usunięcie kontroli certyfikatów w aksjonach z powodu wygasłego certyfikatu dostawcy danych",
+        "uk": "видалення чеку на засвідчення в аксіосі через розірваний сертифікат постачальника даних",
+        "zh-cn": "由于数据提供者的证书过期, 取消对 arxios 证书的检查"
+      },
       "3.0.3": {
         "en": "fix datapoint creation and overwriting states",
         "de": "datenpunkt-erstellung und überschreiben von staaten festlegen",
@@ -80,19 +93,6 @@
         "pl": "dodaj punkt danych dla opcjonalnych ikon kanału\ndodaj logikę w widgetach",
         "uk": "додати точку даних для додаткових іконок каналів\nдодати логіку в віджетах",
         "zh-cn": "为可选频道图标添加数据点\n在部件中添加逻辑"
-      },
-      "2.2.0": {
-        "en": "remove jquery-ui dependency\nfix dialog is visible on view switch, now it's modal\nfix adapter icon\nfix eslint errors\nswitch some callbacks to promises\nremove unused code",
-        "de": "jquery-ui abhängigkeit\nfix dialog ist sichtbar auf ansicht schalter, jetzt ist es modal\nadapter-symbol\neslint fehler beheben\neinige rückrufe zu versprechen wechseln\nungenutzten code entfernen",
-        "ru": "удалить жкжи-уи-иждивенца\nдиалог фиксации виден на переключателе просмотра, теперь это модаль\nзначок адаптера\nисправить ошибки eslint\nпереключить некоторые отзывы к обещаниям\nудалить неиспользуемый код",
-        "pt": "remover a dependência jquery-ui\na caixa de diálogo de correção é visível no interruptor de visualização, agora é modal\nícone do adaptador de correção\ncorrigir erros eslint\nmudar alguns callbacks para promessas\nremover código não utilizado",
-        "nl": "jquery-ui-afhankelijkheid verwijderen\nfix dialoogvenster is zichtbaar op weergave schakelaar, nu is het modal\nadapterpictogram herstellen\neslint-fouten herstellen\nsommige callbacks overzetten naar beloftes\nongebruikte code verwijderen",
-        "fr": "supprimer la dépendance jquery-ui\nla boîte de dialogue de correction est visible sur le commutateur de vue, maintenant c'est modal\ncorrection de l'icône de l'adaptateur\ncorrection d'erreurs d'essence\npasser quelques rappels aux promesses\nsupprimer le code inutilisé",
-        "it": "rimuovere la dipendenza jquery-ui\nfix finestra di dialogo è visibile sull'interruttore di visualizzazione, ora è modale\nfissa icona dell'adattatore\ncorreggere gli errori eslint\ncambiare alcuni callback per promesse\nrimuovere il codice non utilizzato",
-        "es": "eliminar jquery-ui dependencia\nfijar diálogo es visible en el interruptor de vista, ahora es modal\nicono de adaptador de fijación\ncorrige errores de eslint\ncambiar algunos callbacks a promesas\neliminar código no utilizado",
-        "pl": "usunąć zależność jquery- ui\nfix okno jest widoczne na przełączniku widoku, teraz jest modalne\nikona adaptera\nnaprawić błędy eslintu\nprzełączanie niektórych zwrotów na obietnice\nusunąć niewykorzystany kod",
-        "uk": "видалити jquery-ui залежностей\nвиправити діалог видимий на перемикачі перегляду, тепер він модальний\nіконка адаптера\nвиправити помилки eslint\nпереключити деякі виклики для обіцянок\nвидалити невикористаний код",
-        "zh-cn": "删除对jquery-ui的依赖\n在视图开关上可见固定对话框, 现在它是模式\n修正适配器图标\n修正 eslint 错误\n将一些回调改为承诺\n删除未使用的代码"
       }
     },
     "titleLang": {

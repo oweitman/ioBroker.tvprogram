@@ -834,7 +834,7 @@ widget tvprogram:
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.0.4 (2025-01-20)
 
 - remove check for certifates in axios due to expired certificate of data provider
 
