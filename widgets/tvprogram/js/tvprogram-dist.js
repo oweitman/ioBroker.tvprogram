@@ -32,7 +32,7 @@
   var version;
   var init_package = __esm({
     "../package.json"() {
-      version = "3.0.2";
+      version = "3.0.3";
     }
   });
 
