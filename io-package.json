@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "3.0.4",
+    "version": "3.0.5",
     "news": {
+      "3.0.5": {
+        "en": "upgrade jscontroller dependency",
+        "de": "upgrade jscontroller abhängigkeit",
+        "ru": "обновление jscontroller зависимость",
+        "pt": "upgrade jscontroller dependência",
+        "nl": "upgrade jscontroller afhankelijkheid",
+        "fr": "mise à jour de la dépendance de jscontroller",
+        "it": "aumento della dipendenza da jscontroller",
+        "es": "actualización jscontroller dependencia",
+        "pl": "upgrade nscontroller dependent",
+        "uk": "модернізація залежності jscontroller",
+        "zh-cn": "升级jscontrol 依赖性"
+      },
       "3.0.4": {
         "en": "remove check for certifates in axios due to expired certificate of data provider",
         "de": "entfernen sie die prüfung von certifates in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
@@ -80,19 +93,6 @@
         "pl": "małe poprawki doku",
         "uk": "мало docu fixes",
         "zh-cn": "小文档修正"
-      },
-      "2.3.0": {
-        "en": "add datapoint for optional channel icons\nadd logic in the widgets",
-        "de": "datenpunkt für optionale kanalsymbole hinzufügen\nlogik in den widgets hinzufügen",
-        "ru": "добавить точку данных для дополнительных значков канала\nдобавить логику в виджеты",
-        "pt": "adicionar datapoint para ícones de canal opcionais\nadicionar lógica nos widgets",
-        "nl": "datapoint toevoegen voor optionele kanaalpictogrammen\nlogica toevoegen aan de widgets",
-        "fr": "ajouter un point de données pour les icônes de canal optionnelles\najouter la logique dans les widgets",
-        "it": "aggiungere datapoint per le icone dei canali opzionali\naggiungere logica nei widget",
-        "es": "añadir punto de datos para iconos de canales opcionales\nañadir lógica en los widgets",
-        "pl": "dodaj punkt danych dla opcjonalnych ikon kanału\ndodaj logikę w widgetach",
-        "uk": "додати точку даних для додаткових іконок каналів\nдодати логіку в віджетах",
-        "zh-cn": "为可选频道图标添加数据点\n在部件中添加逻辑"
       }
     },
     "titleLang": {
@@ -154,7 +154,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=4.0.24"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [
