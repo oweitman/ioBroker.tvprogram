@@ -82,6 +82,7 @@ vis.binds['tvprogram'] = {
 
             const maxresults = parseInt(data.tvprogram_maxresults) || 10;
             const heightrow = parseInt(data.tvprogram_heightRow) || 35;
+            const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
             const broadcastfontpercent = parseInt(data.tvprogram_broadcastfontpercent) || 75;
             const highlightcolor = data.tvprogram_highlightcolor || 'yellow';
             const showpictures = data.tvprogram_showpictures || false;
@@ -215,7 +216,7 @@ vis.binds['tvprogram'] = {
             text += '} \n';
 
             text += `#${widgetID} .channel {\n`;
-            text += `   width: ${heightrow}px; \n`;
+            text += `   width: ${chnanneliconwidth}px; \n`;
             text += `   height: ${heightrow}px; \n`;
             //text += '   padding: 1px; \n';
             text += '   border-width: 0px; \n';
@@ -606,6 +607,7 @@ vis.binds['tvprogram'] = {
             }
 
             const heightrow = parseInt(data.tvprogram_heightRow) || 35;
+            const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
             const broadcastfontpercent = parseInt(data.tvprogram_broadcastfontpercent) || 75;
             const highlightcolor = data.tvprogram_highlightcolor || 'yellow';
             const showpictures = data.tvprogram_showpictures || false;
@@ -658,7 +660,7 @@ vis.binds['tvprogram'] = {
             text += '} \n';
 
             text += `#${widgetID} .channel {\n`;
-            text += `   width: ${heightrow}px; \n`;
+            text += `   width: ${chnanneliconwidth}px; \n`;
             text += `   height: ${heightrow}px; \n`;
             //text += '   padding: 1px; \n';
             text += '   border-width: 0px; \n';
@@ -927,6 +929,7 @@ vis.binds['tvprogram'] = {
             const maxfavorites = data.tvprogram_maxfavorites || 10;
             const highlightcolor = data.tvprogram_highlightcolor || 'yellow';
             const channelname = data.tvprogram_channelname || false;
+            const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
 
             let tvprogram_oid;
             let instance;
@@ -1007,11 +1010,9 @@ vis.binds['tvprogram'] = {
             text += '} \n';
             text += `#${widgetID} .tv-center {\n`;
             text += '   text-align: center;\n';
-            text += '   width: 1%;\n';
             text += '} \n';
             text += `#${widgetID} .tv-icon {\n`;
-            text += '   height: 1em; \n';
-            text += '   width: 1em; \n';
+            text += `   width: ${chnanneliconwidth}px; \n`;
             text += '} \n';
 
             text += '</style> \n';
@@ -1061,7 +1062,7 @@ vis.binds['tvprogram'] = {
                         text += `           <td class="tv-left">${favorite.channelname}</td>`;
                     } else {
                         text += '           <td class="tv-center tv-tdicon">';
-                        text += `              <img width="100%" height="100%" src="${logopath}${favorite.channelId}.png" alt="" class="tv-icon">`;
+                        text += `              <img width="100%" height="100%" src="${logopath}${favorite.channelid}.png" alt="" class="tv-icon">`;
                         text += '           </td>';
                     }
                     text += `           <td class="tv-full">${favorite.title}</td>`;
@@ -1134,6 +1135,7 @@ vis.binds['tvprogram'] = {
                     origwidthItem: parseInt(data.tvprogram_widthItem) || 120,
                     timeItem: 30,
                     heightRow: parseInt(data.tvprogram_heightRow) || 35,
+                    channelIconWidth: parseInt(data.tvprogram_channeliconwidth) || 35,
                     scrollbarWidth: this.getScrollbarWidth(),
                     markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
                     dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
@@ -1253,14 +1255,14 @@ vis.binds['tvprogram'] = {
 
             console.log('Calc styles');
             const widthitem = this.measures[widgetID].widthItem;
-            const widthchannel = this.measures[widgetID].heightRow;
+            const channelIconWidth = this.measures[widgetID].channelIconWidth;
             const heightrow = this.measures[widgetID].heightRow;
 
             const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
             if (this.visTvprogram.checkStyle('background-color', $(`#${widgetID}`)[0].style.cssText) == '') {
                 $(`#${widgetID}`).css('background-color', backgroundColor);
             }
-            const widthtvrow = 48 * widthitem + widthchannel;
+            const widthtvrow = 48 * widthitem + channelIconWidth;
             const headerfontpercent = data.tvprogram_headerfontpercent || 125;
             const broadcastfontpercent = data.tvprogram_broadcastfontpercent || 75;
 
@@ -1338,7 +1340,7 @@ vis.binds['tvprogram'] = {
             text += '} \n';
 
             text += `#${widgetID} .channel {\n`;
-            text += `   width: ${heightrow}px; \n`;
+            text += `   width: ${channelIconWidth}px; \n`;
             text += `   height: ${heightrow}px; \n`;
             //text += '   padding: 1px; \n';
             text += '   border-width: 0px; \n';
@@ -1864,7 +1866,7 @@ vis.binds['tvprogram'] = {
             }
             const wItem = this.measures[widgetID].widthItem;
             const tItem = this.measures[widgetID].timeItem;
-            const wChannel = this.measures[widgetID].heightRow;
+            const wChannel = this.measures[widgetID].channelIconWidth;
 
             const sTime = new Date(this.visTvprogram.calcDate(new Date()));
             sTime.setHours(5);

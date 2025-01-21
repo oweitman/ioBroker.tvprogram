@@ -2,6 +2,7 @@
     "tvprogram_oid": "ID",
     "tvprogram_widthItem": "Width on hour px",
     "tvprogram_heightRow": "Height of row px",
+    "tvprogram_channeliconwidth": "Width channel logo px",
     "tvprogram_showpictures": "Show pictures",
     "tvprogram_headerfontpercent": "Header font size %",
     "tvprogram_broadcastfontpercent": "Broadcast font %",

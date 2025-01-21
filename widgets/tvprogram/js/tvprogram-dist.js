@@ -32,7 +32,7 @@
   var version;
   var init_package = __esm({
     "../package.json"() {
-      version = "3.0.3";
+      version = "3.0.5";
     }
   });
 
@@ -2618,6 +2618,7 @@
               }
               const maxresults = parseInt(data.tvprogram_maxresults) || 10;
               const heightrow = parseInt(data.tvprogram_heightRow) || 35;
+              const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
               const broadcastfontpercent = parseInt(data.tvprogram_broadcastfontpercent) || 75;
               const highlightcolor = data.tvprogram_highlightcolor || "yellow";
               const showpictures = data.tvprogram_showpictures || false;
@@ -2735,7 +2736,7 @@
               text += "} \n";
               text += `#${widgetID} .channel {
 `;
-              text += `   width: ${heightrow}px; 
+              text += `   width: ${chnanneliconwidth}px; 
 `;
               text += `   height: ${heightrow}px; 
 `;
@@ -3089,6 +3090,7 @@
                 }
               }
               const heightrow = parseInt(data.tvprogram_heightRow) || 35;
+              const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
               const broadcastfontpercent = parseInt(data.tvprogram_broadcastfontpercent) || 75;
               const highlightcolor = data.tvprogram_highlightcolor || "yellow";
               const showpictures = data.tvprogram_showpictures || false;
@@ -3139,7 +3141,7 @@
               text += "} \n";
               text += `#${widgetID} .channel {
 `;
-              text += `   width: ${heightrow}px; 
+              text += `   width: ${chnanneliconwidth}px; 
 `;
               text += `   height: ${heightrow}px; 
 `;
@@ -3387,6 +3389,7 @@
               const maxfavorites = data.tvprogram_maxfavorites || 10;
               const highlightcolor = data.tvprogram_highlightcolor || "yellow";
               const channelname = data.tvprogram_channelname || false;
+              const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
               let tvprogram_oid;
               let instance;
               const weekday_options = { weekday: "short" };
@@ -3459,12 +3462,11 @@
               text += `#${widgetID} .tv-center {
 `;
               text += "   text-align: center;\n";
-              text += "   width: 1%;\n";
               text += "} \n";
               text += `#${widgetID} .tv-icon {
 `;
-              text += "   height: 1em; \n";
-              text += "   width: 1em; \n";
+              text += `   width: ${chnanneliconwidth}px; 
+`;
               text += "} \n";
               text += "</style> \n";
               text += '  <div class="svgcontainer">';
@@ -3502,7 +3504,7 @@
                     text += `           <td class="tv-left">${favorite.channelname}</td>`;
                   } else {
                     text += '           <td class="tv-center tv-tdicon">';
-                    text += `              <img width="100%" height="100%" src="${logopath}${favorite.channelId}.png" alt="" class="tv-icon">`;
+                    text += `              <img width="100%" height="100%" src="${logopath}${favorite.channelid}.png" alt="" class="tv-icon">`;
                     text += "           </td>";
                   }
                   text += `           <td class="tv-full">${favorite.title}</td>`;
@@ -3571,6 +3573,7 @@
                   origwidthItem: parseInt(data.tvprogram_widthItem) || 120,
                   timeItem: 30,
                   heightRow: parseInt(data.tvprogram_heightRow) || 35,
+                  channelIconWidth: parseInt(data.tvprogram_channeliconwidth) || 35,
                   scrollbarWidth: this.getScrollbarWidth(),
                   markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
                   dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
@@ -3677,13 +3680,13 @@
               }
               console.log("Calc styles");
               const widthitem = this.measures[widgetID].widthItem;
-              const widthchannel = this.measures[widgetID].heightRow;
+              const channelIconWidth = this.measures[widgetID].channelIconWidth;
               const heightrow = this.measures[widgetID].heightRow;
               const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
               if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
                 $(`#${widgetID}`).css("background-color", backgroundColor);
               }
-              const widthtvrow = 48 * widthitem + widthchannel;
+              const widthtvrow = 48 * widthitem + channelIconWidth;
               const headerfontpercent = data.tvprogram_headerfontpercent || 125;
               const broadcastfontpercent = data.tvprogram_broadcastfontpercent || 75;
               let lineheight = 0;
@@ -3762,7 +3765,7 @@
               text += "} \n";
               text += `#${widgetID} .channel {
 `;
-              text += `   width: ${heightrow}px; 
+              text += `   width: ${channelIconWidth}px; 
 `;
               text += `   height: ${heightrow}px; 
 `;
@@ -4239,7 +4242,7 @@
             }
             const wItem = this.measures[widgetID].widthItem;
             const tItem = this.measures[widgetID].timeItem;
-            const wChannel = this.measures[widgetID].heightRow;
+            const wChannel = this.measures[widgetID].channelIconWidth;
             const sTime = new Date(this.visTvprogram.calcDate(/* @__PURE__ */ new Date()));
             sTime.setHours(5);
             sTime.setMinutes(0);

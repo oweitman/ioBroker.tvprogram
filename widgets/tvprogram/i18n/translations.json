@@ -38,6 +38,19 @@
         "uk": "Висота рядка px",
         "zh-cn": "Height of row px"
     },
+    "tvprogram_channeliconwidth": {
+        "en": "Width channel logo px",
+        "de": "Breite Kanal-Logo px",
+        "ru": "Ширина логотипа канала px",
+        "pt": "Largura do logótipo do canal px",
+        "nl": "Breedte kanaallogo px",
+        "fr": "Largeur du logo du canal px",
+        "it": "Larghezza logo del canale px",
+        "es": "Anchura del logotipo del canal px",
+        "pl": "Szerokość logo kanału px",
+        "uk": "Ширина логотипу каналу px",
+        "zh-cn": "Width channel logo px"
+    },
     "tvprogram_showpictures": {
         "en": "Show pictures",
         "de": "Bilder anzeigen",
@@ -109,7 +122,7 @@
         "ru": "Ширина диалогового окна %",
         "pt": "Largura do diálogo %",
         "nl": "Dialoogbreedte %",
-        "fr": "Largeur du dialogue %",
+        "fr": "Largeur de la boîte de dialogue %",
         "it": "Larghezza della finestra di dialogo %",
         "es": "Ancho del diálogo %.",
         "pl": "Szerokość okna dialogowego %",
