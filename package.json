@@ -72,7 +72,7 @@
     "translate": "translate-adapter",
     "release": "release-script --all",
     "build": "cd widgets/tvprogram && npm run build && cd ../..",
-    "repochecker": "npx github:oweitman/ioBroker.repochecker https://github.com/oweitman/ioBroker.tvprogram --local",
+    "repochecker": "npx github:oweitman/ioBroker.repochecker https://github.com/oweitman/ioBroker.tvprogram --local --noinfo",
     "translate-admin": "node ./bin/translate.js -- source src-admin/src/i18n",
     "translate-widgets": "node ./bin/translate.js --source widgets/tvprogram/i18n/en.json --format single"
   },
