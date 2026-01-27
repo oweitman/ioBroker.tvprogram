@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "news": {
+      "4.0.2": {
+        "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
+        "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
+        "ru": "улучшение позиции диалогов\nуменьшение запросов к поставщику данных\nтест удалить узел 18, расширить узел 24",
+        "pt": "melhorar a posição das janelas\nreduzir os pedidos ao fornecedor de dados\nteste remover o nó 18, extend ao nó 24",
+        "nl": "de positie van de dialogen verbeteren\nverzoeken aan dataprovider verminderen\ntest verwijder node 18, extend naar node 24",
+        "fr": "améliorer la position des dialogues\nréduire les demandes adressées au fournisseur de données\ntest enlever le noeud 18,extendre au noeud 24",
+        "it": "migliorare la posizione delle finestre di dialogo\nridurre le richieste al fornitore di dati\nprova rimuovere nodo 18, estend to node 24",
+        "es": "mejorar la posición de los diálogos\nreducir las solicitudes al proveedor de datos\nprueba eliminar nodo 18,extender a nodo 24",
+        "pl": "poprawić pozycję dialogów\nzmniejszyć liczbę wniosków do dostawcy danych\ntest usunąć węzeł 18, rozszerzyć na węzeł 24",
+        "uk": "поліпшення положення діалогів\nзменшити запити до постачальника даних\ntest remove node 18,потенд в вузол 24",
+        "zh-cn": "改善对话框的位置\n减少向数据提供者提出的请求\n测试去除节点 18, 延伸至节点 24"
+      },
       "4.0.1": {
         "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
         "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
@@ -80,19 +93,6 @@
         "pl": "ustawić okno wyboru kanału\nwyrównać klasy css",
         "uk": "виправити канал вибрати діалог\nфіксувати заняття css",
         "zh-cn": "固定频道选择对话框\n固定 cs 类"
-      },
-      "3.0.0": {
-        "en": "TVs as a device, this is a major change because all data points have to be deleted manually by the user\nimprove datapoint creation",
-        "de": "TVs als Gerät, dies ist eine große Änderung, weil alle Datenpunkte manuell vom Benutzer gelöscht werden müssen\nverbesserung der datenpunkt-erstellung",
-        "ru": "Телевизоры как устройство, это большое изменение, потому что все точки данных должны быть удалены вручную пользователем\nулучшение создания точек данных",
-        "pt": "TVs como dispositivo, esta é uma grande mudança porque todos os pontos de dados têm de ser excluídos manualmente pelo usuário\nmelhorar a criação de datapoint",
-        "nl": "TV's als apparaat, dit is een grote verandering omdat alle gegevenspunten handmatig moeten worden verwijderd door de gebruiker\nhet aanmaken van datapunten verbeteren",
-        "fr": "Les téléviseurs comme un appareil, c'est un changement majeur parce que tous les points de données doivent être supprimés manuellement par l'utilisateur\naméliorer la création de points de données",
-        "it": "TV come dispositivo, questo è un cambiamento importante perché tutti i punti di dati devono essere eliminati manualmente dall'utente\nmigliorare la creazione di datapoint",
-        "es": "TV como dispositivo, este es un cambio importante porque todos los puntos de datos deben ser eliminados manualmente por el usuario\nmejorar la creación de puntos de datos",
-        "pl": "Telewizory jako urządzenie, jest to istotna zmiana, ponieważ wszystkie punkty danych muszą być usunięte ręcznie przez użytkownika\npoprawa tworzenia punktów danych",
-        "uk": "Телевізори як пристрій, це основна зміна, оскільки всі пункти даних повинні бути видалені вручну користувачем\nполіпшення створення точок даних",
-        "zh-cn": "作为设备的电视机,这是一个重大的改变,因为所有的数据点都必须由用户手动删除\n改进数据点的创建"
       }
     },
     "titleLang": {

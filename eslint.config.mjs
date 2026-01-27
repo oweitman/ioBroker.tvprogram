@@ -9,18 +9,18 @@ export default [
         // specify files to exclude from linting here
         ignores: [
             'widgets/tvprogram/js/jquery-ui-timepicker-addon-1.6.3.js',
-            'widgets/tvprogram/js/tvprogram-dist.js',
+            'widgets/tvprogram/dist/tvprogram-dist.js',
             '.dev-server/**',
             'backup/**',
-            '*.test.js', 
-            'test/**/*.js', 
-            '*.config.mjs', 
-            'build', 
-            'admin/build', 
+            '*.test.js',
+            'test/**/*.js',
+            '*.config.mjs',
+            'build',
+            'admin/build',
             'admin/words.js',
             'admin/admin.d.ts',
-            '**/adapter-config.d.ts'     
-        ] 
+            '**/adapter-config.d.ts'
+        ]
     },
 
     {
@@ -30,5 +30,5 @@ export default [
             // 'jsdoc/require-jsdoc': 'off',
         },
     },
-    
+
 ];

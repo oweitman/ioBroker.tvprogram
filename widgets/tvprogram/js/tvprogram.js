@@ -155,11 +155,13 @@ vis.binds['tvprogram'] = {
             }
             let categoriesoptions = this.visTvprogram.categories.map(
                 cat =>
-                    `<option value="${cat.id}" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == cat.id ? ' selected' : ''
+                    `<option value="${cat.id}" ${
+                        this.searchdata[tvprogram_oid][widgetID].categoryfilter == cat.id ? ' selected' : ''
                     }>${cat.title}</option>`,
             );
-            categoriesoptions = `<option value="" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == '' ? ' selected' : ''
-                }></option>${categoriesoptions}`;
+            categoriesoptions = `<option value="" ${
+                this.searchdata[tvprogram_oid][widgetID].categoryfilter == '' ? ' selected' : ''
+            }></option>${categoriesoptions}`;
 
             $(`#${widgetID}broadcastdlg`).data({
                 dialogwidthpercent: dialogwidthpercent,
@@ -335,8 +337,9 @@ vis.binds['tvprogram'] = {
             text += '   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n';
             text += '} \n';
 
-            text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID
-                }broadcastdlg .star.selected {\n`;
+            text += `#${widgetID} .broadcastelement.selected .star svg path, #${
+                widgetID
+            }broadcastdlg .star.selected {\n`;
             text += `   color: ${highlightcolor}; \n`;
             text += '} \n';
 
@@ -357,16 +360,20 @@ vis.binds['tvprogram'] = {
             // to user : <svg width="100%" height="100%" ><use xlink:href="#record-icon"></use></svg>
             text += '  </div>';
 
-            text += `  <form data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID
-                }" data-maxresults="${maxresults}" >`;
+            text += `  <form data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${
+                widgetID
+            }" data-maxresults="${maxresults}" >`;
             text += '    <label for="tvsearch">Search:';
-            text += `      <input name="tvsearch" type="text" id="tvsearch" value="${this.searchdata[tvprogram_oid][widgetID].textfilter
-                }" placeholder="Search">`;
+            text += `      <input name="tvsearch" type="text" id="tvsearch" value="${
+                this.searchdata[tvprogram_oid][widgetID].textfilter
+            }" placeholder="Search">`;
             text += '    </label>';
             text += '    <label for="tvfrom">From:';
-            text += `      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="${this.visTvprogram.infos.tvprogram[0]
-                }" max="${this.visTvprogram.infos.tvprogram[this.visTvprogram.infos.tvprogram.length - 1]}" value="${this.searchdata[tvprogram_oid][widgetID].datefrom
-                }">`;
+            text += `      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="${
+                this.visTvprogram.infos.tvprogram[0]
+            }" max="${this.visTvprogram.infos.tvprogram[this.visTvprogram.infos.tvprogram.length - 1]}" value="${
+                this.searchdata[tvprogram_oid][widgetID].datefrom
+            }">`;
             text += '    </label>';
             text += '    <label for="tvcategory">Category:';
             text += '      <select name="tvcategory" id="tvcategory" >';
@@ -403,18 +410,22 @@ vis.binds['tvprogram'] = {
                                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
                 text += '       </li>';
                 text += '       <li class="tv-item broadcast">';
-                text += `             <div class="broadcastelement ${favhighlight ? 'selected' : ''}" data-widgetid="${widgetID
-                    }" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid
-                    }" data-view="" >`;
+                text += `             <div class="broadcastelement ${favhighlight ? 'selected' : ''}" data-widgetid="${
+                    widgetID
+                }" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${
+                    tvprogram_oid
+                }" data-view="" >`;
                 if (event.photo.url && showpictures) {
                     text +=
                         `<div><img class="broadcastimage" src="` + `https://tvfueralle.de${event.photo.url}"></div>`;
                 }
                 text += '                 <div class="broadcasttitle">';
                 text += `                     ${event.title}`;
-                text += `                     <div class="star" data-viewdate="${viewdate}" data-eventid="${event.id
-                    }" data-instance="${instance}" data-dp="${tvprogram_oid
-                    }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+                text += `                     <div class="star" data-viewdate="${viewdate}" data-eventid="${
+                    event.id
+                }" data-instance="${instance}" data-dp="${
+                    tvprogram_oid
+                }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
                 text += '                 </div>';
                 const startTime = new Date(event.startTime);
                 const endTime = new Date(event.endTime);
@@ -770,8 +781,9 @@ vis.binds['tvprogram'] = {
             text += '   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n';
             text += '} \n';
 
-            text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID
-                }broadcastdlg .star.selected {\n`;
+            text += `#${widgetID} .broadcastelement.selected .star svg path, #${
+                widgetID
+            }broadcastdlg .star.selected {\n`;
             text += `   color: ${highlightcolor}; \n`;
             text += '} \n';
 
@@ -813,10 +825,13 @@ vis.binds['tvprogram'] = {
                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
                     text += '       </li>';
                     text += '       <li class="tv-item broadcast">';
-                    text += `             <div class="broadcastelement ${favhighlight ? 'selected' : ''
-                        }" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate
-                        }" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view
-                        }" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+                    text += `             <div class="broadcastelement ${
+                        favhighlight ? 'selected' : ''
+                    }" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${
+                        viewdate
+                    }" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${
+                        view
+                    }" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
                     if (event.photo.url && showpictures) {
                         text +=
                             `<div><img class="broadcastimage" src="` +
@@ -824,9 +839,11 @@ vis.binds['tvprogram'] = {
                     }
                     text += '                 <div class="broadcasttitle">';
                     text += `                     ${event.title}`;
-                    text += `                     <div class="star" data-viewdate="${viewdate}" data-eventid="${event.id
-                        }" data-instance="${instance}" data-dp="${tvprogram_oid
-                        }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+                    text += `                     <div class="star" data-viewdate="${viewdate}" data-eventid="${
+                        event.id
+                    }" data-instance="${instance}" data-dp="${
+                        tvprogram_oid
+                    }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
                     text += '                 </div>';
                     const startTime = new Date(event.startTime);
                     const endTime = new Date(event.endTime);
@@ -1020,9 +1037,11 @@ vis.binds['tvprogram'] = {
                     vis.binds['tvprogram'].compareDate(today, startTime)
                         ? (text += '        <tr class="tv-today">')
                         : (text += '        <tr>');
-                    text += `<td class="tv-left" data-viewdate="${favorite.viewdate}" data-eventid="${favorite.id
-                        }" data-instance="${instance}" data-dp="${tvprogram_oid
-                        }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>`;
+                    text += `<td class="tv-left" data-viewdate="${favorite.viewdate}" data-eventid="${
+                        favorite.id
+                    }" data-instance="${instance}" data-dp="${
+                        tvprogram_oid
+                    }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>`;
                     if (showweekday) {
                         text += `           <td class="tv-left">${startTime.toLocaleString(
                             vis.language,
@@ -1379,8 +1398,9 @@ vis.binds['tvprogram'] = {
             text += '   filter: drop-shadow( 2px 2px 2px rgba(0, 0, 0, .7))\n';
             text += '} \n';
 
-            text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID
-                }broadcastdlg .star.selected {\n`;
+            text += `#${widgetID} .broadcastelement.selected .star svg path, #${
+                widgetID
+            }broadcastdlg .star.selected {\n`;
             text += `   color: ${highlightcolor}; \n`;
             text += '} \n';
 
@@ -1566,12 +1586,14 @@ vis.binds['tvprogram'] = {
             text += `   background-color: ${backgroundColor}; \n`;
             text += '} \n';
 
-            text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#${widgetID
-                } ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n`;
+            text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(odd),#${
+                widgetID
+            } ul.tv-row:nth-child(odd)> li.time:nth-child(odd) {\n`;
             text += '   background-color: rgba(128, 128, 128, 0.65); \n';
             text += '} \n';
-            text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#${widgetID
-                } ul.tv-row:nth-child(odd)> li.time:nth-child(even) {\n`;
+            text += `#${widgetID} .scrollcontainer ul.tv-row:nth-child(odd)> li.broadcast:nth-child(even),#${
+                widgetID
+            } ul.tv-row:nth-child(odd)> li.time:nth-child(even) {\n`;
             text += '   background-color: rgba(128, 128, 128, 0.55); \n';
             text += '} \n';
 
@@ -1946,11 +1968,14 @@ vis.binds['tvprogram'] = {
             text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
 
             text += '  <div class="chselect-container clearfix">';
-            text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${tvprogram_oid
-                }" data-widgetid="${widgetID
-                }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
-            text += `    <ul class="listitem channel" data-widgetid="${widgetID
-                }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
+            text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${
+                tvprogram_oid
+            }" data-widgetid="${
+                widgetID
+            }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
+            text += `    <ul class="listitem channel" data-widgetid="${
+                widgetID
+            }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
             text += '  </div>';
 
             text += '  <div class="chselect-container clearfix sortable">';
@@ -2045,7 +2070,8 @@ vis.binds['tvprogram'] = {
                 }
                 if (i == 0 && startTime > sTime) {
                     aa.push(
-                        `<li class="tv-item broadcast" style="left:0px; width:${Math.floor(((startTime - sTime) / 60000 / tItem) * wItem * 10) / 10
+                        `<li class="tv-item broadcast" style="left:0px; width:${
+                            Math.floor(((startTime - sTime) / 60000 / tItem) * wItem * 10) / 10
                         }px;"></li>`,
                     );
                 }
@@ -2060,17 +2086,21 @@ vis.binds['tvprogram'] = {
                 text += '<li class="tv-item broadcast" style="';
                 text += `left:${Math.floor(((startTime - sTime) / 60000 / tItem) * wItem * 10) / 10}px;`;
                 text += `width:${Math.floor(((endTime - startTime) / 60000 / tItem) * wItem * 10) / 10}px;">`;
-                text += `<div class="broadcastelement ${favhighlight ? 'selected' : ''}" data-widgetid="${widgetID
-                    }" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid
-                    }" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+                text += `<div class="broadcastelement ${favhighlight ? 'selected' : ''}" data-widgetid="${
+                    widgetID
+                }" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${
+                    tvprogram_oid
+                }" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
                 if (event.photo.url && this.measures[widgetID].showpictures) {
                     text +=
                         `<div><img class="broadcastimage" src="` + `https://tvfueralle.de${event.photo.url}"></div>`;
                 }
                 text += `<div class="broadcasttitle">${event.title}`;
-                text += `<div class="star" data-viewdate="${viewdate}" data-eventid="${event.id}" data-dp="${tvprogram_oid
-                    }" data-instance="${instance
-                    }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
+                text += `<div class="star" data-viewdate="${viewdate}" data-eventid="${event.id}" data-dp="${
+                    tvprogram_oid
+                }" data-instance="${
+                    instance
+                }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;
                 text += '</div>';
                 text += '<div class="broadcasttime">';
                 text += `${`0${startTime.getHours()}`.slice(-2)}:${`0${startTime.getMinutes()}`.slice(-2)}`;
@@ -2248,8 +2278,8 @@ vis.binds['tvprogram'] = {
         const content = event.content.texts.Long.value
             ? event.content.texts.Long.value
             : event.content.texts.VeryShort.value
-                ? event.content.texts.VeryShort.value
-                : '';
+              ? event.content.texts.VeryShort.value
+              : '';
         const photourl = event.photo.url
             ? `https://tvfueralle.de${event.photo.url}`
             : 'https://tvfueralle.de/tv-logo-no-image.svg';
@@ -2258,7 +2288,7 @@ vis.binds['tvprogram'] = {
 
         const layout =
             $(`#${widgetID}`).width() * measures.dialogwidthpercent >
-                $(`#${widgetID}`).height() * measures.dialogheightpercent
+            $(`#${widgetID}`).height() * measures.dialogheightpercent
                 ? ' tv-dlg-row'
                 : ' tv-dlg-col';
         let width = $(`#${widgetID}`).width() * measures.dialogwidthpercent;
@@ -2356,7 +2386,7 @@ vis.binds['tvprogram'] = {
     copyStyles: function (startsWith, from, to) {
         const cssFrom = window.getComputedStyle(from);
         const cssTo = window.getComputedStyle(to);
-        for (let i = cssFrom.length; i--;) {
+        for (let i = cssFrom.length; i--; ) {
             if (cssFrom[i].startsWith(startsWith)) {
                 if (cssFrom.getPropertyValue(cssFrom[i]) != cssTo.getPropertyValue(cssFrom[i])) {
                     to.style.setProperty(cssFrom[i], cssFrom.getPropertyValue(cssFrom[i]));
