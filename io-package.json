@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "news": {
+      "4.0.1": {
+        "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
+        "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
+        "ru": "улучшение позиции диалогов\nуменьшение запросов к поставщику данных\nтест удалить узел 18, расширить узел 24",
+        "pt": "melhorar a posição das janelas\nreduzir os pedidos ao fornecedor de dados\nteste remover o nó 18, extend ao nó 24",
+        "nl": "de positie van de dialogen verbeteren\nverzoeken aan dataprovider verminderen\ntest verwijder node 18, extend naar node 24",
+        "fr": "améliorer la position des dialogues\nréduire les demandes adressées au fournisseur de données\ntest enlever le noeud 18,extendre au noeud 24",
+        "it": "migliorare la posizione delle finestre di dialogo\nridurre le richieste al fornitore di dati\nprova rimuovere nodo 18, estend to node 24",
+        "es": "mejorar la posición de los diálogos\nreducir las solicitudes al proveedor de datos\nprueba eliminar nodo 18,extender a nodo 24",
+        "pl": "poprawić pozycję dialogów\nzmniejszyć liczbę wniosków do dostawcy danych\ntest usunąć węzeł 18, rozszerzyć na węzeł 24",
+        "uk": "поліпшення положення діалогів\nзменшити запити до постачальника даних\ntest remove node 18,потенд в вузол 24",
+        "zh-cn": "改善对话框的位置\n减少向数据提供者提出的请求\n测试去除节点 18, 延伸至节点 24"
+      },
       "4.0.0": {
         "en": "Breaking Change. fix marker position with flexible width of channel logos. In each widget the property \"width channel logo px\" have to be set to approbiate width.",
         "de": "Ändern. fixe Markerposition mit flexibler Breite von Channel-Logos. In jedem Widget muss die Eigenschaft \"Breite Channel Logo px\" auf die Breite eingestellt werden.",
@@ -80,19 +93,6 @@
         "pl": "Telewizory jako urządzenie, jest to istotna zmiana, ponieważ wszystkie punkty danych muszą być usunięte ręcznie przez użytkownika\npoprawa tworzenia punktów danych",
         "uk": "Телевізори як пристрій, це основна зміна, оскільки всі пункти даних повинні бути видалені вручну користувачем\nполіпшення створення точок даних",
         "zh-cn": "作为设备的电视机,这是一个重大的改变,因为所有的数据点都必须由用户手动删除\n改进数据点的创建"
-      },
-      "2.3.1": {
-        "en": "little docu fixes",
-        "de": "kleine docu-fixes",
-        "ru": "небольшие исправления доку",
-        "pt": "pequenas correções docu",
-        "nl": "kleine documentfixes",
-        "fr": "petites corrections docu",
-        "it": "piccolo docu correzioni",
-        "es": "pequeño docu arregla",
-        "pl": "małe poprawki doku",
-        "uk": "мало docu fixes",
-        "zh-cn": "小文档修正"
       }
     },
     "titleLang": {
