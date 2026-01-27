@@ -8,7 +8,7 @@
 <!-- here you can include so many css as you want -->
 <link rel="stylesheet" href="widgets/tvprogram/css/style.css" />
 <!-- here you can include so many js-files as you want -->
-<script type="text/javascript" src="widgets/tvprogram/js/tvprogram-dist.js"></script>
+<script type="text/javascript" src="widgets/tvprogram/dist/tvprogram-dist.js"></script>
 
 <!-- the full description of format in data-vis-attrs can be found here:
     https://github.com/ioBroker/ioBroker.vis/blob/master/www/js/visEditInspect.js#L39
@@ -99,16 +99,11 @@
     You can do "if" conditions and "for" cycles.
 
 -->
-<script id="tpltvprogramtime1"
-        type="text/ejs"
-        class="vis-tpl"
-		data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/tvprogram.png"></img>'
-        data-vis-attrs="tvprogram_oid/id;tvprogram_widthItem/number;tvprogram_heightRow[35]/number;tvprogram_channeliconwidth[35]/number;tvprogram_showpictures/checkbox;tvprogram_headerfontpercent[125]/number,0,1000,1;tvprogram_broadcastfontpercent[75]/number,0,1000,1;tvprogram_highlightcolor[yellow]/color;tvprogram_markerpositionpercent[25]/number,1,100,1;tvprogram_dialogwidthpercent[90]/number,1,100,1;tvprogram_dialogheightpercent[90]/number,1,100,1;"
-        data-vis-set="tvprogram"
-        data-vis-type="val"
-        data-vis-beta="false"
-        data-vis-update-style="true"
-        data-vis-name="TV Program Timetable1">
+<script id="tpltvprogramtime1" type="text/ejs" class="vis-tpl"
+    data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/tvprogram.png"></img>'
+    data-vis-attrs="tvprogram_oid/id;tvprogram_widthItem/number;tvprogram_heightRow[35]/number;tvprogram_channeliconwidth[35]/number;tvprogram_showpictures/checkbox;tvprogram_headerfontpercent[125]/number,0,1000,1;tvprogram_broadcastfontpercent[75]/number,0,1000,1;tvprogram_highlightcolor[yellow]/color;tvprogram_markerpositionpercent[25]/number,1,100,1;tvprogram_dialogwidthpercent[90]/number,1,100,1;tvprogram_dialogheightpercent[90]/number,1,100,1;"
+    data-vis-set="tvprogram" data-vis-type="val" data-vis-beta="false" data-vis-update-style="true"
+    data-vis-name="TV Program Timetable1">
     <div class="vis-widget <%== this.data.attr('class') %>" style="overflow:hidden; width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.time1.createWidget(this.data.wid, this.view, this.data, this.style);
     %>
@@ -118,30 +113,20 @@
     <div class="dialog" id="<%== this.data.wid %>channeldlg"></div>
     </div>
 </script>
-<script id="tpltvprogramfavorites"
-        type="text/ejs"
-        class="vis-tpl"
-		data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/favorites.png"></img>'
-        data-vis-attrs="tvprogram_oid/id;tvprogram_channelname/checkbox;tvprogram_showweekday/checkbox;tvprogram_maxfavorites[10]/number,1;tvprogram_highlightcolor[yellow]/color;tvprogram_channeliconwidth[35]/number;"
-        data-vis-set="tvprogram"
-        data-vis-type="val"
-        data-vis-beta="false"
-        data-vis-update-style="true"
-        data-vis-name="TV Program Favorites">
+<script id="tpltvprogramfavorites" type="text/ejs" class="vis-tpl"
+    data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/favorites.png"></img>'
+    data-vis-attrs="tvprogram_oid/id;tvprogram_channelname/checkbox;tvprogram_showweekday/checkbox;tvprogram_maxfavorites[10]/number,1;tvprogram_highlightcolor[yellow]/color;tvprogram_channeliconwidth[35]/number;"
+    data-vis-set="tvprogram" data-vis-type="val" data-vis-beta="false" data-vis-update-style="true"
+    data-vis-name="TV Program Favorites">
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.favorites.createWidget(this.data.wid, this.view, this.data, this.style);
     %></div>
 </script>
-<script id="tpltvprogramcontrol"
-        type="text/ejs"
-        class="vis-tpl"
-		data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/control.png"></img>'
-        data-vis-attrs="tvprogram_oid/id;tvprogram_time;tvprogram_heightRow[35]/number;tvprogram_channeliconwidth[35]/number;tvprogram_showpictures/checkbox;tvprogram_broadcastfontpercent[75]/number,0,1000,1;tvprogram_highlightcolor[yellow]/color;tvprogram_dialogwidthpercent[90]/number,1,100,1;tvprogram_dialogheightpercent[90]/number,1,100,1;"
-        data-vis-set="tvprogram"
-        data-vis-type="val"
-        data-vis-beta="false"
-        data-vis-update-style="true"
-        data-vis-name="TV Program Control">
+<script id="tpltvprogramcontrol" type="text/ejs" class="vis-tpl"
+    data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/control.png"></img>'
+    data-vis-attrs="tvprogram_oid/id;tvprogram_time;tvprogram_heightRow[35]/number;tvprogram_channeliconwidth[35]/number;tvprogram_showpictures/checkbox;tvprogram_broadcastfontpercent[75]/number,0,1000,1;tvprogram_highlightcolor[yellow]/color;tvprogram_dialogwidthpercent[90]/number,1,100,1;tvprogram_dialogheightpercent[90]/number,1,100,1;"
+    data-vis-set="tvprogram" data-vis-type="val" data-vis-beta="false" data-vis-update-style="true"
+    data-vis-name="TV Program Control">
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.control.createWidget(this.data.wid, this.view, this.data, this.style);
     %>
@@ -149,16 +134,11 @@
     <div class="dialog" id="<%== this.data.wid %>broadcastdlg"></div>
     </div>
 </script>
-<script id="tpltvprogramsearch"
-        type="text/ejs"
-        class="vis-tpl"
-		data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/search.png"></img>'
-        data-vis-attrs="tvprogram_oid/id;tvprogram_showpictures/checkbox;tvprogram_maxresults[10]/number,1;tvprogram_heightRow[35]/number;tvprogram_channeliconwidth[35]/number;tvprogram_broadcastfontpercent[75]/number,0,1000,1;tvprogram_highlightcolor[yellow]/color;tvprogram_dialogwidthpercent[90]/number,1,100,1;tvprogram_dialogheightpercent[90]/number,1,100,1;"
-        data-vis-set="tvprogram"
-        data-vis-type="val"
-        data-vis-beta="false"
-        data-vis-update-style="true"
-        data-vis-name="TV Program Search">
+<script id="tpltvprogramsearch" type="text/ejs" class="vis-tpl"
+    data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/search.png"></img>'
+    data-vis-attrs="tvprogram_oid/id;tvprogram_showpictures/checkbox;tvprogram_maxresults[10]/number,1;tvprogram_heightRow[35]/number;tvprogram_channeliconwidth[35]/number;tvprogram_broadcastfontpercent[75]/number,0,1000,1;tvprogram_highlightcolor[yellow]/color;tvprogram_dialogwidthpercent[90]/number,1,100,1;tvprogram_dialogheightpercent[90]/number,1,100,1;"
+    data-vis-set="tvprogram" data-vis-type="val" data-vis-beta="false" data-vis-update-style="true"
+    data-vis-name="TV Program Search">
     <div class="vis-widget <%== this.data.attr('class') %>" style="overflow:visible; width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%
         vis.binds.tvprogram.search.createWidget(this.data.wid, this.view, this.data, this.style);
     %>
@@ -169,4 +149,3 @@
     <div class="dialog" id="<%== this.data.wid %>broadcastdlg"></div>
     </div>
 </script>
-   

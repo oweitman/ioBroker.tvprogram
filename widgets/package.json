@@ -1,13 +1,21 @@
 {
-  "name": "tvprogram-vis1-widget",
-  "version": "1.0.0",
-  "main": "tvprogram/js/tvprogram.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild tvprogram/js/tvprogram.js --bundle --outfile=tvprogram/js/tvprogram-dist.js --target=es6 --sourcemap",
-    "buildmin": "esbuild tvprogram/js/tvprogram.js --minify --bundle --outfile=tvprogram/js/tvprogram-dist.js --target=es6 --sourcemap"
-  },
-  "author": "",
-  "license": "MIT",
-  "description": ""
+    "name": "tvprogram-vis1-widget",
+    "version": "1.0.0",
+    "main": "tvprogram/js/tvprogram.js",
+    "type": "module",
+    "watch": {
+        "build": "tvprogram/**/js/*.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "npm-watch",
+        "build": "esbuild tvprogram/js/tvprogram.js --bundle --outfile=tvprogram/dist/tvprogram-dist.js --target=es6 --sourcemap",
+        "buildmin": "esbuild tvprogram/js/tvprogram.js --minify --bundle --outfile=tvprogram/dist/tvprogram-dist.js --target=es6 --sourcemap"
+    },
+    "author": "",
+    "license": "MIT",
+    "description": "",
+    "devDependencies": {
+        "npm-watch": "^0.13.0"
+    }
 }
