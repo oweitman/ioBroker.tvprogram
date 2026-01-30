@@ -1,193 +1,172 @@
 {
-  "common": {
-    "name": "tvprogram",
-    "version": "4.0.2",
-    "news": {
-      "4.0.2": {
-        "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
-        "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
-        "ru": "улучшение позиции диалогов\nуменьшение запросов к поставщику данных\nтест удалить узел 18, расширить узел 24",
-        "pt": "melhorar a posição das janelas\nreduzir os pedidos ao fornecedor de dados\nteste remover o nó 18, extend ao nó 24",
-        "nl": "de positie van de dialogen verbeteren\nverzoeken aan dataprovider verminderen\ntest verwijder node 18, extend naar node 24",
-        "fr": "améliorer la position des dialogues\nréduire les demandes adressées au fournisseur de données\ntest enlever le noeud 18,extendre au noeud 24",
-        "it": "migliorare la posizione delle finestre di dialogo\nridurre le richieste al fornitore di dati\nprova rimuovere nodo 18, estend to node 24",
-        "es": "mejorar la posición de los diálogos\nreducir las solicitudes al proveedor de datos\nprueba eliminar nodo 18,extender a nodo 24",
-        "pl": "poprawić pozycję dialogów\nzmniejszyć liczbę wniosków do dostawcy danych\ntest usunąć węzeł 18, rozszerzyć na węzeł 24",
-        "uk": "поліпшення положення діалогів\nзменшити запити до постачальника даних\ntest remove node 18,потенд в вузол 24",
-        "zh-cn": "改善对话框的位置\n减少向数据提供者提出的请求\n测试去除节点 18, 延伸至节点 24"
-      },
-      "4.0.1": {
-        "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
-        "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
-        "ru": "улучшение позиции диалогов\nуменьшение запросов к поставщику данных\nтест удалить узел 18, расширить узел 24",
-        "pt": "melhorar a posição das janelas\nreduzir os pedidos ao fornecedor de dados\nteste remover o nó 18, extend ao nó 24",
-        "nl": "de positie van de dialogen verbeteren\nverzoeken aan dataprovider verminderen\ntest verwijder node 18, extend naar node 24",
-        "fr": "améliorer la position des dialogues\nréduire les demandes adressées au fournisseur de données\ntest enlever le noeud 18,extendre au noeud 24",
-        "it": "migliorare la posizione delle finestre di dialogo\nridurre le richieste al fornitore di dati\nprova rimuovere nodo 18, estend to node 24",
-        "es": "mejorar la posición de los diálogos\nreducir las solicitudes al proveedor de datos\nprueba eliminar nodo 18,extender a nodo 24",
-        "pl": "poprawić pozycję dialogów\nzmniejszyć liczbę wniosków do dostawcy danych\ntest usunąć węzeł 18, rozszerzyć na węzeł 24",
-        "uk": "поліпшення положення діалогів\nзменшити запити до постачальника даних\ntest remove node 18,потенд в вузол 24",
-        "zh-cn": "改善对话框的位置\n减少向数据提供者提出的请求\n测试去除节点 18, 延伸至节点 24"
-      },
-      "4.0.0": {
-        "en": "Breaking Change. fix marker position with flexible width of channel logos. In each widget the property \"width channel logo px\" have to be set to approbiate width.",
-        "de": "Ändern. fixe Markerposition mit flexibler Breite von Channel-Logos. In jedem Widget muss die Eigenschaft \"Breite Channel Logo px\" auf die Breite eingestellt werden.",
-        "ru": "Перерыв. фиксация позиции маркера с гибкой шириной логотипов канала. В каждом виджете свойство «ширина канала логотип px» должно быть установлено для измерения ширины.",
-        "pt": "Mudança de ruptura. corrigir a posição do marcador com largura flexível dos logotipos do canal. Em cada widget a propriedade \"largura de canal logotipo px\" tem de ser definido para a largura aborrecida.",
-        "nl": "Verandering doorbreken. fix marker positie met flexibele breedte van kanaal logo's. In elke widget moet de eigenschap \"breedte kanaallogo px\" ingesteld worden op geschikte breedte.",
-        "fr": "Briser le changement. fixer la position du marqueur avec la largeur flexible des logos du canal. Dans chaque widget, la propriété \"width channel logo px\" doit être définie pour évaluer la largeur.",
-        "it": "Breaking Change. fissa posizione marcatore con larghezza flessibile dei loghi del canale. In ogni widget la proprietà \"width canale logo px\" deve essere impostato per approbiare la larghezza.",
-        "es": "Cambio de ruptura. fijar la posición del marcador con el ancho flexible de los logotipos del canal. En cada widget la propiedad \"width canal logo px\" tiene que ser fijado para aprobarse el ancho.",
-        "pl": "Łamanie zmian. ustawienie znacznika z elastyczną szerokością logo kanału. W każdym widget właściwość \"logo kanału szerokości px\" musi być ustawiona na przybliżoną szerokość.",
-        "uk": "Зміна несправностей. фіксувати позицію маркера з гнучкою шириною лінійних логотипів. У кожному віджеті нерухомості \"width channel logo px\" необхідно встановити для налаштування ширини.",
-        "zh-cn": "打破变化. 以灵活宽度的频道标志固定标记位置。 每个部件中必须设置“ 宽度频道标志 px ” 属性以显示宽度 ."
-      },
-      "3.0.5": {
-        "en": "remove check for certificates in axios due to expired certificate of data provider",
-        "de": "entfernen sie die prüfung von Zertifikate in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
-        "ru": "удалить чек на сертифаты в аксиосе из-за истечения срока действия сертификата поставщика данных",
-        "pt": "remover verificação para certifates no axios devido ao certificado expirado do provedor de dados",
-        "nl": "verwijder controle op certifiaten in axio's als gevolg van verlopen certificaat van data provider",
-        "fr": "supprimer le contrôle des certificats en axios en raison de l'expiration du certificat du fournisseur de données",
-        "it": "rimuovere il controllo per i certificati in assio a causa del certificato scaduto del fornitore di dati",
-        "es": "retirar el cheque para certifados en axios debido al certificado caducado del proveedor de datos",
-        "pl": "usunięcie kontroli certyfikatów w aksjonach z powodu wygasłego certyfikatu dostawcy danych",
-        "uk": "видалення чеку на засвідчення в аксіосі через розірваний сертифікат постачальника даних",
-        "zh-cn": "由于数据提供者的证书过期, 取消对 arxios 证书的检查"
-      },
-      "3.0.3": {
-        "en": "fix datapoint creation and overwriting states",
-        "de": "datenpunkt-erstellung und überschreiben von staaten festlegen",
-        "ru": "фиксации создания точек данных и надписи состояний",
-        "pt": "corrigir a criação de datapoint e estados de substituição",
-        "nl": "fix datapoint aanmaken en overschrijven staten",
-        "fr": "fixer les états de création et d'écrasement des points de données",
-        "it": "fissare la creazione di datapoint e gli stati di sovrascrittura",
-        "es": "fijar la creación de puntos de datos y estados de sobreescritura",
-        "pl": "ustaw stany tworzenia i nadpisywania danych",
-        "uk": "виправити створення та перезаписування даних",
-        "zh-cn": "固定数据点创建和覆盖状态"
-      },
-      "3.0.2": {
-        "en": "improve debug messages",
-        "de": "debug-nachrichten verbessern",
-        "ru": "улучшить отладочные сообщения",
-        "pt": "melhorar as mensagens de depuração",
-        "nl": "debugberichten verbeteren",
-        "fr": "améliorer les messages de débogage",
-        "it": "migliorare i messaggi di debug",
-        "es": "mejorar los mensajes de depuración",
-        "pl": "poprawianie wiadomości debugowania",
-        "uk": "покращувати повідомлення про відключення",
-        "zh-cn": "改进调试消息"
-      },
-      "3.0.1": {
-        "en": "fix channel select dialog\nfix css classes",
-        "de": "wählen sie den dialog aus\ncss klassen reparieren",
-        "ru": "диалог выбора канала\nклассы",
-        "pt": "corrigir o canal selecionar diálogo\ncorrigir classes de css",
-        "nl": "kanaal selecteren-dialoog\ncss-klassen repareren",
-        "fr": "correction de la boîte de dialogue de sélection du canal\nfixer les classes css",
-        "it": "correzione del canale selezionare finestra di dialogo\ncorrezione di classi di css",
-        "es": "seleccionar el canal\narreglar clases de css",
-        "pl": "ustawić okno wyboru kanału\nwyrównać klasy css",
-        "uk": "виправити канал вибрати діалог\nфіксувати заняття css",
-        "zh-cn": "固定频道选择对话框\n固定 cs 类"
-      }
+    "common": {
+        "name": "tvprogram",
+        "version": "4.0.2",
+        "news": {
+            "4.0.2": {
+                "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
+                "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
+                "ru": "улучшение позиции диалогов\nуменьшение запросов к поставщику данных\nтест удалить узел 18, расширить узел 24",
+                "pt": "melhorar a posição das janelas\nreduzir os pedidos ao fornecedor de dados\nteste remover o nó 18, extend ao nó 24",
+                "nl": "de positie van de dialogen verbeteren\nverzoeken aan dataprovider verminderen\ntest verwijder node 18, extend naar node 24",
+                "fr": "améliorer la position des dialogues\nréduire les demandes adressées au fournisseur de données\ntest enlever le noeud 18,extendre au noeud 24",
+                "it": "migliorare la posizione delle finestre di dialogo\nridurre le richieste al fornitore di dati\nprova rimuovere nodo 18, estend to node 24",
+                "es": "mejorar la posición de los diálogos\nreducir las solicitudes al proveedor de datos\nprueba eliminar nodo 18,extender a nodo 24",
+                "pl": "poprawić pozycję dialogów\nzmniejszyć liczbę wniosków do dostawcy danych\ntest usunąć węzeł 18, rozszerzyć na węzeł 24",
+                "uk": "поліпшення положення діалогів\nзменшити запити до постачальника даних\ntest remove node 18,потенд в вузол 24",
+                "zh-cn": "改善对话框的位置\n减少向数据提供者提出的请求\n测试去除节点 18, 延伸至节点 24"
+            },
+            "4.0.0": {
+                "en": "Breaking Change. fix marker position with flexible width of channel logos. In each widget the property \"width channel logo px\" have to be set to approbiate width.",
+                "de": "Ändern. fixe Markerposition mit flexibler Breite von Channel-Logos. In jedem Widget muss die Eigenschaft \"Breite Channel Logo px\" auf die Breite eingestellt werden.",
+                "ru": "Перерыв. фиксация позиции маркера с гибкой шириной логотипов канала. В каждом виджете свойство «ширина канала логотип px» должно быть установлено для измерения ширины.",
+                "pt": "Mudança de ruptura. corrigir a posição do marcador com largura flexível dos logotipos do canal. Em cada widget a propriedade \"largura de canal logotipo px\" tem de ser definido para a largura aborrecida.",
+                "nl": "Verandering doorbreken. fix marker positie met flexibele breedte van kanaal logo's. In elke widget moet de eigenschap \"breedte kanaallogo px\" ingesteld worden op geschikte breedte.",
+                "fr": "Briser le changement. fixer la position du marqueur avec la largeur flexible des logos du canal. Dans chaque widget, la propriété \"width channel logo px\" doit être définie pour évaluer la largeur.",
+                "it": "Breaking Change. fissa posizione marcatore con larghezza flessibile dei loghi del canale. In ogni widget la proprietà \"width canale logo px\" deve essere impostato per approbiare la larghezza.",
+                "es": "Cambio de ruptura. fijar la posición del marcador con el ancho flexible de los logotipos del canal. En cada widget la propiedad \"width canal logo px\" tiene que ser fijado para aprobarse el ancho.",
+                "pl": "Łamanie zmian. ustawienie znacznika z elastyczną szerokością logo kanału. W każdym widget właściwość \"logo kanału szerokości px\" musi być ustawiona na przybliżoną szerokość.",
+                "uk": "Зміна несправностей. фіксувати позицію маркера з гнучкою шириною лінійних логотипів. У кожному віджеті нерухомості \"width channel logo px\" необхідно встановити для налаштування ширини.",
+                "zh-cn": "打破变化. 以灵活宽度的频道标志固定标记位置。 每个部件中必须设置“ 宽度频道标志 px ” 属性以显示宽度 ."
+            },
+            "3.0.5": {
+                "en": "remove check for certificates in axios due to expired certificate of data provider",
+                "de": "entfernen sie die prüfung von Zertifikate in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
+                "ru": "удалить чек на сертифаты в аксиосе из-за истечения срока действия сертификата поставщика данных",
+                "pt": "remover verificação para certifates no axios devido ao certificado expirado do provedor de dados",
+                "nl": "verwijder controle op certifiaten in axio's als gevolg van verlopen certificaat van data provider",
+                "fr": "supprimer le contrôle des certificats en axios en raison de l'expiration du certificat du fournisseur de données",
+                "it": "rimuovere il controllo per i certificati in assio a causa del certificato scaduto del fornitore di dati",
+                "es": "retirar el cheque para certifados en axios debido al certificado caducado del proveedor de datos",
+                "pl": "usunięcie kontroli certyfikatów w aksjonach z powodu wygasłego certyfikatu dostawcy danych",
+                "uk": "видалення чеку на засвідчення в аксіосі через розірваний сертифікат постачальника даних",
+                "zh-cn": "由于数据提供者的证书过期, 取消对 arxios 证书的检查"
+            },
+            "3.0.3": {
+                "en": "fix datapoint creation and overwriting states",
+                "de": "datenpunkt-erstellung und überschreiben von staaten festlegen",
+                "ru": "фиксации создания точек данных и надписи состояний",
+                "pt": "corrigir a criação de datapoint e estados de substituição",
+                "nl": "fix datapoint aanmaken en overschrijven staten",
+                "fr": "fixer les états de création et d'écrasement des points de données",
+                "it": "fissare la creazione di datapoint e gli stati di sovrascrittura",
+                "es": "fijar la creación de puntos de datos y estados de sobreescritura",
+                "pl": "ustaw stany tworzenia i nadpisywania danych",
+                "uk": "виправити створення та перезаписування даних",
+                "zh-cn": "固定数据点创建和覆盖状态"
+            },
+            "3.0.2": {
+                "en": "improve debug messages",
+                "de": "debug-nachrichten verbessern",
+                "ru": "улучшить отладочные сообщения",
+                "pt": "melhorar as mensagens de depuração",
+                "nl": "debugberichten verbeteren",
+                "fr": "améliorer les messages de débogage",
+                "it": "migliorare i messaggi di debug",
+                "es": "mejorar los mensajes de depuración",
+                "pl": "poprawianie wiadomości debugowania",
+                "uk": "покращувати повідомлення про відключення",
+                "zh-cn": "改进调试消息"
+            },
+            "3.0.1": {
+                "en": "fix channel select dialog\nfix css classes",
+                "de": "wählen sie den dialog aus\ncss klassen reparieren",
+                "ru": "диалог выбора канала\nклассы",
+                "pt": "corrigir o canal selecionar diálogo\ncorrigir classes de css",
+                "nl": "kanaal selecteren-dialoog\ncss-klassen repareren",
+                "fr": "correction de la boîte de dialogue de sélection du canal\nfixer les classes css",
+                "it": "correzione del canale selezionare finestra di dialogo\ncorrezione di classi di css",
+                "es": "seleccionar el canal\narreglar clases de css",
+                "pl": "ustawić okno wyboru kanału\nwyrównać klasy css",
+                "uk": "виправити канал вибрати діалог\nфіксувати заняття css",
+                "zh-cn": "固定频道选择对话框\n固定 cs 类"
+            }
+        },
+        "titleLang": {
+            "en": "TV Programm",
+            "de": "Fernsehprogramm",
+            "ru": "Телепрограмма",
+            "pt": "Programa de TV",
+            "nl": "Tv-programma",
+            "fr": "Programme TV",
+            "it": "Programma TV",
+            "es": "Programa de televisión",
+            "pl": "Program telewizyjny",
+            "zh-cn": "电视节目",
+            "uk": "Телепрограма"
+        },
+        "desc": {
+            "en": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
+            "de": "Dieser Adapter fragt in regelmäßigen Abständen Informationen über das Fernsehprogramm ab. ",
+            "ru": "Этот адаптер регулярно запрашивает информацию о телевизионной программе. ",
+            "pt": "Este adaptador pesquisa informações sobre o programa de televisão em intervalos regulares. ",
+            "nl": "Deze adapter vraagt ​​regelmatig informatie over het televisieprogramma. ",
+            "fr": "Cet adaptateur interroge les informations sur le programme de télévision à intervalles réguliers. ",
+            "it": "Questo adattatore esegue il polling delle informazioni sul programma televisivo a intervalli regolari. ",
+            "es": "Este adaptador recopila información sobre el programa de televisión a intervalos regulares. ",
+            "pl": "Ten adapter odpytuje informacje o programie telewizyjnym w regularnych odstępach czasu. ",
+            "zh-cn": "该适配器定期轮询有关电视节目的信息。",
+            "uk": "Цей адаптер регулярно опитує інформацію про телевізійну програму. Дані можуть відображатися в різних віджетах"
+        },
+        "authors": ["oweitman <oweitman@gmx.de>"],
+        "keywords": ["TV", "programm"],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "tvprogram.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/master/admin/tvprogram.png",
+        "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "restartAdapters": ["vis", "vis-2"],
+        "mode": "daemon",
+        "messagebox": true,
+        "type": "misc-data",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=5.0.19"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=6.17.14"
+            }
+        ]
     },
-    "titleLang": {
-      "en": "TV Programm",
-      "de": "Fernsehprogramm",
-      "ru": "Телепрограмма",
-      "pt": "Programa de TV",
-      "nl": "Tv-programma",
-      "fr": "Programme TV",
-      "it": "Programma TV",
-      "es": "Programa de televisión",
-      "pl": "Program telewizyjny",
-      "zh-cn": "电视节目",
-      "uk": "Телепрограма"
-    },
-    "desc": {
-      "en": "This adapter polls information about the television program at regular intervals. The data can be displayed in various widgets",
-      "de": "Dieser Adapter fragt in regelmäßigen Abständen Informationen über das Fernsehprogramm ab. ",
-      "ru": "Этот адаптер регулярно запрашивает информацию о телевизионной программе. ",
-      "pt": "Este adaptador pesquisa informações sobre o programa de televisão em intervalos regulares. ",
-      "nl": "Deze adapter vraagt ​​regelmatig informatie over het televisieprogramma. ",
-      "fr": "Cet adaptateur interroge les informations sur le programme de télévision à intervalles réguliers. ",
-      "it": "Questo adattatore esegue il polling delle informazioni sul programma televisivo a intervalli regolari. ",
-      "es": "Este adaptador recopila información sobre el programa de televisión a intervalos regulares. ",
-      "pl": "Ten adapter odpytuje informacje o programie telewizyjnym w regularnych odstępach czasu. ",
-      "zh-cn": "该适配器定期轮询有关电视节目的信息。",
-      "uk": "Цей адаптер регулярно опитує інформацію про телевізійну програму. Дані можуть відображатися в різних віджетах"
-    },
-    "authors": [
-      "oweitman <oweitman@gmx.de>"
-    ],
-    "keywords": [
-      "TV",
-      "programm"
-    ],
-    "licenseInformation": {
-      "type": "free",
-      "license": "MIT"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "tvprogram.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/oweitman/ioBroker.tvprogram/master/admin/tvprogram.png",
-    "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
-    "loglevel": "info",
-    "tier": 3,
-    "restartAdapters": [
-      "vis",
-      "vis-2"
-    ],
-    "mode": "daemon",
-    "messagebox": true,
-    "type": "misc-data",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=5.0.19"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=6.17.14"
-      }
+    "native": {},
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {
+                "tvcount": 1
+            }
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
     ]
-  },
-  "native": {},
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {
-        "tvcount": 1
-      }
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    }
-  ]
 }
