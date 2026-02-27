@@ -306,7 +306,7 @@
   });
 
   // ../package.json
-  var version = "4.0.1";
+  var version = "4.0.2";
 
   // ../node_modules/sortablejs/modular/sortable.esm.js
   function ownKeys(object, enumerableOnly) {
