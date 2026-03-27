@@ -306,7 +306,7 @@
   });
 
   // ../package.json
-  var version = "4.0.3";
+  var version = "4.0.4";
 
   // ../node_modules/sortablejs/modular/sortable.esm.js
   function _defineProperty(e, r, t) {
