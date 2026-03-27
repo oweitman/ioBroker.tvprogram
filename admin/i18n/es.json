@@ -1,10 +1,11 @@
 {
-    "Default Refresh (min)": "Actualización predeterminada (min)",
-    "Default Max articles": "Artículos máximos predeterminados",
-    "Warning: Please dont set the refresh rate too low. Maybe the provider will ban you or stop the service": "Advertencia: no configure la frecuencia de actualización demasiado baja. ",
-    "Name": "Nombre",
     "Category": "Categoría",
+    "Default Max articles": "Artículos predeterminados Max",
+    "Default Refresh (min)": "Actualización predeterminada (min)",
+    "Max Articles": "Artículos máximos",
+    "Name": "Nombre",
+    "Refresh (min)": "Actualizar (min)",
     "URL": "URL",
-    "Refresh (min)": "Actualizar (mín.)",
-    "Max Articles": "Max artículos"
+    "Warning: Please dont set the refresh rate too low. Maybe the provider will ban you or stop the service": "Advertencia: No configure la frecuencia de actualización demasiado baja. Quizás el proveedor te prohíba o detenga el servicio.",
+    "rssfeed1 adapter settings": "Ajustes del adaptador para rssfeed1"
 }

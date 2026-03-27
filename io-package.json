@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "4.0.3",
+    "version": "4.0.4",
     "news": {
+      "4.0.4": {
+        "en": "update dependencies\nfix repochecker\ntranform translation files",
+        "de": "aktualisierung der abhängigkeiten\nrepochecker reparieren\ntranform übersetzungsdateien",
+        "ru": "обновление зависимостей\nремонтировать\nфайлы перевода tranform",
+        "pt": "atualizar dependências\ncorrigir o repochecker\nficheiros de tradução tranform",
+        "nl": "afhankelijkheden bijwerken\nrepareren\nvertaalbestanden",
+        "fr": "mettre à jour les dépendances\nréparer le repocheur\ntransformer les fichiers de traduction",
+        "it": "aggiornamento dipendenze\ncorreggere il repochecker\ntranform file di traduzione",
+        "es": "dependencias de actualización\narreglar repochecker\narchivos de traducción",
+        "pl": "aktualizacji zależności\nfix repochecker\ntransformowanie plików tłumaczeniowych",
+        "uk": "оновлення залежності\nвиправити repochecker\njavascript licenses api веб-сайт",
+        "zh-cn": "更新依赖关系\n固定重检查器\n tranform 翻译文件"
+      },
       "4.0.3": {
         "en": "update dependencies\nimprove error handling",
         "de": "aktualisierung der abhängigkeiten\nverbesserung der fehlerbehandlung",
@@ -80,19 +93,6 @@
         "pl": "poprawianie wiadomości debugowania",
         "uk": "покращувати повідомлення про відключення",
         "zh-cn": "改进调试消息"
-      },
-      "3.0.1": {
-        "en": "fix channel select dialog\nfix css classes",
-        "de": "wählen sie den dialog aus\ncss klassen reparieren",
-        "ru": "диалог выбора канала\nклассы",
-        "pt": "corrigir o canal selecionar diálogo\ncorrigir classes de css",
-        "nl": "kanaal selecteren-dialoog\ncss-klassen repareren",
-        "fr": "correction de la boîte de dialogue de sélection du canal\nfixer les classes css",
-        "it": "correzione del canale selezionare finestra di dialogo\ncorrezione di classi di css",
-        "es": "seleccionar el canal\narreglar clases de css",
-        "pl": "ustawić okno wyboru kanału\nwyrównać klasy css",
-        "uk": "виправити канал вибрати діалог\nфіксувати заняття css",
-        "zh-cn": "固定频道选择对话框\n固定 cs 类"
       }
     },
     "titleLang": {
@@ -154,12 +154,12 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=6.17.14"
+        "admin": ">=7.6.17"
       }
     ]
   },
