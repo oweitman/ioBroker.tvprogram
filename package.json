@@ -21,7 +21,7 @@
     "node": ">= 20"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.3.2",
+    "@iobroker/adapter-core": "^3.4.1",
     "axios": "^1.14.0",
     "dayjs": "^1.11.21",
     "sortablejs": "^1.15.7"
