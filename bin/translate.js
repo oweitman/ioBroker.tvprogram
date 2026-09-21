@@ -266,7 +266,7 @@ async function main() {
     }
     if (args[0] === 'cleanKeys') {
         args.shift();
-        doCleanKeys(args);
+        doCleanKeys();
     }
 }
 

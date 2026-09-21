@@ -163,7 +163,12 @@
       }
     ]
   },
-  "native": {},
+  "native": {
+    "tvcount": 1,
+    "source": "tvfueralle",
+    "country": "DE",
+    "loadTime": "03:30"
+  },
   "objects": [],
   "instanceObjects": [
     {

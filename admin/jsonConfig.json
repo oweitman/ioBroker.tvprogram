@@ -1,26 +1,146 @@
 {
-    "type": "tabs",
-    "i18n": true,
-    "tabsStyle": {
-        "width": "calc(100% - 100px)"
-    },
-    "items": {
-        "mainTab": {
-            "type": "panel",
-            "label": "Settings",
-            "items": {
-                "tvcount": {
-                    "type": "number",
-                    "min": 1,
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 2,
-                    "xl": 2,
-                    "default": 1,
-                    "label": "TV configurations"
-                }
-            }
+  "type": "tabs",
+  "i18n": true,
+  "tabsStyle": {
+    "width": "calc(100% - 100px)"
+  },
+  "items": {
+    "mainTab": {
+      "type": "panel",
+      "label": "Settings",
+      "items": {
+        "source": {
+          "type": "select",
+          "label": "Programme source",
+          "options": [
+            { "label": "TV für alle", "value": "tvfueralle" },
+            { "label": "IPTV-EPG.org", "value": "iptv-epg" }
+          ],
+          "default": "tvfueralle",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
+        },
+        "country": {
+          "type": "select",
+          "label": "IPTV-EPG country",
+          "newLine": true,
+          "hidden": "data.source !== 'iptv-epg'",
+          "options": [
+            { "label": "Albania", "value": "AL" },
+            { "label": "Argentina", "value": "AR" },
+            { "label": "Armenia", "value": "AM" },
+            { "label": "Australia", "value": "AU" },
+            { "label": "Austria", "value": "AT" },
+            { "label": "Bahamas", "value": "BS" },
+            { "label": "Belarus", "value": "BY" },
+            { "label": "Belgium", "value": "BE" },
+            { "label": "Bolivia", "value": "BO" },
+            { "label": "Bosnia and Herzegovina", "value": "BA" },
+            { "label": "Brazil", "value": "BR" },
+            { "label": "Bulgaria", "value": "BG" },
+            { "label": "Canada", "value": "CA" },
+            { "label": "Chile", "value": "CL" },
+            { "label": "Colombia", "value": "CO" },
+            { "label": "Costa Rica", "value": "CR" },
+            { "label": "Croatia", "value": "HR" },
+            { "label": "Curacao", "value": "CW" },
+            { "label": "Czech Republic", "value": "CZ" },
+            { "label": "Denmark", "value": "DK" },
+            { "label": "Dominican Republic", "value": "DO" },
+            { "label": "Ecuador", "value": "EC" },
+            { "label": "Egypt", "value": "EG" },
+            { "label": "El Salvador", "value": "SV" },
+            { "label": "Finland", "value": "FI" },
+            { "label": "France", "value": "FR" },
+            { "label": "Georgia", "value": "GE" },
+            { "label": "Germany", "value": "DE" },
+            { "label": "Ghana", "value": "GH" },
+            { "label": "Greece", "value": "GR" },
+            { "label": "Guatemala", "value": "GT" },
+            { "label": "Honduras", "value": "HN" },
+            { "label": "Hong Kong", "value": "HK" },
+            { "label": "Hungary", "value": "HU" },
+            { "label": "Iceland", "value": "IS" },
+            { "label": "India", "value": "IN" },
+            { "label": "Indonesia", "value": "ID" },
+            { "label": "Israel", "value": "IL" },
+            { "label": "Italy", "value": "IT" },
+            { "label": "Jamaica", "value": "JM" },
+            { "label": "Japan", "value": "JP" },
+            { "label": "Latvia", "value": "LV" },
+            { "label": "Lithuania", "value": "LT" },
+            { "label": "Luxembourg", "value": "LU" },
+            { "label": "Malaysia", "value": "MY" },
+            { "label": "Malta", "value": "MT" },
+            { "label": "Mexico", "value": "MX" },
+            { "label": "Montenegro", "value": "ME" },
+            { "label": "Netherlands", "value": "NL" },
+            { "label": "New Zealand", "value": "NZ" },
+            { "label": "Nicaragua", "value": "NI" },
+            { "label": "Nigeria", "value": "NG" },
+            { "label": "Norway", "value": "NO" },
+            { "label": "Panama", "value": "PA" },
+            { "label": "Paraguay", "value": "PY" },
+            { "label": "Peru", "value": "PE" },
+            { "label": "Poland", "value": "PL" },
+            { "label": "Portugal", "value": "PT" },
+            { "label": "Romania", "value": "RO" },
+            { "label": "Russia", "value": "RU" },
+            { "label": "Serbia", "value": "RS" },
+            { "label": "Singapore", "value": "SG" },
+            { "label": "South Africa", "value": "ZA" },
+            { "label": "South Korea", "value": "KR" },
+            { "label": "Spain", "value": "ES" },
+            { "label": "Sweden", "value": "SE" },
+            { "label": "Switzerland", "value": "CH" },
+            { "label": "Taiwan", "value": "TW" },
+            { "label": "Thailand", "value": "TH" },
+            { "label": "Trinidad and Tobago", "value": "TT" },
+            { "label": "Turkey", "value": "TR" },
+            { "label": "Uganda", "value": "UG" },
+            { "label": "Ukraine", "value": "UA" },
+            { "label": "United Kingdom", "value": "GB" },
+            { "label": "United States", "value": "US" },
+            { "label": "Uruguay", "value": "UY" },
+            { "label": "Venezuela", "value": "VE" },
+            { "label": "Zimbabwe", "value": "ZW" }
+          ],
+          "default": "DE",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
+        },
+        "loadTime": {
+          "type": "text",
+          "label": "IPTV-EPG download time (HH:mm, plus 0–60 minutes)",
+          "newLine": true,
+          "hidden": "data.source !== 'iptv-epg'",
+          "validator": "!data.loadTime || /^([01]\\d|2[0-3]):[0-5]\\d$/.test(data.loadTime)",
+          "default": "03:30",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
+        },
+        "tvcount": {
+          "type": "number",
+          "newLine": true,
+          "min": 1,
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,
+          "default": 1,
+          "label": "TV configurations"
         }
+      }
     }
+  }
 }

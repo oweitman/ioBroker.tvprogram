@@ -29,6 +29,37 @@ The adapter can be installed via the stable or for testing verions via beta/late
 
 You can configure how much different TVs, or at least different configurations you will have.
 
+Choose **TV für alle** or **IPTV-EPG.org** as the programme source. For
+IPTV-EPG.org, select a country from the guide list and set a local download
+time in `HH:mm` format. The adapter downloads the compressed guide once per
+day, at a time from the selected time up to 60 minutes later. The daily offset
+is randomized per installation and remains stable across restarts. On startup,
+the adapter checks whether the selected source has usable channel and current
+programme data. If not, it downloads immediately, regardless of the configured
+daily time. Failed downloads are retried after one hour.
+Programmes from midnight to 04:59 are assigned to the previous broadcast day.
+
+Changing the source or IPTV-EPG country clears cached programme data and the
+channel selections for each configured TV. Select the channels again after the
+new guide has loaded.
+
+The `optchnlogopath` data point overrides source logos. For IPTV-EPG, name a
+PNG file after the channel ID without the final country suffix, in lowercase.
+`DasErste` is the one alias: it uses `ard.png` in every country. The same file
+can therefore be reused when switching countries. Examples checked against
+the German, Austrian and Swiss guides:
+
+| Guide | Channel ID | Logo filename |
+| --- | --- | --- |
+| Germany | `DasErste.de`, `ZDF.de`, `RTL.de` | `ard.png`, `zdf.png`, `rtl.png` |
+| Austria | `DasErste.at`, `ORF1.at`, `PULS4.at` | `ard.png`, `orf1.png`, `puls4.png` |
+| Switzerland | `DasErste.ch`, `SRF1.ch`, `ORFeins.ch` | `ard.png`, `srf1.png`, `orfeins.png` |
+
+Other IDs follow the same rule, including regional variants such as
+`ORF2Wien.at` → `orf2wien.png` and `SRFzwei.ch` → `srfzwei.png`.
+The country suffix does not appear in the filename. If `optchnlogopath` is
+empty, the adapter uses the logo URL supplied by the source.
+
 ### Widgets
 
 Widgets are supported only in modern browsers (Google Chrome, Mozilla Firefox, Opera, Safari).
