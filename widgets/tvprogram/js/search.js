@@ -361,7 +361,7 @@ export default {
             }" data-view="" >`;
             if (event.photo.url && showpictures) {
                 text +=
-                    `<div><img class="broadcastimage" src="` +
+                    `<div><img class="broadcastimage" loading="lazy" decoding="async" src="` +
                     `${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
             }
             text += '                 <div class="broadcasttitle">';

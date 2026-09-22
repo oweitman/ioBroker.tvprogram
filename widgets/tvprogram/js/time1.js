@@ -1,6 +1,7 @@
 /* global vis, $, window, document */
-import Sortable from 'sortablejs';
 import dayjs from 'dayjs';
+import { openChannelDialog } from './channel-dialog.js';
+import { persistedSelection } from './channel-selection-model.js';
 
 export default {
     visTvprogram: null,
@@ -13,6 +14,7 @@ export default {
     today: {},
     viewday: {},
     olddata: {},
+    logoObservers: {},
     createWidget: async function (widgetID, view, data, style) {
         const $div = $(`#${widgetID}`);
         // if nothing found => wait
@@ -143,10 +145,6 @@ export default {
             }
         }
 
-        if (this.onclickChannelSave.name == 'onclickChannelSave') {
-            this.onclickChannelSave = this.onclickChannelSave.bind(this);
-        }
-
         console.log('Calc Channels');
         let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
         if (channelfilter.length == 0) {
@@ -248,7 +246,19 @@ export default {
         text += `   width: ${channelIconWidth}px; \n`;
         text += `   height: ${heightrow}px; \n`;
         //text += '   padding: 1px; \n';
+        text += '   display: inline-flex; \n';
+        text += '   align-items: center; \n';
+        text += '   justify-content: center; \n';
         text += '   border-width: 0px; \n';
+        text += '} \n';
+
+        text += `#${widgetID} .channel-logo {\n`;
+        text += `   max-width: ${channelIconWidth}px;\n`;
+        text += `   max-height: ${heightrow}px;\n`;
+        text += '   width: auto; \n';
+        text += '   height: auto; \n';
+        text += '   object-fit: contain; \n';
+        text += '   display: block; \n';
         text += '} \n';
 
         text += `#${widgetID} .time {\n`;
@@ -354,51 +364,6 @@ export default {
         text += '   clear:both; \n';
         text += '   content:""; \n';
         text += '   display:table; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .chselect-container {\n`;
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .chselect-container .channel[selected]{\n`;
-        text += '   opacity: 1; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .chselect-container .channel{\n`;
-        text += '   opacity: 0.5; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .chselect-container .channel .btn {\n`;
-        text += '   opacity: 1; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg ul.channel {\n`;
-        text += '   margin:0px; \n';
-        text += '   padding:0px; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .listitem  {\n`;
-        text += '   float: left; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .listitem .channel {\n`;
-        text += '   list-style: none; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .items  {\n`;
-        text += '   list-style: none; \n';
-        text += '   margin:0px; \n';
-        text += '   padding:0px; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .channel {\n`;
-        text += '   margin:5px; \n';
-        text += `   width: ${heightrow * 1.5}px; \n`;
-        text += `   height: ${heightrow * 1.5}px; \n`;
-        text += '   list-style: none; \n';
-        text += '} \n';
-
-        text += `#${widgetID}channeldlg .items .channel[selected] {\n`;
-        text += '   background-color:lightgray; \n';
         text += '} \n';
 
         text += `.${widgetID}.no-titlebar .ui-dialog-titlebar {\n`;
@@ -602,7 +567,82 @@ export default {
             text += '    </ul>';
         });
 
-        $(`#${widgetID} .tv-container`).html(text);
+        const container = $(`#${widgetID} .tv-container`);
+        const imageKey = image =>
+            `${image.className}:${image.dataset.channelid || image.dataset.eventid}:${image.dataset.logoUrl || image.dataset.programmeUrl}`;
+        const imageUrl = image => image.dataset.logoUrl || image.dataset.programmeUrl;
+        const previousImages = new Map();
+        container.find('.channel-logo, .broadcastimage').each((_, image) => {
+            previousImages.set(imageKey(image), image);
+            image.remove();
+        });
+        this.logoObservers[widgetID]?.disconnect();
+        container.html(text);
+        const scrollContainer = container.find('.scrollcontainer')[0];
+        const imageQueue = [];
+        let activeImages = 0;
+        const loadImages = () => {
+            while (activeImages < 4 && imageQueue.length) {
+                const image = imageQueue.shift();
+                activeImages++;
+                loadImage(image);
+            }
+        };
+        const loadImage = image => {
+            let retries = 0;
+            const complete = () => {
+                activeImages--;
+                loadImages();
+            };
+            image.onload = complete;
+            image.onerror = () => {
+                if (retries++ === 0 && image.isConnected) {
+                    image.removeAttribute('src');
+                    window.setTimeout(() => {
+                        if (image.isConnected) {
+                            image.src = imageUrl(image);
+                        } else {
+                            complete();
+                        }
+                    }, 1500);
+                } else {
+                    image.dataset.imageFailed = 'true';
+                    image.style.display = 'none';
+                    complete();
+                }
+            };
+            image.src = imageUrl(image);
+        };
+        const observer = window.IntersectionObserver
+            ? new window.IntersectionObserver(
+                  entries => {
+                      for (const entry of entries) {
+                          if (entry.isIntersecting) {
+                              observer.unobserve(entry.target);
+                              imageQueue.push(entry.target);
+                          }
+                      }
+                      loadImages();
+                  },
+                  { root: scrollContainer, rootMargin: '150px' },
+              )
+            : null;
+        this.logoObservers[widgetID] = observer;
+        container.find('.channel-logo, .broadcastimage').each((_, image) => {
+            const key = imageKey(image);
+            const previous = previousImages.get(key);
+            if (previous?.hasAttribute('src') && !previous.dataset.imageFailed) {
+                image.replaceWith(previous);
+                previousImages.delete(key);
+            } else if (!imageUrl(image)) {
+                image.remove();
+            } else if (observer) {
+                observer.observe(image);
+            } else {
+                imageQueue.push(image);
+            }
+        });
+        loadImages();
 
         if (this.visTvprogram.getConfigShow(tvprogram_oid) == 1) {
             $(`#${widgetID} .broadcastelement:not(".selected") > *`).show();
@@ -807,123 +847,25 @@ export default {
         document.body.removeChild(scrollDiv);
         return scrollbarWidth;
     },
-    getChannels: function (channels, filter = [], tvprogram_oid) {
-        const cc = [];
-        filter.map(el => {
-            const ch = channels.find(el1 => el1.id == el);
-            cc.push(
-                `<li class="listitem channel" data-order="${ch.order}" data-id="${ch.id}" selected><img width="100%" height="100%" src="${vis.binds.tvprogram.getChannelLogo(ch, tvprogram_oid)}" alt="" class="channel-logo"></li>`,
-            );
-        });
-        channels
-            .sort(
-                (a, b) =>
-                    a.order + (filter.indexOf(a.id) == -1) * 100000 - (b.order + (filter.indexOf(b.id) == -1) * 100000),
-            )
-            .map(el => {
-                if (filter.findIndex(el1 => el1 == el.id) == -1) {
-                    cc.push(
-                        `<li class="listitem channel" data-order="${el.order}" data-id="${el.id}"><img width="100%" height="100%" src="${vis.binds.tvprogram.getChannelLogo(el, tvprogram_oid)}" alt="" class="channel-logo"></li>`,
-                    );
-                }
-            });
-        return cc;
-    },
-    onclickChannelSave: function (el, save) {
-        const widgetID = el.dataset.widgetid;
-        if (save) {
-            const tvprogram_oid = el.dataset.dp || '';
-            const instance = el.dataset.instance || '';
-            this.visTvprogram.setConfigChannelfilter(
-                instance,
-                tvprogram_oid,
-                $(`#${widgetID}channeldlg .chselect-container .channel[selected]`)
-                    .toArray()
-                    .map(el => parseInt(el.dataset.id)),
-            );
-        }
-        let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
-        dialog.close();
-    },
     onclickChannel: function (widgetID, instance, tvprogram_oid) {
-        let isSorting = false;
-        const channels = this.visTvprogram.channels;
-        let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-        if (channelfilter.length == 0) {
-            channelfilter = channels.reduce((acc, el, i) => {
-                if (i < 4) {
-                    acc.push(el.id);
-                }
-                return acc;
-            }, []);
+        const host = document.getElementById(`${widgetID}channeldlg`);
+        const widget = document.getElementById(widgetID);
+        if (!host || !widget || !Array.isArray(this.visTvprogram.channels)) {
+            return;
         }
-        let width = $(`#${widgetID}`).width() * this.measures[widgetID].dialogwidthpercent;
-        let height = $(`#${widgetID}`).height() * this.measures[widgetID].dialogheightpercent;
-        //let { top: elTop, left: elLeft } = $(`#${widgetID}`).position();
-        let { top: elTop, left: elLeft } = $(`#${widgetID}`).offset();
-        let top = elTop + ($(`#${widgetID}`).height() - height) / 2;
-        let left = elLeft + ($(`#${widgetID}`).width() - width) / 2;
-        let text = '';
-        text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
-
-        text += '  <div class="chselect-container clearfix">';
-        text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${
-            tvprogram_oid
-        }" data-widgetid="${
-            widgetID
-        }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
-        text += `    <ul class="listitem channel" data-widgetid="${
-            widgetID
-        }" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
-        text += '  </div>';
-
-        text += '  <div class="chselect-container clearfix sortable">';
-        text += '  <ul class="items">';
-        text += this.getChannels(channels, channelfilter, tvprogram_oid).join('\n');
-        text += '  </ul>';
-        text += '  </div>';
-        $(`#${widgetID}channeldlg`).html(text);
-        $('.chselect-container .items .channel').click(function () {
-            console.log('channel click');
-            if (isSorting) {
-                return;
-            }
-            const target = $(this).parent().find('[selected]').last();
-            if (this.dataset.id) {
-                $(this).attr('selected') ? $(this).removeAttr('selected') : $(this).attr('selected', '');
-            }
-            if ($(this).attr('selected')) {
-                $(this).insertAfter(target);
-            } else {
-                $(this)
-                    .parent()
-                    .children()
-                    .sort(function (a, b) {
-                        return (
-                            a.dataset.order +
-                            ($(a).attr('selected') != 'selected') * 100000 -
-                            (b.dataset.order + ($(b).attr('selected') != 'selected') * 100000)
-                        );
-                    })
-                    .appendTo($(this).parent());
-            }
+        const stored = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+        const selectedIds = stored.length ? stored : this.visTvprogram.channels.slice(0, 4).map(channel => channel.id);
+        openChannelDialog({
+            host,
+            widget,
+            channels: this.visTvprogram.channels,
+            selectedIds,
+            getLogo: channel => this.visTvprogram.getChannelLogo(channel, tvprogram_oid),
+            onSave: ids => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
+            widthPercent: this.measures[widgetID].dialogwidthpercent,
+            heightPercent: this.measures[widgetID].dialogheightpercent,
+            background: this.visTvprogram.realBackgroundColor(widget),
         });
-        let grid = document.querySelector('.chselect-container.sortable .items');
-        new Sortable(grid, {
-            animation: 150,
-            filter: 'li:not([selected])',
-            onMove: function (evt) {
-                if (!evt.related.hasAttribute('selected')) {
-                    return false;
-                }
-            },
-        });
-        this.visTvprogram.copyStyles('font', $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
-        this.visTvprogram.copyStyles('color', $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
-        this.visTvprogram.copyStyles('background-color', $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
-
-        let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
-        dialog.showModal();
     },
     getBroadcasts4Channel: function (el, widgetID, view, viewdate, tvprogram_oid, instance) {
         const wItem = this.measures[widgetID].widthItem;
@@ -941,11 +883,11 @@ export default {
         const aa = [];
         let text = '';
         text += '    <li class="tv-item tv-head-left tv-head-background channel">';
-        text += `      <img width="100%" height="100%" 
+        text += `      <img loading="lazy" decoding="async"
                 data-instance="${instance}" 
                 data-channelid="${channel.channelId}" 
                 data-dp="${tvprogram_oid}" 
-                src="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
+                data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
                 alt="" class="channel-logo"
                 onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
         text += '    </li>';
@@ -986,7 +928,7 @@ export default {
             }" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
             if (event.photo.url && this.measures[widgetID].showpictures) {
                 text +=
-                    `<div><img class="broadcastimage" src="` +
+                    `<div><img class="broadcastimage" loading="lazy" decoding="async" data-eventid="${event.id}" data-programme-url="` +
                     `${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
             }
             text += `<div class="broadcasttitle">${event.title}`;

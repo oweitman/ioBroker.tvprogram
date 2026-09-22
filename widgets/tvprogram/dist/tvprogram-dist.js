@@ -8,6 +8,7 @@
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __pow = Math.pow;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __spreadValues = (a, b) => {
     for (var prop in b || (b = {}))
@@ -670,7 +671,7 @@
           text += '       <li class="tv-item broadcast">';
           text += `             <div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="" >`;
           if (event.photo.url && showpictures) {
-            text += `<div><img class="broadcastimage" src="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
+            text += `<div><img class="broadcastimage" loading="lazy" decoding="async" src="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
           }
           text += '                 <div class="broadcasttitle">';
           text += `                     ${event.title}`;
@@ -1054,7 +1055,7 @@
             text += '       <li class="tv-item broadcast">';
             text += `             <div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
             if (event.photo.url && showpictures) {
-              text += `<div><img class="broadcastimage" src="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
+              text += `<div><img class="broadcastimage" loading="lazy" decoding="async" src="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
             }
             text += '                 <div class="broadcasttitle">';
             text += `                     ${event.title}`;
@@ -1281,6 +1282,9 @@
       }
     }
   };
+
+  // tvprogram/js/time1.js
+  var import_dayjs = __toESM(require_dayjs_min(), 1);
 
   // ../node_modules/sortablejs/modular/sortable.esm.js
   function _defineProperty(e, r, t) {
@@ -3471,8 +3475,374 @@
   Sortable.mount(Remove, Revert);
   var sortable_esm_default = Sortable;
 
+  // tvprogram/js/channel-selection-model.js
+  function nativeOrder(channels) {
+    return channels.map((channel, index2) => ({ channel, index: index2 })).sort((a, b) => {
+      const orderA = Number.isFinite(Number(a.channel.order)) ? Number(a.channel.order) : a.index;
+      const orderB = Number.isFinite(Number(b.channel.order)) ? Number(b.channel.order) : b.index;
+      return orderA - orderB || a.index - b.index;
+    }).map((entry) => entry.channel);
+  }
+  function selectedOrder(channels, selectedIds) {
+    const byId = new Map(channels.map((channel) => [String(channel.id), channel]));
+    return selectedIds.map((id) => byId.get(String(id))).filter(Boolean);
+  }
+  function persistedSelection(selectedIds) {
+    return selectedIds.length ? selectedIds : ["__none__"];
+  }
+  function inactiveOrder(channels, selectedIds, mode, locale = "en") {
+    const selected = new Set(selectedIds.map(String));
+    const inactive = nativeOrder(channels).filter((channel) => !selected.has(String(channel.id)));
+    if (mode === "asc" || mode === "desc") {
+      const collator = new Intl.Collator(locale, { sensitivity: "base", numeric: true });
+      const direction = mode === "asc" ? 1 : -1;
+      inactive.sort((a, b) => direction * collator.compare(a.name || "", b.name || ""));
+    }
+    return inactive;
+  }
+  function matchingChannels(channels, query) {
+    const needle = query.trim().toLocaleLowerCase();
+    if (!needle) {
+      return channels;
+    }
+    return channels.filter(
+      (channel) => `${channel.name || ""} ${channel.channelId || ""}`.toLocaleLowerCase().includes(needle)
+    );
+  }
+  function dialogTheme(foreground, background) {
+    const parse = (value) => {
+      const match = /rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,/\s]+([\d.]+))?\s*\)/i.exec(value || "");
+      return match ? { rgb: match.slice(1, 4).map(Number), alpha: match[4] === void 0 ? 1 : Number(match[4]) } : null;
+    };
+    const parsedBackground = parse(background);
+    const surface = parsedBackground && parsedBackground.alpha === 1 ? background : "#ffffff";
+    const backgroundRgb = parsedBackground && parsedBackground.alpha === 1 ? parsedBackground.rgb : [255, 255, 255];
+    const luminance = (rgb) => rgb.map((component) => {
+      const value = component / 255;
+      return value <= 0.04045 ? value / 12.92 : __pow((value + 0.055) / 1.055, 2.4);
+    }).reduce((sum, component, index2) => sum + component * [0.2126, 0.7152, 0.0722][index2], 0);
+    const backgroundLight = luminance(backgroundRgb);
+    const parsedForeground = parse(foreground);
+    const foregroundLight = parsedForeground ? luminance(parsedForeground.rgb) : null;
+    const ratio = foregroundLight === null ? 0 : (Math.max(backgroundLight, foregroundLight) + 0.05) / (Math.min(backgroundLight, foregroundLight) + 0.05);
+    return {
+      background: surface,
+      foreground: ratio >= 4.5 ? foreground : backgroundLight > 0.18 ? "#111111" : "#ffffff",
+      colorScheme: backgroundLight > 0.18 ? "light" : "dark"
+    };
+  }
+
+  // tvprogram/js/channel-dialog.js
+  var labels = {
+    de: {
+      title: "Sender ausw\xE4hlen",
+      save: "Auswahl speichern",
+      cancel: "Schlie\xDFen ohne Speichern",
+      search: "Sender suchen",
+      active: "Aktive Sender",
+      inactive: "Weitere Sender",
+      empty: "Keine Sender gefunden",
+      reorder: "Zum Verschieben ziehen",
+      selected: "Sender deaktivieren",
+      unselected: "Sender aktivieren",
+      sort: { native: "Originale Reihenfolge", asc: "Name A\u2013Z", desc: "Name Z\u2013A" }
+    },
+    en: {
+      title: "Select channels",
+      save: "Save selection",
+      cancel: "Close without saving",
+      search: "Search channels",
+      active: "Selected channels",
+      inactive: "Other channels",
+      empty: "No channels found",
+      reorder: "Drag to reorder",
+      selected: "Remove channel",
+      unselected: "Add channel",
+      sort: { native: "Original order", asc: "Name A\u2013Z", desc: "Name Z\u2013A" }
+    }
+  };
+  function openChannelDialog(options) {
+    const { host, widget, channels, selectedIds: initialIds, getLogo, onSave, widthPercent, heightPercent } = options;
+    const lang = (navigator.language || "en").toLowerCase().startsWith("de") ? "de" : "en";
+    const text = labels[lang];
+    const locale = navigator.language || "en";
+    const byId = new Map(channels.map((channel) => [String(channel.id), channel]));
+    let selectedIds = selectedOrder(channels, initialIds).map((channel) => channel.id);
+    let sortMode = "native";
+    const previous = host.querySelector("dialog");
+    if (previous == null ? void 0 : previous.open) {
+      previous.close();
+    }
+    host.replaceChildren();
+    const dialog = document.createElement("dialog");
+    dialog.className = "tvp-channel-dialog";
+    dialog.setAttribute("aria-label", text.title);
+    dialog.style.width = `${Math.max(760, Math.round(widget.clientWidth * widthPercent))}px`;
+    dialog.style.height = `${Math.max(560, Math.round(widget.clientHeight * heightPercent))}px`;
+    const computed = window.getComputedStyle(widget);
+    const theme = dialogTheme(computed.color, options.background);
+    dialog.style.setProperty("--tvp-dialog-bg", theme.background);
+    dialog.style.setProperty("--tvp-dialog-fg", theme.foreground);
+    dialog.style.colorScheme = theme.colorScheme;
+    dialog.style.fontFamily = computed.fontFamily;
+    dialog.style.fontSize = computed.fontSize;
+    const header = document.createElement("header");
+    header.className = "tvp-channel-toolbar";
+    const saveButton = document.createElement("button");
+    saveButton.type = "button";
+    saveButton.className = "tvp-channel-action";
+    saveButton.textContent = "\u2713";
+    saveButton.title = text.save;
+    saveButton.setAttribute("aria-label", text.save);
+    const cancelButton = document.createElement("button");
+    cancelButton.type = "button";
+    cancelButton.className = "tvp-channel-action";
+    cancelButton.textContent = "\u2715";
+    cancelButton.title = text.cancel;
+    cancelButton.setAttribute("aria-label", text.cancel);
+    const title = document.createElement("strong");
+    title.className = "tvp-channel-title";
+    title.textContent = text.title;
+    header.append(saveButton, cancelButton, title);
+    const controls = document.createElement("div");
+    controls.className = "tvp-channel-controls";
+    const search = document.createElement("input");
+    search.type = "search";
+    search.className = "tvp-channel-search";
+    search.placeholder = text.search;
+    search.setAttribute("aria-label", text.search);
+    const sortButton = document.createElement("button");
+    sortButton.type = "button";
+    sortButton.className = "tvp-channel-sort";
+    sortButton.setAttribute("aria-label", text.sort.native);
+    controls.append(search, sortButton);
+    const content = document.createElement("div");
+    content.className = "tvp-channel-content";
+    const activeHeading = document.createElement("h3");
+    const activeList = document.createElement("ul");
+    activeList.className = "tvp-channel-grid tvp-channel-active";
+    const inactiveHeading = document.createElement("h3");
+    const inactiveList = document.createElement("ul");
+    inactiveList.className = "tvp-channel-grid tvp-channel-inactive";
+    const empty = document.createElement("p");
+    empty.className = "tvp-channel-empty";
+    empty.textContent = text.empty;
+    content.append(activeHeading, activeList, inactiveHeading, inactiveList, empty);
+    const fullscreenButton = document.createElement("button");
+    fullscreenButton.type = "button";
+    fullscreenButton.className = "tvp-channel-action tvp-channel-fullscreen";
+    const updateFullscreenButton = () => {
+      const expanded = dialog.classList.contains("is-fullscreen");
+      fullscreenButton.textContent = expanded ? "\u2750" : "\u25A1";
+      fullscreenButton.title = expanded ? lang === "de" ? "Urspr\xFCngliche Dialoggr\xF6\xDFe" : "Restore dialog size" : lang === "de" ? "Vollbild" : "Fullscreen";
+      fullscreenButton.setAttribute("aria-label", fullscreenButton.title);
+    };
+    updateFullscreenButton();
+    header.append(fullscreenButton);
+    dialog.append(header, controls, content);
+    host.append(dialog);
+    const cards = /* @__PURE__ */ new Map();
+    const imageQueue = [];
+    let imageLoads = 0;
+    let closed = false;
+    const loadImages = () => {
+      while (!closed && imageLoads < 4 && imageQueue.length) {
+        const { image, fallback, url } = imageQueue.shift();
+        imageLoads++;
+        let attempts = 0;
+        const complete = (success) => {
+          if (!success) {
+            image.hidden = true;
+            fallback.hidden = false;
+          }
+          imageLoads--;
+          loadImages();
+        };
+        image.onload = () => complete(true);
+        image.onerror = () => {
+          if (++attempts === 1 && !closed) {
+            image.removeAttribute("src");
+            window.setTimeout(() => {
+              if (closed) {
+                complete(false);
+              } else {
+                image.src = url;
+              }
+            }, 1500);
+          } else {
+            complete(false);
+          }
+        };
+        image.src = url;
+      }
+    };
+    const observer = typeof window.IntersectionObserver === "undefined" ? null : new window.IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+            imageQueue.push(entry.target.logoRequest);
+          }
+        }
+        loadImages();
+      },
+      { root: content, rootMargin: "200px" }
+    );
+    const makeCard = (channel, selected) => {
+      const card = document.createElement("li");
+      card.className = `tvp-channel-card${selected ? " is-selected" : ""}`;
+      card.dataset.id = String(channel.id);
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "tvp-channel-toggle";
+      toggle.dataset.action = "toggle";
+      toggle.setAttribute("aria-pressed", String(selected));
+      toggle.setAttribute(
+        "aria-label",
+        `${selected ? `${text.selected}: ${channel.name}. ${text.reorder}` : `${text.unselected}: ${channel.name}`}`
+      );
+      const logoSurface = document.createElement("span");
+      logoSurface.className = "tvp-channel-logo-surface";
+      const image = document.createElement("img");
+      image.className = "tvp-channel-logo";
+      image.alt = "";
+      image.loading = "lazy";
+      image.draggable = false;
+      const fallback = document.createElement("span");
+      fallback.className = "tvp-channel-logo-fallback";
+      fallback.textContent = (channel.name || "?").slice(0, 3).toUpperCase();
+      fallback.hidden = true;
+      const url = getLogo(channel);
+      if (url) {
+        image.logoRequest = { image, fallback, url };
+        if (observer) {
+          observer.observe(image);
+        } else {
+          imageQueue.push(image.logoRequest);
+          loadImages();
+        }
+      } else {
+        image.hidden = true;
+        fallback.hidden = false;
+      }
+      logoSurface.append(image, fallback);
+      const name = document.createElement("span");
+      name.className = "tvp-channel-name";
+      name.textContent = channel.name || channel.channelId || String(channel.id);
+      toggle.append(logoSurface, name);
+      card.append(toggle);
+      return card;
+    };
+    const getCard = (channel, selected) => {
+      const key = String(channel.id);
+      let card = cards.get(key);
+      if (!card) {
+        card = makeCard(channel, selected);
+        cards.set(key, card);
+      } else {
+        card.classList.toggle("is-selected", selected);
+        const toggle = card.querySelector(".tvp-channel-toggle");
+        toggle.setAttribute("aria-pressed", String(selected));
+        toggle.setAttribute(
+          "aria-label",
+          `${selected ? `${text.selected}: ${channel.name}. ${text.reorder}` : `${text.unselected}: ${channel.name}`}`
+        );
+      }
+      return card;
+    };
+    const updateSortButton = () => {
+      sortButton.textContent = { native: "\u2195", asc: "\u2191", desc: "\u2193" }[sortMode];
+      sortButton.title = text.sort[sortMode];
+      sortButton.setAttribute("aria-label", text.sort[sortMode]);
+    };
+    let dragFinishedAt = 0;
+    const sortable = new sortable_esm_default(activeList, {
+      animation: 150,
+      delayOnTouchOnly: true,
+      delay: 180,
+      touchStartThreshold: 5,
+      onEnd: () => {
+        dragFinishedAt = Date.now();
+        selectedIds = [...activeList.children].map((card) => byId.get(card.dataset.id).id);
+      }
+    });
+    const render = () => {
+      const query = search.value;
+      sortable.option("disabled", Boolean(query.trim()));
+      activeHeading.textContent = `${text.active} (${selectedIds.length})`;
+      const active = matchingChannels(selectedOrder(channels, selectedIds), query);
+      const inactive = matchingChannels(inactiveOrder(channels, selectedIds, sortMode, locale), query);
+      inactiveHeading.textContent = `${text.inactive} (${channels.length - selectedIds.length})`;
+      const activeCards = document.createDocumentFragment();
+      const inactiveCards = document.createDocumentFragment();
+      for (const channel of active) {
+        activeCards.append(getCard(channel, true));
+      }
+      for (const channel of inactive) {
+        inactiveCards.append(getCard(channel, false));
+      }
+      activeList.replaceChildren(activeCards);
+      inactiveList.replaceChildren(inactiveCards);
+      empty.hidden = active.length + inactive.length > 0;
+      updateSortButton();
+    };
+    const toggleChannel = (event) => {
+      if (event.currentTarget === activeList && Date.now() - dragFinishedAt < 350) {
+        event.preventDefault();
+        return;
+      }
+      const button = event.target.closest('[data-action="toggle"]');
+      if (!button) {
+        return;
+      }
+      const channel = byId.get(button.closest("[data-id]").dataset.id);
+      if (!channel) {
+        return;
+      }
+      const index2 = selectedIds.findIndex((id) => String(id) === String(channel.id));
+      if (index2 < 0) {
+        selectedIds.push(channel.id);
+      } else {
+        selectedIds.splice(index2, 1);
+      }
+      render();
+    };
+    activeList.addEventListener("click", toggleChannel);
+    inactiveList.addEventListener("click", toggleChannel);
+    search.addEventListener("input", render);
+    sortButton.addEventListener("click", () => {
+      sortMode = { native: "asc", asc: "desc", desc: "native" }[sortMode];
+      render();
+    });
+    fullscreenButton.addEventListener("click", () => {
+      dialog.classList.toggle("is-fullscreen");
+      updateFullscreenButton();
+    });
+    saveButton.addEventListener("click", () => {
+      onSave(selectedIds);
+      dialog.close();
+    });
+    cancelButton.addEventListener("click", () => dialog.close());
+    dialog.addEventListener(
+      "close",
+      () => {
+        closed = true;
+        observer == null ? void 0 : observer.disconnect();
+        imageQueue.length = 0;
+        sortable.destroy();
+        if (host.contains(dialog)) {
+          dialog.remove();
+        }
+      },
+      { once: true }
+    );
+    render();
+    dialog.showModal();
+    search.focus();
+    return dialog;
+  }
+
   // tvprogram/js/time1.js
-  var import_dayjs = __toESM(require_dayjs_min(), 1);
   var time1_default = {
     visTvprogram: null,
     tvprogram: {},
@@ -3484,8 +3854,10 @@
     today: {},
     viewday: {},
     olddata: {},
+    logoObservers: {},
     createWidget: function(widgetID, view, data, style) {
       return __async(this, null, function* () {
+        var _a;
         const $div = $(`#${widgetID}`);
         if (!$div.length) {
           return setTimeout(function() {
@@ -3602,9 +3974,6 @@
             );
           }
         }
-        if (this.onclickChannelSave.name == "onclickChannelSave") {
-          this.onclickChannelSave = this.onclickChannelSave.bind(this);
-        }
         console.log("Calc Channels");
         let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
         if (channelfilter.length == 0) {
@@ -3706,7 +4075,21 @@
 `;
         text += `   height: ${heightrow}px; 
 `;
+        text += "   display: inline-flex; \n";
+        text += "   align-items: center; \n";
+        text += "   justify-content: center; \n";
         text += "   border-width: 0px; \n";
+        text += "} \n";
+        text += `#${widgetID} .channel-logo {
+`;
+        text += `   max-width: ${channelIconWidth}px;
+`;
+        text += `   max-height: ${heightrow}px;
+`;
+        text += "   width: auto; \n";
+        text += "   height: auto; \n";
+        text += "   object-fit: contain; \n";
+        text += "   display: block; \n";
         text += "} \n";
         text += `#${widgetID} .time {
 `;
@@ -3824,53 +4207,6 @@
         text += "   clear:both; \n";
         text += '   content:""; \n';
         text += "   display:table; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .chselect-container {
-`;
-        text += "} \n";
-        text += `#${widgetID}channeldlg .chselect-container .channel[selected]{
-`;
-        text += "   opacity: 1; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .chselect-container .channel{
-`;
-        text += "   opacity: 0.5; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .chselect-container .channel .btn {
-`;
-        text += "   opacity: 1; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg ul.channel {
-`;
-        text += "   margin:0px; \n";
-        text += "   padding:0px; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .listitem  {
-`;
-        text += "   float: left; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .listitem .channel {
-`;
-        text += "   list-style: none; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .items  {
-`;
-        text += "   list-style: none; \n";
-        text += "   margin:0px; \n";
-        text += "   padding:0px; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .channel {
-`;
-        text += "   margin:5px; \n";
-        text += `   width: ${heightrow * 1.5}px; 
-`;
-        text += `   height: ${heightrow * 1.5}px; 
-`;
-        text += "   list-style: none; \n";
-        text += "} \n";
-        text += `#${widgetID}channeldlg .items .channel[selected] {
-`;
-        text += "   background-color:lightgray; \n";
         text += "} \n";
         text += `.${widgetID}.no-titlebar .ui-dialog-titlebar {
 `;
@@ -4041,7 +4377,79 @@
           text += this.getBroadcasts4Channel(el, widgetID, view, viewdate, tvprogram_oid, instance).join("");
           text += "    </ul>";
         });
-        $(`#${widgetID} .tv-container`).html(text);
+        const container = $(`#${widgetID} .tv-container`);
+        const imageKey = (image) => `${image.className}:${image.dataset.channelid || image.dataset.eventid}:${image.dataset.logoUrl || image.dataset.programmeUrl}`;
+        const imageUrl = (image) => image.dataset.logoUrl || image.dataset.programmeUrl;
+        const previousImages = /* @__PURE__ */ new Map();
+        container.find(".channel-logo, .broadcastimage").each((_, image) => {
+          previousImages.set(imageKey(image), image);
+          image.remove();
+        });
+        (_a = this.logoObservers[widgetID]) == null ? void 0 : _a.disconnect();
+        container.html(text);
+        const scrollContainer = container.find(".scrollcontainer")[0];
+        const imageQueue = [];
+        let activeImages = 0;
+        const loadImages = () => {
+          while (activeImages < 4 && imageQueue.length) {
+            const image = imageQueue.shift();
+            activeImages++;
+            loadImage(image);
+          }
+        };
+        const loadImage = (image) => {
+          let retries = 0;
+          const complete = () => {
+            activeImages--;
+            loadImages();
+          };
+          image.onload = complete;
+          image.onerror = () => {
+            if (retries++ === 0 && image.isConnected) {
+              image.removeAttribute("src");
+              window.setTimeout(() => {
+                if (image.isConnected) {
+                  image.src = imageUrl(image);
+                } else {
+                  complete();
+                }
+              }, 1500);
+            } else {
+              image.dataset.imageFailed = "true";
+              image.style.display = "none";
+              complete();
+            }
+          };
+          image.src = imageUrl(image);
+        };
+        const observer = window.IntersectionObserver ? new window.IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                observer.unobserve(entry.target);
+                imageQueue.push(entry.target);
+              }
+            }
+            loadImages();
+          },
+          { root: scrollContainer, rootMargin: "150px" }
+        ) : null;
+        this.logoObservers[widgetID] = observer;
+        container.find(".channel-logo, .broadcastimage").each((_, image) => {
+          const key = imageKey(image);
+          const previous = previousImages.get(key);
+          if ((previous == null ? void 0 : previous.hasAttribute("src")) && !previous.dataset.imageFailed) {
+            image.replaceWith(previous);
+            previousImages.delete(key);
+          } else if (!imageUrl(image)) {
+            image.remove();
+          } else if (observer) {
+            observer.observe(image);
+          } else {
+            imageQueue.push(image);
+          }
+        });
+        loadImages();
         if (this.visTvprogram.getConfigShow(tvprogram_oid) == 1) {
           $(`#${widgetID} .broadcastelement:not(".selected") > *`).show();
         } else {
@@ -4215,100 +4623,25 @@
       document.body.removeChild(scrollDiv);
       return scrollbarWidth;
     },
-    getChannels: function(channels, filter = [], tvprogram_oid) {
-      const cc = [];
-      filter.map((el) => {
-        const ch = channels.find((el1) => el1.id == el);
-        cc.push(
-          `<li class="listitem channel" data-order="${ch.order}" data-id="${ch.id}" selected><img width="100%" height="100%" src="${vis.binds.tvprogram.getChannelLogo(ch, tvprogram_oid)}" alt="" class="channel-logo"></li>`
-        );
-      });
-      channels.sort(
-        (a, b) => a.order + (filter.indexOf(a.id) == -1) * 1e5 - (b.order + (filter.indexOf(b.id) == -1) * 1e5)
-      ).map((el) => {
-        if (filter.findIndex((el1) => el1 == el.id) == -1) {
-          cc.push(
-            `<li class="listitem channel" data-order="${el.order}" data-id="${el.id}"><img width="100%" height="100%" src="${vis.binds.tvprogram.getChannelLogo(el, tvprogram_oid)}" alt="" class="channel-logo"></li>`
-          );
-        }
-      });
-      return cc;
-    },
-    onclickChannelSave: function(el, save2) {
-      const widgetID = el.dataset.widgetid;
-      if (save2) {
-        const tvprogram_oid = el.dataset.dp || "";
-        const instance = el.dataset.instance || "";
-        this.visTvprogram.setConfigChannelfilter(
-          instance,
-          tvprogram_oid,
-          $(`#${widgetID}channeldlg .chselect-container .channel[selected]`).toArray().map((el2) => parseInt(el2.dataset.id))
-        );
-      }
-      let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
-      dialog.close();
-    },
     onclickChannel: function(widgetID, instance, tvprogram_oid) {
-      let isSorting = false;
-      const channels = this.visTvprogram.channels;
-      let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-      if (channelfilter.length == 0) {
-        channelfilter = channels.reduce((acc, el, i) => {
-          if (i < 4) {
-            acc.push(el.id);
-          }
-          return acc;
-        }, []);
+      const host = document.getElementById(`${widgetID}channeldlg`);
+      const widget = document.getElementById(widgetID);
+      if (!host || !widget || !Array.isArray(this.visTvprogram.channels)) {
+        return;
       }
-      let width = $(`#${widgetID}`).width() * this.measures[widgetID].dialogwidthpercent;
-      let height = $(`#${widgetID}`).height() * this.measures[widgetID].dialogheightpercent;
-      let { top: elTop, left: elLeft } = $(`#${widgetID}`).offset();
-      let top = elTop + ($(`#${widgetID}`).height() - height) / 2;
-      let left = elLeft + ($(`#${widgetID}`).width() - width) / 2;
-      let text = "";
-      text += `<dialog class="${widgetID}broadcastdialog" style="margin:0;width:${width}px;height:${height}px;top:${top}px;left:${left}px">`;
-      text += '  <div class="chselect-container clearfix">';
-      text += `    <ul class="listitem channel" data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,true)" ><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#check-icon"></use></svg></li></ul>`;
-      text += `    <ul class="listitem channel" data-widgetid="${widgetID}" onclick="vis.binds.tvprogram.time1.onclickChannelSave(this,false)"><li class="channel btn"><svg width="100%" height="100%" ><use xlink:href="#cancel-icon"></use></svg></li></ul>`;
-      text += "  </div>";
-      text += '  <div class="chselect-container clearfix sortable">';
-      text += '  <ul class="items">';
-      text += this.getChannels(channels, channelfilter, tvprogram_oid).join("\n");
-      text += "  </ul>";
-      text += "  </div>";
-      $(`#${widgetID}channeldlg`).html(text);
-      $(".chselect-container .items .channel").click(function() {
-        console.log("channel click");
-        if (isSorting) {
-          return;
-        }
-        const target = $(this).parent().find("[selected]").last();
-        if (this.dataset.id) {
-          $(this).attr("selected") ? $(this).removeAttr("selected") : $(this).attr("selected", "");
-        }
-        if ($(this).attr("selected")) {
-          $(this).insertAfter(target);
-        } else {
-          $(this).parent().children().sort(function(a, b) {
-            return a.dataset.order + ($(a).attr("selected") != "selected") * 1e5 - (b.dataset.order + ($(b).attr("selected") != "selected") * 1e5);
-          }).appendTo($(this).parent());
-        }
+      const stored = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+      const selectedIds = stored.length ? stored : this.visTvprogram.channels.slice(0, 4).map((channel) => channel.id);
+      openChannelDialog({
+        host,
+        widget,
+        channels: this.visTvprogram.channels,
+        selectedIds,
+        getLogo: (channel) => this.visTvprogram.getChannelLogo(channel, tvprogram_oid),
+        onSave: (ids) => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
+        widthPercent: this.measures[widgetID].dialogwidthpercent,
+        heightPercent: this.measures[widgetID].dialogheightpercent,
+        background: this.visTvprogram.realBackgroundColor(widget)
       });
-      let grid = document.querySelector(".chselect-container.sortable .items");
-      new sortable_esm_default(grid, {
-        animation: 150,
-        filter: "li:not([selected])",
-        onMove: function(evt) {
-          if (!evt.related.hasAttribute("selected")) {
-            return false;
-          }
-        }
-      });
-      this.visTvprogram.copyStyles("font", $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
-      this.visTvprogram.copyStyles("color", $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
-      this.visTvprogram.copyStyles("background-color", $(`#${widgetID}`).get(0), $(`#${widgetID}channeldlg`).get(0));
-      let dialog = document.querySelector(`#${widgetID}channeldlg dialog`);
-      dialog.showModal();
     },
     getBroadcasts4Channel: function(el, widgetID, view, viewdate, tvprogram_oid, instance) {
       const wItem = this.measures[widgetID].widthItem;
@@ -4324,11 +4657,11 @@
       const aa = [];
       let text = "";
       text += '    <li class="tv-item tv-head-left tv-head-background channel">';
-      text += `      <img width="100%" height="100%" 
+      text += `      <img loading="lazy" decoding="async"
                 data-instance="${instance}" 
                 data-channelid="${channel.channelId}" 
                 data-dp="${tvprogram_oid}" 
-                src="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
+                data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
                 alt="" class="channel-logo"
                 onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
       text += "    </li>";
@@ -4361,7 +4694,7 @@
         text += `width:${Math.floor((endTime2 - startTime2) / 6e4 / tItem * wItem * 10) / 10}px;">`;
         text += `<div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
         if (event.photo.url && this.measures[widgetID].showpictures) {
-          text += `<div><img class="broadcastimage" src="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
+          text += `<div><img class="broadcastimage" loading="lazy" decoding="async" data-eventid="${event.id}" data-programme-url="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
         }
         text += `<div class="broadcasttitle">${event.title}`;
         text += `<div class="star" data-viewdate="${viewdate}" data-eventid="${event.id}" data-dp="${tvprogram_oid}" data-instance="${instance}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div>`;

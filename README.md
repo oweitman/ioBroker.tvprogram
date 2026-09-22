@@ -73,6 +73,23 @@ If the text behind the channel logos shows through, a background color must be s
 it is generally a good approach to choose an explicit foreground and background color for the view or at least for the widget.
 The Marker position ist updated every 15 seconds.
 
+Open the channel selector from the timetable menu. Click a channel card to
+select or deselect it. Selected channels appear first and can be reordered by
+dragging the whole card. On touch screens, hold the card briefly before dragging.
+Search filters the displayed cards without changing
+the saved selection. The sort button cycles the other channels through source
+order, name A–Z and name Z–A. Use the checkmark to save or the cross (or Esc)
+to close without saving. Channel logos keep their proportions; the split light
+and dark logo background helps make both dark and light logos visible. Use the
+button at the top right to switch between full screen and the configured dialog
+size. Logos load as they approach the
+visible area, with at most four concurrent requests. A failed request is
+retried once. Browser caching still depends on the logo server's HTTP headers;
+`optchnlogopath` can point to locally hosted logos if a source is unreliable.
+The timetable keeps loaded channel logos and programme pictures across redraws.
+New pictures load near the visible area through the same four-request queue.
+Smaller logos are centered within the configured channel width and row height.
+
 If something goes wrong after installation and the widget isnt diplayed correctly, please try the following command from shell:
 
 iobroker upload all
