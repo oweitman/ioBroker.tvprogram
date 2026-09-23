@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "4.0.4",
+    "version": "5.0.0",
     "news": {
+      "5.0.0": {
+        "en": "Comprehensive revision\nNew data source added",
+        "de": "Umfassende Revision\nNeue Datenquelle",
+        "ru": "Комплексная ревизия\nДобавлен новый источник данных",
+        "pt": "Revisão abrangente\nNova fonte de dados",
+        "nl": "Uitgebreide revisie\nNieuwe gegevensbron toegevoegd",
+        "fr": "Révision complète\nSource de données ajoutée",
+        "it": "Revisione completa\nNuova fonte dati",
+        "es": "Revisión exhaustiva\nNueva fuente de datos",
+        "pl": "Kompleksowa rewizja\nDodano nowe źródło danych",
+        "uk": "Комплексний перегляд\nДодано нове джерело даних",
+        "zh-cn": "全面修订\n添加了新数据源"
+      },
       "4.0.4": {
         "en": "update dependencies\nfix repochecker\ntranform translation files",
         "de": "aktualisierung der abhängigkeiten\nrepochecker reparieren\ntranform übersetzungsdateien",
@@ -80,19 +93,6 @@
         "pl": "ustaw stany tworzenia i nadpisywania danych",
         "uk": "виправити створення та перезаписування даних",
         "zh-cn": "固定数据点创建和覆盖状态"
-      },
-      "3.0.2": {
-        "en": "improve debug messages",
-        "de": "debug-nachrichten verbessern",
-        "ru": "улучшить отладочные сообщения",
-        "pt": "melhorar as mensagens de depuração",
-        "nl": "debugberichten verbeteren",
-        "fr": "améliorer les messages de débogage",
-        "it": "migliorare i messaggi di debug",
-        "es": "mejorar los mensajes de depuración",
-        "pl": "poprawianie wiadomości debugowania",
-        "uk": "покращувати повідомлення про відключення",
-        "zh-cn": "改进调试消息"
       }
     },
     "titleLang": {
