@@ -61,9 +61,9 @@
     });
   };
 
-  // ../node_modules/dayjs/dayjs.min.js
+  // node_modules/dayjs/dayjs.min.js
   var require_dayjs_min = __commonJS({
-    "../node_modules/dayjs/dayjs.min.js"(exports, module) {
+    "node_modules/dayjs/dayjs.min.js"(exports, module) {
       !(function(t, e) {
         "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
       })(exports, (function() {
@@ -1433,7 +1433,7 @@
   // tvprogram/js/time1.js
   var import_dayjs = __toESM(require_dayjs_min(), 1);
 
-  // ../node_modules/sortablejs/modular/sortable.esm.js
+  // node_modules/sortablejs/modular/sortable.esm.js
   function _defineProperty(e, r, t) {
     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
       value: t,
