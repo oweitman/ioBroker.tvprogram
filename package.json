@@ -56,6 +56,7 @@
   ],
   "scripts": {
     "test:js": "mocha --config test/mocharc.custom.json \"test/**/*.test.js\"",
+    "test:js:ci": "npm ci --prefix widgets && npm run test:js",
     "test:package": "mocha test/package --exit",
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:js && npm run test:integration && npm run test:package",
