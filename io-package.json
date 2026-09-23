@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "news": {
+      "5.0.1": {
+        "en": "fix tests",
+        "de": "Fix Tests",
+        "ru": "исправить тесты",
+        "pt": "fixar testes",
+        "nl": "tests repareren",
+        "fr": "fix tests",
+        "it": "fix test",
+        "es": "fix tests",
+        "pl": "testy naprawcze",
+        "uk": "виправляти тести",
+        "zh-cn": "修复测试"
+      },
       "5.0.0": {
         "en": "Comprehensive revision\nNew data source added",
         "de": "Umfassende Revision\nNeue Datenquelle",
@@ -80,19 +93,6 @@
         "pl": "usunięcie kontroli certyfikatów w aksjonach z powodu wygasłego certyfikatu dostawcy danych",
         "uk": "видалення чеку на засвідчення в аксіосі через розірваний сертифікат постачальника даних",
         "zh-cn": "由于数据提供者的证书过期, 取消对 arxios 证书的检查"
-      },
-      "3.0.3": {
-        "en": "fix datapoint creation and overwriting states",
-        "de": "datenpunkt-erstellung und überschreiben von staaten festlegen",
-        "ru": "фиксации создания точек данных и надписи состояний",
-        "pt": "corrigir a criação de datapoint e estados de substituição",
-        "nl": "fix datapoint aanmaken en overschrijven staten",
-        "fr": "fixer les états de création et d'écrasement des points de données",
-        "it": "fissare la creazione di datapoint e gli stati di sovrascrittura",
-        "es": "fijar la creación de puntos de datos y estados de sobreescritura",
-        "pl": "ustaw stany tworzenia i nadpisywania danych",
-        "uk": "виправити створення та перезаписування даних",
-        "zh-cn": "固定数据点创建和覆盖状态"
       }
     },
     "titleLang": {

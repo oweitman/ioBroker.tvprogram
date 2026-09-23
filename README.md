@@ -289,6 +289,10 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 5.0.1 (2026-09-23)
+
+- fix tests
+
 ### 5.0.0 (2026-09-23)
 
 - Comprehensive revision
@@ -310,10 +314,6 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
 - improve position of dialogs
 - reduce requests to data provider
 - test remove node 18,extend to node 24
-
-### 4.0.0 (2025-01-21)
-
-- Breaking Change. fix marker position with flexible width of channel logos. In each widget the property "width channel logo px" have to be set to approbiate width.
 
 ## License
 
