@@ -136,8 +136,16 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .tv-result {\n`;
-        text += '   overflow: hidden; \n';
+        text += '   flex: 1 1 auto; \n';
+        text += '   min-height: 0; \n';
+        text += '   overflow-x: hidden; \n';
         text += '   overflow-y: auto; \n';
+        text += '   scrollbar-width: none; \n';
+        text += '   -ms-overflow-style: none; \n';
+        text += '} \n';
+
+        text += `#${widgetID} .tv-result::-webkit-scrollbar {\n`;
+        text += '   display: none; \n';
         text += '} \n';
 
         text += `#${widgetID} .tv-row {\n`;
@@ -167,8 +175,20 @@ export default {
         text += `   width: ${chnanneliconwidth}px; \n`;
         text += `   height: ${heightrow}px; \n`;
         //text += '   padding: 1px; \n';
+        text += '   display: inline-flex; \n';
+        text += '   align-items: center; \n';
+        text += '   justify-content: center; \n';
         text += '   border-width: 0px; \n';
         text += `   background-color: ${backgroundColor}; \n`;
+        text += '} \n';
+
+        text += `#${widgetID} .channel-logo {\n`;
+        text += `   max-width: ${chnanneliconwidth}px;\n`;
+        text += `   max-height: ${heightrow}px;\n`;
+        text += '   width: auto; \n';
+        text += '   height: auto; \n';
+        text += '   object-fit: contain; \n';
+        text += '   display: block; \n';
         text += '} \n';
 
         text += `#${widgetID} .broadcast {\n`;
@@ -344,7 +364,7 @@ export default {
             viewdate = event.airDate;
             text += '    <ul class="tv-row">';
             text += '       <li class="tv-item channel">';
-            text += `          <img width="100%" height="100%" 
+            text += `          <img loading="lazy" decoding="async"
                                         data-instance="${instance}" 
                                         data-channelid="${channel.channelId}" 
                                         data-dp="${tvprogram_oid}" 
@@ -387,9 +407,9 @@ export default {
             text += '    </ul>';
         });
         $(`#${widgetID} .tv-result`).html(text);
-        $(`#${widgetID} .tv-result .broadcastelement`).click(
-            vis.binds.tvprogram.onclickBroadcast.bind(this.visTvprogram),
-        );
+        $(`#${widgetID} .tv-result .broadcast`).on('click', event => {
+            this.visTvprogram.onclickBroadcast(event.currentTarget.querySelector('.broadcastelement'));
+        });
     },
     onSubmitSearch: async function (widgetID, view, data, style, evt) {
         const el = evt.target;
@@ -460,7 +480,11 @@ export default {
     onChange: function (widgetID, view, data, style, tvprogram_oid, e, newVal) {
         const dp = e.type.split('.');
         if (
-            (dp[3] == 'config' || dp[3] == 'favorites' || dp[3] == 'channelfilter' || dp[3] == 'show') &&
+            (dp[3] == 'config' ||
+                dp[3] == 'favorites' ||
+                dp[3] == 'channelfilter' ||
+                dp[3] == 'show' ||
+                dp[3] == 'optchnlogopath') &&
             dp[4] == 'val'
         ) {
             console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);

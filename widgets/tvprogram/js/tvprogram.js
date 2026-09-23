@@ -16,12 +16,9 @@ import control from './control.js';
 import favorites from './favorites.js';
 import time1 from './time1.js';
 import shared from './shared.js';
+import { widgetTranslations } from './widget-i18n.js';
 
-fetch('widgets/tvprogram/i18n/translations.json').then(async res => {
-    const i18n = await res.json();
-
-    $.extend(true, systemDictionary, i18n);
-});
+$.extend(true, systemDictionary, widgetTranslations);
 $.extend(true, systemDictionary, {
     // Add your translations here, e.g.:
     // "size": {

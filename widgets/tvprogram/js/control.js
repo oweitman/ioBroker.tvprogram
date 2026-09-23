@@ -1,4 +1,5 @@
 /* global vis, $ */
+import { replaceWidgetContentWithImages } from './deferred-widget-images.js';
 export default {
     visTvprogram: null,
     bound: {},
@@ -105,8 +106,14 @@ export default {
         text += '   white-space:nowrap; \n';
         text += '   display:flex; \n';
         text += '   flex-direction: column; \n';
-        text += '   overflow: hidden; \n';
+        text += '   overflow-x: hidden; \n';
         text += '   overflow-y: auto; \n';
+        text += '   scrollbar-width: none; \n';
+        text += '   -ms-overflow-style: none; \n';
+        text += '} \n';
+
+        text += `#${widgetID} .tv-control::-webkit-scrollbar {\n`;
+        text += '   display: none; \n';
         text += '} \n';
 
         text += `#${widgetID} .tv-row {\n`;
@@ -136,8 +143,20 @@ export default {
         text += `   width: ${chnanneliconwidth}px; \n`;
         text += `   height: ${heightrow}px; \n`;
         //text += '   padding: 1px; \n';
+        text += '   display: inline-flex; \n';
+        text += '   align-items: center; \n';
+        text += '   justify-content: center; \n';
         text += '   border-width: 0px; \n';
         text += `   background-color: ${backgroundColor}; \n`;
+        text += '} \n';
+
+        text += `#${widgetID} .channel-logo {\n`;
+        text += `   max-width: ${chnanneliconwidth}px;\n`;
+        text += `   max-height: ${heightrow}px;\n`;
+        text += '   width: auto; \n';
+        text += '   height: auto; \n';
+        text += '   object-fit: contain; \n';
+        text += '   display: block; \n';
         text += '} \n';
 
         text += `#${widgetID} .broadcast {\n`;
@@ -175,7 +194,10 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcastimage {\n`;
-        text += `   height: ${heightrow - 7}px; \n`;
+        text += `   max-height: ${heightrow - 7}px;\n`;
+        text += '   width: auto; \n';
+        text += '   height: auto; \n';
+        text += '   object-fit: contain; \n';
         text += '   padding-right: 3px; \n';
         text += '   float: left; \n';
         text += '} \n';
@@ -284,26 +306,26 @@ export default {
                 favhighlight = favorites.indexOf(event.title) > -1;
                 text += '    <ul class="tv-row">';
                 text += '       <li class="tv-item channel">';
-                text += `          <img width="100%" height="100%" 
+                text += `          <img loading="lazy" decoding="async"
                         data-instance="${instance}" 
                         data-channelid="${channel.channelId}" 
+                        data-image-id="${event.id}"
                         data-dp="${tvprogram_oid}" 
-                        src="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
+                        data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
                         alt="" 
                         class="channel-logo"  
                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
                 text += '       </li>';
-                text += '       <li class="tv-item broadcast">';
+                text +=
+                    '       <li class="tv-item broadcast" onclick="vis.binds.tvprogram.onclickBroadcast(this.querySelector(\'.broadcastelement\'))">';
                 text += `             <div class="broadcastelement ${
                     favhighlight ? 'selected' : ''
                 }" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${
                     viewdate
-                }" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${
-                    view
-                }" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+                }" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}">`;
                 if (event.photo.url && showpictures) {
                     text +=
-                        `<div><img class="broadcastimage" loading="lazy" decoding="async" src="` +
+                        `<div><img class="broadcastimage" loading="lazy" decoding="async" data-eventid="${event.id}" data-programme-url="` +
                         `${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
                 }
                 text += '                 <div class="broadcasttitle">';
@@ -326,7 +348,7 @@ export default {
                 text += '    </ul>';
             });
         });
-        $(`#${widgetID} .tv-control`).html(text);
+        replaceWidgetContentWithImages($(`#${widgetID} .tv-control`), text, '.tv-control');
         if (!this.timer[widgetID]) {
             clearInterval(this.timer[widgetID]);
         }

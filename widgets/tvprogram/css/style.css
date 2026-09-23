@@ -133,6 +133,21 @@
     min-height: 0;
     overflow: auto;
     padding: 0 14px 18px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.tvp-channel-content::-webkit-scrollbar {
+    display: none;
+}
+
+[id$='broadcastdlg'] .event-data {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+[id$='broadcastdlg'] .event-data::-webkit-scrollbar {
+    display: none;
 }
 
 .tvp-channel-content h3 {

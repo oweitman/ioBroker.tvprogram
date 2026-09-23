@@ -463,8 +463,16 @@
         text += "} \n";
         text += `#${widgetID} .tv-result {
 `;
-        text += "   overflow: hidden; \n";
+        text += "   flex: 1 1 auto; \n";
+        text += "   min-height: 0; \n";
+        text += "   overflow-x: hidden; \n";
         text += "   overflow-y: auto; \n";
+        text += "   scrollbar-width: none; \n";
+        text += "   -ms-overflow-style: none; \n";
+        text += "} \n";
+        text += `#${widgetID} .tv-result::-webkit-scrollbar {
+`;
+        text += "   display: none; \n";
         text += "} \n";
         text += `#${widgetID} .tv-row {
 `;
@@ -495,9 +503,23 @@
 `;
         text += `   height: ${heightrow}px; 
 `;
+        text += "   display: inline-flex; \n";
+        text += "   align-items: center; \n";
+        text += "   justify-content: center; \n";
         text += "   border-width: 0px; \n";
         text += `   background-color: ${backgroundColor}; 
 `;
+        text += "} \n";
+        text += `#${widgetID} .channel-logo {
+`;
+        text += `   max-width: ${chnanneliconwidth}px;
+`;
+        text += `   max-height: ${heightrow}px;
+`;
+        text += "   width: auto; \n";
+        text += "   height: auto; \n";
+        text += "   object-fit: contain; \n";
+        text += "   display: block; \n";
         text += "} \n";
         text += `#${widgetID} .broadcast {
 `;
@@ -659,7 +681,7 @@
           viewdate = event.airDate;
           text += '    <ul class="tv-row">';
           text += '       <li class="tv-item channel">';
-          text += `          <img width="100%" height="100%" 
+          text += `          <img loading="lazy" decoding="async"
                                         data-instance="${instance}" 
                                         data-channelid="${channel.channelId}" 
                                         data-dp="${tvprogram_oid}" 
@@ -692,9 +714,9 @@
           text += "    </ul>";
         });
         $(`#${widgetID} .tv-result`).html(text);
-        $(`#${widgetID} .tv-result .broadcastelement`).click(
-          vis.binds.tvprogram.onclickBroadcast.bind(this.visTvprogram)
-        );
+        $(`#${widgetID} .tv-result .broadcast`).on("click", (event) => {
+          this.visTvprogram.onclickBroadcast(event.currentTarget.querySelector(".broadcastelement"));
+        });
       });
     },
     onSubmitSearch: function(widgetID, view, data, style, evt) {
@@ -761,12 +783,99 @@
     },
     onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
       const dp = e.type.split(".");
-      if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
+      if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show" || dp[3] == "optchnlogopath") && dp[4] == "val") {
         console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
         this.createWidget(widgetID, view, data, style);
       }
     }
   };
+
+  // tvprogram/js/deferred-widget-images.js
+  var observers = /* @__PURE__ */ new WeakMap();
+  var imageUrl = (image) => image.dataset.logoUrl || image.dataset.programmeUrl;
+  var imageKey = (image) => `${image.className}:${image.dataset.imageId || image.dataset.channelid || image.dataset.eventid}:${imageUrl(image)}`;
+  function replaceWidgetContentWithImages($container, markup, scrollSelector) {
+    var _a;
+    const container = $container[0];
+    if (!container) {
+      return;
+    }
+    const previousImages = /* @__PURE__ */ new Map();
+    for (const image of container.querySelectorAll(".channel-logo, .broadcastimage")) {
+      previousImages.set(imageKey(image), image);
+      image.remove();
+    }
+    (_a = observers.get(container)) == null ? void 0 : _a.disconnect();
+    $container.html(markup);
+    const queue = [];
+    let active = 0;
+    const pump = () => {
+      while (active < 4 && queue.length) {
+        const image = queue.shift();
+        if (image.isConnected) {
+          active++;
+          load(image);
+        }
+      }
+    };
+    const load = (image) => {
+      let retries = 0;
+      let finished = false;
+      const complete = () => {
+        if (finished) {
+          return;
+        }
+        finished = true;
+        active--;
+        pump();
+      };
+      image.onload = complete;
+      image.onerror = () => {
+        if (retries++ === 0 && image.isConnected) {
+          image.removeAttribute("src");
+          window.setTimeout(() => {
+            if (image.isConnected) {
+              image.src = imageUrl(image);
+            } else {
+              complete();
+            }
+          }, 1500);
+        } else {
+          image.dataset.imageFailed = "true";
+          image.style.display = "none";
+          complete();
+        }
+      };
+      image.src = imageUrl(image);
+    };
+    const root = container.querySelector(scrollSelector) || container;
+    const observer = window.IntersectionObserver ? new window.IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+            queue.push(entry.target);
+          }
+        }
+        pump();
+      },
+      { root, rootMargin: "150px" }
+    ) : null;
+    observers.set(container, observer);
+    for (const image of container.querySelectorAll(".channel-logo, .broadcastimage")) {
+      const previous = previousImages.get(imageKey(image));
+      if ((previous == null ? void 0 : previous.hasAttribute("src")) && !previous.dataset.imageFailed) {
+        image.replaceWith(previous);
+      } else if (!imageUrl(image)) {
+        image.remove();
+      } else if (observer) {
+        observer.observe(image);
+      } else {
+        queue.push(image);
+      }
+    }
+    pump();
+  }
 
   // tvprogram/js/control.js
   var control_default = {
@@ -866,8 +975,14 @@
         text += "   white-space:nowrap; \n";
         text += "   display:flex; \n";
         text += "   flex-direction: column; \n";
-        text += "   overflow: hidden; \n";
+        text += "   overflow-x: hidden; \n";
         text += "   overflow-y: auto; \n";
+        text += "   scrollbar-width: none; \n";
+        text += "   -ms-overflow-style: none; \n";
+        text += "} \n";
+        text += `#${widgetID} .tv-control::-webkit-scrollbar {
+`;
+        text += "   display: none; \n";
         text += "} \n";
         text += `#${widgetID} .tv-row {
 `;
@@ -898,9 +1013,23 @@
 `;
         text += `   height: ${heightrow}px; 
 `;
+        text += "   display: inline-flex; \n";
+        text += "   align-items: center; \n";
+        text += "   justify-content: center; \n";
         text += "   border-width: 0px; \n";
         text += `   background-color: ${backgroundColor}; 
 `;
+        text += "} \n";
+        text += `#${widgetID} .channel-logo {
+`;
+        text += `   max-width: ${chnanneliconwidth}px;
+`;
+        text += `   max-height: ${heightrow}px;
+`;
+        text += "   width: auto; \n";
+        text += "   height: auto; \n";
+        text += "   object-fit: contain; \n";
+        text += "   display: block; \n";
         text += "} \n";
         text += `#${widgetID} .broadcast {
 `;
@@ -942,8 +1071,11 @@
         text += "} \n";
         text += `#${widgetID} .broadcastimage {
 `;
-        text += `   height: ${heightrow - 7}px; 
+        text += `   max-height: ${heightrow - 7}px;
 `;
+        text += "   width: auto; \n";
+        text += "   height: auto; \n";
+        text += "   object-fit: contain; \n";
         text += "   padding-right: 3px; \n";
         text += "   float: left; \n";
         text += "} \n";
@@ -1043,19 +1175,20 @@
             favhighlight = favorites.indexOf(event.title) > -1;
             text += '    <ul class="tv-row">';
             text += '       <li class="tv-item channel">';
-            text += `          <img width="100%" height="100%" 
+            text += `          <img loading="lazy" decoding="async"
                         data-instance="${instance}" 
                         data-channelid="${channel.channelId}" 
+                        data-image-id="${event.id}"
                         data-dp="${tvprogram_oid}" 
-                        src="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
+                        data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
                         alt="" 
                         class="channel-logo"  
                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
             text += "       </li>";
-            text += '       <li class="tv-item broadcast">';
-            text += `             <div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+            text += `       <li class="tv-item broadcast" onclick="vis.binds.tvprogram.onclickBroadcast(this.querySelector('.broadcastelement'))">`;
+            text += `             <div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}">`;
             if (event.photo.url && showpictures) {
-              text += `<div><img class="broadcastimage" loading="lazy" decoding="async" src="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
+              text += `<div><img class="broadcastimage" loading="lazy" decoding="async" data-eventid="${event.id}" data-programme-url="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
             }
             text += '                 <div class="broadcasttitle">';
             text += `                     ${event.title}`;
@@ -1073,7 +1206,7 @@
             text += "    </ul>";
           });
         });
-        $(`#${widgetID} .tv-control`).html(text);
+        replaceWidgetContentWithImages($(`#${widgetID} .tv-control`), text, ".tv-control");
         if (!this.timer[widgetID]) {
           clearInterval(this.timer[widgetID]);
         }
@@ -1127,7 +1260,6 @@
     visTvprogram: null,
     pending: {},
     bound: {},
-    favorites: void 0,
     timer: {},
     createWidget: function(widgetID, view, data, style) {
       return __async(this, null, function* () {
@@ -1143,6 +1275,7 @@
         const maxfavorites = data.tvprogram_maxfavorites || 10;
         const highlightcolor = data.tvprogram_highlightcolor || "yellow";
         const channelname = data.tvprogram_channelname || false;
+        const selectedChannelsOnly = data.tvprogram_favorites_selectedchannels === true;
         const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
         let tvprogram_oid;
         let instance;
@@ -1170,25 +1303,47 @@
             this.bound[tvprogram_oid][widgetID] = true;
             vis.binds["tvprogram"].bindStates(
               $div,
-              [`${tvprogram_oid}.config`, `${tvprogram_oid}.favorites`, `${tvprogram_oid}.optchnlogopath`],
+              [
+                `${tvprogram_oid}.config`,
+                `${tvprogram_oid}.favorites`,
+                `${tvprogram_oid}.channelfilter`,
+                `${tvprogram_oid}.optchnlogopath`
+              ],
               this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
             );
           }
         }
         const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-        if (!this.favorites || !this.favorites[tvprogram_oid] && favorites) {
-          let favoritesData = yield this.visTvprogram.getFavoritesDataAsync(instance, favorites);
-          if (!this.favorites) {
-            this.favorites = [];
+        if (!Array.isArray(this.visTvprogram.channels)) {
+          this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+        }
+        let selectedChannelIds = null;
+        if (selectedChannelsOnly) {
+          let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+          if (channelfilter.length === 0) {
+            channelfilter = this.visTvprogram.channels.slice(0, 4).map((channel) => channel.id);
           }
-          this.favorites[tvprogram_oid] = favoritesData;
-          this.createWidget(widgetID, view, data, style);
+          selectedChannelIds = new Set(channelfilter.map(String));
         }
-        if (!this.favorites || !this.favorites[tvprogram_oid]) {
-          return;
-        }
+        const response = yield this.visTvprogram.getFavoritesDataAsync(instance, favorites);
+        const favoriteEvents = Array.isArray(response) ? response.filter(
+          (event) => new Date(event.endTime) >= /* @__PURE__ */ new Date() && (!selectedChannelIds || selectedChannelIds.has(String(event.channel)))
+        ) : [];
         let text = "";
         text += "<style> \n";
+        text += `#${widgetID} .tv-fav-scroll {
+`;
+        text += "   width: 100%;\n";
+        text += "   height: 100%;\n";
+        text += "   overflow-x: hidden;\n";
+        text += "   overflow-y: auto;\n";
+        text += "   scrollbar-width: none;\n";
+        text += "   -ms-overflow-style: none;\n";
+        text += "} \n";
+        text += `#${widgetID} .tv-fav-scroll::-webkit-scrollbar {
+`;
+        text += "   display: none;\n";
+        text += "} \n";
         text += `#${widgetID} .tv-fav {
 `;
         text += "   width: 100%;\n";
@@ -1226,9 +1381,9 @@
         text += '  <div class="svgcontainer">';
         text += '<svg style="display:none;"><symbol id="star-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></symbol></svg>';
         text += "  </div>";
-        text += '<table class="tv-fav">';
-        this.favorites[tvprogram_oid] = this.favorites[tvprogram_oid].filter((el) => new Date(el.endTime) >= /* @__PURE__ */ new Date());
-        this.favorites[tvprogram_oid].forEach(function(favorite, index2) {
+        text += '<div class="tv-fav-scroll"><table class="tv-fav">';
+        favoriteEvents.forEach((favorite, index2) => {
+          var _a;
           const today = /* @__PURE__ */ new Date();
           const startTime = new Date(favorite.startTime);
           const endTime = new Date(favorite.endTime);
@@ -1249,35 +1404,27 @@
               text += `           <td class="tv-left">${favorite.channelname}</td>`;
             } else {
               text += '           <td class="tv-center tv-tdicon">';
-              const favoriteChannel = this.visTvprogram.channels.find((ch) => ch.id == favorite.channel);
-              text += `              <img width="100%" height="100%" src="${this.visTvprogram.getChannelLogo(favoriteChannel, tvprogram_oid)}" alt="" class="tv-icon">`;
+              const favoriteChannel = (_a = this.visTvprogram.channels) == null ? void 0 : _a.find((ch) => ch.id == favorite.channel);
+              const logo = this.visTvprogram.getChannelLogo(favoriteChannel, tvprogram_oid);
+              if (logo) {
+                text += `              <img src="${logo}" alt="" class="tv-icon">`;
+              }
               text += "           </td>";
             }
             text += `           <td class="tv-full">${favorite.title}</td>`;
             text += "        </tr>";
           }
         });
-        text += "</table>            ";
+        text += "</table></div>";
         $(`#${widgetID}`).html(text);
-        if (!this.timer[widgetID]) {
-          this.timer[widgetID] = setInterval(
-            vis.binds["tvprogram"].favorites.createWidget.bind(this, widgetID, view, data, style),
-            1e3 * 60
-          );
-        } else {
-          clearInterval(this.timer[widgetID]);
-          this.timer[widgetID] = setInterval(
-            vis.binds["tvprogram"].favorites.createWidget.bind(this, widgetID, view, data, style),
-            1e3 * 60
-          );
-        }
+        clearTimeout(this.timer[widgetID]);
+        this.timer[widgetID] = setTimeout(() => this.createWidget(widgetID, view, data, style), 1e3 * 60);
       });
     },
     onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
       const dp = e.type.split(".");
       if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
         console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
-        this.favorites = [];
         this.createWidget(widgetID, view, data, style);
       }
     }
@@ -3532,39 +3679,458 @@
     };
   }
 
-  // tvprogram/js/channel-dialog.js
-  var labels = {
-    de: {
-      title: "Sender ausw\xE4hlen",
-      save: "Auswahl speichern",
-      cancel: "Schlie\xDFen ohne Speichern",
-      search: "Sender suchen",
-      active: "Aktive Sender",
-      inactive: "Weitere Sender",
-      empty: "Keine Sender gefunden",
-      reorder: "Zum Verschieben ziehen",
-      selected: "Sender deaktivieren",
-      unselected: "Sender aktivieren",
-      sort: { native: "Originale Reihenfolge", asc: "Name A\u2013Z", desc: "Name Z\u2013A" }
+  // tvprogram/myi18n/translations.json
+  var translations_default = {
+    tvprogram_oid: {
+      en: "ID",
+      de: "ID",
+      ru: "ID",
+      pt: "ID",
+      nl: "ID",
+      fr: "ID",
+      it: "ID",
+      es: "ID",
+      pl: "ID",
+      uk: "\u0406\u0414\u0415\u041D\u0422\u0418\u0424\u0406\u041A\u0410\u0422\u041E\u0420",
+      "zh-cn": "ID"
     },
-    en: {
-      title: "Select channels",
-      save: "Save selection",
-      cancel: "Close without saving",
-      search: "Search channels",
-      active: "Selected channels",
-      inactive: "Other channels",
-      empty: "No channels found",
-      reorder: "Drag to reorder",
-      selected: "Remove channel",
-      unselected: "Add channel",
-      sort: { native: "Original order", asc: "Name A\u2013Z", desc: "Name Z\u2013A" }
+    tvprogram_widthItem: {
+      en: "Width on hour px",
+      de: "Breite zur vollen Stunde px",
+      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0432 \u0447\u0430\u0441\u0430\u0445 px",
+      pt: "Largura na hora px",
+      nl: "Breedte op uur px",
+      fr: "Largeur sur l'heure px",
+      it: "Larghezza su ora px",
+      es: "Anchura en hora px",
+      pl: "Szeroko\u015B\u0107 na godzin\u0119 px",
+      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043D\u0430 \u0433\u043E\u0434\u0438\u043D\u0443 px",
+      "zh-cn": "Width on hour px"
+    },
+    tvprogram_heightRow: {
+      en: "Height of row px",
+      de: "H\xF6he der Zeile px",
+      ru: "\u0412\u044B\u0441\u043E\u0442\u0430 \u0441\u0442\u0440\u043E\u043A\u0438 px",
+      pt: "Altura da linha px",
+      nl: "Hoogte van rij px",
+      fr: "Hauteur de la ligne px",
+      it: "Altezza della riga px",
+      es: "Altura de la fila px",
+      pl: "Wysoko\u015B\u0107 wiersza px",
+      uk: "\u0412\u0438\u0441\u043E\u0442\u0430 \u0440\u044F\u0434\u043A\u0430 px",
+      "zh-cn": "Height of row px"
+    },
+    tvprogram_channeliconwidth: {
+      en: "Width channel logo px",
+      de: "Breite Kanal-Logo px",
+      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u0430 \u043A\u0430\u043D\u0430\u043B\u0430 px",
+      pt: "Largura do log\xF3tipo do canal px",
+      nl: "Breedte kanaallogo px",
+      fr: "Largeur du logo du canal px",
+      it: "Larghezza logo del canale px",
+      es: "Anchura del logotipo del canal px",
+      pl: "Szeroko\u015B\u0107 logo kana\u0142u px",
+      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u0443 \u043A\u0430\u043D\u0430\u043B\u0443 px",
+      "zh-cn": "Width channel logo px"
+    },
+    tvprogram_showpictures: {
+      en: "Show pictures",
+      de: "Bilder anzeigen",
+      ru: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438",
+      pt: "Mostrar imagens",
+      nl: "Foto's tonen",
+      fr: "Montrer les photos",
+      it: "Mostra immagini",
+      es: "Mostrar im\xE1genes",
+      pl: "Poka\u017C zdj\u0119cia",
+      uk: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0444\u043E\u0442\u043E",
+      "zh-cn": "Show pictures"
+    },
+    tvprogram_headerfontpercent: {
+      en: "Header font size %",
+      de: "Schriftgr\xF6\xDFe der Kopfzeile %",
+      ru: "\u0420\u0430\u0437\u043C\u0435\u0440 \u0448\u0440\u0438\u0444\u0442\u0430 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 %",
+      pt: "Tamanho do tipo de letra do cabe\xE7alho %",
+      nl: "Lettergrootte koptekst %",
+      fr: "Taille de la police de l'en-t\xEAte %",
+      it: "Dimensione del carattere dell'intestazione %",
+      es: "Tama\xF1o de fuente de la cabecera %.",
+      pl: "Rozmiar czcionki nag\u0142\xF3wka %",
+      uk: "\u0420\u043E\u0437\u043C\u0456\u0440 \u0448\u0440\u0438\u0444\u0442\u0443 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 % %.",
+      "zh-cn": "Header font size %"
+    },
+    tvprogram_broadcastfontpercent: {
+      en: "Broadcast font %",
+      de: "Broadcast-Schriftart %",
+      ru: "\u0428\u0438\u0440\u043E\u043A\u043E\u0432\u0435\u0449\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0448\u0440\u0438\u0444\u0442 %",
+      pt: "Tipo de letra de difus\xE3o %",
+      nl: "Uitzending lettertype %",
+      fr: "Police de diffusion %",
+      it: "Carattere di trasmissione %",
+      es: "Fuente de emisi\xF3n %.",
+      pl: "Czcionka transmisji %",
+      uk: "\u0428\u0440\u0438\u0444\u0442 \u0442\u0440\u0430\u043D\u0441\u043B\u044F\u0446\u0456\u0457 % %.",
+      "zh-cn": "Broadcast font %"
+    },
+    tvprogram_highlightcolor: {
+      en: "Favorite color",
+      de: "Bevorzugte Farbe",
+      ru: "\u041B\u044E\u0431\u0438\u043C\u044B\u0439 \u0446\u0432\u0435\u0442",
+      pt: "Cor favorita",
+      nl: "Favoriete kleur",
+      fr: "Couleur pr\xE9f\xE9r\xE9e",
+      it: "Colore preferito",
+      es: "Color favorito",
+      pl: "Ulubiony kolor",
+      uk: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0438\u0439 \u043A\u043E\u043B\u0456\u0440",
+      "zh-cn": "Favorite color"
+    },
+    tvprogram_markerpositionpercent: {
+      en: "Marker position from right %",
+      de: "Position der Markierung von rechts %.",
+      ru: "\u041F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u0441\u043F\u0440\u0430\u0432\u0430 %",
+      pt: "Posi\xE7\xE3o do marcador a partir da direita %",
+      nl: "Markeerpositie vanaf rechts %",
+      fr: "Position du marqueur \xE0 partir de la droite %",
+      it: "Posizione del marcatore da destra %",
+      es: "Posici\xF3n del marcador desde la derecha %.",
+      pl: "Pozycja znacznika od prawego %",
+      uk: "\u041F\u043E\u0437\u0438\u0446\u0456\u044F \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u0443 \u0432\u0456\u0434\u0441\u043E\u0442\u043A\u0430\u0445",
+      "zh-cn": "Marker position from right %"
+    },
+    tvprogram_dialogwidthpercent: {
+      en: "Dialog width %",
+      de: "Dialogbreite %",
+      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u0438\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u043E\u043A\u043D\u0430 %",
+      pt: "Largura do di\xE1logo %",
+      nl: "Dialoogbreedte %",
+      fr: "Largeur de la bo\xEEte de dialogue %",
+      it: "Larghezza della finestra di dialogo %",
+      es: "Ancho del di\xE1logo %.",
+      pl: "Szeroko\u015B\u0107 okna dialogowego %",
+      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u0456\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u0432\u0456\u043A\u043D\u0430 %",
+      "zh-cn": "Dialog width %"
+    },
+    tvprogram_dialogheightpercent: {
+      en: "Dialog height %",
+      de: "Dialogh\xF6he %",
+      ru: "\u0412\u044B\u0441\u043E\u0442\u0430 \u0434\u0438\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u043E\u043A\u043D\u0430 %",
+      pt: "Altura do di\xE1logo %",
+      nl: "Dialoog hoogte %",
+      fr: "Hauteur du dialogue %",
+      it: "Altezza dialogo %",
+      es: "Altura del di\xE1logo %.",
+      pl: "Wysoko\u015B\u0107 okna dialogowego %",
+      uk: "\u0412\u0438\u0441\u043E\u0442\u0430 \u0434\u0456\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u0432\u0456\u043A\u043D\u0430 %",
+      "zh-cn": "Dialog height %"
+    },
+    tvprogram_channelname: {
+      en: "With channelname",
+      de: "Mit Kanalname",
+      ru: "\u0421 \u0438\u043C\u0435\u043D\u0435\u043C \u043A\u0430\u043D\u0430\u043B\u0430",
+      pt: "Com o nome do canal",
+      nl: "Met kanaalnaam",
+      fr: "Avec le nom du canal",
+      it: "Con il nome del canale",
+      es: "Con channelname",
+      pl: "Z nazw\u0105 kana\u0142u",
+      uk: "\u0417 \u043D\u0430\u0437\u0432\u043E\u044E \u043A\u0430\u043D\u0430\u043B\u0443",
+      "zh-cn": "With channelname"
+    },
+    tvprogram_favorites_selectedchannels: {
+      en: "Favorites from selected channels only",
+      de: "Favoriten nur von ausgew\xE4hlten Sendern",
+      ru: "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u0441 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0445 \u043A\u0430\u043D\u0430\u043B\u043E\u0432",
+      pt: "Favoritos apenas dos canais selecionados",
+      nl: "Favorieten alleen van geselecteerde zenders",
+      fr: "Favoris des cha\xEEnes s\xE9lectionn\xE9es uniquement",
+      it: "Preferiti solo dai canali selezionati",
+      es: "Favoritos solo de los canales seleccionados",
+      pl: "Ulubione tylko z wybranych kana\u0142\xF3w",
+      uk: "\u041E\u0431\u0440\u0430\u043D\u0435 \u043B\u0438\u0448\u0435 \u0437 \u0432\u0438\u0431\u0440\u0430\u043D\u0438\u0445 \u043A\u0430\u043D\u0430\u043B\u0456\u0432",
+      "zh-cn": "\u4EC5\u663E\u793A\u6240\u9009\u9891\u9053\u7684\u6536\u85CF\u8282\u76EE"
+    },
+    tvprogram_showweekday: {
+      en: "Show weekday",
+      de: "Wochentag anzeigen",
+      ru: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0431\u0443\u0434\u043D\u0438\u0439 \u0434\u0435\u043D\u044C",
+      pt: "Mostrar dia da semana",
+      nl: "Toon weekdag",
+      fr: "Afficher le jour de la semaine",
+      it: "Mostra giorno della settimana",
+      es: "Mostrar d\xEDa de la semana",
+      pl: "Poka\u017C dzie\u0144 tygodnia",
+      uk: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0431\u0443\u0434\u043D\u0456\u0439 \u0434\u0435\u043D\u044C",
+      "zh-cn": "Show weekday"
+    },
+    tvprogram_maxfavorites: {
+      en: "Max favorites",
+      de: "Maximale Favoriten",
+      ru: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043B\u044E\u0431\u0438\u043C\u044B\u0435",
+      pt: "Favoritos m\xE1ximos",
+      nl: "Max favorieten",
+      fr: "Favoris maximaux",
+      it: "I preferiti di Max",
+      es: "Max favoritos",
+      pl: "Maksimum ulubionych",
+      uk: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0435 \u0447\u0438\u0441\u043B\u043E \u043E\u0431\u0440\u0430\u043D\u0438\u0445",
+      "zh-cn": "Max favorites"
+    },
+    tvprogram_channel_dialog_title: {
+      en: "Select channels",
+      de: "Sender ausw\xE4hlen",
+      ru: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u043A\u0430\u043D\u0430\u043B\u044B",
+      pt: "Selecionar canais",
+      nl: "Zenders selecteren",
+      fr: "S\xE9lectionner les cha\xEEnes",
+      it: "Seleziona canali",
+      es: "Seleccionar canales",
+      pl: "Wybierz kana\u0142y",
+      uk: "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043A\u0430\u043D\u0430\u043B\u0438",
+      "zh-cn": "\u9009\u62E9\u9891\u9053"
+    },
+    tvprogram_channel_dialog_save: {
+      en: "Save selection",
+      de: "Auswahl speichern",
+      ru: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u044B\u0431\u043E\u0440",
+      pt: "Guardar sele\xE7\xE3o",
+      nl: "Selectie opslaan",
+      fr: "Enregistrer la s\xE9lection",
+      it: "Salva selezione",
+      es: "Guardar selecci\xF3n",
+      pl: "Zapisz wyb\xF3r",
+      uk: "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0432\u0438\u0431\u0456\u0440",
+      "zh-cn": "\u4FDD\u5B58\u9009\u62E9"
+    },
+    tvprogram_channel_dialog_cancel: {
+      en: "Close without saving",
+      de: "Schlie\xDFen ohne Speichern",
+      ru: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u0431\u0435\u0437 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F",
+      pt: "Fechar sem guardar",
+      nl: "Sluiten zonder opslaan",
+      fr: "Fermer sans enregistrer",
+      it: "Chiudi senza salvare",
+      es: "Cerrar sin guardar",
+      pl: "Zamknij bez zapisywania",
+      uk: "\u0417\u0430\u043A\u0440\u0438\u0442\u0438 \u0431\u0435\u0437 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u043D\u044F",
+      "zh-cn": "\u5173\u95ED\u4E14\u4E0D\u4FDD\u5B58"
+    },
+    tvprogram_channel_dialog_search: {
+      en: "Search channels",
+      de: "Sender suchen",
+      ru: "\u041F\u043E\u0438\u0441\u043A \u043A\u0430\u043D\u0430\u043B\u043E\u0432",
+      pt: "Pesquisar canais",
+      nl: "Zenders zoeken",
+      fr: "Rechercher des cha\xEEnes",
+      it: "Cerca canali",
+      es: "Buscar canales",
+      pl: "Szukaj kana\u0142\xF3w",
+      uk: "\u041F\u043E\u0448\u0443\u043A \u043A\u0430\u043D\u0430\u043B\u0456\u0432",
+      "zh-cn": "\u641C\u7D22\u9891\u9053"
+    },
+    tvprogram_channel_dialog_active: {
+      en: "Selected channels",
+      de: "Aktive Sender",
+      ru: "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0435 \u043A\u0430\u043D\u0430\u043B\u044B",
+      pt: "Canais selecionados",
+      nl: "Geselecteerde zenders",
+      fr: "Cha\xEEnes s\xE9lectionn\xE9es",
+      it: "Canali selezionati",
+      es: "Canales seleccionados",
+      pl: "Wybrane kana\u0142y",
+      uk: "\u0412\u0438\u0431\u0440\u0430\u043D\u0456 \u043A\u0430\u043D\u0430\u043B\u0438",
+      "zh-cn": "\u5DF2\u9009\u9891\u9053"
+    },
+    tvprogram_channel_dialog_inactive: {
+      en: "Other channels",
+      de: "Weitere Sender",
+      ru: "\u0414\u0440\u0443\u0433\u0438\u0435 \u043A\u0430\u043D\u0430\u043B\u044B",
+      pt: "Outros canais",
+      nl: "Andere zenders",
+      fr: "Autres cha\xEEnes",
+      it: "Altri canali",
+      es: "Otros canales",
+      pl: "Inne kana\u0142y",
+      uk: "\u0406\u043D\u0448\u0456 \u043A\u0430\u043D\u0430\u043B\u0438",
+      "zh-cn": "\u5176\u4ED6\u9891\u9053"
+    },
+    tvprogram_channel_dialog_empty: {
+      en: "No channels found",
+      de: "Keine Sender gefunden",
+      ru: "\u041A\u0430\u043D\u0430\u043B\u044B \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u044B",
+      pt: "Nenhum canal encontrado",
+      nl: "Geen zenders gevonden",
+      fr: "Aucune cha\xEEne trouv\xE9e",
+      it: "Nessun canale trovato",
+      es: "No se encontraron canales",
+      pl: "Nie znaleziono kana\u0142\xF3w",
+      uk: "\u041A\u0430\u043D\u0430\u043B\u0456\u0432 \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u043D\u043E",
+      "zh-cn": "\u672A\u627E\u5230\u9891\u9053"
+    },
+    tvprogram_channel_dialog_reorder: {
+      en: "Drag to reorder",
+      de: "Zum Verschieben ziehen",
+      ru: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0434\u043B\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u043F\u043E\u0440\u044F\u0434\u043A\u0430",
+      pt: "Arraste para reordenar",
+      nl: "Sleep om te ordenen",
+      fr: "Faire glisser pour r\xE9organiser",
+      it: "Trascina per riordinare",
+      es: "Arrastrar para reordenar",
+      pl: "Przeci\u0105gnij, aby zmieni\u0107 kolejno\u015B\u0107",
+      uk: "\u041F\u0435\u0440\u0435\u0442\u044F\u0433\u043D\u0456\u0442\u044C, \u0449\u043E\u0431 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
+      "zh-cn": "\u62D6\u52A8\u4EE5\u91CD\u65B0\u6392\u5E8F"
+    },
+    tvprogram_channel_dialog_selected: {
+      en: "Remove channel",
+      de: "Sender deaktivieren",
+      ru: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043A\u0430\u043D\u0430\u043B",
+      pt: "Remover canal",
+      nl: "Zender verwijderen",
+      fr: "Retirer la cha\xEEne",
+      it: "Rimuovi canale",
+      es: "Eliminar canal",
+      pl: "Usu\u0144 kana\u0142",
+      uk: "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438 \u043A\u0430\u043D\u0430\u043B",
+      "zh-cn": "\u79FB\u9664\u9891\u9053"
+    },
+    tvprogram_channel_dialog_unselected: {
+      en: "Add channel",
+      de: "Sender aktivieren",
+      ru: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u0430\u043D\u0430\u043B",
+      pt: "Adicionar canal",
+      nl: "Zender toevoegen",
+      fr: "Ajouter la cha\xEEne",
+      it: "Aggiungi canale",
+      es: "A\xF1adir canal",
+      pl: "Dodaj kana\u0142",
+      uk: "\u0414\u043E\u0434\u0430\u0442\u0438 \u043A\u0430\u043D\u0430\u043B",
+      "zh-cn": "\u6DFB\u52A0\u9891\u9053"
+    },
+    tvprogram_channel_dialog_sort_native: {
+      en: "Original order",
+      de: "Originale Reihenfolge",
+      ru: "\u0418\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
+      pt: "Ordem original",
+      nl: "Oorspronkelijke volgorde",
+      fr: "Ordre d'origine",
+      it: "Ordine originale",
+      es: "Orden original",
+      pl: "Kolejno\u015B\u0107 oryginalna",
+      uk: "\u041F\u043E\u0447\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
+      "zh-cn": "\u539F\u59CB\u987A\u5E8F"
+    },
+    tvprogram_channel_dialog_sort_asc: {
+      en: "Name A\u2013Z",
+      de: "Name A\u2013Z",
+      ru: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0410\u2013\u042F",
+      pt: "Nome A\u2013Z",
+      nl: "Naam A\u2013Z",
+      fr: "Nom A\u2013Z",
+      it: "Nome A\u2013Z",
+      es: "Nombre A\u2013Z",
+      pl: "Nazwa A\u2013Z",
+      uk: "\u041D\u0430\u0437\u0432\u0430 \u0410\u2013\u042F",
+      "zh-cn": "\u540D\u79F0 A\u2013Z"
+    },
+    tvprogram_channel_dialog_sort_desc: {
+      en: "Name Z\u2013A",
+      de: "Name Z\u2013A",
+      ru: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u042F\u2013\u0410",
+      pt: "Nome Z\u2013A",
+      nl: "Naam Z\u2013A",
+      fr: "Nom Z\u2013A",
+      it: "Nome Z\u2013A",
+      es: "Nombre Z\u2013A",
+      pl: "Nazwa Z\u2013A",
+      uk: "\u041D\u0430\u0437\u0432\u0430 \u042F\u2013\u0410",
+      "zh-cn": "\u540D\u79F0 Z\u2013A"
+    },
+    tvprogram_channel_dialog_fullscreen: {
+      en: "Fullscreen",
+      de: "Vollbild",
+      ru: "\u041F\u043E\u043B\u043D\u044B\u0439 \u044D\u043A\u0440\u0430\u043D",
+      pt: "Ecr\xE3 inteiro",
+      nl: "Volledig scherm",
+      fr: "Plein \xE9cran",
+      it: "Schermo intero",
+      es: "Pantalla completa",
+      pl: "Pe\u0142ny ekran",
+      uk: "\u041F\u043E\u0432\u043D\u0438\u0439 \u0435\u043A\u0440\u0430\u043D",
+      "zh-cn": "\u5168\u5C4F"
+    },
+    tvprogram_channel_dialog_restore: {
+      en: "Restore dialog size",
+      de: "Urspr\xFCngliche Dialoggr\xF6\xDFe",
+      ru: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0440\u0430\u0437\u043C\u0435\u0440 \u0434\u0438\u0430\u043B\u043E\u0433\u0430",
+      pt: "Restaurar tamanho do di\xE1logo",
+      nl: "Dialooggrootte herstellen",
+      fr: "R\xE9tablir la taille de la bo\xEEte de dialogue",
+      it: "Ripristina dimensione finestra",
+      es: "Restaurar tama\xF1o del di\xE1logo",
+      pl: "Przywr\xF3\u0107 rozmiar okna",
+      uk: "\u0412\u0456\u0434\u043D\u043E\u0432\u0438\u0442\u0438 \u0440\u043E\u0437\u043C\u0456\u0440 \u0434\u0456\u0430\u043B\u043E\u0433\u0443",
+      "zh-cn": "\u6062\u590D\u5BF9\u8BDD\u6846\u5927\u5C0F"
+    },
+    tvprogram_time: {
+      en: "Show time",
+      de: "Zeit anzeigen",
+      ru: "\u0412\u0440\u0435\u043C\u044F \u043F\u043E\u043A\u0430\u0437\u0430",
+      pt: "Hora do espet\xE1culo",
+      nl: "Showtijd",
+      fr: "Heure d'ouverture",
+      it: "Orario dello spettacolo",
+      es: "Hora del espect\xE1culo",
+      pl: "Czas pokazu",
+      uk: "\u0427\u0430\u0441 \u043F\u043E\u043A\u0430\u0437\u0443",
+      "zh-cn": "Show time"
+    },
+    tvprogram_maxresults: {
+      en: "Max. results",
+      de: "Maximale Ergebnisse",
+      ru: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B",
+      pt: "Resultados m\xE1ximos",
+      nl: "Max. resultaten",
+      fr: "R\xE9sultats maximaux",
+      it: "Risultati massimi",
+      es: "Resultados m\xE1ximos",
+      pl: "Maksymalne wyniki",
+      uk: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0438\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
+      "zh-cn": "Max. results"
     }
   };
+
+  // tvprogram/js/widget-i18n.js
+  function translateWidget(key, language) {
+    const values = translations_default[key] || {};
+    const normalized = String(language || "en").toLowerCase();
+    const base = normalized.split("-")[0];
+    return values[normalized] || values[base] || values.en || key;
+  }
+
+  // tvprogram/js/channel-dialog.js
   function openChannelDialog(options) {
     const { host, widget, channels, selectedIds: initialIds, getLogo, onSave, widthPercent, heightPercent } = options;
-    const lang = (navigator.language || "en").toLowerCase().startsWith("de") ? "de" : "en";
-    const text = labels[lang];
+    const lang = options.language || navigator.language || "en";
+    const translate = (name) => translateWidget(`tvprogram_channel_dialog_${name}`, lang);
+    const text = {
+      title: translate("title"),
+      save: translate("save"),
+      cancel: translate("cancel"),
+      search: translate("search"),
+      active: translate("active"),
+      inactive: translate("inactive"),
+      empty: translate("empty"),
+      reorder: translate("reorder"),
+      selected: translate("selected"),
+      unselected: translate("unselected"),
+      fullscreen: translate("fullscreen"),
+      restore: translate("restore"),
+      sort: {
+        native: translate("sort_native"),
+        asc: translate("sort_asc"),
+        desc: translate("sort_desc")
+      }
+    };
     const locale = navigator.language || "en";
     const byId = new Map(channels.map((channel) => [String(channel.id), channel]));
     let selectedIds = selectedOrder(channels, initialIds).map((channel) => channel.id);
@@ -3634,7 +4200,7 @@
     const updateFullscreenButton = () => {
       const expanded = dialog.classList.contains("is-fullscreen");
       fullscreenButton.textContent = expanded ? "\u2750" : "\u25A1";
-      fullscreenButton.title = expanded ? lang === "de" ? "Urspr\xFCngliche Dialoggr\xF6\xDFe" : "Restore dialog size" : lang === "de" ? "Vollbild" : "Fullscreen";
+      fullscreenButton.title = expanded ? text.restore : text.fullscreen;
       fullscreenButton.setAttribute("aria-label", fullscreenButton.title);
     };
     updateFullscreenButton();
@@ -3849,15 +4415,15 @@
     bound: {},
     timer: {},
     pending: {},
+    cacheEpoch: {},
+    prefetchSchedule: {},
     measures: {},
     scroll: {},
     today: {},
     viewday: {},
     olddata: {},
-    logoObservers: {},
     createWidget: function(widgetID, view, data, style) {
       return __async(this, null, function* () {
-        var _a;
         const $div = $(`#${widgetID}`);
         if (!$div.length) {
           return setTimeout(function() {
@@ -3883,7 +4449,6 @@
             timeItem: 30,
             heightRow: parseInt(data.tvprogram_heightRow) || 35,
             channelIconWidth: parseInt(data.tvprogram_channeliconwidth) || 35,
-            scrollbarWidth: this.getScrollbarWidth(),
             markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
             dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
             dialogheightpercent: data.tvprogram_dialogheightpercent / 100 || 0.9,
@@ -3910,15 +4475,6 @@
         if (!this.visTvprogram.genres) {
           this.visTvprogram.genres = yield this.visTvprogram.loadGenres(instance, widgetID);
         }
-        function check(prop) {
-          if (!prop) {
-            return true;
-          }
-          if (Object.keys(prop) == 0) {
-            return true;
-          }
-          return false;
-        }
         if (!this.today[widgetID]) {
           this.today[widgetID] = { today: /* @__PURE__ */ new Date(), prevday: null };
         }
@@ -3933,9 +4489,8 @@
         }
         this.viewday[widgetID].viewday = datestring;
         const viewdate = this.visTvprogram.getDate(d, 0);
-        if (check(this.tvprogram[datestring])) {
-          this.tvprogram[datestring] = yield this.visTvprogram.loadProgram(instance, widgetID, datestring);
-        }
+        const cacheKey = `${instance}:${datestring}`;
+        yield this.loadDay(instance, widgetID, datestring);
         if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") {
           return;
         }
@@ -3945,7 +4500,7 @@
         if (this.visTvprogram.genres.length == 0 || this.visTvprogram.genres[0] === "request") {
           return;
         }
-        if (check(this.tvprogram[datestring])) {
+        if (!Array.isArray(this.tvprogram[cacheKey]) || this.tvprogram[cacheKey].length === 0) {
           return;
         }
         if (this.viewday[widgetID]["viewday"] != this.viewday[widgetID]["prevday"]) {
@@ -3996,12 +4551,12 @@
         const headerfontpercent = data.tvprogram_headerfontpercent || 125;
         const broadcastfontpercent = data.tvprogram_broadcastfontpercent || 75;
         let lineheight = 0;
-        const widgetheight = $(`#${widgetID}`).height() - heightrow;
+        const widgetheight = $(`#${widgetID}`).height() - heightrow - 12;
         const contentheight = (channelfilter.length + 1) * heightrow;
         if (contentheight < widgetheight) {
           lineheight = contentheight;
         } else {
-          lineheight = widgetheight - this.measures[widgetID].scrollbarWidth;
+          lineheight = Math.max(0, widgetheight);
         }
         console.log(`Display day:${datestring}`);
         console.log("Output CSS");
@@ -4026,8 +4581,29 @@
         text += `#${widgetID} .scrollcontainer {
 `;
         text += "   flex-grow: 1; \n";
-        text += "   overflow:auto; \n";
+        text += "   min-height: 0; \n";
+        text += "   overflow-x: auto; \n";
+        text += "   overflow-y: auto; \n";
+        text += "   scrollbar-width: none; \n";
+        text += "   -ms-overflow-style: none; \n";
         text += "   width:100%; \n";
+        text += "} \n";
+        text += `#${widgetID} .scrollcontainer::-webkit-scrollbar {
+`;
+        text += "   display: none; \n";
+        text += "} \n";
+        text += `#${widgetID} .tvp-timetable-hscroll {
+`;
+        text += "   flex: 0 0 12px; \n";
+        text += "   height: 12px; \n";
+        text += "   width: 100%; \n";
+        text += "   overflow-x: auto; \n";
+        text += "   overflow-y: hidden; \n";
+        text += "   scrollbar-width: thin; \n";
+        text += "} \n";
+        text += `#${widgetID} .tvp-timetable-hscroll::-webkit-scrollbar {
+`;
+        text += "   height: 6px; \n";
         text += "} \n";
         text += `#${widgetID} .tv-row {
 `;
@@ -4371,85 +4947,15 @@
         text += "      </li>";
         text += this.getTimetable().join("");
         text += "    </ul>";
-        const events = this.getEvents(this.tvprogram[viewdate], channelfilter);
+        const events = this.getEvents(this.tvprogram[cacheKey], channelfilter);
         events.map((el) => {
           text += '    <ul class="tv-row">';
           text += this.getBroadcasts4Channel(el, widgetID, view, viewdate, tvprogram_oid, instance).join("");
           text += "    </ul>";
         });
-        const container = $(`#${widgetID} .tv-container`);
-        const imageKey = (image) => `${image.className}:${image.dataset.channelid || image.dataset.eventid}:${image.dataset.logoUrl || image.dataset.programmeUrl}`;
-        const imageUrl = (image) => image.dataset.logoUrl || image.dataset.programmeUrl;
-        const previousImages = /* @__PURE__ */ new Map();
-        container.find(".channel-logo, .broadcastimage").each((_, image) => {
-          previousImages.set(imageKey(image), image);
-          image.remove();
-        });
-        (_a = this.logoObservers[widgetID]) == null ? void 0 : _a.disconnect();
-        container.html(text);
-        const scrollContainer = container.find(".scrollcontainer")[0];
-        const imageQueue = [];
-        let activeImages = 0;
-        const loadImages = () => {
-          while (activeImages < 4 && imageQueue.length) {
-            const image = imageQueue.shift();
-            activeImages++;
-            loadImage(image);
-          }
-        };
-        const loadImage = (image) => {
-          let retries = 0;
-          const complete = () => {
-            activeImages--;
-            loadImages();
-          };
-          image.onload = complete;
-          image.onerror = () => {
-            if (retries++ === 0 && image.isConnected) {
-              image.removeAttribute("src");
-              window.setTimeout(() => {
-                if (image.isConnected) {
-                  image.src = imageUrl(image);
-                } else {
-                  complete();
-                }
-              }, 1500);
-            } else {
-              image.dataset.imageFailed = "true";
-              image.style.display = "none";
-              complete();
-            }
-          };
-          image.src = imageUrl(image);
-        };
-        const observer = window.IntersectionObserver ? new window.IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                observer.unobserve(entry.target);
-                imageQueue.push(entry.target);
-              }
-            }
-            loadImages();
-          },
-          { root: scrollContainer, rootMargin: "150px" }
-        ) : null;
-        this.logoObservers[widgetID] = observer;
-        container.find(".channel-logo, .broadcastimage").each((_, image) => {
-          const key = imageKey(image);
-          const previous = previousImages.get(key);
-          if ((previous == null ? void 0 : previous.hasAttribute("src")) && !previous.dataset.imageFailed) {
-            image.replaceWith(previous);
-            previousImages.delete(key);
-          } else if (!imageUrl(image)) {
-            image.remove();
-          } else if (observer) {
-            observer.observe(image);
-          } else {
-            imageQueue.push(image);
-          }
-        });
-        loadImages();
+        text += "  </div>";
+        text += `  <div class="tvp-timetable-hscroll"><div style="width:${widthtvrow}px;height:1px"></div></div>`;
+        replaceWidgetContentWithImages($(`#${widgetID} .tv-container`), text, ".scrollcontainer");
         if (this.visTvprogram.getConfigShow(tvprogram_oid) == 1) {
           $(`#${widgetID} .broadcastelement:not(".selected") > *`).show();
         } else {
@@ -4470,6 +4976,9 @@
         $(`#${widgetID} .button.hide`).off("click.onClickHide").on("click.onClickHide", this.onClickHide.bind(this, instance, tvprogram_oid, widgetID));
         $(`#${widgetID} .scrollcontainer`).scroll(
           function(widgetID2) {
+            const main = $(`#${widgetID2} .scrollcontainer`).get(0);
+            const horizontal = $(`#${widgetID2} .tvp-timetable-hscroll`).get(0);
+            horizontal.scrollLeft = main.scrollLeft;
             if (this.scroll[widgetID2].automatic == 0) {
               this.scroll[widgetID2].automatic = 2;
             }
@@ -4477,6 +4986,11 @@
             this.calcScroll(widgetID2);
           }.bind(this, widgetID)
         );
+        $(`#${widgetID} .tvp-timetable-hscroll`).on("scroll", () => {
+          const main = $(`#${widgetID} .scrollcontainer`).get(0);
+          const horizontal = $(`#${widgetID} .tvp-timetable-hscroll`).get(0);
+          main.scrollLeft = horizontal.scrollLeft;
+        });
         this.visTvprogram.copyStyles("font", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
         this.visTvprogram.copyStyles("color", $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
         this.visTvprogram.copyStyles(
@@ -4504,7 +5018,85 @@
           this.setScroll(widgetID);
         }
         console.log("Output done");
+        this.schedulePrefetch(widgetID, instance);
       });
+    },
+    loadDay: function(instance, widgetID, datestring) {
+      var _a;
+      const key = `${instance}:${datestring}`;
+      if (Array.isArray(this.tvprogram[key]) && this.tvprogram[key].length > 0) {
+        return Promise.resolve(this.tvprogram[key]);
+      }
+      const epoch = this.cacheEpoch[key] || 0;
+      if (((_a = this.pending[key]) == null ? void 0 : _a.epoch) === epoch) {
+        return this.pending[key].promise;
+      }
+      const promise = this.visTvprogram.loadProgram(instance, widgetID, datestring).then((program) => {
+        if ((this.cacheEpoch[key] || 0) === epoch && Array.isArray(program) && program.length > 0) {
+          this.tvprogram[key] = program;
+        }
+        return program;
+      }).finally(() => {
+        var _a2;
+        if (((_a2 = this.pending[key]) == null ? void 0 : _a2.promise) === promise) {
+          delete this.pending[key];
+        }
+      });
+      this.pending[key] = { epoch, promise };
+      return promise;
+    },
+    prefetchNextDays: function(instance, widgetID, baseDate) {
+      return __async(this, null, function* () {
+        for (let offset = 1; offset <= 2; offset++) {
+          if (!document.getElementById(widgetID)) {
+            return;
+          }
+          const date = this.visTvprogram.getDate(baseDate, offset);
+          try {
+            yield this.loadDay(instance, widgetID, date);
+          } catch (error) {
+            console.warn(`Could not preload TV programme for ${date}`, error);
+          }
+          if (offset === 1) {
+            yield new Promise((resolve) => window.setTimeout(resolve, 2e3));
+          }
+        }
+      });
+    },
+    schedulePrefetch: function(widgetID, instance) {
+      var _a, _b;
+      if (vis.editMode) {
+        return;
+      }
+      const today = this.visTvprogram.getDate(this.visTvprogram.calcDate(/* @__PURE__ */ new Date()), 0);
+      const key = `${instance}:${today}`;
+      if (((_a = this.prefetchSchedule[widgetID]) == null ? void 0 : _a.key) === key) {
+        return;
+      }
+      window.clearTimeout((_b = this.prefetchSchedule[widgetID]) == null ? void 0 : _b.timer);
+      const schedule = { key, timer: null };
+      this.prefetchSchedule[widgetID] = schedule;
+      const start = (attempt) => {
+        schedule.timer = window.setTimeout(
+          () => {
+            const widget = document.getElementById(widgetID);
+            if (!widget) {
+              delete this.prefetchSchedule[widgetID];
+              return;
+            }
+            const loadingImages = [...widget.querySelectorAll(".channel-logo[src], .broadcastimage[src]")].some(
+              (image) => !image.complete
+            );
+            if (loadingImages && attempt < 4) {
+              start(attempt + 1);
+              return;
+            }
+            void this.prefetchNextDays(instance, widgetID, this.visTvprogram.calcDate(/* @__PURE__ */ new Date()));
+          },
+          attempt === 0 ? 1e4 : 3e3
+        );
+      };
+      start(0);
     },
     onClickHide: function(instance, tvprogram) {
       this.visTvprogram.toggleShow(instance, tvprogram);
@@ -4614,15 +5206,6 @@
       );
       this.setScroll(widgetID);
     },
-    getScrollbarWidth: function() {
-      const scrollDiv = document.createElement("div");
-      scrollDiv.className = "scrollbar-measure";
-      scrollDiv.style.cssText = "width: 100px;height: 100px;overflow: scroll;position: absolute;top: -9999px;";
-      document.body.appendChild(scrollDiv);
-      const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-      document.body.removeChild(scrollDiv);
-      return scrollbarWidth;
-    },
     onclickChannel: function(widgetID, instance, tvprogram_oid) {
       const host = document.getElementById(`${widgetID}channeldlg`);
       const widget = document.getElementById(widgetID);
@@ -4636,11 +5219,12 @@
         widget,
         channels: this.visTvprogram.channels,
         selectedIds,
-        getLogo: (channel) => this.visTvprogram.getChannelLogo(channel, tvprogram_oid),
+        getLogo: (channel) => this.visTvprogram.getOriginalChannelLogo(channel),
         onSave: (ids) => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
         widthPercent: this.measures[widgetID].dialogwidthpercent,
         heightPercent: this.measures[widgetID].dialogheightpercent,
-        background: this.visTvprogram.realBackgroundColor(widget)
+        background: this.visTvprogram.realBackgroundColor(widget),
+        language: vis.language
       });
     },
     getBroadcasts4Channel: function(el, widgetID, view, viewdate, tvprogram_oid, instance) {
@@ -4691,8 +5275,8 @@
         text = "";
         text += '<li class="tv-item broadcast" style="';
         text += `left:${Math.floor((startTime2 - sTime) / 6e4 / tItem * wItem * 10) / 10}px;`;
-        text += `width:${Math.floor((endTime2 - startTime2) / 6e4 / tItem * wItem * 10) / 10}px;">`;
-        text += `<div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+        text += `width:${Math.floor((endTime2 - startTime2) / 6e4 / tItem * wItem * 10) / 10}px;" onclick="vis.binds.tvprogram.onclickBroadcast(this.querySelector('.broadcastelement'))">`;
+        text += `<div class="broadcastelement ${favhighlight ? "selected" : ""}" data-widgetid="${widgetID}" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${tvprogram_oid}" data-view="${view}">`;
         if (event.photo.url && this.measures[widgetID].showpictures) {
           text += `<div><img class="broadcastimage" loading="lazy" decoding="async" data-eventid="${event.id}" data-programme-url="${this.visTvprogram.getProgrammeImage(event.photo.url)}"></div>`;
         }
@@ -4780,6 +5364,7 @@
     },
     onChange: function(widgetID, view, data, style, instance, e, newVal) {
       return __async(this, null, function* () {
+        var _a;
         const dp = e.type.split(".");
         if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
           console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
@@ -4796,19 +5381,11 @@
                 return;
               }
               if (obj[1] == "program") {
-                if (this.tvprogram[obj[2]]) {
-                  this.visTvprogram.loadProgram(
-                    instance,
-                    widgetID,
-                    obj[2],
-                    function(widgetID2, view2, data2, style2, datestring, serverdata) {
-                      if (serverdata != "error" && serverdata != "nodata") {
-                        this.tvprogram[datestring] = serverdata;
-                        this.createWidget(widgetID2, view2, data2, style2);
-                        return;
-                      }
-                    }.bind(this, widgetID, view, data, style, obj[2])
-                  );
+                const key = `${instance}:${obj[2]}`;
+                this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
+                delete this.tvprogram[key];
+                if (((_a = this.viewday[widgetID]) == null ? void 0 : _a.viewday) === obj[2]) {
+                  this.createWidget(widgetID, view, data, style);
                 }
               }
             }
@@ -5062,6 +5639,12 @@
       const path = this.getOptChannelLogoPath(tvprogram_oid);
       if (path) {
         return `${path.replace(/\/?$/, "/")}${channel.logoName || channel.channelId}.png`;
+      }
+      return this.getOriginalChannelLogo(channel);
+    },
+    getOriginalChannelLogo: function(channel) {
+      if (!channel) {
+        return "";
       }
       return channel.logo || `https://tvfueralle.de/channel-logos/${channel.channelId}.png`;
     },
@@ -5491,10 +6074,7 @@
   };
 
   // tvprogram/js/tvprogram.js
-  fetch("widgets/tvprogram/i18n/translations.json").then((res) => __async(null, null, function* () {
-    const i18n = yield res.json();
-    $.extend(true, systemDictionary, i18n);
-  }));
+  $.extend(true, systemDictionary, translations_default);
   $.extend(true, systemDictionary, {
     // Add your translations here, e.g.:
     // "size": {

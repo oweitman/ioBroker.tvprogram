@@ -2,6 +2,7 @@
 import dayjs from 'dayjs';
 import { openChannelDialog } from './channel-dialog.js';
 import { persistedSelection } from './channel-selection-model.js';
+import { replaceWidgetContentWithImages } from './deferred-widget-images.js';
 
 export default {
     visTvprogram: null,
@@ -9,12 +10,13 @@ export default {
     bound: {},
     timer: {},
     pending: {},
+    cacheEpoch: {},
+    prefetchSchedule: {},
     measures: {},
     scroll: {},
     today: {},
     viewday: {},
     olddata: {},
-    logoObservers: {},
     createWidget: async function (widgetID, view, data, style) {
         const $div = $(`#${widgetID}`);
         // if nothing found => wait
@@ -43,7 +45,6 @@ export default {
                 timeItem: 30,
                 heightRow: parseInt(data.tvprogram_heightRow) || 35,
                 channelIconWidth: parseInt(data.tvprogram_channeliconwidth) || 35,
-                scrollbarWidth: this.getScrollbarWidth(),
                 markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
                 dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
                 dialogheightpercent: data.tvprogram_dialogheightpercent / 100 || 0.9,
@@ -73,16 +74,6 @@ export default {
             this.visTvprogram.genres = await this.visTvprogram.loadGenres(instance, widgetID);
         }
 
-        function check(prop) {
-            if (!prop) {
-                return true;
-            }
-            if (Object.keys(prop) == 0) {
-                return true;
-            }
-            return false;
-        }
-
         if (!this.today[widgetID]) {
             this.today[widgetID] = { today: new Date(), prevday: null };
         }
@@ -100,9 +91,8 @@ export default {
 
         const viewdate = this.visTvprogram.getDate(d, 0);
 
-        if (check(this.tvprogram[datestring])) {
-            this.tvprogram[datestring] = await this.visTvprogram.loadProgram(instance, widgetID, datestring);
-        }
+        const cacheKey = `${instance}:${datestring}`;
+        await this.loadDay(instance, widgetID, datestring);
         if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === 'request') {
             return;
         }
@@ -112,7 +102,7 @@ export default {
         if (this.visTvprogram.genres.length == 0 || this.visTvprogram.genres[0] === 'request') {
             return;
         }
-        if (check(this.tvprogram[datestring])) {
+        if (!Array.isArray(this.tvprogram[cacheKey]) || this.tvprogram[cacheKey].length === 0) {
             return;
         }
 
@@ -170,13 +160,13 @@ export default {
         const broadcastfontpercent = data.tvprogram_broadcastfontpercent || 75;
 
         let lineheight = 0;
-        const widgetheight = $(`#${widgetID}`).height() - heightrow;
+        const widgetheight = $(`#${widgetID}`).height() - heightrow - 12;
         const contentheight = (channelfilter.length + 1) * heightrow;
 
         if (contentheight < widgetheight) {
             lineheight = contentheight;
         } else {
-            lineheight = widgetheight - this.measures[widgetID].scrollbarWidth;
+            lineheight = Math.max(0, widgetheight);
         }
 
         console.log(`Display day:${datestring}`);
@@ -202,8 +192,29 @@ export default {
 
         text += `#${widgetID} .scrollcontainer {\n`;
         text += '   flex-grow: 1; \n';
-        text += '   overflow:auto; \n';
+        text += '   min-height: 0; \n';
+        text += '   overflow-x: auto; \n';
+        text += '   overflow-y: auto; \n';
+        text += '   scrollbar-width: none; \n';
+        text += '   -ms-overflow-style: none; \n';
         text += '   width:100%; \n';
+        text += '} \n';
+
+        text += `#${widgetID} .scrollcontainer::-webkit-scrollbar {\n`;
+        text += '   display: none; \n';
+        text += '} \n';
+
+        text += `#${widgetID} .tvp-timetable-hscroll {\n`;
+        text += '   flex: 0 0 12px; \n';
+        text += '   height: 12px; \n';
+        text += '   width: 100%; \n';
+        text += '   overflow-x: auto; \n';
+        text += '   overflow-y: hidden; \n';
+        text += '   scrollbar-width: thin; \n';
+        text += '} \n';
+
+        text += `#${widgetID} .tvp-timetable-hscroll::-webkit-scrollbar {\n`;
+        text += '   height: 6px; \n';
         text += '} \n';
 
         text += `#${widgetID} .tv-row {\n`;
@@ -560,89 +571,16 @@ export default {
 
         text += this.getTimetable().join('');
         text += '    </ul>';
-        const events = this.getEvents(this.tvprogram[viewdate], channelfilter);
+        const events = this.getEvents(this.tvprogram[cacheKey], channelfilter);
         events.map(el => {
             text += '    <ul class="tv-row">';
             text += this.getBroadcasts4Channel(el, widgetID, view, viewdate, tvprogram_oid, instance).join('');
             text += '    </ul>';
         });
+        text += '  </div>';
+        text += `  <div class="tvp-timetable-hscroll"><div style="width:${widthtvrow}px;height:1px"></div></div>`;
 
-        const container = $(`#${widgetID} .tv-container`);
-        const imageKey = image =>
-            `${image.className}:${image.dataset.channelid || image.dataset.eventid}:${image.dataset.logoUrl || image.dataset.programmeUrl}`;
-        const imageUrl = image => image.dataset.logoUrl || image.dataset.programmeUrl;
-        const previousImages = new Map();
-        container.find('.channel-logo, .broadcastimage').each((_, image) => {
-            previousImages.set(imageKey(image), image);
-            image.remove();
-        });
-        this.logoObservers[widgetID]?.disconnect();
-        container.html(text);
-        const scrollContainer = container.find('.scrollcontainer')[0];
-        const imageQueue = [];
-        let activeImages = 0;
-        const loadImages = () => {
-            while (activeImages < 4 && imageQueue.length) {
-                const image = imageQueue.shift();
-                activeImages++;
-                loadImage(image);
-            }
-        };
-        const loadImage = image => {
-            let retries = 0;
-            const complete = () => {
-                activeImages--;
-                loadImages();
-            };
-            image.onload = complete;
-            image.onerror = () => {
-                if (retries++ === 0 && image.isConnected) {
-                    image.removeAttribute('src');
-                    window.setTimeout(() => {
-                        if (image.isConnected) {
-                            image.src = imageUrl(image);
-                        } else {
-                            complete();
-                        }
-                    }, 1500);
-                } else {
-                    image.dataset.imageFailed = 'true';
-                    image.style.display = 'none';
-                    complete();
-                }
-            };
-            image.src = imageUrl(image);
-        };
-        const observer = window.IntersectionObserver
-            ? new window.IntersectionObserver(
-                  entries => {
-                      for (const entry of entries) {
-                          if (entry.isIntersecting) {
-                              observer.unobserve(entry.target);
-                              imageQueue.push(entry.target);
-                          }
-                      }
-                      loadImages();
-                  },
-                  { root: scrollContainer, rootMargin: '150px' },
-              )
-            : null;
-        this.logoObservers[widgetID] = observer;
-        container.find('.channel-logo, .broadcastimage').each((_, image) => {
-            const key = imageKey(image);
-            const previous = previousImages.get(key);
-            if (previous?.hasAttribute('src') && !previous.dataset.imageFailed) {
-                image.replaceWith(previous);
-                previousImages.delete(key);
-            } else if (!imageUrl(image)) {
-                image.remove();
-            } else if (observer) {
-                observer.observe(image);
-            } else {
-                imageQueue.push(image);
-            }
-        });
-        loadImages();
+        replaceWidgetContentWithImages($(`#${widgetID} .tv-container`), text, '.scrollcontainer');
 
         if (this.visTvprogram.getConfigShow(tvprogram_oid) == 1) {
             $(`#${widgetID} .broadcastelement:not(".selected") > *`).show();
@@ -682,6 +620,9 @@ export default {
 
         $(`#${widgetID} .scrollcontainer`).scroll(
             function (widgetID) {
+                const main = $(`#${widgetID} .scrollcontainer`).get(0);
+                const horizontal = $(`#${widgetID} .tvp-timetable-hscroll`).get(0);
+                horizontal.scrollLeft = main.scrollLeft;
                 if (this.scroll[widgetID].automatic == 0) {
                     this.scroll[widgetID].automatic = 2;
                 }
@@ -689,6 +630,11 @@ export default {
                 this.calcScroll(widgetID);
             }.bind(this, widgetID),
         );
+        $(`#${widgetID} .tvp-timetable-hscroll`).on('scroll', () => {
+            const main = $(`#${widgetID} .scrollcontainer`).get(0);
+            const horizontal = $(`#${widgetID} .tvp-timetable-hscroll`).get(0);
+            main.scrollLeft = horizontal.scrollLeft;
+        });
         this.visTvprogram.copyStyles('font', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
         this.visTvprogram.copyStyles('color', $(`#${widgetID}`).get(0), $(`#${widgetID}broadcastdlg`).get(0));
         this.visTvprogram.copyStyles(
@@ -718,6 +664,82 @@ export default {
             this.setScroll(widgetID);
         }
         console.log('Output done');
+        this.schedulePrefetch(widgetID, instance);
+    },
+    loadDay: function (instance, widgetID, datestring) {
+        const key = `${instance}:${datestring}`;
+        if (Array.isArray(this.tvprogram[key]) && this.tvprogram[key].length > 0) {
+            return Promise.resolve(this.tvprogram[key]);
+        }
+        const epoch = this.cacheEpoch[key] || 0;
+        if (this.pending[key]?.epoch === epoch) {
+            return this.pending[key].promise;
+        }
+        const promise = this.visTvprogram
+            .loadProgram(instance, widgetID, datestring)
+            .then(program => {
+                if ((this.cacheEpoch[key] || 0) === epoch && Array.isArray(program) && program.length > 0) {
+                    this.tvprogram[key] = program;
+                }
+                return program;
+            })
+            .finally(() => {
+                if (this.pending[key]?.promise === promise) {
+                    delete this.pending[key];
+                }
+            });
+        this.pending[key] = { epoch, promise };
+        return promise;
+    },
+    prefetchNextDays: async function (instance, widgetID, baseDate) {
+        for (let offset = 1; offset <= 2; offset++) {
+            if (!document.getElementById(widgetID)) {
+                return;
+            }
+            const date = this.visTvprogram.getDate(baseDate, offset);
+            try {
+                await this.loadDay(instance, widgetID, date);
+            } catch (error) {
+                console.warn(`Could not preload TV programme for ${date}`, error);
+            }
+            if (offset === 1) {
+                await new Promise(resolve => window.setTimeout(resolve, 2000));
+            }
+        }
+    },
+    schedulePrefetch: function (widgetID, instance) {
+        if (vis.editMode) {
+            return;
+        }
+        const today = this.visTvprogram.getDate(this.visTvprogram.calcDate(new Date()), 0);
+        const key = `${instance}:${today}`;
+        if (this.prefetchSchedule[widgetID]?.key === key) {
+            return;
+        }
+        window.clearTimeout(this.prefetchSchedule[widgetID]?.timer);
+        const schedule = { key, timer: null };
+        this.prefetchSchedule[widgetID] = schedule;
+        const start = attempt => {
+            schedule.timer = window.setTimeout(
+                () => {
+                    const widget = document.getElementById(widgetID);
+                    if (!widget) {
+                        delete this.prefetchSchedule[widgetID];
+                        return;
+                    }
+                    const loadingImages = [...widget.querySelectorAll('.channel-logo[src], .broadcastimage[src]')].some(
+                        image => !image.complete,
+                    );
+                    if (loadingImages && attempt < 4) {
+                        start(attempt + 1);
+                        return;
+                    }
+                    void this.prefetchNextDays(instance, widgetID, this.visTvprogram.calcDate(new Date()));
+                },
+                attempt === 0 ? 10000 : 3000,
+            );
+        };
+        start(0);
     },
     onClickHide: function (instance, tvprogram) {
         this.visTvprogram.toggleShow(instance, tvprogram);
@@ -838,15 +860,6 @@ export default {
         );
         this.setScroll(widgetID);
     },
-    getScrollbarWidth: function () {
-        const scrollDiv = document.createElement('div');
-        scrollDiv.className = 'scrollbar-measure';
-        scrollDiv.style.cssText = 'width: 100px;height: 100px;overflow: scroll;position: absolute;top: -9999px;';
-        document.body.appendChild(scrollDiv);
-        const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-        document.body.removeChild(scrollDiv);
-        return scrollbarWidth;
-    },
     onclickChannel: function (widgetID, instance, tvprogram_oid) {
         const host = document.getElementById(`${widgetID}channeldlg`);
         const widget = document.getElementById(widgetID);
@@ -860,11 +873,12 @@ export default {
             widget,
             channels: this.visTvprogram.channels,
             selectedIds,
-            getLogo: channel => this.visTvprogram.getChannelLogo(channel, tvprogram_oid),
+            getLogo: channel => this.visTvprogram.getOriginalChannelLogo(channel),
             onSave: ids => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
             widthPercent: this.measures[widgetID].dialogwidthpercent,
             heightPercent: this.measures[widgetID].dialogheightpercent,
             background: this.visTvprogram.realBackgroundColor(widget),
+            language: vis.language,
         });
     },
     getBroadcasts4Channel: function (el, widgetID, view, viewdate, tvprogram_oid, instance) {
@@ -920,12 +934,12 @@ export default {
             text = '';
             text += '<li class="tv-item broadcast" style="';
             text += `left:${Math.floor(((startTime - sTime) / 60000 / tItem) * wItem * 10) / 10}px;`;
-            text += `width:${Math.floor(((endTime - startTime) / 60000 / tItem) * wItem * 10) / 10}px;">`;
+            text += `width:${Math.floor(((endTime - startTime) / 60000 / tItem) * wItem * 10) / 10}px;" onclick="vis.binds.tvprogram.onclickBroadcast(this.querySelector('.broadcastelement'))">`;
             text += `<div class="broadcastelement ${favhighlight ? 'selected' : ''}" data-widgetid="${
                 widgetID
             }" data-eventid="${event.id}" data-viewdate="${viewdate}" data-instance="${instance}" data-dp="${
                 tvprogram_oid
-            }" data-view="${view}" onclick="vis.binds.tvprogram.onclickBroadcast(this)">`;
+            }" data-view="${view}">`;
             if (event.photo.url && this.measures[widgetID].showpictures) {
                 text +=
                     `<div><img class="broadcastimage" loading="lazy" decoding="async" data-eventid="${event.id}" data-programme-url="` +
@@ -1037,19 +1051,11 @@ export default {
                         return;
                     }
                     if (obj[1] == 'program') {
-                        if (this.tvprogram[obj[2]]) {
-                            this.visTvprogram.loadProgram(
-                                instance,
-                                widgetID,
-                                obj[2],
-                                function (widgetID, view, data, style, datestring, serverdata) {
-                                    if (serverdata != 'error' && serverdata != 'nodata') {
-                                        this.tvprogram[datestring] = serverdata;
-                                        this.createWidget(widgetID, view, data, style);
-                                        return;
-                                    }
-                                }.bind(this, widgetID, view, data, style, obj[2]),
-                            );
+                        const key = `${instance}:${obj[2]}`;
+                        this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
+                        delete this.tvprogram[key];
+                        if (this.viewday[widgetID]?.viewday === obj[2]) {
+                            this.createWidget(widgetID, view, data, style);
                         }
                     }
                 }

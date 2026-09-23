@@ -3,7 +3,6 @@ export default {
     visTvprogram: null,
     pending: {},
     bound: {},
-    favorites: undefined,
     timer: {},
     createWidget: async function (widgetID, view, data, style) {
         const $div = $(`#${widgetID}`);
@@ -21,6 +20,7 @@ export default {
         const maxfavorites = data.tvprogram_maxfavorites || 10;
         const highlightcolor = data.tvprogram_highlightcolor || 'yellow';
         const channelname = data.tvprogram_channelname || false;
+        const selectedChannelsOnly = data.tvprogram_favorites_selectedchannels === true;
         const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
 
         let tvprogram_oid;
@@ -60,28 +60,51 @@ export default {
                 this.bound[tvprogram_oid][widgetID] = true;
                 vis.binds['tvprogram'].bindStates(
                     $div,
-                    [`${tvprogram_oid}.config`, `${tvprogram_oid}.favorites`, `${tvprogram_oid}.optchnlogopath`],
+                    [
+                        `${tvprogram_oid}.config`,
+                        `${tvprogram_oid}.favorites`,
+                        `${tvprogram_oid}.channelfilter`,
+                        `${tvprogram_oid}.optchnlogopath`,
+                    ],
                     this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
                 );
             }
         }
 
         const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-
-        if (!this.favorites || (!this.favorites[tvprogram_oid] && favorites)) {
-            let favoritesData = await this.visTvprogram.getFavoritesDataAsync(instance, favorites);
-            if (!this.favorites) {
-                this.favorites = [];
+        if (!Array.isArray(this.visTvprogram.channels)) {
+            this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
+        }
+        let selectedChannelIds = null;
+        if (selectedChannelsOnly) {
+            let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+            if (channelfilter.length === 0) {
+                channelfilter = this.visTvprogram.channels.slice(0, 4).map(channel => channel.id);
             }
-            this.favorites[tvprogram_oid] = favoritesData;
-            this.createWidget(widgetID, view, data, style);
+            selectedChannelIds = new Set(channelfilter.map(String));
         }
-        if (!this.favorites || !this.favorites[tvprogram_oid]) {
-            return;
-        }
+        const response = await this.visTvprogram.getFavoritesDataAsync(instance, favorites);
+        const favoriteEvents = Array.isArray(response)
+            ? response.filter(
+                  event =>
+                      new Date(event.endTime) >= new Date() &&
+                      (!selectedChannelIds || selectedChannelIds.has(String(event.channel))),
+              )
+            : [];
 
         let text = '';
         text += '<style> \n';
+        text += `#${widgetID} .tv-fav-scroll {\n`;
+        text += '   width: 100%;\n';
+        text += '   height: 100%;\n';
+        text += '   overflow-x: hidden;\n';
+        text += '   overflow-y: auto;\n';
+        text += '   scrollbar-width: none;\n';
+        text += '   -ms-overflow-style: none;\n';
+        text += '} \n';
+        text += `#${widgetID} .tv-fav-scroll::-webkit-scrollbar {\n`;
+        text += '   display: none;\n';
+        text += '} \n';
         text += `#${widgetID} .tv-fav {\n`;
         text += '   width: 100%;\n';
         text += '} \n';
@@ -115,9 +138,8 @@ export default {
         // to user : <svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg>
         text += '  </div>';
 
-        text += '<table class="tv-fav">';
-        this.favorites[tvprogram_oid] = this.favorites[tvprogram_oid].filter(el => new Date(el.endTime) >= new Date());
-        this.favorites[tvprogram_oid].forEach(function (favorite, index) {
+        text += '<div class="tv-fav-scroll"><table class="tv-fav">';
+        favoriteEvents.forEach((favorite, index) => {
             const today = new Date();
             const startTime = new Date(favorite.startTime);
             const endTime = new Date(favorite.endTime);
@@ -144,29 +166,22 @@ export default {
                     text += `           <td class="tv-left">${favorite.channelname}</td>`;
                 } else {
                     text += '           <td class="tv-center tv-tdicon">';
-                    const favoriteChannel = this.visTvprogram.channels.find(ch => ch.id == favorite.channel);
-                    text += `              <img width="100%" height="100%" src="${this.visTvprogram.getChannelLogo(favoriteChannel, tvprogram_oid)}" alt="" class="tv-icon">`;
+                    const favoriteChannel = this.visTvprogram.channels?.find(ch => ch.id == favorite.channel);
+                    const logo = this.visTvprogram.getChannelLogo(favoriteChannel, tvprogram_oid);
+                    if (logo) {
+                        text += `              <img src="${logo}" alt="" class="tv-icon">`;
+                    }
                     text += '           </td>';
                 }
                 text += `           <td class="tv-full">${favorite.title}</td>`;
                 text += '        </tr>';
             }
         });
-        text += '</table>            ';
+        text += '</table></div>';
 
         $(`#${widgetID}`).html(text);
-        if (!this.timer[widgetID]) {
-            this.timer[widgetID] = setInterval(
-                vis.binds['tvprogram'].favorites.createWidget.bind(this, widgetID, view, data, style),
-                1000 * 60,
-            );
-        } else {
-            clearInterval(this.timer[widgetID]);
-            this.timer[widgetID] = setInterval(
-                vis.binds['tvprogram'].favorites.createWidget.bind(this, widgetID, view, data, style),
-                1000 * 60,
-            );
-        }
+        clearTimeout(this.timer[widgetID]);
+        this.timer[widgetID] = setTimeout(() => this.createWidget(widgetID, view, data, style), 1000 * 60);
     },
     onChange: function (widgetID, view, data, style, tvprogram_oid, e, newVal) {
         const dp = e.type.split('.');
@@ -175,7 +190,6 @@ export default {
             dp[4] == 'val'
         ) {
             console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
-            this.favorites = [];
             this.createWidget(widgetID, view, data, style);
         }
     },

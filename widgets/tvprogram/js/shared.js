@@ -253,6 +253,12 @@ export default {
         if (path) {
             return `${path.replace(/\/?$/, '/')}${channel.logoName || channel.channelId}.png`;
         }
+        return this.getOriginalChannelLogo(channel);
+    },
+    getOriginalChannelLogo: function (channel) {
+        if (!channel) {
+            return '';
+        }
         return channel.logo || `https://tvfueralle.de/channel-logos/${channel.channelId}.png`;
     },
     getProgrammeImage: function (url) {

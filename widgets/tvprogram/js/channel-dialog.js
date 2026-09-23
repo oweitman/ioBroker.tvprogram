@@ -1,35 +1,7 @@
 /* global document, window */
 import Sortable from 'sortablejs';
 import { dialogTheme, inactiveOrder, matchingChannels, selectedOrder } from './channel-selection-model.js';
-
-const labels = {
-    de: {
-        title: 'Sender auswählen',
-        save: 'Auswahl speichern',
-        cancel: 'Schließen ohne Speichern',
-        search: 'Sender suchen',
-        active: 'Aktive Sender',
-        inactive: 'Weitere Sender',
-        empty: 'Keine Sender gefunden',
-        reorder: 'Zum Verschieben ziehen',
-        selected: 'Sender deaktivieren',
-        unselected: 'Sender aktivieren',
-        sort: { native: 'Originale Reihenfolge', asc: 'Name A–Z', desc: 'Name Z–A' },
-    },
-    en: {
-        title: 'Select channels',
-        save: 'Save selection',
-        cancel: 'Close without saving',
-        search: 'Search channels',
-        active: 'Selected channels',
-        inactive: 'Other channels',
-        empty: 'No channels found',
-        reorder: 'Drag to reorder',
-        selected: 'Remove channel',
-        unselected: 'Add channel',
-        sort: { native: 'Original order', asc: 'Name A–Z', desc: 'Name Z–A' },
-    },
-};
+import { translateWidget } from './widget-i18n.js';
 
 /**
  * Open the native channel dialog for one timetable widget.
@@ -39,8 +11,27 @@ const labels = {
  */
 export function openChannelDialog(options) {
     const { host, widget, channels, selectedIds: initialIds, getLogo, onSave, widthPercent, heightPercent } = options;
-    const lang = (navigator.language || 'en').toLowerCase().startsWith('de') ? 'de' : 'en';
-    const text = labels[lang];
+    const lang = options.language || navigator.language || 'en';
+    const translate = name => translateWidget(`tvprogram_channel_dialog_${name}`, lang);
+    const text = {
+        title: translate('title'),
+        save: translate('save'),
+        cancel: translate('cancel'),
+        search: translate('search'),
+        active: translate('active'),
+        inactive: translate('inactive'),
+        empty: translate('empty'),
+        reorder: translate('reorder'),
+        selected: translate('selected'),
+        unselected: translate('unselected'),
+        fullscreen: translate('fullscreen'),
+        restore: translate('restore'),
+        sort: {
+            native: translate('sort_native'),
+            asc: translate('sort_asc'),
+            desc: translate('sort_desc'),
+        },
+    };
     const locale = navigator.language || 'en';
     const byId = new Map(channels.map(channel => [String(channel.id), channel]));
     let selectedIds = selectedOrder(channels, initialIds).map(channel => channel.id);
@@ -114,13 +105,7 @@ export function openChannelDialog(options) {
     const updateFullscreenButton = () => {
         const expanded = dialog.classList.contains('is-fullscreen');
         fullscreenButton.textContent = expanded ? '❐' : '□';
-        fullscreenButton.title = expanded
-            ? lang === 'de'
-                ? 'Ursprüngliche Dialoggröße'
-                : 'Restore dialog size'
-            : lang === 'de'
-              ? 'Vollbild'
-              : 'Fullscreen';
+        fullscreenButton.title = expanded ? text.restore : text.fullscreen;
         fullscreenButton.setAttribute('aria-label', fullscreenButton.title);
     };
     updateFullscreenButton();

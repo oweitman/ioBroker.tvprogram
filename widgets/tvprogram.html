@@ -115,7 +115,7 @@
 </script>
 <script id="tpltvprogramfavorites" type="text/ejs" class="vis-tpl"
     data-vis-prev='<img style="display: block;margin-left: auto;margin-right: auto;width: 50%;" src="widgets/tvprogram/img/favorites.png"></img>'
-    data-vis-attrs="tvprogram_oid/id;tvprogram_channelname/checkbox;tvprogram_showweekday/checkbox;tvprogram_maxfavorites[10]/number,1;tvprogram_highlightcolor[yellow]/color;tvprogram_channeliconwidth[35]/number;"
+    data-vis-attrs="tvprogram_oid/id;tvprogram_channelname/checkbox;tvprogram_favorites_selectedchannels/checkbox;tvprogram_showweekday/checkbox;tvprogram_maxfavorites[10]/number,1;tvprogram_highlightcolor[yellow]/color;tvprogram_channeliconwidth[35]/number;"
     data-vis-set="tvprogram" data-vis-type="val" data-vis-beta="false" data-vis-update-style="true"
     data-vis-name="TV Program Favorites">
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 230px; height: 210px" id="<%= this.data.attr('wid') %>"><%

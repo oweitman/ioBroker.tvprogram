@@ -155,6 +155,19 @@
         "uk": "З назвою каналу",
         "zh-cn": "With channelname"
     },
+    "tvprogram_favorites_selectedchannels": {
+        "en": "Favorites from selected channels only",
+        "de": "Favoriten nur von ausgewählten Sendern",
+        "ru": "Избранное только с выбранных каналов",
+        "pt": "Favoritos apenas dos canais selecionados",
+        "nl": "Favorieten alleen van geselecteerde zenders",
+        "fr": "Favoris des chaînes sélectionnées uniquement",
+        "it": "Preferiti solo dai canali selezionati",
+        "es": "Favoritos solo de los canales seleccionados",
+        "pl": "Ulubione tylko z wybranych kanałów",
+        "uk": "Обране лише з вибраних каналів",
+        "zh-cn": "仅显示所选频道的收藏节目"
+    },
     "tvprogram_showweekday": {
         "en": "Show weekday",
         "de": "Wochentag anzeigen",
@@ -180,6 +193,51 @@
         "pl": "Maksimum ulubionych",
         "uk": "Максимальне число обраних",
         "zh-cn": "Max favorites"
+    },
+    "tvprogram_channel_dialog_title": {
+        "en": "Select channels", "de": "Sender auswählen", "ru": "Выбрать каналы", "pt": "Selecionar canais", "nl": "Zenders selecteren", "fr": "Sélectionner les chaînes", "it": "Seleziona canali", "es": "Seleccionar canales", "pl": "Wybierz kanały", "uk": "Вибрати канали", "zh-cn": "选择频道"
+    },
+    "tvprogram_channel_dialog_save": {
+        "en": "Save selection", "de": "Auswahl speichern", "ru": "Сохранить выбор", "pt": "Guardar seleção", "nl": "Selectie opslaan", "fr": "Enregistrer la sélection", "it": "Salva selezione", "es": "Guardar selección", "pl": "Zapisz wybór", "uk": "Зберегти вибір", "zh-cn": "保存选择"
+    },
+    "tvprogram_channel_dialog_cancel": {
+        "en": "Close without saving", "de": "Schließen ohne Speichern", "ru": "Закрыть без сохранения", "pt": "Fechar sem guardar", "nl": "Sluiten zonder opslaan", "fr": "Fermer sans enregistrer", "it": "Chiudi senza salvare", "es": "Cerrar sin guardar", "pl": "Zamknij bez zapisywania", "uk": "Закрити без збереження", "zh-cn": "关闭且不保存"
+    },
+    "tvprogram_channel_dialog_search": {
+        "en": "Search channels", "de": "Sender suchen", "ru": "Поиск каналов", "pt": "Pesquisar canais", "nl": "Zenders zoeken", "fr": "Rechercher des chaînes", "it": "Cerca canali", "es": "Buscar canales", "pl": "Szukaj kanałów", "uk": "Пошук каналів", "zh-cn": "搜索频道"
+    },
+    "tvprogram_channel_dialog_active": {
+        "en": "Selected channels", "de": "Aktive Sender", "ru": "Выбранные каналы", "pt": "Canais selecionados", "nl": "Geselecteerde zenders", "fr": "Chaînes sélectionnées", "it": "Canali selezionati", "es": "Canales seleccionados", "pl": "Wybrane kanały", "uk": "Вибрані канали", "zh-cn": "已选频道"
+    },
+    "tvprogram_channel_dialog_inactive": {
+        "en": "Other channels", "de": "Weitere Sender", "ru": "Другие каналы", "pt": "Outros canais", "nl": "Andere zenders", "fr": "Autres chaînes", "it": "Altri canali", "es": "Otros canales", "pl": "Inne kanały", "uk": "Інші канали", "zh-cn": "其他频道"
+    },
+    "tvprogram_channel_dialog_empty": {
+        "en": "No channels found", "de": "Keine Sender gefunden", "ru": "Каналы не найдены", "pt": "Nenhum canal encontrado", "nl": "Geen zenders gevonden", "fr": "Aucune chaîne trouvée", "it": "Nessun canale trovato", "es": "No se encontraron canales", "pl": "Nie znaleziono kanałów", "uk": "Каналів не знайдено", "zh-cn": "未找到频道"
+    },
+    "tvprogram_channel_dialog_reorder": {
+        "en": "Drag to reorder", "de": "Zum Verschieben ziehen", "ru": "Перетащите для изменения порядка", "pt": "Arraste para reordenar", "nl": "Sleep om te ordenen", "fr": "Faire glisser pour réorganiser", "it": "Trascina per riordinare", "es": "Arrastrar para reordenar", "pl": "Przeciągnij, aby zmienić kolejność", "uk": "Перетягніть, щоб змінити порядок", "zh-cn": "拖动以重新排序"
+    },
+    "tvprogram_channel_dialog_selected": {
+        "en": "Remove channel", "de": "Sender deaktivieren", "ru": "Удалить канал", "pt": "Remover canal", "nl": "Zender verwijderen", "fr": "Retirer la chaîne", "it": "Rimuovi canale", "es": "Eliminar canal", "pl": "Usuń kanał", "uk": "Видалити канал", "zh-cn": "移除频道"
+    },
+    "tvprogram_channel_dialog_unselected": {
+        "en": "Add channel", "de": "Sender aktivieren", "ru": "Добавить канал", "pt": "Adicionar canal", "nl": "Zender toevoegen", "fr": "Ajouter la chaîne", "it": "Aggiungi canale", "es": "Añadir canal", "pl": "Dodaj kanał", "uk": "Додати канал", "zh-cn": "添加频道"
+    },
+    "tvprogram_channel_dialog_sort_native": {
+        "en": "Original order", "de": "Originale Reihenfolge", "ru": "Исходный порядок", "pt": "Ordem original", "nl": "Oorspronkelijke volgorde", "fr": "Ordre d'origine", "it": "Ordine originale", "es": "Orden original", "pl": "Kolejność oryginalna", "uk": "Початковий порядок", "zh-cn": "原始顺序"
+    },
+    "tvprogram_channel_dialog_sort_asc": {
+        "en": "Name A–Z", "de": "Name A–Z", "ru": "Название А–Я", "pt": "Nome A–Z", "nl": "Naam A–Z", "fr": "Nom A–Z", "it": "Nome A–Z", "es": "Nombre A–Z", "pl": "Nazwa A–Z", "uk": "Назва А–Я", "zh-cn": "名称 A–Z"
+    },
+    "tvprogram_channel_dialog_sort_desc": {
+        "en": "Name Z–A", "de": "Name Z–A", "ru": "Название Я–А", "pt": "Nome Z–A", "nl": "Naam Z–A", "fr": "Nom Z–A", "it": "Nome Z–A", "es": "Nombre Z–A", "pl": "Nazwa Z–A", "uk": "Назва Я–А", "zh-cn": "名称 Z–A"
+    },
+    "tvprogram_channel_dialog_fullscreen": {
+        "en": "Fullscreen", "de": "Vollbild", "ru": "Полный экран", "pt": "Ecrã inteiro", "nl": "Volledig scherm", "fr": "Plein écran", "it": "Schermo intero", "es": "Pantalla completa", "pl": "Pełny ekran", "uk": "Повний екран", "zh-cn": "全屏"
+    },
+    "tvprogram_channel_dialog_restore": {
+        "en": "Restore dialog size", "de": "Ursprüngliche Dialoggröße", "ru": "Восстановить размер диалога", "pt": "Restaurar tamanho do diálogo", "nl": "Dialooggrootte herstellen", "fr": "Rétablir la taille de la boîte de dialogue", "it": "Ripristina dimensione finestra", "es": "Restaurar tamaño del diálogo", "pl": "Przywróć rozmiar okna", "uk": "Відновити розмір діалогу", "zh-cn": "恢复对话框大小"
     },
     "tvprogram_time": {
         "en": "Show time",

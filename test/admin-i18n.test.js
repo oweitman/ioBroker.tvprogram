@@ -9,6 +9,8 @@ describe('Admin source translations', () => {
         const languages = Object.keys(require('../io-package.json').common.titleLang);
         const config = require('../admin/jsonConfig.json');
         const labels = [
+            config.items.mainTab.label,
+            config.items.mainTab.items.tvcount.label,
             config.items.mainTab.items.source.label,
             config.items.mainTab.items.country.label,
             config.items.mainTab.items.loadTime.label,
