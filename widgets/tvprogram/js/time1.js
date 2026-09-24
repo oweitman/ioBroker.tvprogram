@@ -1027,7 +1027,7 @@ export default {
         hh.push(
             `<li class="tv-item dateinfo">${new Date(datestring).toLocaleDateString(navigator.language, {
                 weekday: 'short',
-            })}, ${new Date(datestring).toLocaleDateString()}</li>`,
+            })}, ${new Date(datestring).toLocaleDateString(navigator.language)}</li>`,
         );
         return hh;
     },

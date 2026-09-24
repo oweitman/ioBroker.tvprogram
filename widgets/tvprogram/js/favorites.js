@@ -158,10 +158,10 @@ export default {
                         weekday_options,
                     )}</td>`;
                 }
-                text += `           <td class="tv-left">${startTime.toLocaleString(vis.language, date_options)}</td>`;
-                text += `           <td class="tv-left">${startTime.toLocaleString(vis.language, time_options)}</td>`;
+                text += `           <td class="tv-left">${startTime.toLocaleString(navigator.language, date_options)}</td>`;
+                text += `           <td class="tv-left">${startTime.toLocaleString(navigator.language, time_options)}</td>`;
                 text += '           <td class="tv-left">-</td>';
-                text += `           <td class="tv-left">${endTime.toLocaleString(vis.language, time_options)}</td>`;
+                text += `           <td class="tv-left">${endTime.toLocaleString(navigator.language, time_options)}</td>`;
                 if (channelname) {
                     text += `           <td class="tv-left">${favorite.channelname}</td>`;
                 } else {

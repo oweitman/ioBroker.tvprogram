@@ -342,7 +342,7 @@
   });
 
   // ../package.json
-  var version = "4.0.4";
+  var version = "5.0.1";
 
   // tvprogram/js/search.js
   var search_default = {
@@ -1396,10 +1396,10 @@
                 weekday_options
               )}</td>`;
             }
-            text += `           <td class="tv-left">${startTime.toLocaleString(vis.language, date_options)}</td>`;
-            text += `           <td class="tv-left">${startTime.toLocaleString(vis.language, time_options)}</td>`;
+            text += `           <td class="tv-left">${startTime.toLocaleString(navigator.language, date_options)}</td>`;
+            text += `           <td class="tv-left">${startTime.toLocaleString(navigator.language, time_options)}</td>`;
             text += '           <td class="tv-left">-</td>';
-            text += `           <td class="tv-left">${endTime.toLocaleString(vis.language, time_options)}</td>`;
+            text += `           <td class="tv-left">${endTime.toLocaleString(navigator.language, time_options)}</td>`;
             if (channelname) {
               text += `           <td class="tv-left">${favorite.channelname}</td>`;
             } else {
@@ -5358,7 +5358,7 @@
       hh.push(
         `<li class="tv-item dateinfo">${new Date(datestring).toLocaleDateString(navigator.language, {
           weekday: "short"
-        })}, ${new Date(datestring).toLocaleDateString()}</li>`
+        })}, ${new Date(datestring).toLocaleDateString(navigator.language)}</li>`
       );
       return hh;
     },
