@@ -4,19 +4,6 @@
     "version": "5.0.1",
     "news": {
       "5.0.1": {
-        "en": "fix tests",
-        "de": "Fix Tests",
-        "ru": "исправить тесты",
-        "pt": "fixar testes",
-        "nl": "tests repareren",
-        "fr": "fix tests",
-        "it": "fix test",
-        "es": "fix tests",
-        "pl": "testy naprawcze",
-        "uk": "виправляти тести",
-        "zh-cn": "修复测试"
-      },
-      "5.0.0": {
         "en": "Comprehensive revision\nNew data source added",
         "de": "Umfassende Revision\nNeue Datenquelle",
         "ru": "Комплексная ревизия\nДобавлен новый источник данных",
@@ -121,13 +108,8 @@
       "zh-cn": "该适配器定期轮询有关电视节目的信息。",
       "uk": "Цей адаптер регулярно опитує інформацію про телевізійну програму. Дані можуть відображатися в різних віджетах"
     },
-    "authors": [
-      "oweitman <oweitman@gmx.de>"
-    ],
-    "keywords": [
-      "TV",
-      "programm"
-    ],
+    "authors": ["oweitman <oweitman@gmx.de>"],
+    "keywords": ["TV", "programm"],
     "licenseInformation": {
       "type": "free",
       "license": "MIT"
@@ -139,10 +121,7 @@
     "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
     "loglevel": "info",
     "tier": 3,
-    "restartAdapters": [
-      "vis",
-      "vis-2"
-    ],
+    "restartAdapters": ["vis", "vis-2"],
     "mode": "daemon",
     "messagebox": true,
     "type": "misc-data",
