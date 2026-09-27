@@ -1325,7 +1325,11 @@
           }
           selectedChannelIds = new Set(channelfilter.map(String));
         }
-        const response = yield this.visTvprogram.getFavoritesDataAsync(instance, favorites);
+        const response = yield this.visTvprogram.getFavoritesDataAsync(
+          instance,
+          favorites,
+          selectedChannelIds ? [...selectedChannelIds] : void 0
+        );
         const favoriteEvents = Array.isArray(response) ? response.filter(
           (event) => new Date(event.endTime) >= /* @__PURE__ */ new Date() && (!selectedChannelIds || selectedChannelIds.has(String(event.channel)))
         ) : [];
@@ -4489,8 +4493,12 @@
         }
         this.viewday[widgetID].viewday = datestring;
         const viewdate = this.visTvprogram.getDate(d, 0);
-        const cacheKey = `${instance}:${datestring}`;
-        yield this.loadDay(instance, widgetID, datestring);
+        let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+        if (channelfilter.length == 0) {
+          channelfilter = this.visTvprogram.channels.slice(0, 4).map((channel) => channel.id);
+        }
+        const cacheKey = this.dayCacheKey(instance, datestring, channelfilter);
+        yield this.loadDay(instance, widgetID, datestring, channelfilter);
         if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") {
           return;
         }
@@ -4530,15 +4538,6 @@
           }
         }
         console.log("Calc Channels");
-        let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-        if (channelfilter.length == 0) {
-          channelfilter = this.visTvprogram.channels.reduce((acc, el, i) => {
-            if (i < 4) {
-              acc.push(el.id);
-            }
-            return acc;
-          }, []);
-        }
         console.log("Calc styles");
         const widthitem = this.measures[widgetID].widthItem;
         const channelIconWidth = this.measures[widgetID].channelIconWidth;
@@ -5018,12 +5017,15 @@
           this.setScroll(widgetID);
         }
         console.log("Output done");
-        this.schedulePrefetch(widgetID, instance);
+        this.schedulePrefetch(widgetID, instance, channelfilter);
       });
     },
-    loadDay: function(instance, widgetID, datestring) {
+    dayCacheKey: function(instance, datestring, channelfilter = []) {
+      return `${instance}:${datestring}:${channelfilter.map(String).join(",")}`;
+    },
+    loadDay: function(instance, widgetID, datestring, channelfilter = []) {
       var _a;
-      const key = `${instance}:${datestring}`;
+      const key = this.dayCacheKey(instance, datestring, channelfilter);
       if (Array.isArray(this.tvprogram[key]) && this.tvprogram[key].length > 0) {
         return Promise.resolve(this.tvprogram[key]);
       }
@@ -5031,7 +5033,7 @@
       if (((_a = this.pending[key]) == null ? void 0 : _a.epoch) === epoch) {
         return this.pending[key].promise;
       }
-      const promise = this.visTvprogram.loadProgram(instance, widgetID, datestring).then((program) => {
+      const promise = this.visTvprogram.loadProgram(instance, widgetID, datestring, channelfilter).then((program) => {
         if ((this.cacheEpoch[key] || 0) === epoch && Array.isArray(program) && program.length > 0) {
           this.tvprogram[key] = program;
         }
@@ -5045,15 +5047,15 @@
       this.pending[key] = { epoch, promise };
       return promise;
     },
-    prefetchNextDays: function(instance, widgetID, baseDate) {
-      return __async(this, null, function* () {
+    prefetchNextDays: function(_0, _1, _2) {
+      return __async(this, arguments, function* (instance, widgetID, baseDate, channelfilter = []) {
         for (let offset = 1; offset <= 2; offset++) {
           if (!document.getElementById(widgetID)) {
             return;
           }
           const date = this.visTvprogram.getDate(baseDate, offset);
           try {
-            yield this.loadDay(instance, widgetID, date);
+            yield this.loadDay(instance, widgetID, date, channelfilter);
           } catch (error) {
             console.warn(`Could not preload TV programme for ${date}`, error);
           }
@@ -5063,13 +5065,13 @@
         }
       });
     },
-    schedulePrefetch: function(widgetID, instance) {
+    schedulePrefetch: function(widgetID, instance, channelfilter = []) {
       var _a, _b;
       if (vis.editMode) {
         return;
       }
       const today = this.visTvprogram.getDate(this.visTvprogram.calcDate(/* @__PURE__ */ new Date()), 0);
-      const key = `${instance}:${today}`;
+      const key = this.dayCacheKey(instance, today, channelfilter);
       if (((_a = this.prefetchSchedule[widgetID]) == null ? void 0 : _a.key) === key) {
         return;
       }
@@ -5091,7 +5093,12 @@
               start(attempt + 1);
               return;
             }
-            void this.prefetchNextDays(instance, widgetID, this.visTvprogram.calcDate(/* @__PURE__ */ new Date()));
+            void this.prefetchNextDays(
+              instance,
+              widgetID,
+              this.visTvprogram.calcDate(/* @__PURE__ */ new Date()),
+              channelfilter
+            );
           },
           attempt === 0 ? 1e4 : 3e3
         );
@@ -5381,9 +5388,18 @@
                 return;
               }
               if (obj[1] == "program") {
-                const key = `${instance}:${obj[2]}`;
-                this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
-                delete this.tvprogram[key];
+                const keyPrefix = `${instance}:${obj[2]}:`;
+                const keys = /* @__PURE__ */ new Set([
+                  ...Object.keys(this.tvprogram),
+                  ...Object.keys(this.pending),
+                  ...Object.keys(this.cacheEpoch)
+                ]);
+                [...keys].filter((key) => key.startsWith(keyPrefix)).forEach((key) => {
+                  delete this.tvprogram[key];
+                  if (this.pending[key]) {
+                    this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
+                  }
+                });
                 if (((_a = this.viewday[widgetID]) == null ? void 0 : _a.viewday) === obj[2]) {
                   this.createWidget(widgetID, view, data, style);
                 }
@@ -5786,10 +5802,13 @@
         }.bind(this)
       );
     },
-    getServerTVProgramAsync: function(instance, widgetID, dataname) {
+    getServerTVProgramAsync: function(instance, widgetID, dataname, channelfilter) {
       return __async(this, null, function* () {
         console.log(`getServerTVProgram ${dataname}`);
-        return yield this.sendToAsync(instance, "getServerTVProgram", dataname);
+        return yield this.sendToAsync(instance, "getServerTVProgram", {
+          date: dataname,
+          channelfilter
+        });
       });
     },
     getFavoritesData: function(instance, favorites = [], callback) {
@@ -5806,9 +5825,12 @@
       });
     },
     getFavoritesDataAsync: function(_0) {
-      return __async(this, arguments, function* (instance, favorites = []) {
+      return __async(this, arguments, function* (instance, favorites = [], channelfilter) {
         console.log(`getFavoritesData request ${instance}.favorites`);
-        return yield this.sendToAsync(instance, "getFavoritesData", favorites);
+        return yield this.sendToAsync(instance, "getFavoritesData", {
+          favorites,
+          channelfilter
+        });
       });
     },
     getServerInfo: function(instance, callback) {
@@ -5963,10 +5985,10 @@
         return yield this.getServerDataAsync(instance, widgetID, "genres");
       });
     },
-    loadProgram: function(instance, widgetID, datestring) {
+    loadProgram: function(instance, widgetID, datestring, channelfilter) {
       return __async(this, null, function* () {
         console.log(`loadProgram ${datestring}`);
-        return yield this.getServerTVProgramAsync(instance, widgetID, datestring);
+        return yield this.getServerTVProgramAsync(instance, widgetID, datestring, channelfilter);
       });
     },
     calcDate: function(datum) {

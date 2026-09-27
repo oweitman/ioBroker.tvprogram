@@ -18,18 +18,39 @@ describe('Timetable day preloading', () => {
                 });
             },
         };
-        const first = timetable.loadDay('tvprogram.0', 'widget1', '2026-09-23');
-        const second = timetable.loadDay('tvprogram.0', 'widget2', '2026-09-23');
+        const first = timetable.loadDay('tvprogram.0', 'widget1', '2026-09-23', [1, 2]);
+        const second = timetable.loadDay('tvprogram.0', 'widget2', '2026-09-23', [1, 2]);
         expect(requests).to.equal(1);
         finishRequest([{ title: 'First' }]);
         await Promise.all([first, second]);
-        expect(timetable.tvprogram['tvprogram.0:2026-09-23']).to.have.length(1);
+        expect(timetable.tvprogram['tvprogram.0:2026-09-23:1,2']).to.have.length(1);
 
-        const pending = timetable.loadDay('tvprogram.0', 'widget1', '2026-09-24');
-        timetable.cacheEpoch['tvprogram.0:2026-09-24'] = 1;
+        const pending = timetable.loadDay('tvprogram.0', 'widget1', '2026-09-24', [1, 2]);
+        timetable.cacheEpoch['tvprogram.0:2026-09-24:1,2'] = 1;
         finishRequest([{ title: 'Old' }]);
         await pending;
-        expect(timetable.tvprogram).not.to.have.property('tvprogram.0:2026-09-24');
+        expect(timetable.tvprogram).not.to.have.property('tvprogram.0:2026-09-24:1,2');
+    });
+
+    it('keeps different channel selections in separate caches', async () => {
+        const timetable = (await import('../widgets/tvprogram/js/time1.js')).default;
+        const requests = [];
+        timetable.tvprogram = {};
+        timetable.pending = {};
+        timetable.cacheEpoch = {};
+        timetable.visTvprogram = {
+            loadProgram: async (_instance, _widgetID, _date, channels) => {
+                requests.push(channels);
+                return channels.map(channel => ({ channel }));
+            },
+        };
+
+        await timetable.loadDay('tvprogram.0', 'widget1', '2026-09-23', [1]);
+        await timetable.loadDay('tvprogram.0', 'widget2', '2026-09-23', [2]);
+
+        expect(requests).to.deep.equal([[1], [2]]);
+        expect(timetable.tvprogram['tvprogram.0:2026-09-23:1']).to.deep.equal([{ channel: 1 }]);
+        expect(timetable.tvprogram['tvprogram.0:2026-09-23:2']).to.deep.equal([{ channel: 2 }]);
     });
 
     it('prefetches only the two following programme days in sequence', async () => {

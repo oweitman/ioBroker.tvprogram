@@ -91,8 +91,12 @@ export default {
 
         const viewdate = this.visTvprogram.getDate(d, 0);
 
-        const cacheKey = `${instance}:${datestring}`;
-        await this.loadDay(instance, widgetID, datestring);
+        let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
+        if (channelfilter.length == 0) {
+            channelfilter = this.visTvprogram.channels.slice(0, 4).map(channel => channel.id);
+        }
+        const cacheKey = this.dayCacheKey(instance, datestring, channelfilter);
+        await this.loadDay(instance, widgetID, datestring, channelfilter);
         if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === 'request') {
             return;
         }
@@ -136,16 +140,6 @@ export default {
         }
 
         console.log('Calc Channels');
-        let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-        if (channelfilter.length == 0) {
-            channelfilter = this.visTvprogram.channels.reduce((acc, el, i) => {
-                if (i < 4) {
-                    acc.push(el.id);
-                }
-                return acc;
-            }, []);
-        }
-
         console.log('Calc styles');
         const widthitem = this.measures[widgetID].widthItem;
         const channelIconWidth = this.measures[widgetID].channelIconWidth;
@@ -664,10 +658,13 @@ export default {
             this.setScroll(widgetID);
         }
         console.log('Output done');
-        this.schedulePrefetch(widgetID, instance);
+        this.schedulePrefetch(widgetID, instance, channelfilter);
     },
-    loadDay: function (instance, widgetID, datestring) {
-        const key = `${instance}:${datestring}`;
+    dayCacheKey: function (instance, datestring, channelfilter = []) {
+        return `${instance}:${datestring}:${channelfilter.map(String).join(',')}`;
+    },
+    loadDay: function (instance, widgetID, datestring, channelfilter = []) {
+        const key = this.dayCacheKey(instance, datestring, channelfilter);
         if (Array.isArray(this.tvprogram[key]) && this.tvprogram[key].length > 0) {
             return Promise.resolve(this.tvprogram[key]);
         }
@@ -676,7 +673,7 @@ export default {
             return this.pending[key].promise;
         }
         const promise = this.visTvprogram
-            .loadProgram(instance, widgetID, datestring)
+            .loadProgram(instance, widgetID, datestring, channelfilter)
             .then(program => {
                 if ((this.cacheEpoch[key] || 0) === epoch && Array.isArray(program) && program.length > 0) {
                     this.tvprogram[key] = program;
@@ -691,14 +688,14 @@ export default {
         this.pending[key] = { epoch, promise };
         return promise;
     },
-    prefetchNextDays: async function (instance, widgetID, baseDate) {
+    prefetchNextDays: async function (instance, widgetID, baseDate, channelfilter = []) {
         for (let offset = 1; offset <= 2; offset++) {
             if (!document.getElementById(widgetID)) {
                 return;
             }
             const date = this.visTvprogram.getDate(baseDate, offset);
             try {
-                await this.loadDay(instance, widgetID, date);
+                await this.loadDay(instance, widgetID, date, channelfilter);
             } catch (error) {
                 console.warn(`Could not preload TV programme for ${date}`, error);
             }
@@ -707,12 +704,12 @@ export default {
             }
         }
     },
-    schedulePrefetch: function (widgetID, instance) {
+    schedulePrefetch: function (widgetID, instance, channelfilter = []) {
         if (vis.editMode) {
             return;
         }
         const today = this.visTvprogram.getDate(this.visTvprogram.calcDate(new Date()), 0);
-        const key = `${instance}:${today}`;
+        const key = this.dayCacheKey(instance, today, channelfilter);
         if (this.prefetchSchedule[widgetID]?.key === key) {
             return;
         }
@@ -734,7 +731,12 @@ export default {
                         start(attempt + 1);
                         return;
                     }
-                    void this.prefetchNextDays(instance, widgetID, this.visTvprogram.calcDate(new Date()));
+                    void this.prefetchNextDays(
+                        instance,
+                        widgetID,
+                        this.visTvprogram.calcDate(new Date()),
+                        channelfilter,
+                    );
                 },
                 attempt === 0 ? 10000 : 3000,
             );
@@ -1051,9 +1053,20 @@ export default {
                         return;
                     }
                     if (obj[1] == 'program') {
-                        const key = `${instance}:${obj[2]}`;
-                        this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
-                        delete this.tvprogram[key];
+                        const keyPrefix = `${instance}:${obj[2]}:`;
+                        const keys = new Set([
+                            ...Object.keys(this.tvprogram),
+                            ...Object.keys(this.pending),
+                            ...Object.keys(this.cacheEpoch),
+                        ]);
+                        [...keys]
+                            .filter(key => key.startsWith(keyPrefix))
+                            .forEach(key => {
+                                delete this.tvprogram[key];
+                                if (this.pending[key]) {
+                                    this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
+                                }
+                            });
                         if (this.viewday[widgetID]?.viewday === obj[2]) {
                             this.createWidget(widgetID, view, data, style);
                         }

@@ -83,7 +83,11 @@ export default {
             }
             selectedChannelIds = new Set(channelfilter.map(String));
         }
-        const response = await this.visTvprogram.getFavoritesDataAsync(instance, favorites);
+        const response = await this.visTvprogram.getFavoritesDataAsync(
+            instance,
+            favorites,
+            selectedChannelIds ? [...selectedChannelIds] : undefined,
+        );
         const favoriteEvents = Array.isArray(response)
             ? response.filter(
                   event =>

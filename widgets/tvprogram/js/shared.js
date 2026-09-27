@@ -396,9 +396,12 @@ export default {
             }.bind(this),
         );
     },
-    getServerTVProgramAsync: async function (instance, widgetID, dataname) {
+    getServerTVProgramAsync: async function (instance, widgetID, dataname, channelfilter) {
         console.log(`getServerTVProgram ${dataname}`);
-        return await this.sendToAsync(instance, 'getServerTVProgram', dataname);
+        return await this.sendToAsync(instance, 'getServerTVProgram', {
+            date: dataname,
+            channelfilter: channelfilter,
+        });
     },
     getFavoritesData: function (instance, favorites = [], callback) {
         console.log(`getFavoritesData request ${instance}.favorites`);
@@ -413,9 +416,12 @@ export default {
             }
         });
     },
-    getFavoritesDataAsync: async function (instance, favorites = []) {
+    getFavoritesDataAsync: async function (instance, favorites = [], channelfilter) {
         console.log(`getFavoritesData request ${instance}.favorites`);
-        return await this.sendToAsync(instance, 'getFavoritesData', favorites);
+        return await this.sendToAsync(instance, 'getFavoritesData', {
+            favorites: favorites,
+            channelfilter: channelfilter,
+        });
     },
     getServerInfo: function (instance, callback) {
         console.log('getServerInfo request ');
@@ -547,9 +553,9 @@ export default {
         console.log('loadGenres');
         return await this.getServerDataAsync(instance, widgetID, 'genres');
     },
-    loadProgram: async function (instance, widgetID, datestring) {
+    loadProgram: async function (instance, widgetID, datestring, channelfilter) {
         console.log(`loadProgram ${datestring}`);
-        return await this.getServerTVProgramAsync(instance, widgetID, datestring);
+        return await this.getServerTVProgramAsync(instance, widgetID, datestring, channelfilter);
     },
     calcDate: function (datum) {
         const d = new Date(datum);
