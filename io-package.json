@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "6.0.0",
+    "version": "6.1.0",
     "news": {
+      "6.1.0": {
+        "en": "more fixes and adjustments\nadd reset button under datapoint info/reset",
+        "de": "mehr Fixes und Anpassungen\nReset-Button unter Datapoint/reset hinzufügen",
+        "ru": "больше исправлений и корректировок\nдобавить кнопку сброса в разделе «Информация о точке данных/сброс»",
+        "pt": "mais correções e ajustes\nadicione o botão reset em datapoint info/reset",
+        "nl": "meer oplossingen en aanpassingen\nresetknop toevoegen onder datapoint info/reset",
+        "fr": "plus de correctifs et de réglages\najouter un bouton Reset sous Datapoint Info/Reset",
+        "it": "altre correzioni\naggiungi il tasto reset in datapoint info/reset",
+        "es": "más correcciones y ajustes\nañadir botón de reinicio en datapoint info/reset",
+        "pl": "więcej poprawek i poprawek\ndodaj przycisk resetowania pod informacji/reset punktu danych",
+        "uk": "більше виправлень і коригувань\nдодати кнопку скидання під інформацію/скидання даних",
+        "zh-cn": "更多修复和调整\n在 dataPoint 信息/重置下添加重置按钮"
+      },
       "6.0.0": {
         "en": "Improve data management and more",
         "de": "Datenmanagement verbessert und mehr",
@@ -80,19 +93,6 @@
         "pl": "Łamanie zmian. ustawienie znacznika z elastyczną szerokością logo kanału. W każdym widget właściwość \"logo kanału szerokości px\" musi być ustawiona na przybliżoną szerokość.",
         "uk": "Зміна несправностей. фіксувати позицію маркера з гнучкою шириною лінійних логотипів. У кожному віджеті нерухомості \"width channel logo px\" необхідно встановити для налаштування ширини.",
         "zh-cn": "打破变化. 以灵活宽度的频道标志固定标记位置。 每个部件中必须设置“ 宽度频道标志 px ” 属性以显示宽度 ."
-      },
-      "3.0.5": {
-        "en": "remove check for certificates in axios due to expired certificate of data provider",
-        "de": "entfernen sie die prüfung von Zertifikate in axios aufgrund eines abgelaufenen zertifikats des datenanbieters",
-        "ru": "удалить чек на сертифаты в аксиосе из-за истечения срока действия сертификата поставщика данных",
-        "pt": "remover verificação para certifates no axios devido ao certificado expirado do provedor de dados",
-        "nl": "verwijder controle op certifiaten in axio's als gevolg van verlopen certificaat van data provider",
-        "fr": "supprimer le contrôle des certificats en axios en raison de l'expiration du certificat du fournisseur de données",
-        "it": "rimuovere il controllo per i certificati in assio a causa del certificato scaduto del fornitore di dati",
-        "es": "retirar el cheque para certifados en axios debido al certificado caducado del proveedor de datos",
-        "pl": "usunięcie kontroli certyfikatów w aksjonach z powodu wygasłego certyfikatu dostawcy danych",
-        "uk": "видалення чеку на засвідчення в аксіосі через розірваний сертифікат постачальника даних",
-        "zh-cn": "由于数据提供者的证书过期, 取消对 arxios 证书的检查"
       }
     },
     "titleLang": {
@@ -195,6 +195,19 @@
         "type": "boolean",
         "read": true,
         "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.reset",
+      "type": "state",
+      "common": {
+        "name": "Delete all cached programme data",
+        "type": "boolean",
+        "role": "button",
+        "read": false,
+        "write": true,
         "def": false
       },
       "native": {}

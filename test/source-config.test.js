@@ -1,7 +1,14 @@
 'use strict';
 
 const { expect } = require('chai');
-const { dataPointId, switchSelection, sourceNotificationRequired, tvConfigs, tvDeviceDiff } = require('../lib/source-config');
+const {
+    dataPointId,
+    switchSelection,
+    sourceNotificationRequired,
+    tvConfigs,
+    tvDeviceDiff,
+    tvFromOid,
+} = require('../lib/source-config');
 
 describe('Per-TV source configuration', () => {
     it('keeps legacy adapter settings during migration', () => {
@@ -20,9 +27,16 @@ describe('Per-TV source configuration', () => {
                 ],
             }),
         ).to.deep.equal([
-            { tv: 'tv1', name: 'Living room', source: 'tvfueralle', country: 'DE' },
-            { tv: 'tv2', name: 'Austria', source: 'iptv-epg', country: 'AT' },
+            { tv: 'livingroom', name: 'Living room', source: 'tvfueralle', country: 'DE' },
+            { tv: 'austria', name: 'Austria', source: 'iptv-epg', country: 'AT' },
         ]);
+    });
+
+    it('ignores obsolete transient index IDs when the persistent ID is empty', () => {
+        const configured = tvConfigs({
+            tvconfigs: [{ _datapoint: 'tv1', datapoint: '', name: 'Living room' }],
+        });
+        expect(configured[0].tv).to.equal('livingroom');
     });
 
     it('uses persistent data point IDs independently of the row order', () => {
@@ -93,5 +107,12 @@ describe('Per-TV source configuration', () => {
             missing: ['livingroom'],
             obsolete: ['tv1'],
         });
+    });
+
+    it('resolves named TV devices in widget requests', () => {
+        const configured = ['wohnzimmer', 'schlafzimmer'];
+        expect(tvFromOid('tvprogram.0.wohnzimmer.cmd', 'tvprogram.0', configured)).to.equal('wohnzimmer');
+        expect(tvFromOid('schlafzimmer', 'tvprogram.0', configured)).to.equal('schlafzimmer');
+        expect(tvFromOid('tvprogram.0.tv1.cmd', 'tvprogram.0', configured)).to.equal(undefined);
     });
 });

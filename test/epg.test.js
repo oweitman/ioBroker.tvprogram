@@ -38,8 +38,10 @@ describe('IPTV-EPG normalization', () => {
             program: { '2026-09-22': [{ id: 1 }] },
         };
         expect(hasUsableGuide(guide, now)).to.equal(true);
+        expect(hasUsableGuide({ ...guide, genres: { 1: 'Movie', 2: 'News' } }, now)).to.equal(true);
         expect(hasUsableGuide({ ...guide, channels: [] }, now)).to.equal(false);
         expect(hasUsableGuide({ ...guide, genres: undefined }, now)).to.equal(false);
+        expect(hasUsableGuide({ ...guide, genres: 'invalid' }, now)).to.equal(false);
         expect(hasUsableGuide({ ...guide, program: { '2026-09-21': [{ id: 1 }] } }, now)).to.equal(false);
         expect(hasUsableGuide({ ...guide, program: { '2026-09-22': [] } }, now)).to.equal(false);
         expect(hasUsableGuide({ ...guide, program: { '2026-09-23': [{ id: 1 }] } }, now)).to.equal(false);

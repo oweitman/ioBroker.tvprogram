@@ -342,7 +342,7 @@
   });
 
   // ../package.json
-  var version = "5.0.1";
+  var version = "6.0.0";
 
   // tvprogram/myi18n/translations.json
   var translations_default = {

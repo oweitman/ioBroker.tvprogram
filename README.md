@@ -80,8 +80,16 @@ downloaded immediately. Failed downloads are retried after one hour.
 Programmes between midnight and 04:59 belong to the previous broadcast day.
 Downloaded data is stored separately for each source and country. Switching a
 TV to another source does not delete an existing cache. Channel selections are
-also stored per TV and source identity and are restored when a TV returns to a
-previously used source or IPTV-EPG country.
+stored as files in the adapter cache per TV and source identity. The active
+selection is copied to `channelfilter` after a source change and before the
+widgets receive their reload command. Programme data for today and the four
+previous calendar days remains cached even when a later provider response no
+longer contains those days.
+
+Set `info.reset` to `true` to delete all source data and saved channel
+selections from the adapter cache. The adapter acknowledges the button, clears
+the active TV selections and immediately downloads the configured sources
+again.
 
 ### Alternative channel logos
 
@@ -301,6 +309,11 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 6.1.0 (2026-09-28)
+
+- more fixes and adjustments
+- add reset button under datapoint info/reset
+
 ### 6.0.0 (2026-09-28)
 
 - improve and extend translation
@@ -324,11 +337,6 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
 - update dependencies
 - fix repochecker
 - tranform translation files
-
-### 4.0.3 (2026-02-27)
-
-- update dependencies
-- improve error handling
 
 ## License
 

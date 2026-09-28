@@ -1,4 +1,9 @@
 # Older changes
+## 4.0.3 (2026-02-27)
+
+- update dependencies
+- improve error handling
+
 ## 4.0.2 (2026-01-27)
 
 - improve position of dialogs
