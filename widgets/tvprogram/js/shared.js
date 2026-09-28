@@ -1,5 +1,6 @@
 /* global vis, $, window, document */
 export default {
+    requestTimeoutMs: 20000,
     checkStyle: function (attr, str) {
         return str
             .split(';')
@@ -28,7 +29,8 @@ export default {
         if (eventid == 0 || widgetID == 0) {
             return;
         }
-        const event = await this.getServerBroadcastAsync(instance, eventid, viewdate);
+        this.useSourceData(tvprogram_oid);
+        const event = await this.getServerBroadcastAsync(instance, eventid, viewdate, tvprogram_oid);
         const measures = $(`#${widgetID}broadcastdlg`).data();
         const startTime = new Date(event.startTime);
         const endTime = new Date(event.endTime);
@@ -138,7 +140,8 @@ export default {
             return;
         }
         evt.stopPropagation();
-        const event = await this.getServerBroadcastAsync(instance, eventid, viewdate);
+        this.useSourceData(tvprogram_oid);
+        const event = await this.getServerBroadcastAsync(instance, eventid, viewdate, tvprogram_oid);
         const channel = event.channel ? this.channels.find(el => el.id == event.channel) : null;
         const record = {
             startTime: event.startTime,
@@ -199,7 +202,7 @@ export default {
         if (eventid == 0 || viewdate == 0) {
             return;
         }
-        const event = await this.getServerBroadcastAsync(instance, eventid, viewdate);
+        const event = await this.getServerBroadcastAsync(instance, eventid, viewdate, tvprogram_oid);
         const favorites = this.getConfigFavorites(tvprogram_oid);
         const index = favorites.indexOf(event.title);
         if (index > -1) {
@@ -319,12 +322,44 @@ export default {
             }.bind(this),
         );
     },
-    getServerBroadcastAsync: async function (instance, eventid, viewdate) {
+    getServerBroadcastAsync: async function (instance, eventid, viewdate, tvprogram_oid) {
         console.log(`getServerBroadcast request ${eventid}.${viewdate}`);
-        return await this.sendToAsync(instance, 'getServerBroadcast', { eventid: eventid, viewdate: viewdate });
+        return await this.sendToAsync(instance, 'getServerBroadcast', {
+            eventid: eventid,
+            viewdate: viewdate,
+            ...(tvprogram_oid ? { tvprogram_oid } : {}),
+        });
     },
     events: {},
     serverdata: {},
+    sourceData: {},
+    sourceRevisions: {},
+    useSourceData: function (tvprogram_oid) {
+        const data = (this.sourceData[tvprogram_oid] ||= {});
+        this.channels = data.channels;
+        this.categories = data.categories;
+        this.genres = data.genres;
+        this.infos = data.infos;
+        return data;
+    },
+    invalidateSourceData: function (tvprogram_oid, sourceIdentity, sourceRevision) {
+        const revision = sourceRevision || sourceIdentity;
+        if (revision && this.sourceRevisions[tvprogram_oid] === revision) {
+            this.useSourceData(tvprogram_oid);
+            return false;
+        }
+        this.sourceRevisions[tvprogram_oid] = revision;
+        delete this.sourceData[tvprogram_oid];
+        if (sourceIdentity) {
+            this.sourceData[tvprogram_oid] = { sourceIdentity, sourceRevision: revision };
+        }
+        console.log(`[tvprogram] Invalidated source cache: ${tvprogram_oid} | ${sourceIdentity} | ${revision}`);
+        this.channels = undefined;
+        this.categories = undefined;
+        this.genres = undefined;
+        this.infos = undefined;
+        return true;
+    },
     getServerData: function (instance, widgetID, dataname, callback) {
         const dataid = instance + dataname;
         if (Object.prototype.hasOwnProperty.call(this.serverdata, dataid)) {
@@ -354,13 +389,13 @@ export default {
             delete this.events[dataid];
         });
     },
-    getServerDataAsync: async function (instance, widgetID, dataname) {
+    getServerDataAsync: async function (instance, widgetID, dataname, tvprogram_oid) {
         console.log(`getServerData ${dataname}`);
         const dataid = instance + dataname;
         if (!Object.prototype.hasOwnProperty.call(this.events, dataid)) {
             this.events[dataid] = [];
         }
-        return await this.sendToAsync(instance, 'getServerData', dataname);
+        return await this.sendToAsync(instance, 'getServerData', { dataname, tvprogram_oid });
     },
     getServerTVProgram: function (instance, widgetID, dataname, callback) {
         const name = `${instance}program.${dataname}`;
@@ -396,11 +431,12 @@ export default {
             }.bind(this),
         );
     },
-    getServerTVProgramAsync: async function (instance, widgetID, dataname, channelfilter) {
+    getServerTVProgramAsync: async function (instance, widgetID, dataname, channelfilter, tvprogram_oid) {
         console.log(`getServerTVProgram ${dataname}`);
         return await this.sendToAsync(instance, 'getServerTVProgram', {
             date: dataname,
             channelfilter: channelfilter,
+            ...(tvprogram_oid ? { tvprogram_oid } : {}),
         });
     },
     getFavoritesData: function (instance, favorites = [], callback) {
@@ -416,11 +452,12 @@ export default {
             }
         });
     },
-    getFavoritesDataAsync: async function (instance, favorites = [], channelfilter) {
+    getFavoritesDataAsync: async function (instance, favorites = [], channelfilter, tvprogram_oid) {
         console.log(`getFavoritesData request ${instance}.favorites`);
         return await this.sendToAsync(instance, 'getFavoritesData', {
             favorites: favorites,
             channelfilter: channelfilter,
+            ...(tvprogram_oid ? { tvprogram_oid } : {}),
         });
     },
     getServerInfo: function (instance, callback) {
@@ -432,9 +469,9 @@ export default {
             }
         });
     },
-    getServerInfoAsync: async function (instance) {
+    getServerInfoAsync: async function (instance, tvprogram_oid) {
         console.log('getServerInfo request ');
-        return await this.sendToAsync(instance, 'getServerInfo', {});
+        return await this.sendToAsync(instance, 'getServerInfo', { tvprogram_oid });
     },
     getServerBroadcastNow: function (instance, channelfilter, callback) {
         console.log('getServerBroadcastNow request ');
@@ -458,9 +495,14 @@ export default {
         console.log('getServerBroadcastNow request ');
         return await this.sendToAsync(instance, 'getServerBroadcastNow', channelfilter);
     },
-    getServerBroadcastRangeAsync: async function (instance, channelfilter, startdate, enddate) {
+    getServerBroadcastRangeAsync: async function (instance, channelfilter, startdate, enddate, tvprogram_oid) {
         console.log('getServerBroadcastRange request ');
-        return await this.sendToAsync(instance, 'getServerBroadcastRange', { channelfilter, startdate, enddate });
+        return await this.sendToAsync(instance, 'getServerBroadcastRange', {
+            channelfilter,
+            startdate,
+            enddate,
+            tvprogram_oid,
+        });
     },
     getServerBroadcastDate: function (instance, channelfilter, date, callback) {
         console.log('getServerBroadcastDate request ');
@@ -526,36 +568,66 @@ export default {
         return await this.sendToAsync(instance, 'setValueAck', { id: id, value: value });
     },
     sendToAsync: async function (instance, command, sendData) {
-        console.log(`sendToAsync ${command} ${sendData}`);
+        console.log(`sendToAsync ${command} ${sendData.dataname || sendData.date}`);
         return new Promise((resolve, reject) => {
+            const tv = sendData?.tvprogram_oid || '';
+            const detail = sendData?.dataname || sendData?.date || '';
+            const request = [instance, command, tv, detail].filter(Boolean).join(' | ');
+            let finished = false;
+            const timeout = globalThis.setTimeout(() => {
+                if (finished) {
+                    return;
+                }
+                finished = true;
+                const error = new Error(`Request timed out after ${this.requestTimeoutMs} ms`);
+                console.error(`[tvprogram] Data request timeout: ${request}`, error);
+                reject(error);
+            }, this.requestTimeoutMs);
             try {
                 vis.conn.sendTo(instance, command, sendData, function (receiveData) {
+                    if (finished) {
+                        return;
+                    }
+                    finished = true;
+                    globalThis.clearTimeout(timeout);
+                    if (
+                        receiveData === undefined ||
+                        receiveData === null ||
+                        receiveData === 'error' ||
+                        receiveData === 'error1' ||
+                        receiveData === 'nodata'
+                    ) {
+                        console.error(`[tvprogram] Data request failed: ${request}; response:`, receiveData);
+                    }
                     resolve(receiveData);
                 });
             } catch (error) {
+                finished = true;
+                globalThis.clearTimeout(timeout);
+                console.error(`[tvprogram] Data request failed: ${request}`, error);
                 reject(error);
             }
         });
     },
-    loadServerInfosAsync: async function (instance) {
+    loadServerInfosAsync: async function (instance, tvprogram_oid) {
         this.infos = [];
-        return await this.getServerInfoAsync(instance);
+        return await this.getServerInfoAsync(instance, tvprogram_oid);
     },
-    loadCategories: async function (instance, widgetID) {
+    loadCategories: async function (instance, widgetID, tvprogram_oid) {
         console.log('loadCategories');
-        return await this.getServerDataAsync(instance, widgetID, 'categories');
+        return await this.getServerDataAsync(instance, widgetID, 'categories', tvprogram_oid);
     },
-    loadChannels: async function (instance, widgetID) {
+    loadChannels: async function (instance, widgetID, tvprogram_oid) {
         console.log('loadChannels');
-        return await this.getServerDataAsync(instance, widgetID, 'channels');
+        return await this.getServerDataAsync(instance, widgetID, 'channels', tvprogram_oid);
     },
-    loadGenres: async function (instance, widgetID) {
+    loadGenres: async function (instance, widgetID, tvprogram_oid) {
         console.log('loadGenres');
-        return await this.getServerDataAsync(instance, widgetID, 'genres');
+        return await this.getServerDataAsync(instance, widgetID, 'genres', tvprogram_oid);
     },
-    loadProgram: async function (instance, widgetID, datestring, channelfilter) {
+    loadProgram: async function (instance, widgetID, datestring, channelfilter, tvprogram_oid) {
         console.log(`loadProgram ${datestring}`);
-        return await this.getServerTVProgramAsync(instance, widgetID, datestring, channelfilter);
+        return await this.getServerTVProgramAsync(instance, widgetID, datestring, channelfilter, tvprogram_oid);
     },
     calcDate: function (datum) {
         const d = new Date(datum);

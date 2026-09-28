@@ -4,6 +4,7 @@ export default {
     pending: {},
     bound: {},
     timer: {},
+    sourceRevision: {},
     createWidget: async function (widgetID, view, data, style) {
         const $div = $(`#${widgetID}`);
         // if nothing found => wait
@@ -42,6 +43,7 @@ export default {
         ) {
             return;
         }
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
 
         const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
         if (this.visTvprogram.checkStyle('background-color', $(`#${widgetID}`)[0].style.cssText) == '') {
@@ -56,25 +58,29 @@ export default {
         }
 
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-            if (!vis.editMode) {
-                this.bound[tvprogram_oid][widgetID] = true;
-                vis.binds['tvprogram'].bindStates(
-                    $div,
-                    [
-                        `${tvprogram_oid}.config`,
-                        `${tvprogram_oid}.favorites`,
-                        `${tvprogram_oid}.channelfilter`,
-                        `${tvprogram_oid}.optchnlogopath`,
-                    ],
-                    this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
-                );
-            }
+            this.bound[tvprogram_oid][widgetID] = true;
+            vis.binds['tvprogram'].bindStates(
+                $div,
+                [
+                    `${tvprogram_oid}.config`,
+                    `${tvprogram_oid}.favorites`,
+                    `${tvprogram_oid}.channelfilter`,
+                    `${tvprogram_oid}.cmd`,
+                    `${tvprogram_oid}.optchnlogopath`,
+                ],
+                this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
+            );
         }
 
         const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-        if (!Array.isArray(this.visTvprogram.channels)) {
-            this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        if (!Array.isArray(sourceData.channels)) {
+            sourceData.channels = await this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid);
         }
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         let selectedChannelIds = null;
         if (selectedChannelsOnly) {
             let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
@@ -87,7 +93,12 @@ export default {
             instance,
             favorites,
             selectedChannelIds ? [...selectedChannelIds] : undefined,
+            tvprogram_oid,
         );
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         const favoriteEvents = Array.isArray(response)
             ? response.filter(
                   event =>
@@ -125,13 +136,13 @@ export default {
         text += `#${widgetID} .tv-fav .star {\n`;
         text += '   width: 1em;\n';
         text += '   height: 1em;\n';
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
         text += `#${widgetID} .tv-center {\n`;
         text += '   text-align: center;\n';
         text += '} \n';
         text += `#${widgetID} .tv-icon {\n`;
-        text += `   width: ${chnanneliconwidth}px; \n`;
+        text += `   width: ${chnanneliconwidth}px;\n`;
         text += '} \n';
 
         text += '</style> \n';
@@ -158,7 +169,7 @@ export default {
                 }" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>`;
                 if (showweekday) {
                     text += `           <td class="tv-left">${startTime.toLocaleString(
-                        vis.language,
+                        navigator.language,
                         weekday_options,
                     )}</td>`;
                 }
@@ -189,6 +200,13 @@ export default {
     },
     onChange: function (widgetID, view, data, style, tvprogram_oid, e, newVal) {
         const dp = e.type.split('.');
+        if (dp[3] == 'cmd' && dp[4] == 'val' && newVal?.split('|')[1] == 'source') {
+            const sourceIdentity = newVal.split('|')[2];
+            this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+            this.visTvprogram.invalidateSourceData(tvprogram_oid, sourceIdentity, newVal.split('|')[3]);
+            this.createWidget(widgetID, view, data, style);
+            return;
+        }
         if (
             (dp[3] == 'config' || dp[3] == 'favorites' || dp[3] == 'channelfilter' || dp[3] == 'show') &&
             dp[4] == 'val'

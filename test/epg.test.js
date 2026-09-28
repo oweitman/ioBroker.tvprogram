@@ -14,11 +14,21 @@ const {
     xmltvDate,
     broadcastDay,
     hasUsableGuide,
+    hasMatchingIptvChannels,
     nextDownload,
     parseXmltv,
 } = require('../lib/epg');
 
 describe('IPTV-EPG normalization', () => {
+    it('rejects a cache containing channels from another country', () => {
+        const data = {
+            channels: [{ channelId: 'ORF1.at' }, { channelId: 'ORF2.at' }],
+        };
+        expect(hasMatchingIptvChannels(data, 'iptv-epg:AT')).to.equal(true);
+        expect(hasMatchingIptvChannels(data, 'iptv-epg:CH')).to.equal(false);
+        expect(hasMatchingIptvChannels(data, 'tvfueralle')).to.equal(true);
+    });
+
     it('requires source data for the current broadcast day', () => {
         const now = new Date(2026, 8, 22, 6, 0);
         const guide = {
@@ -33,7 +43,9 @@ describe('IPTV-EPG normalization', () => {
         expect(hasUsableGuide({ ...guide, program: { '2026-09-21': [{ id: 1 }] } }, now)).to.equal(false);
         expect(hasUsableGuide({ ...guide, program: { '2026-09-22': [] } }, now)).to.equal(false);
         expect(hasUsableGuide({ ...guide, program: { '2026-09-23': [{ id: 1 }] } }, now)).to.equal(false);
-        expect(hasUsableGuide({ ...guide, program: { '2026-09-21': [{ id: 1 }] } }, new Date(2026, 8, 22, 4, 0))).to.equal(true);
+        expect(
+            hasUsableGuide({ ...guide, program: { '2026-09-21': [{ id: 1 }] } }, new Date(2026, 8, 22, 4, 0)),
+        ).to.equal(true);
     });
     it('uses the same simple logo names across Germany, Austria and Switzerland', () => {
         expect(logoName('DasErste.de')).to.equal('ard');
@@ -61,7 +73,8 @@ describe('IPTV-EPG normalization', () => {
 
     it('exposes exactly the supported countries in adapter configuration', () => {
         const config = require('../admin/jsonConfig.json');
-        const options = config.items.mainTab.items.country.options;
+        const country = config.items.mainTab.items.tvconfigs.items.find(item => item.attr === 'country');
+        const options = country.options;
         expect(options.map(option => option.value).sort()).to.deep.equal([...countryCodes].sort());
     });
 

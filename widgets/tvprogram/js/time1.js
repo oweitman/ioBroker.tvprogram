@@ -17,6 +17,7 @@ export default {
     today: {},
     viewday: {},
     olddata: {},
+    sourceRevision: {},
     createWidget: async function (widgetID, view, data, style) {
         const $div = $(`#${widgetID}`);
         // if nothing found => wait
@@ -34,6 +35,7 @@ export default {
         if (!tvprogram_oid && !instance) {
             return;
         }
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
 
         const highlightcolor = data.tvprogram_highlightcolor || 'yellow';
         if (!this.olddata[widgetID]) {
@@ -59,20 +61,23 @@ export default {
             this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
         }
 
-        if (!((this.today || {})[widgetID] || {}).prevday) {
-            $(`#${widgetID} .tv-container`).html('Datapoints loading...');
+        const $container = $(`#${widgetID} .tv-container`);
+        if ($container.children().length === 0) {
+            $container.html('Datapoints loading...');
         }
 
         console.log('Load Data');
-        if (!this.visTvprogram.categories) {
-            this.visTvprogram.categories = await this.visTvprogram.loadCategories(instance, widgetID);
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        if (!sourceData.categories) {
+            sourceData.categories = await this.visTvprogram.loadCategories(instance, widgetID, tvprogram_oid);
         }
-        if (!this.visTvprogram.channels) {
-            this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
+        if (!sourceData.channels) {
+            sourceData.channels = await this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid);
         }
-        if (!this.visTvprogram.genres) {
-            this.visTvprogram.genres = await this.visTvprogram.loadGenres(instance, widgetID);
+        if (!sourceData.genres) {
+            sourceData.genres = await this.visTvprogram.loadGenres(instance, widgetID, tvprogram_oid);
         }
+        this.visTvprogram.useSourceData(tvprogram_oid);
 
         if (!this.today[widgetID]) {
             this.today[widgetID] = { today: new Date(), prevday: null };
@@ -95,8 +100,12 @@ export default {
         if (channelfilter.length == 0) {
             channelfilter = this.visTvprogram.channels.slice(0, 4).map(channel => channel.id);
         }
-        const cacheKey = this.dayCacheKey(instance, datestring, channelfilter);
-        await this.loadDay(instance, widgetID, datestring, channelfilter);
+        const cacheKey = this.dayCacheKey(instance, datestring, channelfilter, tvprogram_oid);
+        await this.loadDay(instance, widgetID, datestring, channelfilter, tvprogram_oid);
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === 'request') {
             return;
         }
@@ -122,21 +131,19 @@ export default {
         }
 
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-            if (!vis.editMode) {
-                this.bound[tvprogram_oid][widgetID] = true;
-                vis.binds['tvprogram'].bindStates(
-                    $div,
-                    [
-                        `${tvprogram_oid}.config`,
-                        `${tvprogram_oid}.cmd`,
-                        `${tvprogram_oid}.favorites`,
-                        `${tvprogram_oid}.channelfilter`,
-                        `${tvprogram_oid}.show`,
-                        `${tvprogram_oid}.optchnlogopath`,
-                    ],
-                    this.onChange.bind(this, widgetID, view, data, style, instance),
-                );
-            }
+            this.bound[tvprogram_oid][widgetID] = true;
+            vis.binds['tvprogram'].bindStates(
+                $div,
+                [
+                    `${tvprogram_oid}.config`,
+                    `${tvprogram_oid}.cmd`,
+                    `${tvprogram_oid}.favorites`,
+                    `${tvprogram_oid}.channelfilter`,
+                    `${tvprogram_oid}.show`,
+                    `${tvprogram_oid}.optchnlogopath`,
+                ],
+                this.onChange.bind(this, widgetID, view, data, style, instance),
+            );
         }
 
         console.log('Calc Channels');
@@ -319,11 +326,11 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += `   background-color: ${this.visTvprogram.colorToRGBA(highlightcolor, '.1')}; \n`;
         text += '} \n';
 
@@ -658,13 +665,13 @@ export default {
             this.setScroll(widgetID);
         }
         console.log('Output done');
-        this.schedulePrefetch(widgetID, instance, channelfilter);
+        this.schedulePrefetch(widgetID, instance, channelfilter, tvprogram_oid);
     },
-    dayCacheKey: function (instance, datestring, channelfilter = []) {
-        return `${instance}:${datestring}:${channelfilter.map(String).join(',')}`;
+    dayCacheKey: function (instance, datestring, channelfilter = [], tvprogram_oid = '') {
+        return `${tvprogram_oid ? `${tvprogram_oid}:` : ''}${instance}:${datestring}:${channelfilter.map(String).join(',')}`;
     },
-    loadDay: function (instance, widgetID, datestring, channelfilter = []) {
-        const key = this.dayCacheKey(instance, datestring, channelfilter);
+    loadDay: function (instance, widgetID, datestring, channelfilter = [], tvprogram_oid = '') {
+        const key = this.dayCacheKey(instance, datestring, channelfilter, tvprogram_oid);
         if (Array.isArray(this.tvprogram[key]) && this.tvprogram[key].length > 0) {
             return Promise.resolve(this.tvprogram[key]);
         }
@@ -673,7 +680,7 @@ export default {
             return this.pending[key].promise;
         }
         const promise = this.visTvprogram
-            .loadProgram(instance, widgetID, datestring, channelfilter)
+            .loadProgram(instance, widgetID, datestring, channelfilter, tvprogram_oid)
             .then(program => {
                 if ((this.cacheEpoch[key] || 0) === epoch && Array.isArray(program) && program.length > 0) {
                     this.tvprogram[key] = program;
@@ -688,14 +695,14 @@ export default {
         this.pending[key] = { epoch, promise };
         return promise;
     },
-    prefetchNextDays: async function (instance, widgetID, baseDate, channelfilter = []) {
+    prefetchNextDays: async function (instance, widgetID, baseDate, channelfilter = [], tvprogram_oid = '') {
         for (let offset = 1; offset <= 2; offset++) {
             if (!document.getElementById(widgetID)) {
                 return;
             }
             const date = this.visTvprogram.getDate(baseDate, offset);
             try {
-                await this.loadDay(instance, widgetID, date, channelfilter);
+                await this.loadDay(instance, widgetID, date, channelfilter, tvprogram_oid);
             } catch (error) {
                 console.warn(`Could not preload TV programme for ${date}`, error);
             }
@@ -704,12 +711,12 @@ export default {
             }
         }
     },
-    schedulePrefetch: function (widgetID, instance, channelfilter = []) {
+    schedulePrefetch: function (widgetID, instance, channelfilter = [], tvprogram_oid = '') {
         if (vis.editMode) {
             return;
         }
         const today = this.visTvprogram.getDate(this.visTvprogram.calcDate(new Date()), 0);
-        const key = this.dayCacheKey(instance, today, channelfilter);
+        const key = this.dayCacheKey(instance, today, channelfilter, tvprogram_oid);
         if (this.prefetchSchedule[widgetID]?.key === key) {
             return;
         }
@@ -736,6 +743,7 @@ export default {
                         widgetID,
                         this.visTvprogram.calcDate(new Date()),
                         channelfilter,
+                        tvprogram_oid,
                     );
                 },
                 attempt === 0 ? 10000 : 3000,
@@ -865,25 +873,30 @@ export default {
     onclickChannel: function (widgetID, instance, tvprogram_oid) {
         const host = document.getElementById(`${widgetID}channeldlg`);
         const widget = document.getElementById(widgetID);
-        if (!host || !widget || !Array.isArray(this.visTvprogram.channels)) {
+        const channels = this.visTvprogram.useSourceData(tvprogram_oid).channels;
+        if (!host || !widget || !Array.isArray(channels)) {
             return;
         }
         const stored = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-        const selectedIds = stored.length ? stored : this.visTvprogram.channels.slice(0, 4).map(channel => channel.id);
+        const selectedIds = stored.length ? stored : channels.slice(0, 4).map(channel => channel.id);
         openChannelDialog({
             host,
             widget,
-            channels: this.visTvprogram.channels,
+            channels,
             selectedIds,
             getLogo: channel => this.visTvprogram.getOriginalChannelLogo(channel),
             onSave: ids => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
             widthPercent: this.measures[widgetID].dialogwidthpercent,
             heightPercent: this.measures[widgetID].dialogheightpercent,
             background: this.visTvprogram.realBackgroundColor(widget),
-            language: vis.language,
+            language: navigator.language,
         });
     },
     getBroadcasts4Channel: function (el, widgetID, view, viewdate, tvprogram_oid, instance) {
+        const channel = (this.visTvprogram.channels || []).find(ch => ch.id == el.channel);
+        if (!channel || !Array.isArray(el.events) || el.events.length === 0) {
+            return [];
+        }
         const wItem = this.measures[widgetID].widthItem;
         const tItem = this.measures[widgetID].timeItem;
         const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
@@ -895,14 +908,13 @@ export default {
         sTime.setMinutes(0);
         const eTime = new Date(sTime);
         eTime.setDate(eTime.getDate() + 1);
-        const channel = this.visTvprogram.channels.find(ch => ch.id == el.channel);
         const aa = [];
         let text = '';
         text += '    <li class="tv-item tv-head-left tv-head-background channel">';
         text += `      <img loading="lazy" decoding="async"
-                data-instance="${instance}" 
-                data-channelid="${channel.channelId}" 
-                data-dp="${tvprogram_oid}" 
+                data-instance="${instance}"
+                data-channelid="${channel.channelId}"
+                data-dp="${tvprogram_oid}"
                 data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
                 alt="" class="channel-logo"
                 onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
@@ -1035,6 +1047,7 @@ export default {
     },
     onChange: async function (widgetID, view, data, style, instance, e, newVal) {
         const dp = e.type.split('.');
+        const [, tvprogram_oid] = this.visTvprogram.getInstanceInfo(data.tvprogram_oid);
         if (
             (dp[3] == 'config' || dp[3] == 'favorites' || dp[3] == 'channelfilter' || dp[3] == 'show') &&
             dp[4] == 'val'
@@ -1047,13 +1060,43 @@ export default {
                 console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
                 const obj = newVal.split('|');
                 if (obj[0] == 'new') {
+                    if (obj[1] == 'source') {
+                        const keyPrefix = `${tvprogram_oid}:`;
+                        this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+                        this.visTvprogram.invalidateSourceData(tvprogram_oid, obj[2], obj[3]);
+                        const keys = new Set([
+                            ...Object.keys(this.tvprogram),
+                            ...Object.keys(this.pending),
+                            ...Object.keys(this.cacheEpoch),
+                        ]);
+                        [...keys]
+                            .filter(key => key.startsWith(keyPrefix))
+                            .forEach(key => {
+                                delete this.tvprogram[key];
+                                if (this.pending[key]) {
+                                    this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
+                                    delete this.pending[key];
+                                }
+                            });
+                        window.clearTimeout(this.prefetchSchedule[widgetID]?.timer);
+                        delete this.prefetchSchedule[widgetID];
+                        await this.createWidget(widgetID, view, data, style);
+                        return;
+                    }
                     if (obj[1] != 'program') {
-                        this[obj[1]] = await this.visTvprogram.getServerDataAsync(instance, widgetID, obj[1]);
+                        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+                        sourceData[obj[1]] = await this.visTvprogram.getServerDataAsync(
+                            instance,
+                            widgetID,
+                            obj[1],
+                            tvprogram_oid,
+                        );
+                        this.visTvprogram.useSourceData(tvprogram_oid);
                         this.createWidget(widgetID, view, data, style);
                         return;
                     }
                     if (obj[1] == 'program') {
-                        const keyPrefix = `${instance}:${obj[2]}:`;
+                        const keyPrefix = `${tvprogram_oid}:${instance}:${obj[2]}:`;
                         const keys = new Set([
                             ...Object.keys(this.tvprogram),
                             ...Object.keys(this.pending),

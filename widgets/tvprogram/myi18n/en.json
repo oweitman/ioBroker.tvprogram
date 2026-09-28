@@ -30,5 +30,9 @@
     "tvprogram_channel_dialog_fullscreen": "Fullscreen",
     "tvprogram_channel_dialog_restore": "Restore dialog size",
     "tvprogram_time": "Show time",
-    "tvprogram_maxresults": "Max. results"
+    "tvprogram_maxresults": "Max. results",
+    "tvprogram_search_search": "Search",
+    "tvprogram_search_from": "From",
+    "tvprogram_search_category": "Category",
+    "tvprogram_search_all_categories": "All categories"
 }

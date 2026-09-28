@@ -3,6 +3,19 @@
     "name": "tvprogram",
     "version": "5.0.1",
     "news": {
+      "6.0.0": {
+        "en": "Improve data management and more",
+        "de": "Datenmanagement verbessert und mehr",
+        "ru": "Улучшено управление данными и многое другое",
+        "pt": "Melhorias no gerenciamento de dados e muito mais",
+        "nl": "Gegevensbeheer verbeterd en meer",
+        "fr": "Amélioration de la gestion des données et plus encore",
+        "it": "Migliorata la gestione dei dati e altro ancora",
+        "es": "Mejorada la gestión de datos y mucho más",
+        "pl": "Ulepszono zarządzanie danymi i nie tylko",
+        "uk": "Покращено керування даними та багато іншого",
+        "zh-cn": "改进数据管理等功能"
+      },
       "5.0.1": {
         "en": "Comprehensive revision\nNew data source added",
         "de": "Umfassende Revision\nNeue Datenquelle",
@@ -143,10 +156,15 @@
     ]
   },
   "native": {
-    "tvcount": 1,
-    "source": "tvfueralle",
-    "country": "DE",
-    "loadTime": "03:30"
+    "loadTime": "03:30",
+    "tvconfigs": [
+      {
+        "datapoint": "tv1",
+        "name": "TV 1",
+        "source": "tvfueralle",
+        "country": "DE"
+      }
+    ]
   },
   "objects": [],
   "instanceObjects": [

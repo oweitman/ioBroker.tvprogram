@@ -344,12 +344,493 @@
   // ../package.json
   var version = "5.0.1";
 
+  // tvprogram/myi18n/translations.json
+  var translations_default = {
+    tvprogram_oid: {
+      en: "ID",
+      de: "ID",
+      ru: "ID",
+      pt: "ID",
+      nl: "ID",
+      fr: "ID",
+      it: "ID",
+      es: "ID",
+      pl: "ID",
+      uk: "\u0406\u0414\u0415\u041D\u0422\u0418\u0424\u0406\u041A\u0410\u0422\u041E\u0420",
+      "zh-cn": "ID"
+    },
+    tvprogram_widthItem: {
+      en: "Width on hour px",
+      de: "Breite zur vollen Stunde px",
+      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0432 \u0447\u0430\u0441\u0430\u0445 px",
+      pt: "Largura na hora px",
+      nl: "Breedte op uur px",
+      fr: "Largeur sur l'heure px",
+      it: "Larghezza su ora px",
+      es: "Anchura en hora px",
+      pl: "Szeroko\u015B\u0107 na godzin\u0119 px",
+      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043D\u0430 \u0433\u043E\u0434\u0438\u043D\u0443 px",
+      "zh-cn": "Width on hour px"
+    },
+    tvprogram_heightRow: {
+      en: "Height of row px",
+      de: "H\xF6he der Zeile px",
+      ru: "\u0412\u044B\u0441\u043E\u0442\u0430 \u0441\u0442\u0440\u043E\u043A\u0438 px",
+      pt: "Altura da linha px",
+      nl: "Hoogte van rij px",
+      fr: "Hauteur de la ligne px",
+      it: "Altezza della riga px",
+      es: "Altura de la fila px",
+      pl: "Wysoko\u015B\u0107 wiersza px",
+      uk: "\u0412\u0438\u0441\u043E\u0442\u0430 \u0440\u044F\u0434\u043A\u0430 px",
+      "zh-cn": "Height of row px"
+    },
+    tvprogram_channeliconwidth: {
+      en: "Width channel logo px",
+      de: "Breite Kanal-Logo px",
+      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u0430 \u043A\u0430\u043D\u0430\u043B\u0430 px",
+      pt: "Largura do log\xF3tipo do canal px",
+      nl: "Breedte kanaallogo px",
+      fr: "Largeur du logo du canal px",
+      it: "Larghezza logo del canale px",
+      es: "Anchura del logotipo del canal px",
+      pl: "Szeroko\u015B\u0107 logo kana\u0142u px",
+      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u0443 \u043A\u0430\u043D\u0430\u043B\u0443 px",
+      "zh-cn": "Width channel logo px"
+    },
+    tvprogram_showpictures: {
+      en: "Show pictures",
+      de: "Bilder anzeigen",
+      ru: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438",
+      pt: "Mostrar imagens",
+      nl: "Foto's tonen",
+      fr: "Montrer les photos",
+      it: "Mostra immagini",
+      es: "Mostrar im\xE1genes",
+      pl: "Poka\u017C zdj\u0119cia",
+      uk: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0444\u043E\u0442\u043E",
+      "zh-cn": "Show pictures"
+    },
+    tvprogram_headerfontpercent: {
+      en: "Header font size %",
+      de: "Schriftgr\xF6\xDFe der Kopfzeile %",
+      ru: "\u0420\u0430\u0437\u043C\u0435\u0440 \u0448\u0440\u0438\u0444\u0442\u0430 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 %",
+      pt: "Tamanho do tipo de letra do cabe\xE7alho %",
+      nl: "Lettergrootte koptekst %",
+      fr: "Taille de la police de l'en-t\xEAte %",
+      it: "Dimensione del carattere dell'intestazione %",
+      es: "Tama\xF1o de fuente de la cabecera %.",
+      pl: "Rozmiar czcionki nag\u0142\xF3wka %",
+      uk: "\u0420\u043E\u0437\u043C\u0456\u0440 \u0448\u0440\u0438\u0444\u0442\u0443 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 % %.",
+      "zh-cn": "Header font size %"
+    },
+    tvprogram_broadcastfontpercent: {
+      en: "Broadcast font %",
+      de: "Broadcast-Schriftart %",
+      ru: "\u0428\u0438\u0440\u043E\u043A\u043E\u0432\u0435\u0449\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0448\u0440\u0438\u0444\u0442 %",
+      pt: "Tipo de letra de difus\xE3o %",
+      nl: "Uitzending lettertype %",
+      fr: "Police de diffusion %",
+      it: "Carattere di trasmissione %",
+      es: "Fuente de emisi\xF3n %.",
+      pl: "Czcionka transmisji %",
+      uk: "\u0428\u0440\u0438\u0444\u0442 \u0442\u0440\u0430\u043D\u0441\u043B\u044F\u0446\u0456\u0457 % %.",
+      "zh-cn": "Broadcast font %"
+    },
+    tvprogram_highlightcolor: {
+      en: "Favorite color",
+      de: "Bevorzugte Farbe",
+      ru: "\u041B\u044E\u0431\u0438\u043C\u044B\u0439 \u0446\u0432\u0435\u0442",
+      pt: "Cor favorita",
+      nl: "Favoriete kleur",
+      fr: "Couleur pr\xE9f\xE9r\xE9e",
+      it: "Colore preferito",
+      es: "Color favorito",
+      pl: "Ulubiony kolor",
+      uk: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0438\u0439 \u043A\u043E\u043B\u0456\u0440",
+      "zh-cn": "Favorite color"
+    },
+    tvprogram_markerpositionpercent: {
+      en: "Marker position from right %",
+      de: "Position der Markierung von rechts %.",
+      ru: "\u041F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u0441\u043F\u0440\u0430\u0432\u0430 %",
+      pt: "Posi\xE7\xE3o do marcador a partir da direita %",
+      nl: "Markeerpositie vanaf rechts %",
+      fr: "Position du marqueur \xE0 partir de la droite %",
+      it: "Posizione del marcatore da destra %",
+      es: "Posici\xF3n del marcador desde la derecha %.",
+      pl: "Pozycja znacznika od prawego %",
+      uk: "\u041F\u043E\u0437\u0438\u0446\u0456\u044F \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u0443 \u0432\u0456\u0434\u0441\u043E\u0442\u043A\u0430\u0445",
+      "zh-cn": "Marker position from right %"
+    },
+    tvprogram_dialogwidthpercent: {
+      en: "Dialog width %",
+      de: "Dialogbreite %",
+      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u0438\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u043E\u043A\u043D\u0430 %",
+      pt: "Largura do di\xE1logo %",
+      nl: "Dialoogbreedte %",
+      fr: "Largeur de la bo\xEEte de dialogue %",
+      it: "Larghezza della finestra di dialogo %",
+      es: "Ancho del di\xE1logo %.",
+      pl: "Szeroko\u015B\u0107 okna dialogowego %",
+      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u0456\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u0432\u0456\u043A\u043D\u0430 %",
+      "zh-cn": "Dialog width %"
+    },
+    tvprogram_dialogheightpercent: {
+      en: "Dialog height %",
+      de: "Dialogh\xF6he %",
+      ru: "\u0412\u044B\u0441\u043E\u0442\u0430 \u0434\u0438\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u043E\u043A\u043D\u0430 %",
+      pt: "Altura do di\xE1logo %",
+      nl: "Dialoog hoogte %",
+      fr: "Hauteur du dialogue %",
+      it: "Altezza dialogo %",
+      es: "Altura del di\xE1logo %.",
+      pl: "Wysoko\u015B\u0107 okna dialogowego %",
+      uk: "\u0412\u0438\u0441\u043E\u0442\u0430 \u0434\u0456\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u0432\u0456\u043A\u043D\u0430 %",
+      "zh-cn": "Dialog height %"
+    },
+    tvprogram_channelname: {
+      en: "With channelname",
+      de: "Mit Kanalname",
+      ru: "\u0421 \u0438\u043C\u0435\u043D\u0435\u043C \u043A\u0430\u043D\u0430\u043B\u0430",
+      pt: "Com o nome do canal",
+      nl: "Met kanaalnaam",
+      fr: "Avec le nom du canal",
+      it: "Con il nome del canale",
+      es: "Con channelname",
+      pl: "Z nazw\u0105 kana\u0142u",
+      uk: "\u0417 \u043D\u0430\u0437\u0432\u043E\u044E \u043A\u0430\u043D\u0430\u043B\u0443",
+      "zh-cn": "With channelname"
+    },
+    tvprogram_favorites_selectedchannels: {
+      en: "Favorites from selected channels only",
+      de: "Favoriten nur von ausgew\xE4hlten Sendern",
+      ru: "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u0441 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0445 \u043A\u0430\u043D\u0430\u043B\u043E\u0432",
+      pt: "Favoritos apenas dos canais selecionados",
+      nl: "Favorieten alleen van geselecteerde zenders",
+      fr: "Favoris des cha\xEEnes s\xE9lectionn\xE9es uniquement",
+      it: "Preferiti solo dai canali selezionati",
+      es: "Favoritos solo de los canales seleccionados",
+      pl: "Ulubione tylko z wybranych kana\u0142\xF3w",
+      uk: "\u041E\u0431\u0440\u0430\u043D\u0435 \u043B\u0438\u0448\u0435 \u0437 \u0432\u0438\u0431\u0440\u0430\u043D\u0438\u0445 \u043A\u0430\u043D\u0430\u043B\u0456\u0432",
+      "zh-cn": "\u4EC5\u663E\u793A\u6240\u9009\u9891\u9053\u7684\u6536\u85CF\u8282\u76EE"
+    },
+    tvprogram_showweekday: {
+      en: "Show weekday",
+      de: "Wochentag anzeigen",
+      ru: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0431\u0443\u0434\u043D\u0438\u0439 \u0434\u0435\u043D\u044C",
+      pt: "Mostrar dia da semana",
+      nl: "Toon weekdag",
+      fr: "Afficher le jour de la semaine",
+      it: "Mostra giorno della settimana",
+      es: "Mostrar d\xEDa de la semana",
+      pl: "Poka\u017C dzie\u0144 tygodnia",
+      uk: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0431\u0443\u0434\u043D\u0456\u0439 \u0434\u0435\u043D\u044C",
+      "zh-cn": "Show weekday"
+    },
+    tvprogram_maxfavorites: {
+      en: "Max favorites",
+      de: "Maximale Favoriten",
+      ru: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043B\u044E\u0431\u0438\u043C\u044B\u0435",
+      pt: "Favoritos m\xE1ximos",
+      nl: "Max favorieten",
+      fr: "Favoris maximaux",
+      it: "I preferiti di Max",
+      es: "Max favoritos",
+      pl: "Maksimum ulubionych",
+      uk: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0435 \u0447\u0438\u0441\u043B\u043E \u043E\u0431\u0440\u0430\u043D\u0438\u0445",
+      "zh-cn": "Max favorites"
+    },
+    tvprogram_channel_dialog_title: {
+      en: "Select channels",
+      de: "Sender ausw\xE4hlen",
+      ru: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u043A\u0430\u043D\u0430\u043B\u044B",
+      pt: "Selecionar canais",
+      nl: "Zenders selecteren",
+      fr: "S\xE9lectionner les cha\xEEnes",
+      it: "Seleziona canali",
+      es: "Seleccionar canales",
+      pl: "Wybierz kana\u0142y",
+      uk: "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043A\u0430\u043D\u0430\u043B\u0438",
+      "zh-cn": "\u9009\u62E9\u9891\u9053"
+    },
+    tvprogram_channel_dialog_save: {
+      en: "Save selection",
+      de: "Auswahl speichern",
+      ru: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u044B\u0431\u043E\u0440",
+      pt: "Guardar sele\xE7\xE3o",
+      nl: "Selectie opslaan",
+      fr: "Enregistrer la s\xE9lection",
+      it: "Salva selezione",
+      es: "Guardar selecci\xF3n",
+      pl: "Zapisz wyb\xF3r",
+      uk: "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0432\u0438\u0431\u0456\u0440",
+      "zh-cn": "\u4FDD\u5B58\u9009\u62E9"
+    },
+    tvprogram_channel_dialog_cancel: {
+      en: "Close without saving",
+      de: "Schlie\xDFen ohne Speichern",
+      ru: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u0431\u0435\u0437 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F",
+      pt: "Fechar sem guardar",
+      nl: "Sluiten zonder opslaan",
+      fr: "Fermer sans enregistrer",
+      it: "Chiudi senza salvare",
+      es: "Cerrar sin guardar",
+      pl: "Zamknij bez zapisywania",
+      uk: "\u0417\u0430\u043A\u0440\u0438\u0442\u0438 \u0431\u0435\u0437 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u043D\u044F",
+      "zh-cn": "\u5173\u95ED\u4E14\u4E0D\u4FDD\u5B58"
+    },
+    tvprogram_channel_dialog_search: {
+      en: "Search channels",
+      de: "Sender suchen",
+      ru: "\u041F\u043E\u0438\u0441\u043A \u043A\u0430\u043D\u0430\u043B\u043E\u0432",
+      pt: "Pesquisar canais",
+      nl: "Zenders zoeken",
+      fr: "Rechercher des cha\xEEnes",
+      it: "Cerca canali",
+      es: "Buscar canales",
+      pl: "Szukaj kana\u0142\xF3w",
+      uk: "\u041F\u043E\u0448\u0443\u043A \u043A\u0430\u043D\u0430\u043B\u0456\u0432",
+      "zh-cn": "\u641C\u7D22\u9891\u9053"
+    },
+    tvprogram_channel_dialog_active: {
+      en: "Selected channels",
+      de: "Aktive Sender",
+      ru: "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0435 \u043A\u0430\u043D\u0430\u043B\u044B",
+      pt: "Canais selecionados",
+      nl: "Geselecteerde zenders",
+      fr: "Cha\xEEnes s\xE9lectionn\xE9es",
+      it: "Canali selezionati",
+      es: "Canales seleccionados",
+      pl: "Wybrane kana\u0142y",
+      uk: "\u0412\u0438\u0431\u0440\u0430\u043D\u0456 \u043A\u0430\u043D\u0430\u043B\u0438",
+      "zh-cn": "\u5DF2\u9009\u9891\u9053"
+    },
+    tvprogram_channel_dialog_inactive: {
+      en: "Other channels",
+      de: "Weitere Sender",
+      ru: "\u0414\u0440\u0443\u0433\u0438\u0435 \u043A\u0430\u043D\u0430\u043B\u044B",
+      pt: "Outros canais",
+      nl: "Andere zenders",
+      fr: "Autres cha\xEEnes",
+      it: "Altri canali",
+      es: "Otros canales",
+      pl: "Inne kana\u0142y",
+      uk: "\u0406\u043D\u0448\u0456 \u043A\u0430\u043D\u0430\u043B\u0438",
+      "zh-cn": "\u5176\u4ED6\u9891\u9053"
+    },
+    tvprogram_channel_dialog_empty: {
+      en: "No channels found",
+      de: "Keine Sender gefunden",
+      ru: "\u041A\u0430\u043D\u0430\u043B\u044B \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u044B",
+      pt: "Nenhum canal encontrado",
+      nl: "Geen zenders gevonden",
+      fr: "Aucune cha\xEEne trouv\xE9e",
+      it: "Nessun canale trovato",
+      es: "No se encontraron canales",
+      pl: "Nie znaleziono kana\u0142\xF3w",
+      uk: "\u041A\u0430\u043D\u0430\u043B\u0456\u0432 \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u043D\u043E",
+      "zh-cn": "\u672A\u627E\u5230\u9891\u9053"
+    },
+    tvprogram_channel_dialog_reorder: {
+      en: "Drag to reorder",
+      de: "Zum Verschieben ziehen",
+      ru: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0434\u043B\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u043F\u043E\u0440\u044F\u0434\u043A\u0430",
+      pt: "Arraste para reordenar",
+      nl: "Sleep om te ordenen",
+      fr: "Faire glisser pour r\xE9organiser",
+      it: "Trascina per riordinare",
+      es: "Arrastrar para reordenar",
+      pl: "Przeci\u0105gnij, aby zmieni\u0107 kolejno\u015B\u0107",
+      uk: "\u041F\u0435\u0440\u0435\u0442\u044F\u0433\u043D\u0456\u0442\u044C, \u0449\u043E\u0431 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
+      "zh-cn": "\u62D6\u52A8\u4EE5\u91CD\u65B0\u6392\u5E8F"
+    },
+    tvprogram_channel_dialog_selected: {
+      en: "Remove channel",
+      de: "Sender deaktivieren",
+      ru: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043A\u0430\u043D\u0430\u043B",
+      pt: "Remover canal",
+      nl: "Zender verwijderen",
+      fr: "Retirer la cha\xEEne",
+      it: "Rimuovi canale",
+      es: "Eliminar canal",
+      pl: "Usu\u0144 kana\u0142",
+      uk: "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438 \u043A\u0430\u043D\u0430\u043B",
+      "zh-cn": "\u79FB\u9664\u9891\u9053"
+    },
+    tvprogram_channel_dialog_unselected: {
+      en: "Add channel",
+      de: "Sender aktivieren",
+      ru: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u0430\u043D\u0430\u043B",
+      pt: "Adicionar canal",
+      nl: "Zender toevoegen",
+      fr: "Ajouter la cha\xEEne",
+      it: "Aggiungi canale",
+      es: "A\xF1adir canal",
+      pl: "Dodaj kana\u0142",
+      uk: "\u0414\u043E\u0434\u0430\u0442\u0438 \u043A\u0430\u043D\u0430\u043B",
+      "zh-cn": "\u6DFB\u52A0\u9891\u9053"
+    },
+    tvprogram_channel_dialog_sort_native: {
+      en: "Original order",
+      de: "Originale Reihenfolge",
+      ru: "\u0418\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
+      pt: "Ordem original",
+      nl: "Oorspronkelijke volgorde",
+      fr: "Ordre d'origine",
+      it: "Ordine originale",
+      es: "Orden original",
+      pl: "Kolejno\u015B\u0107 oryginalna",
+      uk: "\u041F\u043E\u0447\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
+      "zh-cn": "\u539F\u59CB\u987A\u5E8F"
+    },
+    tvprogram_channel_dialog_sort_asc: {
+      en: "Name A\u2013Z",
+      de: "Name A\u2013Z",
+      ru: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0410\u2013\u042F",
+      pt: "Nome A\u2013Z",
+      nl: "Naam A\u2013Z",
+      fr: "Nom A\u2013Z",
+      it: "Nome A\u2013Z",
+      es: "Nombre A\u2013Z",
+      pl: "Nazwa A\u2013Z",
+      uk: "\u041D\u0430\u0437\u0432\u0430 \u0410\u2013\u042F",
+      "zh-cn": "\u540D\u79F0 A\u2013Z"
+    },
+    tvprogram_channel_dialog_sort_desc: {
+      en: "Name Z\u2013A",
+      de: "Name Z\u2013A",
+      ru: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u042F\u2013\u0410",
+      pt: "Nome Z\u2013A",
+      nl: "Naam Z\u2013A",
+      fr: "Nom Z\u2013A",
+      it: "Nome Z\u2013A",
+      es: "Nombre Z\u2013A",
+      pl: "Nazwa Z\u2013A",
+      uk: "\u041D\u0430\u0437\u0432\u0430 \u042F\u2013\u0410",
+      "zh-cn": "\u540D\u79F0 Z\u2013A"
+    },
+    tvprogram_channel_dialog_fullscreen: {
+      en: "Fullscreen",
+      de: "Vollbild",
+      ru: "\u041F\u043E\u043B\u043D\u044B\u0439 \u044D\u043A\u0440\u0430\u043D",
+      pt: "Ecr\xE3 inteiro",
+      nl: "Volledig scherm",
+      fr: "Plein \xE9cran",
+      it: "Schermo intero",
+      es: "Pantalla completa",
+      pl: "Pe\u0142ny ekran",
+      uk: "\u041F\u043E\u0432\u043D\u0438\u0439 \u0435\u043A\u0440\u0430\u043D",
+      "zh-cn": "\u5168\u5C4F"
+    },
+    tvprogram_channel_dialog_restore: {
+      en: "Restore dialog size",
+      de: "Urspr\xFCngliche Dialoggr\xF6\xDFe",
+      ru: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0440\u0430\u0437\u043C\u0435\u0440 \u0434\u0438\u0430\u043B\u043E\u0433\u0430",
+      pt: "Restaurar tamanho do di\xE1logo",
+      nl: "Dialooggrootte herstellen",
+      fr: "R\xE9tablir la taille de la bo\xEEte de dialogue",
+      it: "Ripristina dimensione finestra",
+      es: "Restaurar tama\xF1o del di\xE1logo",
+      pl: "Przywr\xF3\u0107 rozmiar okna",
+      uk: "\u0412\u0456\u0434\u043D\u043E\u0432\u0438\u0442\u0438 \u0440\u043E\u0437\u043C\u0456\u0440 \u0434\u0456\u0430\u043B\u043E\u0433\u0443",
+      "zh-cn": "\u6062\u590D\u5BF9\u8BDD\u6846\u5927\u5C0F"
+    },
+    tvprogram_time: {
+      en: "Show time",
+      de: "Zeit anzeigen",
+      ru: "\u0412\u0440\u0435\u043C\u044F \u043F\u043E\u043A\u0430\u0437\u0430",
+      pt: "Hora do espet\xE1culo",
+      nl: "Showtijd",
+      fr: "Heure d'ouverture",
+      it: "Orario dello spettacolo",
+      es: "Hora del espect\xE1culo",
+      pl: "Czas pokazu",
+      uk: "\u0427\u0430\u0441 \u043F\u043E\u043A\u0430\u0437\u0443",
+      "zh-cn": "Show time"
+    },
+    tvprogram_maxresults: {
+      en: "Max. results",
+      de: "Maximale Ergebnisse",
+      ru: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B",
+      pt: "Resultados m\xE1ximos",
+      nl: "Max. resultaten",
+      fr: "R\xE9sultats maximaux",
+      it: "Risultati massimi",
+      es: "Resultados m\xE1ximos",
+      pl: "Maksymalne wyniki",
+      uk: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0438\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
+      "zh-cn": "Max. results"
+    },
+    tvprogram_search_search: {
+      en: "Search",
+      de: "Suchen",
+      ru: "\u041F\u043E\u0438\u0441\u043A",
+      pt: "Pesquisar",
+      nl: "Zoeken",
+      fr: "Rechercher",
+      it: "Cerca",
+      es: "Buscar",
+      pl: "Szukaj",
+      uk: "\u041F\u043E\u0448\u0443\u043A",
+      "zh-cn": "\u641C\u7D22"
+    },
+    tvprogram_search_from: {
+      en: "From",
+      de: "Ab",
+      ru: "\u041D\u0430\u0447\u0438\u043D\u0430\u044F \u0441",
+      pt: "A partir de",
+      nl: "Vanaf",
+      fr: "\xC0 partir du",
+      it: "A partire da",
+      es: "Desde",
+      pl: "Od",
+      uk: "\u041F\u043E\u0447\u0438\u043D\u0430\u044E\u0447\u0438 \u0437",
+      "zh-cn": "\u5F00\u59CB\u65E5\u671F"
+    },
+    tvprogram_search_category: {
+      en: "Category",
+      de: "Kategorie",
+      ru: "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F",
+      pt: "Categoria",
+      nl: "Categorie",
+      fr: "Cat\xE9gorie",
+      it: "Categoria",
+      es: "Categor\xEDa",
+      pl: "Kategoria",
+      uk: "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u044F",
+      "zh-cn": "\u7C7B\u522B"
+    },
+    tvprogram_search_all_categories: {
+      en: "All categories",
+      de: "Alle Kategorien",
+      ru: "\u0412\u0441\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438",
+      pt: "Todas as categorias",
+      nl: "Alle categorie\xEBn",
+      fr: "Toutes les cat\xE9gories",
+      it: "Tutte le categorie",
+      es: "Todas las categor\xEDas",
+      pl: "Wszystkie kategorie",
+      uk: "\u0423\u0441\u0456 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u0457",
+      "zh-cn": "\u6240\u6709\u7C7B\u522B"
+    }
+  };
+
+  // tvprogram/js/widget-i18n.js
+  function translateWidget(key, language) {
+    const values = translations_default[key] || {};
+    const normalized = String(language || "en").toLowerCase();
+    const base = normalized.split("-")[0];
+    return values[normalized] || values[base] || values.en || key;
+  }
+
   // tvprogram/js/search.js
   var search_default = {
     visTvprogram: null,
     bound: {},
     searchdata: [],
     searchresult: [],
+    sourceRevision: {},
     createWidget: function(widgetID, view, data, style) {
       return __async(this, null, function* () {
         const $div = $(`#${widgetID}`);
@@ -367,6 +848,8 @@
         if (!tvprogram_oid && !instance) {
           return;
         }
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
+        const translate = (name) => translateWidget(`tvprogram_search_${name}`, navigator.language);
         const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
         if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
           $(`#${widgetID}`).css("background-color", backgroundColor);
@@ -403,29 +886,33 @@
           this.bound[tvprogram_oid][widgetID] = false;
         }
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-          if (!vis.editMode) {
-            this.bound[tvprogram_oid][widgetID] = true;
-            vis.binds["tvprogram"].bindStates(
-              $div,
-              [
-                `${tvprogram_oid}.config`,
-                `${tvprogram_oid}.favorites`,
-                `${tvprogram_oid}.channelfilter`,
-                `${tvprogram_oid}.optchnlogopath`
-              ],
-              this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
-            );
-          }
+          this.bound[tvprogram_oid][widgetID] = true;
+          vis.binds["tvprogram"].bindStates(
+            $div,
+            [
+              `${tvprogram_oid}.config`,
+              `${tvprogram_oid}.favorites`,
+              `${tvprogram_oid}.channelfilter`,
+              `${tvprogram_oid}.cmd`,
+              `${tvprogram_oid}.optchnlogopath`
+            ],
+            this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
+          );
         }
-        if (!this.visTvprogram.infos) {
-          this.visTvprogram.infos = yield this.visTvprogram.loadServerInfosAsync(instance);
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        if (!sourceData.infos) {
+          sourceData.infos = yield this.visTvprogram.loadServerInfosAsync(instance, tvprogram_oid);
         }
-        if (!this.visTvprogram.categories) {
-          this.visTvprogram.categories = yield this.visTvprogram.loadCategories(instance, widgetID);
+        if (!sourceData.categories) {
+          sourceData.categories = yield this.visTvprogram.loadCategories(instance, widgetID, tvprogram_oid);
         }
-        if (!this.visTvprogram.channels) {
-          this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+        if (!sourceData.channels) {
+          sourceData.channels = yield this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid);
         }
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         if (this.visTvprogram.infos == null || !Object.prototype.hasOwnProperty.call(this.visTvprogram.infos, "tvprogram")) {
           return;
         }
@@ -438,7 +925,7 @@
         let categoriesoptions = this.visTvprogram.categories.map(
           (cat) => `<option value="${cat.id}" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == cat.id ? " selected" : ""}>${cat.title}</option>`
         );
-        categoriesoptions = `<option value="" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == "" ? " selected" : ""}></option>${categoriesoptions}`;
+        categoriesoptions = `<option value="" ${this.searchdata[tvprogram_oid][widgetID].categoryfilter == "" ? " selected" : ""}>${translate("all_categories")}</option>${categoriesoptions}`;
         $(`#${widgetID}broadcastdlg`).data({
           dialogwidthpercent,
           dialogheightpercent
@@ -499,15 +986,15 @@
         text += "} \n";
         text += `#${widgetID} .channel {
 `;
-        text += `   width: ${chnanneliconwidth}px; 
+        text += `   width: ${chnanneliconwidth}px;
 `;
-        text += `   height: ${heightrow}px; 
+        text += `   height: ${heightrow}px;
 `;
         text += "   display: inline-flex; \n";
         text += "   align-items: center; \n";
         text += "   justify-content: center; \n";
         text += "   border-width: 0px; \n";
-        text += `   background-color: ${backgroundColor}; 
+        text += `   background-color: ${backgroundColor};
 `;
         text += "} \n";
         text += `#${widgetID} .channel-logo {
@@ -523,10 +1010,10 @@
         text += "} \n";
         text += `#${widgetID} .broadcast {
 `;
-        text += `   height: ${heightrow}px; 
+        text += `   height: ${heightrow}px;
 `;
         text += "   padding: 3px; \n";
-        text += `   font-size: ${broadcastfontpercent}%; 
+        text += `   font-size: ${broadcastfontpercent}%;
 `;
         text += "   overflow: hidden; \n";
         text += "   width: 100%; \n";
@@ -551,17 +1038,17 @@
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected .star svg path {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += `#${widgetID} .broadcastimage {
 `;
-        text += `   height: ${heightrow - 7}px; 
+        text += `   height: ${heightrow - 7}px;
 `;
         text += "   padding-right: 3px; \n";
         text += "   float: left; \n";
@@ -643,7 +1130,7 @@
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += "</style> \n";
@@ -654,18 +1141,18 @@
         text += '<svg style="display:none;"><symbol id="record-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" /></symbol></svg>';
         text += "  </div>";
         text += `  <form data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${widgetID}" data-maxresults="${maxresults}" >`;
-        text += '    <label for="tvsearch">Search:';
-        text += `      <input name="tvsearch" type="text" id="tvsearch" value="${this.searchdata[tvprogram_oid][widgetID].textfilter}" placeholder="Search">`;
+        text += `    <label for="tvsearch">${translate("search")}:`;
+        text += `      <input name="tvsearch" type="text" id="tvsearch" value="${this.searchdata[tvprogram_oid][widgetID].textfilter}" placeholder="${translate("search")}">`;
         text += "    </label>";
-        text += '    <label for="tvfrom">From:';
+        text += `    <label for="tvfrom">${translate("from")}:`;
         text += `      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="${this.visTvprogram.infos.tvprogram[0]}" max="${this.visTvprogram.infos.tvprogram[this.visTvprogram.infos.tvprogram.length - 1]}" value="${this.searchdata[tvprogram_oid][widgetID].datefrom}">`;
         text += "    </label>";
-        text += '    <label for="tvcategory">Category:';
+        text += `    <label for="tvcategory">${translate("category")}:`;
         text += '      <select name="tvcategory" id="tvcategory" >';
         text += categoriesoptions;
         text += "      </select>";
         text += "    </label>";
-        text += "  <button>Search</Search>";
+        text += `  <button type="submit">${translate("search")}</button>`;
         text += "  </form>";
         $(`#${widgetID} .tv-form`).html(text);
         $(`#${widgetID} .tv-form form`).submit(this.onSubmitSearch.bind(this, widgetID, view, data, style));
@@ -677,17 +1164,20 @@
             return;
           }
           const channel = this.visTvprogram.channels.find((ch) => ch.id == event.channel);
+          if (!channel) {
+            return;
+          }
           favhighlight = favorites.indexOf(event.title) > -1;
           viewdate = event.airDate;
           text += '    <ul class="tv-row">';
           text += '       <li class="tv-item channel">';
           text += `          <img loading="lazy" decoding="async"
-                                        data-instance="${instance}" 
-                                        data-channelid="${channel.channelId}" 
-                                        data-dp="${tvprogram_oid}" 
-                                        data-instance="${instance}" 
+                                        data-instance="${instance}"
+                                        data-channelid="${channel.channelId}"
+                                        data-dp="${tvprogram_oid}"
+                                        data-instance="${instance}"
                                         src="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
-                                        alt="" class="channel-logo"  
+                                        alt="" class="channel-logo"
                                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
           text += "       </li>";
           text += '       <li class="tv-item broadcast">';
@@ -721,9 +1211,11 @@
     },
     onSubmitSearch: function(widgetID, view, data, style, evt) {
       return __async(this, null, function* () {
+        var _a;
         const el = evt.target;
         const instance = el.dataset.instance || "";
         const tvprogram_oid = el.dataset.dp || "";
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
         evt.preventDefault();
         const isearch = $(el).find('[name="tvsearch"]').val();
         const icategory = $(el).find('[name="tvcategory"]').val();
@@ -767,12 +1259,19 @@
           datetill: dTill,
           categoryfilter: icategory == "" ? [] : [parseInt(icategory)],
           textfilter: isearch,
-          maxresults: this.searchdata[tvprogram_oid][widgetID].maxresults
+          maxresults: this.searchdata[tvprogram_oid][widgetID].maxresults,
+          tvprogram_oid
         };
         if (isearch == "" && icategory == "") {
           return false;
         }
-        this.searchresult[tvprogram_oid][widgetID] = yield this.visTvprogram.getServerBroadcastFindAsync(instance, obj);
+        const result = yield this.visTvprogram.getServerBroadcastFindAsync(instance, obj);
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return false;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
+        (_a = this.searchresult)[tvprogram_oid] || (_a[tvprogram_oid] = {});
+        this.searchresult[tvprogram_oid][widgetID] = result;
         this.createWidget(widgetID, view, data, style);
       });
     },
@@ -783,6 +1282,15 @@
     },
     onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
       const dp = e.type.split(".");
+      if (dp[3] == "cmd" && dp[4] == "val" && (newVal == null ? void 0 : newVal.split("|")[1]) == "source") {
+        const sourceIdentity = newVal.split("|")[2];
+        this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+        this.visTvprogram.invalidateSourceData(tvprogram_oid, sourceIdentity, newVal.split("|")[3]);
+        delete this.searchresult[tvprogram_oid];
+        delete this.searchdata[tvprogram_oid];
+        this.createWidget(widgetID, view, data, style);
+        return;
+      }
       if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show" || dp[3] == "optchnlogopath") && dp[4] == "val") {
         console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
         this.createWidget(widgetID, view, data, style);
@@ -882,6 +1390,7 @@
     visTvprogram: null,
     bound: {},
     programdata: {},
+    sourceRevision: {},
     favorites: void 0,
     timer: {},
     createWidget: function(widgetID, view, data, style) {
@@ -901,8 +1410,18 @@
         if (!tvprogram_oid && !instance) {
           return;
         }
-        this.visTvprogram.categories = yield this.visTvprogram.loadCategories(instance, widgetID);
-        this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        const [categories, channels] = yield Promise.all([
+          this.visTvprogram.loadCategories(instance, widgetID, tvprogram_oid),
+          this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid)
+        ]);
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return;
+        }
+        sourceData.categories = categories;
+        sourceData.channels = channels;
+        this.visTvprogram.useSourceData(tvprogram_oid);
         if (this.visTvprogram.channels.length == 0 || this.visTvprogram.categories.length == 0) {
           return;
         }
@@ -924,12 +1443,18 @@
           this.programdata[tvprogram_oid] = {};
         }
         let startDate = this.parseTime(time);
-        this.programdata[tvprogram_oid][widgetID] = yield this.visTvprogram.getServerBroadcastRangeAsync(
+        const program = yield this.visTvprogram.getServerBroadcastRangeAsync(
           instance,
           channelfilter,
           startDate,
-          startDate
+          startDate,
+          tvprogram_oid
         );
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
+        this.programdata[tvprogram_oid][widgetID] = program;
         if (!this.bound[tvprogram_oid]) {
           this.bound[tvprogram_oid] = {};
         }
@@ -937,19 +1462,18 @@
           this.bound[tvprogram_oid][widgetID] = false;
         }
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-          if (!vis.editMode) {
-            this.bound[tvprogram_oid][widgetID] = true;
-            vis.binds["tvprogram"].bindStates(
-              $div,
-              [
-                `${tvprogram_oid}.config`,
-                `${tvprogram_oid}.favorites`,
-                `${tvprogram_oid}.channelfilter`,
-                `${tvprogram_oid}.optchnlogopath`
-              ],
-              this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
-            );
-          }
+          this.bound[tvprogram_oid][widgetID] = true;
+          vis.binds["tvprogram"].bindStates(
+            $div,
+            [
+              `${tvprogram_oid}.config`,
+              `${tvprogram_oid}.favorites`,
+              `${tvprogram_oid}.channelfilter`,
+              `${tvprogram_oid}.cmd`,
+              `${tvprogram_oid}.optchnlogopath`
+            ],
+            this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
+          );
         }
         const heightrow = parseInt(data.tvprogram_heightRow) || 35;
         const chnanneliconwidth = parseInt(data.tvprogram_channeliconwidth) || 35;
@@ -1009,15 +1533,15 @@
         text += "} \n";
         text += `#${widgetID} .channel {
 `;
-        text += `   width: ${chnanneliconwidth}px; 
+        text += `   width: ${chnanneliconwidth}px;
 `;
-        text += `   height: ${heightrow}px; 
+        text += `   height: ${heightrow}px;
 `;
         text += "   display: inline-flex; \n";
         text += "   align-items: center; \n";
         text += "   justify-content: center; \n";
         text += "   border-width: 0px; \n";
-        text += `   background-color: ${backgroundColor}; 
+        text += `   background-color: ${backgroundColor};
 `;
         text += "} \n";
         text += `#${widgetID} .channel-logo {
@@ -1033,10 +1557,10 @@
         text += "} \n";
         text += `#${widgetID} .broadcast {
 `;
-        text += `   height: ${heightrow}px; 
+        text += `   height: ${heightrow}px;
 `;
         text += "   padding: 3px; \n";
-        text += `   font-size: ${broadcastfontpercent}%; 
+        text += `   font-size: ${broadcastfontpercent}%;
 `;
         text += "   overflow: hidden; \n";
         text += "   width: 100%; \n";
@@ -1061,12 +1585,12 @@
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected .star svg path {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += `#${widgetID} .broadcastimage {
@@ -1156,7 +1680,7 @@
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += "</style> \n";
@@ -1172,17 +1696,20 @@
           ch.events.map((event) => {
             let viewdate = event.airDate;
             const channel = this.visTvprogram.channels.find((ch2) => ch2.id == event.channel);
+            if (!channel) {
+              return;
+            }
             favhighlight = favorites.indexOf(event.title) > -1;
             text += '    <ul class="tv-row">';
             text += '       <li class="tv-item channel">';
             text += `          <img loading="lazy" decoding="async"
-                        data-instance="${instance}" 
-                        data-channelid="${channel.channelId}" 
+                        data-instance="${instance}"
+                        data-channelid="${channel.channelId}"
                         data-image-id="${event.id}"
-                        data-dp="${tvprogram_oid}" 
+                        data-dp="${tvprogram_oid}"
                         data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
-                        alt="" 
-                        class="channel-logo"  
+                        alt=""
+                        class="channel-logo"
                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
             text += "       </li>";
             text += `       <li class="tv-item broadcast" onclick="vis.binds.tvprogram.onclickBroadcast(this.querySelector('.broadcastelement'))">`;
@@ -1247,6 +1774,14 @@
     },
     onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
       const dp = e.type.split(".");
+      if (dp[3] == "cmd" && dp[4] == "val" && (newVal == null ? void 0 : newVal.split("|")[1]) == "source") {
+        const sourceIdentity = newVal.split("|")[2];
+        this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+        this.visTvprogram.invalidateSourceData(tvprogram_oid, sourceIdentity, newVal.split("|")[3]);
+        delete this.programdata[tvprogram_oid];
+        this.createWidget(widgetID, view, data, style);
+        return;
+      }
       if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
         console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
         this.tvprogram = [];
@@ -1261,6 +1796,7 @@
     pending: {},
     bound: {},
     timer: {},
+    sourceRevision: {},
     createWidget: function(widgetID, view, data, style) {
       return __async(this, null, function* () {
         const $div = $(`#${widgetID}`);
@@ -1288,6 +1824,7 @@
         if (!data.tvprogram_oid || (instance = vis.binds["tvprogram"].getInstance(data.tvprogram_oid.trim())) == false) {
           return;
         }
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
         const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
         if (this.visTvprogram.checkStyle("background-color", $(`#${widgetID}`)[0].style.cssText) == "") {
           $(`#${widgetID}`).css("background-color", backgroundColor);
@@ -1299,24 +1836,28 @@
           this.bound[tvprogram_oid][widgetID] = false;
         }
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-          if (!vis.editMode) {
-            this.bound[tvprogram_oid][widgetID] = true;
-            vis.binds["tvprogram"].bindStates(
-              $div,
-              [
-                `${tvprogram_oid}.config`,
-                `${tvprogram_oid}.favorites`,
-                `${tvprogram_oid}.channelfilter`,
-                `${tvprogram_oid}.optchnlogopath`
-              ],
-              this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
-            );
-          }
+          this.bound[tvprogram_oid][widgetID] = true;
+          vis.binds["tvprogram"].bindStates(
+            $div,
+            [
+              `${tvprogram_oid}.config`,
+              `${tvprogram_oid}.favorites`,
+              `${tvprogram_oid}.channelfilter`,
+              `${tvprogram_oid}.cmd`,
+              `${tvprogram_oid}.optchnlogopath`
+            ],
+            this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid)
+          );
         }
         const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
-        if (!Array.isArray(this.visTvprogram.channels)) {
-          this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        if (!Array.isArray(sourceData.channels)) {
+          sourceData.channels = yield this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid);
         }
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         let selectedChannelIds = null;
         if (selectedChannelsOnly) {
           let channelfilter = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
@@ -1328,8 +1869,13 @@
         const response = yield this.visTvprogram.getFavoritesDataAsync(
           instance,
           favorites,
-          selectedChannelIds ? [...selectedChannelIds] : void 0
+          selectedChannelIds ? [...selectedChannelIds] : void 0,
+          tvprogram_oid
         );
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         const favoriteEvents = Array.isArray(response) ? response.filter(
           (event) => new Date(event.endTime) >= /* @__PURE__ */ new Date() && (!selectedChannelIds || selectedChannelIds.has(String(event.channel)))
         ) : [];
@@ -1369,7 +1915,7 @@
 `;
         text += "   width: 1em;\n";
         text += "   height: 1em;\n";
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += `#${widgetID} .tv-center {
@@ -1378,7 +1924,7 @@
         text += "} \n";
         text += `#${widgetID} .tv-icon {
 `;
-        text += `   width: ${chnanneliconwidth}px; 
+        text += `   width: ${chnanneliconwidth}px;
 `;
         text += "} \n";
         text += "</style> \n";
@@ -1396,7 +1942,7 @@
             text += `<td class="tv-left" data-viewdate="${favorite.viewdate}" data-eventid="${favorite.id}" data-instance="${instance}" data-dp="${tvprogram_oid}" onclick="return vis.binds.tvprogram.onclickFavorite(this,event)"><div class="star"><svg width="100%" height="100%" ><use xlink:href="#star-icon"></use></svg></div></td>`;
             if (showweekday) {
               text += `           <td class="tv-left">${startTime.toLocaleString(
-                vis.language,
+                navigator.language,
                 weekday_options
               )}</td>`;
             }
@@ -1427,6 +1973,13 @@
     },
     onChange: function(widgetID, view, data, style, tvprogram_oid, e, newVal) {
       const dp = e.type.split(".");
+      if (dp[3] == "cmd" && dp[4] == "val" && (newVal == null ? void 0 : newVal.split("|")[1]) == "source") {
+        const sourceIdentity = newVal.split("|")[2];
+        this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+        this.visTvprogram.invalidateSourceData(tvprogram_oid, sourceIdentity, newVal.split("|")[3]);
+        this.createWidget(widgetID, view, data, style);
+        return;
+      }
       if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
         console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
         this.createWidget(widgetID, view, data, style);
@@ -3683,434 +4236,6 @@
     };
   }
 
-  // tvprogram/myi18n/translations.json
-  var translations_default = {
-    tvprogram_oid: {
-      en: "ID",
-      de: "ID",
-      ru: "ID",
-      pt: "ID",
-      nl: "ID",
-      fr: "ID",
-      it: "ID",
-      es: "ID",
-      pl: "ID",
-      uk: "\u0406\u0414\u0415\u041D\u0422\u0418\u0424\u0406\u041A\u0410\u0422\u041E\u0420",
-      "zh-cn": "ID"
-    },
-    tvprogram_widthItem: {
-      en: "Width on hour px",
-      de: "Breite zur vollen Stunde px",
-      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0432 \u0447\u0430\u0441\u0430\u0445 px",
-      pt: "Largura na hora px",
-      nl: "Breedte op uur px",
-      fr: "Largeur sur l'heure px",
-      it: "Larghezza su ora px",
-      es: "Anchura en hora px",
-      pl: "Szeroko\u015B\u0107 na godzin\u0119 px",
-      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043D\u0430 \u0433\u043E\u0434\u0438\u043D\u0443 px",
-      "zh-cn": "Width on hour px"
-    },
-    tvprogram_heightRow: {
-      en: "Height of row px",
-      de: "H\xF6he der Zeile px",
-      ru: "\u0412\u044B\u0441\u043E\u0442\u0430 \u0441\u0442\u0440\u043E\u043A\u0438 px",
-      pt: "Altura da linha px",
-      nl: "Hoogte van rij px",
-      fr: "Hauteur de la ligne px",
-      it: "Altezza della riga px",
-      es: "Altura de la fila px",
-      pl: "Wysoko\u015B\u0107 wiersza px",
-      uk: "\u0412\u0438\u0441\u043E\u0442\u0430 \u0440\u044F\u0434\u043A\u0430 px",
-      "zh-cn": "Height of row px"
-    },
-    tvprogram_channeliconwidth: {
-      en: "Width channel logo px",
-      de: "Breite Kanal-Logo px",
-      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u0430 \u043A\u0430\u043D\u0430\u043B\u0430 px",
-      pt: "Largura do log\xF3tipo do canal px",
-      nl: "Breedte kanaallogo px",
-      fr: "Largeur du logo du canal px",
-      it: "Larghezza logo del canale px",
-      es: "Anchura del logotipo del canal px",
-      pl: "Szeroko\u015B\u0107 logo kana\u0142u px",
-      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u0443 \u043A\u0430\u043D\u0430\u043B\u0443 px",
-      "zh-cn": "Width channel logo px"
-    },
-    tvprogram_showpictures: {
-      en: "Show pictures",
-      de: "Bilder anzeigen",
-      ru: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438",
-      pt: "Mostrar imagens",
-      nl: "Foto's tonen",
-      fr: "Montrer les photos",
-      it: "Mostra immagini",
-      es: "Mostrar im\xE1genes",
-      pl: "Poka\u017C zdj\u0119cia",
-      uk: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0444\u043E\u0442\u043E",
-      "zh-cn": "Show pictures"
-    },
-    tvprogram_headerfontpercent: {
-      en: "Header font size %",
-      de: "Schriftgr\xF6\xDFe der Kopfzeile %",
-      ru: "\u0420\u0430\u0437\u043C\u0435\u0440 \u0448\u0440\u0438\u0444\u0442\u0430 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 %",
-      pt: "Tamanho do tipo de letra do cabe\xE7alho %",
-      nl: "Lettergrootte koptekst %",
-      fr: "Taille de la police de l'en-t\xEAte %",
-      it: "Dimensione del carattere dell'intestazione %",
-      es: "Tama\xF1o de fuente de la cabecera %.",
-      pl: "Rozmiar czcionki nag\u0142\xF3wka %",
-      uk: "\u0420\u043E\u0437\u043C\u0456\u0440 \u0448\u0440\u0438\u0444\u0442\u0443 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0430 % %.",
-      "zh-cn": "Header font size %"
-    },
-    tvprogram_broadcastfontpercent: {
-      en: "Broadcast font %",
-      de: "Broadcast-Schriftart %",
-      ru: "\u0428\u0438\u0440\u043E\u043A\u043E\u0432\u0435\u0449\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0448\u0440\u0438\u0444\u0442 %",
-      pt: "Tipo de letra de difus\xE3o %",
-      nl: "Uitzending lettertype %",
-      fr: "Police de diffusion %",
-      it: "Carattere di trasmissione %",
-      es: "Fuente de emisi\xF3n %.",
-      pl: "Czcionka transmisji %",
-      uk: "\u0428\u0440\u0438\u0444\u0442 \u0442\u0440\u0430\u043D\u0441\u043B\u044F\u0446\u0456\u0457 % %.",
-      "zh-cn": "Broadcast font %"
-    },
-    tvprogram_highlightcolor: {
-      en: "Favorite color",
-      de: "Bevorzugte Farbe",
-      ru: "\u041B\u044E\u0431\u0438\u043C\u044B\u0439 \u0446\u0432\u0435\u0442",
-      pt: "Cor favorita",
-      nl: "Favoriete kleur",
-      fr: "Couleur pr\xE9f\xE9r\xE9e",
-      it: "Colore preferito",
-      es: "Color favorito",
-      pl: "Ulubiony kolor",
-      uk: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0438\u0439 \u043A\u043E\u043B\u0456\u0440",
-      "zh-cn": "Favorite color"
-    },
-    tvprogram_markerpositionpercent: {
-      en: "Marker position from right %",
-      de: "Position der Markierung von rechts %.",
-      ru: "\u041F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u0441\u043F\u0440\u0430\u0432\u0430 %",
-      pt: "Posi\xE7\xE3o do marcador a partir da direita %",
-      nl: "Markeerpositie vanaf rechts %",
-      fr: "Position du marqueur \xE0 partir de la droite %",
-      it: "Posizione del marcatore da destra %",
-      es: "Posici\xF3n del marcador desde la derecha %.",
-      pl: "Pozycja znacznika od prawego %",
-      uk: "\u041F\u043E\u0437\u0438\u0446\u0456\u044F \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u0443 \u0432\u0456\u0434\u0441\u043E\u0442\u043A\u0430\u0445",
-      "zh-cn": "Marker position from right %"
-    },
-    tvprogram_dialogwidthpercent: {
-      en: "Dialog width %",
-      de: "Dialogbreite %",
-      ru: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u0438\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u043E\u043A\u043D\u0430 %",
-      pt: "Largura do di\xE1logo %",
-      nl: "Dialoogbreedte %",
-      fr: "Largeur de la bo\xEEte de dialogue %",
-      it: "Larghezza della finestra di dialogo %",
-      es: "Ancho del di\xE1logo %.",
-      pl: "Szeroko\u015B\u0107 okna dialogowego %",
-      uk: "\u0428\u0438\u0440\u0438\u043D\u0430 \u0434\u0456\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u0432\u0456\u043A\u043D\u0430 %",
-      "zh-cn": "Dialog width %"
-    },
-    tvprogram_dialogheightpercent: {
-      en: "Dialog height %",
-      de: "Dialogh\xF6he %",
-      ru: "\u0412\u044B\u0441\u043E\u0442\u0430 \u0434\u0438\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u043E\u043A\u043D\u0430 %",
-      pt: "Altura do di\xE1logo %",
-      nl: "Dialoog hoogte %",
-      fr: "Hauteur du dialogue %",
-      it: "Altezza dialogo %",
-      es: "Altura del di\xE1logo %.",
-      pl: "Wysoko\u015B\u0107 okna dialogowego %",
-      uk: "\u0412\u0438\u0441\u043E\u0442\u0430 \u0434\u0456\u0430\u043B\u043E\u0433\u043E\u0432\u043E\u0433\u043E \u0432\u0456\u043A\u043D\u0430 %",
-      "zh-cn": "Dialog height %"
-    },
-    tvprogram_channelname: {
-      en: "With channelname",
-      de: "Mit Kanalname",
-      ru: "\u0421 \u0438\u043C\u0435\u043D\u0435\u043C \u043A\u0430\u043D\u0430\u043B\u0430",
-      pt: "Com o nome do canal",
-      nl: "Met kanaalnaam",
-      fr: "Avec le nom du canal",
-      it: "Con il nome del canale",
-      es: "Con channelname",
-      pl: "Z nazw\u0105 kana\u0142u",
-      uk: "\u0417 \u043D\u0430\u0437\u0432\u043E\u044E \u043A\u0430\u043D\u0430\u043B\u0443",
-      "zh-cn": "With channelname"
-    },
-    tvprogram_favorites_selectedchannels: {
-      en: "Favorites from selected channels only",
-      de: "Favoriten nur von ausgew\xE4hlten Sendern",
-      ru: "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435 \u0442\u043E\u043B\u044C\u043A\u043E \u0441 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0445 \u043A\u0430\u043D\u0430\u043B\u043E\u0432",
-      pt: "Favoritos apenas dos canais selecionados",
-      nl: "Favorieten alleen van geselecteerde zenders",
-      fr: "Favoris des cha\xEEnes s\xE9lectionn\xE9es uniquement",
-      it: "Preferiti solo dai canali selezionati",
-      es: "Favoritos solo de los canales seleccionados",
-      pl: "Ulubione tylko z wybranych kana\u0142\xF3w",
-      uk: "\u041E\u0431\u0440\u0430\u043D\u0435 \u043B\u0438\u0448\u0435 \u0437 \u0432\u0438\u0431\u0440\u0430\u043D\u0438\u0445 \u043A\u0430\u043D\u0430\u043B\u0456\u0432",
-      "zh-cn": "\u4EC5\u663E\u793A\u6240\u9009\u9891\u9053\u7684\u6536\u85CF\u8282\u76EE"
-    },
-    tvprogram_showweekday: {
-      en: "Show weekday",
-      de: "Wochentag anzeigen",
-      ru: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0431\u0443\u0434\u043D\u0438\u0439 \u0434\u0435\u043D\u044C",
-      pt: "Mostrar dia da semana",
-      nl: "Toon weekdag",
-      fr: "Afficher le jour de la semaine",
-      it: "Mostra giorno della settimana",
-      es: "Mostrar d\xEDa de la semana",
-      pl: "Poka\u017C dzie\u0144 tygodnia",
-      uk: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0431\u0443\u0434\u043D\u0456\u0439 \u0434\u0435\u043D\u044C",
-      "zh-cn": "Show weekday"
-    },
-    tvprogram_maxfavorites: {
-      en: "Max favorites",
-      de: "Maximale Favoriten",
-      ru: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E \u043B\u044E\u0431\u0438\u043C\u044B\u0435",
-      pt: "Favoritos m\xE1ximos",
-      nl: "Max favorieten",
-      fr: "Favoris maximaux",
-      it: "I preferiti di Max",
-      es: "Max favoritos",
-      pl: "Maksimum ulubionych",
-      uk: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0435 \u0447\u0438\u0441\u043B\u043E \u043E\u0431\u0440\u0430\u043D\u0438\u0445",
-      "zh-cn": "Max favorites"
-    },
-    tvprogram_channel_dialog_title: {
-      en: "Select channels",
-      de: "Sender ausw\xE4hlen",
-      ru: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u043A\u0430\u043D\u0430\u043B\u044B",
-      pt: "Selecionar canais",
-      nl: "Zenders selecteren",
-      fr: "S\xE9lectionner les cha\xEEnes",
-      it: "Seleziona canali",
-      es: "Seleccionar canales",
-      pl: "Wybierz kana\u0142y",
-      uk: "\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u043A\u0430\u043D\u0430\u043B\u0438",
-      "zh-cn": "\u9009\u62E9\u9891\u9053"
-    },
-    tvprogram_channel_dialog_save: {
-      en: "Save selection",
-      de: "Auswahl speichern",
-      ru: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0432\u044B\u0431\u043E\u0440",
-      pt: "Guardar sele\xE7\xE3o",
-      nl: "Selectie opslaan",
-      fr: "Enregistrer la s\xE9lection",
-      it: "Salva selezione",
-      es: "Guardar selecci\xF3n",
-      pl: "Zapisz wyb\xF3r",
-      uk: "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0432\u0438\u0431\u0456\u0440",
-      "zh-cn": "\u4FDD\u5B58\u9009\u62E9"
-    },
-    tvprogram_channel_dialog_cancel: {
-      en: "Close without saving",
-      de: "Schlie\xDFen ohne Speichern",
-      ru: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u0431\u0435\u0437 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F",
-      pt: "Fechar sem guardar",
-      nl: "Sluiten zonder opslaan",
-      fr: "Fermer sans enregistrer",
-      it: "Chiudi senza salvare",
-      es: "Cerrar sin guardar",
-      pl: "Zamknij bez zapisywania",
-      uk: "\u0417\u0430\u043A\u0440\u0438\u0442\u0438 \u0431\u0435\u0437 \u0437\u0431\u0435\u0440\u0435\u0436\u0435\u043D\u043D\u044F",
-      "zh-cn": "\u5173\u95ED\u4E14\u4E0D\u4FDD\u5B58"
-    },
-    tvprogram_channel_dialog_search: {
-      en: "Search channels",
-      de: "Sender suchen",
-      ru: "\u041F\u043E\u0438\u0441\u043A \u043A\u0430\u043D\u0430\u043B\u043E\u0432",
-      pt: "Pesquisar canais",
-      nl: "Zenders zoeken",
-      fr: "Rechercher des cha\xEEnes",
-      it: "Cerca canali",
-      es: "Buscar canales",
-      pl: "Szukaj kana\u0142\xF3w",
-      uk: "\u041F\u043E\u0448\u0443\u043A \u043A\u0430\u043D\u0430\u043B\u0456\u0432",
-      "zh-cn": "\u641C\u7D22\u9891\u9053"
-    },
-    tvprogram_channel_dialog_active: {
-      en: "Selected channels",
-      de: "Aktive Sender",
-      ru: "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0435 \u043A\u0430\u043D\u0430\u043B\u044B",
-      pt: "Canais selecionados",
-      nl: "Geselecteerde zenders",
-      fr: "Cha\xEEnes s\xE9lectionn\xE9es",
-      it: "Canali selezionati",
-      es: "Canales seleccionados",
-      pl: "Wybrane kana\u0142y",
-      uk: "\u0412\u0438\u0431\u0440\u0430\u043D\u0456 \u043A\u0430\u043D\u0430\u043B\u0438",
-      "zh-cn": "\u5DF2\u9009\u9891\u9053"
-    },
-    tvprogram_channel_dialog_inactive: {
-      en: "Other channels",
-      de: "Weitere Sender",
-      ru: "\u0414\u0440\u0443\u0433\u0438\u0435 \u043A\u0430\u043D\u0430\u043B\u044B",
-      pt: "Outros canais",
-      nl: "Andere zenders",
-      fr: "Autres cha\xEEnes",
-      it: "Altri canali",
-      es: "Otros canales",
-      pl: "Inne kana\u0142y",
-      uk: "\u0406\u043D\u0448\u0456 \u043A\u0430\u043D\u0430\u043B\u0438",
-      "zh-cn": "\u5176\u4ED6\u9891\u9053"
-    },
-    tvprogram_channel_dialog_empty: {
-      en: "No channels found",
-      de: "Keine Sender gefunden",
-      ru: "\u041A\u0430\u043D\u0430\u043B\u044B \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u044B",
-      pt: "Nenhum canal encontrado",
-      nl: "Geen zenders gevonden",
-      fr: "Aucune cha\xEEne trouv\xE9e",
-      it: "Nessun canale trovato",
-      es: "No se encontraron canales",
-      pl: "Nie znaleziono kana\u0142\xF3w",
-      uk: "\u041A\u0430\u043D\u0430\u043B\u0456\u0432 \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u043D\u043E",
-      "zh-cn": "\u672A\u627E\u5230\u9891\u9053"
-    },
-    tvprogram_channel_dialog_reorder: {
-      en: "Drag to reorder",
-      de: "Zum Verschieben ziehen",
-      ru: "\u041F\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0434\u043B\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u043F\u043E\u0440\u044F\u0434\u043A\u0430",
-      pt: "Arraste para reordenar",
-      nl: "Sleep om te ordenen",
-      fr: "Faire glisser pour r\xE9organiser",
-      it: "Trascina per riordinare",
-      es: "Arrastrar para reordenar",
-      pl: "Przeci\u0105gnij, aby zmieni\u0107 kolejno\u015B\u0107",
-      uk: "\u041F\u0435\u0440\u0435\u0442\u044F\u0433\u043D\u0456\u0442\u044C, \u0449\u043E\u0431 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
-      "zh-cn": "\u62D6\u52A8\u4EE5\u91CD\u65B0\u6392\u5E8F"
-    },
-    tvprogram_channel_dialog_selected: {
-      en: "Remove channel",
-      de: "Sender deaktivieren",
-      ru: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043A\u0430\u043D\u0430\u043B",
-      pt: "Remover canal",
-      nl: "Zender verwijderen",
-      fr: "Retirer la cha\xEEne",
-      it: "Rimuovi canale",
-      es: "Eliminar canal",
-      pl: "Usu\u0144 kana\u0142",
-      uk: "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438 \u043A\u0430\u043D\u0430\u043B",
-      "zh-cn": "\u79FB\u9664\u9891\u9053"
-    },
-    tvprogram_channel_dialog_unselected: {
-      en: "Add channel",
-      de: "Sender aktivieren",
-      ru: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u0430\u043D\u0430\u043B",
-      pt: "Adicionar canal",
-      nl: "Zender toevoegen",
-      fr: "Ajouter la cha\xEEne",
-      it: "Aggiungi canale",
-      es: "A\xF1adir canal",
-      pl: "Dodaj kana\u0142",
-      uk: "\u0414\u043E\u0434\u0430\u0442\u0438 \u043A\u0430\u043D\u0430\u043B",
-      "zh-cn": "\u6DFB\u52A0\u9891\u9053"
-    },
-    tvprogram_channel_dialog_sort_native: {
-      en: "Original order",
-      de: "Originale Reihenfolge",
-      ru: "\u0418\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
-      pt: "Ordem original",
-      nl: "Oorspronkelijke volgorde",
-      fr: "Ordre d'origine",
-      it: "Ordine originale",
-      es: "Orden original",
-      pl: "Kolejno\u015B\u0107 oryginalna",
-      uk: "\u041F\u043E\u0447\u0430\u0442\u043A\u043E\u0432\u0438\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A",
-      "zh-cn": "\u539F\u59CB\u987A\u5E8F"
-    },
-    tvprogram_channel_dialog_sort_asc: {
-      en: "Name A\u2013Z",
-      de: "Name A\u2013Z",
-      ru: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0410\u2013\u042F",
-      pt: "Nome A\u2013Z",
-      nl: "Naam A\u2013Z",
-      fr: "Nom A\u2013Z",
-      it: "Nome A\u2013Z",
-      es: "Nombre A\u2013Z",
-      pl: "Nazwa A\u2013Z",
-      uk: "\u041D\u0430\u0437\u0432\u0430 \u0410\u2013\u042F",
-      "zh-cn": "\u540D\u79F0 A\u2013Z"
-    },
-    tvprogram_channel_dialog_sort_desc: {
-      en: "Name Z\u2013A",
-      de: "Name Z\u2013A",
-      ru: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u042F\u2013\u0410",
-      pt: "Nome Z\u2013A",
-      nl: "Naam Z\u2013A",
-      fr: "Nom Z\u2013A",
-      it: "Nome Z\u2013A",
-      es: "Nombre Z\u2013A",
-      pl: "Nazwa Z\u2013A",
-      uk: "\u041D\u0430\u0437\u0432\u0430 \u042F\u2013\u0410",
-      "zh-cn": "\u540D\u79F0 Z\u2013A"
-    },
-    tvprogram_channel_dialog_fullscreen: {
-      en: "Fullscreen",
-      de: "Vollbild",
-      ru: "\u041F\u043E\u043B\u043D\u044B\u0439 \u044D\u043A\u0440\u0430\u043D",
-      pt: "Ecr\xE3 inteiro",
-      nl: "Volledig scherm",
-      fr: "Plein \xE9cran",
-      it: "Schermo intero",
-      es: "Pantalla completa",
-      pl: "Pe\u0142ny ekran",
-      uk: "\u041F\u043E\u0432\u043D\u0438\u0439 \u0435\u043A\u0440\u0430\u043D",
-      "zh-cn": "\u5168\u5C4F"
-    },
-    tvprogram_channel_dialog_restore: {
-      en: "Restore dialog size",
-      de: "Urspr\xFCngliche Dialoggr\xF6\xDFe",
-      ru: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0440\u0430\u0437\u043C\u0435\u0440 \u0434\u0438\u0430\u043B\u043E\u0433\u0430",
-      pt: "Restaurar tamanho do di\xE1logo",
-      nl: "Dialooggrootte herstellen",
-      fr: "R\xE9tablir la taille de la bo\xEEte de dialogue",
-      it: "Ripristina dimensione finestra",
-      es: "Restaurar tama\xF1o del di\xE1logo",
-      pl: "Przywr\xF3\u0107 rozmiar okna",
-      uk: "\u0412\u0456\u0434\u043D\u043E\u0432\u0438\u0442\u0438 \u0440\u043E\u0437\u043C\u0456\u0440 \u0434\u0456\u0430\u043B\u043E\u0433\u0443",
-      "zh-cn": "\u6062\u590D\u5BF9\u8BDD\u6846\u5927\u5C0F"
-    },
-    tvprogram_time: {
-      en: "Show time",
-      de: "Zeit anzeigen",
-      ru: "\u0412\u0440\u0435\u043C\u044F \u043F\u043E\u043A\u0430\u0437\u0430",
-      pt: "Hora do espet\xE1culo",
-      nl: "Showtijd",
-      fr: "Heure d'ouverture",
-      it: "Orario dello spettacolo",
-      es: "Hora del espect\xE1culo",
-      pl: "Czas pokazu",
-      uk: "\u0427\u0430\u0441 \u043F\u043E\u043A\u0430\u0437\u0443",
-      "zh-cn": "Show time"
-    },
-    tvprogram_maxresults: {
-      en: "Max. results",
-      de: "Maximale Ergebnisse",
-      ru: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B",
-      pt: "Resultados m\xE1ximos",
-      nl: "Max. resultaten",
-      fr: "R\xE9sultats maximaux",
-      it: "Risultati massimi",
-      es: "Resultados m\xE1ximos",
-      pl: "Maksymalne wyniki",
-      uk: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0438\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
-      "zh-cn": "Max. results"
-    }
-  };
-
-  // tvprogram/js/widget-i18n.js
-  function translateWidget(key, language) {
-    const values = translations_default[key] || {};
-    const normalized = String(language || "en").toLowerCase();
-    const base = normalized.split("-")[0];
-    return values[normalized] || values[base] || values.en || key;
-  }
-
   // tvprogram/js/channel-dialog.js
   function openChannelDialog(options) {
     const { host, widget, channels, selectedIds: initialIds, getLogo, onSave, widthPercent, heightPercent } = options;
@@ -4426,6 +4551,7 @@
     today: {},
     viewday: {},
     olddata: {},
+    sourceRevision: {},
     createWidget: function(widgetID, view, data, style) {
       return __async(this, null, function* () {
         const $div = $(`#${widgetID}`);
@@ -4443,6 +4569,7 @@
         if (!tvprogram_oid && !instance) {
           return;
         }
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
         const highlightcolor = data.tvprogram_highlightcolor || "yellow";
         if (!this.olddata[widgetID]) {
           this.olddata[widgetID] = data;
@@ -4466,19 +4593,22 @@
         if (!this.measures[widgetID].widthItem) {
           this.measures[widgetID].widthItem = this.measures[widgetID].origwidthItem;
         }
-        if (!((this.today || {})[widgetID] || {}).prevday) {
-          $(`#${widgetID} .tv-container`).html("Datapoints loading...");
+        const $container = $(`#${widgetID} .tv-container`);
+        if ($container.children().length === 0) {
+          $container.html("Datapoints loading...");
         }
         console.log("Load Data");
-        if (!this.visTvprogram.categories) {
-          this.visTvprogram.categories = yield this.visTvprogram.loadCategories(instance, widgetID);
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        if (!sourceData.categories) {
+          sourceData.categories = yield this.visTvprogram.loadCategories(instance, widgetID, tvprogram_oid);
         }
-        if (!this.visTvprogram.channels) {
-          this.visTvprogram.channels = yield this.visTvprogram.loadChannels(instance, widgetID);
+        if (!sourceData.channels) {
+          sourceData.channels = yield this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid);
         }
-        if (!this.visTvprogram.genres) {
-          this.visTvprogram.genres = yield this.visTvprogram.loadGenres(instance, widgetID);
+        if (!sourceData.genres) {
+          sourceData.genres = yield this.visTvprogram.loadGenres(instance, widgetID, tvprogram_oid);
         }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         if (!this.today[widgetID]) {
           this.today[widgetID] = { today: /* @__PURE__ */ new Date(), prevday: null };
         }
@@ -4497,8 +4627,12 @@
         if (channelfilter.length == 0) {
           channelfilter = this.visTvprogram.channels.slice(0, 4).map((channel) => channel.id);
         }
-        const cacheKey = this.dayCacheKey(instance, datestring, channelfilter);
-        yield this.loadDay(instance, widgetID, datestring, channelfilter);
+        const cacheKey = this.dayCacheKey(instance, datestring, channelfilter, tvprogram_oid);
+        yield this.loadDay(instance, widgetID, datestring, channelfilter, tvprogram_oid);
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+          return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
         if (this.visTvprogram.categories.length == 0 || this.visTvprogram.categories[0] === "request") {
           return;
         }
@@ -4521,21 +4655,19 @@
           this.bound[tvprogram_oid][widgetID] = false;
         }
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-          if (!vis.editMode) {
-            this.bound[tvprogram_oid][widgetID] = true;
-            vis.binds["tvprogram"].bindStates(
-              $div,
-              [
-                `${tvprogram_oid}.config`,
-                `${tvprogram_oid}.cmd`,
-                `${tvprogram_oid}.favorites`,
-                `${tvprogram_oid}.channelfilter`,
-                `${tvprogram_oid}.show`,
-                `${tvprogram_oid}.optchnlogopath`
-              ],
-              this.onChange.bind(this, widgetID, view, data, style, instance)
-            );
-          }
+          this.bound[tvprogram_oid][widgetID] = true;
+          vis.binds["tvprogram"].bindStates(
+            $div,
+            [
+              `${tvprogram_oid}.config`,
+              `${tvprogram_oid}.cmd`,
+              `${tvprogram_oid}.favorites`,
+              `${tvprogram_oid}.channelfilter`,
+              `${tvprogram_oid}.show`,
+              `${tvprogram_oid}.optchnlogopath`
+            ],
+            this.onChange.bind(this, widgetID, view, data, style, instance)
+          );
         }
         console.log("Calc Channels");
         console.log("Calc styles");
@@ -4725,12 +4857,12 @@
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += "} \n";
         text += `#${widgetID} .broadcastelement.selected {
 `;
-        text += `   color: ${highlightcolor}; 
+        text += `   color: ${highlightcolor};
 `;
         text += `   background-color: ${this.visTvprogram.colorToRGBA(highlightcolor, ".1")}; 
 `;
@@ -5017,15 +5149,15 @@
           this.setScroll(widgetID);
         }
         console.log("Output done");
-        this.schedulePrefetch(widgetID, instance, channelfilter);
+        this.schedulePrefetch(widgetID, instance, channelfilter, tvprogram_oid);
       });
     },
-    dayCacheKey: function(instance, datestring, channelfilter = []) {
-      return `${instance}:${datestring}:${channelfilter.map(String).join(",")}`;
+    dayCacheKey: function(instance, datestring, channelfilter = [], tvprogram_oid = "") {
+      return `${tvprogram_oid ? `${tvprogram_oid}:` : ""}${instance}:${datestring}:${channelfilter.map(String).join(",")}`;
     },
-    loadDay: function(instance, widgetID, datestring, channelfilter = []) {
+    loadDay: function(instance, widgetID, datestring, channelfilter = [], tvprogram_oid = "") {
       var _a;
-      const key = this.dayCacheKey(instance, datestring, channelfilter);
+      const key = this.dayCacheKey(instance, datestring, channelfilter, tvprogram_oid);
       if (Array.isArray(this.tvprogram[key]) && this.tvprogram[key].length > 0) {
         return Promise.resolve(this.tvprogram[key]);
       }
@@ -5033,7 +5165,7 @@
       if (((_a = this.pending[key]) == null ? void 0 : _a.epoch) === epoch) {
         return this.pending[key].promise;
       }
-      const promise = this.visTvprogram.loadProgram(instance, widgetID, datestring, channelfilter).then((program) => {
+      const promise = this.visTvprogram.loadProgram(instance, widgetID, datestring, channelfilter, tvprogram_oid).then((program) => {
         if ((this.cacheEpoch[key] || 0) === epoch && Array.isArray(program) && program.length > 0) {
           this.tvprogram[key] = program;
         }
@@ -5048,14 +5180,14 @@
       return promise;
     },
     prefetchNextDays: function(_0, _1, _2) {
-      return __async(this, arguments, function* (instance, widgetID, baseDate, channelfilter = []) {
+      return __async(this, arguments, function* (instance, widgetID, baseDate, channelfilter = [], tvprogram_oid = "") {
         for (let offset = 1; offset <= 2; offset++) {
           if (!document.getElementById(widgetID)) {
             return;
           }
           const date = this.visTvprogram.getDate(baseDate, offset);
           try {
-            yield this.loadDay(instance, widgetID, date, channelfilter);
+            yield this.loadDay(instance, widgetID, date, channelfilter, tvprogram_oid);
           } catch (error) {
             console.warn(`Could not preload TV programme for ${date}`, error);
           }
@@ -5065,13 +5197,13 @@
         }
       });
     },
-    schedulePrefetch: function(widgetID, instance, channelfilter = []) {
+    schedulePrefetch: function(widgetID, instance, channelfilter = [], tvprogram_oid = "") {
       var _a, _b;
       if (vis.editMode) {
         return;
       }
       const today = this.visTvprogram.getDate(this.visTvprogram.calcDate(/* @__PURE__ */ new Date()), 0);
-      const key = this.dayCacheKey(instance, today, channelfilter);
+      const key = this.dayCacheKey(instance, today, channelfilter, tvprogram_oid);
       if (((_a = this.prefetchSchedule[widgetID]) == null ? void 0 : _a.key) === key) {
         return;
       }
@@ -5097,7 +5229,8 @@
               instance,
               widgetID,
               this.visTvprogram.calcDate(/* @__PURE__ */ new Date()),
-              channelfilter
+              channelfilter,
+              tvprogram_oid
             );
           },
           attempt === 0 ? 1e4 : 3e3
@@ -5216,25 +5349,30 @@
     onclickChannel: function(widgetID, instance, tvprogram_oid) {
       const host = document.getElementById(`${widgetID}channeldlg`);
       const widget = document.getElementById(widgetID);
-      if (!host || !widget || !Array.isArray(this.visTvprogram.channels)) {
+      const channels = this.visTvprogram.useSourceData(tvprogram_oid).channels;
+      if (!host || !widget || !Array.isArray(channels)) {
         return;
       }
       const stored = this.visTvprogram.getConfigChannelfilter(tvprogram_oid);
-      const selectedIds = stored.length ? stored : this.visTvprogram.channels.slice(0, 4).map((channel) => channel.id);
+      const selectedIds = stored.length ? stored : channels.slice(0, 4).map((channel) => channel.id);
       openChannelDialog({
         host,
         widget,
-        channels: this.visTvprogram.channels,
+        channels,
         selectedIds,
         getLogo: (channel) => this.visTvprogram.getOriginalChannelLogo(channel),
         onSave: (ids) => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
         widthPercent: this.measures[widgetID].dialogwidthpercent,
         heightPercent: this.measures[widgetID].dialogheightpercent,
         background: this.visTvprogram.realBackgroundColor(widget),
-        language: vis.language
+        language: navigator.language
       });
     },
     getBroadcasts4Channel: function(el, widgetID, view, viewdate, tvprogram_oid, instance) {
+      const channel = (this.visTvprogram.channels || []).find((ch) => ch.id == el.channel);
+      if (!channel || !Array.isArray(el.events) || el.events.length === 0) {
+        return [];
+      }
       const wItem = this.measures[widgetID].widthItem;
       const tItem = this.measures[widgetID].timeItem;
       const favorites = this.visTvprogram.getConfigFavorites(tvprogram_oid);
@@ -5244,14 +5382,13 @@
       sTime.setMinutes(0);
       const eTime = new Date(sTime);
       eTime.setDate(eTime.getDate() + 1);
-      const channel = this.visTvprogram.channels.find((ch) => ch.id == el.channel);
       const aa = [];
       let text = "";
       text += '    <li class="tv-item tv-head-left tv-head-background channel">';
       text += `      <img loading="lazy" decoding="async"
-                data-instance="${instance}" 
-                data-channelid="${channel.channelId}" 
-                data-dp="${tvprogram_oid}" 
+                data-instance="${instance}"
+                data-channelid="${channel.channelId}"
+                data-dp="${tvprogram_oid}"
                 data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
                 alt="" class="channel-logo"
                 onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
@@ -5371,8 +5508,9 @@
     },
     onChange: function(widgetID, view, data, style, instance, e, newVal) {
       return __async(this, null, function* () {
-        var _a;
+        var _a, _b;
         const dp = e.type.split(".");
+        const [, tvprogram_oid] = this.visTvprogram.getInstanceInfo(data.tvprogram_oid);
         if ((dp[3] == "config" || dp[3] == "favorites" || dp[3] == "channelfilter" || dp[3] == "show") && dp[4] == "val") {
           console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
           this.createWidget(widgetID, view, data, style);
@@ -5382,13 +5520,41 @@
             console.log(`changed ${widgetID} type:${e.type} val:${newVal}`);
             const obj = newVal.split("|");
             if (obj[0] == "new") {
+              if (obj[1] == "source") {
+                const keyPrefix = `${tvprogram_oid}:`;
+                this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+                this.visTvprogram.invalidateSourceData(tvprogram_oid, obj[2], obj[3]);
+                const keys = /* @__PURE__ */ new Set([
+                  ...Object.keys(this.tvprogram),
+                  ...Object.keys(this.pending),
+                  ...Object.keys(this.cacheEpoch)
+                ]);
+                [...keys].filter((key) => key.startsWith(keyPrefix)).forEach((key) => {
+                  delete this.tvprogram[key];
+                  if (this.pending[key]) {
+                    this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
+                    delete this.pending[key];
+                  }
+                });
+                window.clearTimeout((_a = this.prefetchSchedule[widgetID]) == null ? void 0 : _a.timer);
+                delete this.prefetchSchedule[widgetID];
+                yield this.createWidget(widgetID, view, data, style);
+                return;
+              }
               if (obj[1] != "program") {
-                this[obj[1]] = yield this.visTvprogram.getServerDataAsync(instance, widgetID, obj[1]);
+                const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+                sourceData[obj[1]] = yield this.visTvprogram.getServerDataAsync(
+                  instance,
+                  widgetID,
+                  obj[1],
+                  tvprogram_oid
+                );
+                this.visTvprogram.useSourceData(tvprogram_oid);
                 this.createWidget(widgetID, view, data, style);
                 return;
               }
               if (obj[1] == "program") {
-                const keyPrefix = `${instance}:${obj[2]}:`;
+                const keyPrefix = `${tvprogram_oid}:${instance}:${obj[2]}:`;
                 const keys = /* @__PURE__ */ new Set([
                   ...Object.keys(this.tvprogram),
                   ...Object.keys(this.pending),
@@ -5400,7 +5566,7 @@
                     this.cacheEpoch[key] = (this.cacheEpoch[key] || 0) + 1;
                   }
                 });
-                if (((_a = this.viewday[widgetID]) == null ? void 0 : _a.viewday) === obj[2]) {
+                if (((_b = this.viewday[widgetID]) == null ? void 0 : _b.viewday) === obj[2]) {
                   this.createWidget(widgetID, view, data, style);
                 }
               }
@@ -5413,6 +5579,7 @@
 
   // tvprogram/js/shared.js
   var shared_default = {
+    requestTimeoutMs: 2e4,
     checkStyle: function(attr, str) {
       return str.split(";").reduce((acc, el) => el.split(":")[0].trim() == attr ? el.split(":")[1].trim() : acc, "");
     },
@@ -5439,7 +5606,8 @@
         if (eventid == 0 || widgetID == 0) {
           return;
         }
-        const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate);
+        this.useSourceData(tvprogram_oid);
+        const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate, tvprogram_oid);
         const measures = $(`#${widgetID}broadcastdlg`).data();
         const startTime = new Date(event.startTime);
         const endTime = new Date(event.endTime);
@@ -5538,7 +5706,8 @@
           return;
         }
         evt.stopPropagation();
-        const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate);
+        this.useSourceData(tvprogram_oid);
+        const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate, tvprogram_oid);
         const channel = event.channel ? this.channels.find((el2) => el2.id == event.channel) : null;
         const record = {
           startTime: event.startTime,
@@ -5601,7 +5770,7 @@
         if (eventid == 0 || viewdate == 0) {
           return;
         }
-        const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate);
+        const event = yield this.getServerBroadcastAsync(instance, eventid, viewdate, tvprogram_oid);
         const favorites = this.getConfigFavorites(tvprogram_oid);
         const index2 = favorites.indexOf(event.title);
         if (index2 > -1) {
@@ -5722,14 +5891,46 @@
         }.bind(this)
       );
     },
-    getServerBroadcastAsync: function(instance, eventid, viewdate) {
+    getServerBroadcastAsync: function(instance, eventid, viewdate, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log(`getServerBroadcast request ${eventid}.${viewdate}`);
-        return yield this.sendToAsync(instance, "getServerBroadcast", { eventid, viewdate });
+        return yield this.sendToAsync(instance, "getServerBroadcast", __spreadValues({
+          eventid,
+          viewdate
+        }, tvprogram_oid ? { tvprogram_oid } : {}));
       });
     },
     events: {},
     serverdata: {},
+    sourceData: {},
+    sourceRevisions: {},
+    useSourceData: function(tvprogram_oid) {
+      var _a;
+      const data = (_a = this.sourceData)[tvprogram_oid] || (_a[tvprogram_oid] = {});
+      this.channels = data.channels;
+      this.categories = data.categories;
+      this.genres = data.genres;
+      this.infos = data.infos;
+      return data;
+    },
+    invalidateSourceData: function(tvprogram_oid, sourceIdentity, sourceRevision) {
+      const revision = sourceRevision || sourceIdentity;
+      if (revision && this.sourceRevisions[tvprogram_oid] === revision) {
+        this.useSourceData(tvprogram_oid);
+        return false;
+      }
+      this.sourceRevisions[tvprogram_oid] = revision;
+      delete this.sourceData[tvprogram_oid];
+      if (sourceIdentity) {
+        this.sourceData[tvprogram_oid] = { sourceIdentity, sourceRevision: revision };
+      }
+      console.log(`[tvprogram] Invalidated source cache: ${tvprogram_oid} | ${sourceIdentity} | ${revision}`);
+      this.channels = void 0;
+      this.categories = void 0;
+      this.genres = void 0;
+      this.infos = void 0;
+      return true;
+    },
     getServerData: function(instance, widgetID, dataname, callback) {
       const dataid = instance + dataname;
       if (Object.prototype.hasOwnProperty.call(this.serverdata, dataid)) {
@@ -5759,14 +5960,14 @@
         delete this.events[dataid];
       });
     },
-    getServerDataAsync: function(instance, widgetID, dataname) {
+    getServerDataAsync: function(instance, widgetID, dataname, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log(`getServerData ${dataname}`);
         const dataid = instance + dataname;
         if (!Object.prototype.hasOwnProperty.call(this.events, dataid)) {
           this.events[dataid] = [];
         }
-        return yield this.sendToAsync(instance, "getServerData", dataname);
+        return yield this.sendToAsync(instance, "getServerData", { dataname, tvprogram_oid });
       });
     },
     getServerTVProgram: function(instance, widgetID, dataname, callback) {
@@ -5802,13 +6003,13 @@
         }.bind(this)
       );
     },
-    getServerTVProgramAsync: function(instance, widgetID, dataname, channelfilter) {
+    getServerTVProgramAsync: function(instance, widgetID, dataname, channelfilter, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log(`getServerTVProgram ${dataname}`);
-        return yield this.sendToAsync(instance, "getServerTVProgram", {
+        return yield this.sendToAsync(instance, "getServerTVProgram", __spreadValues({
           date: dataname,
           channelfilter
-        });
+        }, tvprogram_oid ? { tvprogram_oid } : {}));
       });
     },
     getFavoritesData: function(instance, favorites = [], callback) {
@@ -5825,12 +6026,12 @@
       });
     },
     getFavoritesDataAsync: function(_0) {
-      return __async(this, arguments, function* (instance, favorites = [], channelfilter) {
+      return __async(this, arguments, function* (instance, favorites = [], channelfilter, tvprogram_oid) {
         console.log(`getFavoritesData request ${instance}.favorites`);
-        return yield this.sendToAsync(instance, "getFavoritesData", {
+        return yield this.sendToAsync(instance, "getFavoritesData", __spreadValues({
           favorites,
           channelfilter
-        });
+        }, tvprogram_oid ? { tvprogram_oid } : {}));
       });
     },
     getServerInfo: function(instance, callback) {
@@ -5842,10 +6043,10 @@
         }
       });
     },
-    getServerInfoAsync: function(instance) {
+    getServerInfoAsync: function(instance, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log("getServerInfo request ");
-        return yield this.sendToAsync(instance, "getServerInfo", {});
+        return yield this.sendToAsync(instance, "getServerInfo", { tvprogram_oid });
       });
     },
     getServerBroadcastNow: function(instance, channelfilter, callback) {
@@ -5872,10 +6073,15 @@
         return yield this.sendToAsync(instance, "getServerBroadcastNow", channelfilter);
       });
     },
-    getServerBroadcastRangeAsync: function(instance, channelfilter, startdate, enddate) {
+    getServerBroadcastRangeAsync: function(instance, channelfilter, startdate, enddate, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log("getServerBroadcastRange request ");
-        return yield this.sendToAsync(instance, "getServerBroadcastRange", { channelfilter, startdate, enddate });
+        return yield this.sendToAsync(instance, "getServerBroadcastRange", {
+          channelfilter,
+          startdate,
+          enddate,
+          tvprogram_oid
+        });
       });
     },
     getServerBroadcastDate: function(instance, channelfilter, date, callback) {
@@ -5949,46 +6155,70 @@
     },
     sendToAsync: function(instance, command, sendData) {
       return __async(this, null, function* () {
-        console.log(`sendToAsync ${command} ${sendData}`);
+        console.log(`sendToAsync ${command} ${sendData.dataname || sendData.date}`);
         return new Promise((resolve, reject) => {
+          const tv = (sendData == null ? void 0 : sendData.tvprogram_oid) || "";
+          const detail = (sendData == null ? void 0 : sendData.dataname) || (sendData == null ? void 0 : sendData.date) || "";
+          const request = [instance, command, tv, detail].filter(Boolean).join(" | ");
+          let finished = false;
+          const timeout = globalThis.setTimeout(() => {
+            if (finished) {
+              return;
+            }
+            finished = true;
+            const error = new Error(`Request timed out after ${this.requestTimeoutMs} ms`);
+            console.error(`[tvprogram] Data request timeout: ${request}`, error);
+            reject(error);
+          }, this.requestTimeoutMs);
           try {
             vis.conn.sendTo(instance, command, sendData, function(receiveData) {
+              if (finished) {
+                return;
+              }
+              finished = true;
+              globalThis.clearTimeout(timeout);
+              if (receiveData === void 0 || receiveData === null || receiveData === "error" || receiveData === "error1" || receiveData === "nodata") {
+                console.error(`[tvprogram] Data request failed: ${request}; response:`, receiveData);
+              }
               resolve(receiveData);
             });
           } catch (error) {
+            finished = true;
+            globalThis.clearTimeout(timeout);
+            console.error(`[tvprogram] Data request failed: ${request}`, error);
             reject(error);
           }
         });
       });
     },
-    loadServerInfosAsync: function(instance) {
+    loadServerInfosAsync: function(instance, tvprogram_oid) {
       return __async(this, null, function* () {
         this.infos = [];
-        return yield this.getServerInfoAsync(instance);
+        return yield this.getServerInfoAsync(instance, tvprogram_oid);
       });
     },
-    loadCategories: function(instance, widgetID) {
+    loadCategories: function(instance, widgetID, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log("loadCategories");
-        return yield this.getServerDataAsync(instance, widgetID, "categories");
+        return yield this.getServerDataAsync(instance, widgetID, "categories", tvprogram_oid);
       });
     },
-    loadChannels: function(instance, widgetID) {
+    loadChannels: function(instance, widgetID, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log("loadChannels");
-        return yield this.getServerDataAsync(instance, widgetID, "channels");
+        return yield this.getServerDataAsync(instance, widgetID, "channels", tvprogram_oid);
       });
     },
-    loadGenres: function(instance, widgetID) {
+    loadGenres: function(instance, widgetID, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log("loadGenres");
-        return yield this.getServerDataAsync(instance, widgetID, "genres");
+        return yield this.getServerDataAsync(instance, widgetID, "genres", tvprogram_oid);
       });
     },
-    loadProgram: function(instance, widgetID, datestring, channelfilter) {
+    loadProgram: function(instance, widgetID, datestring, channelfilter, tvprogram_oid) {
       return __async(this, null, function* () {
         console.log(`loadProgram ${datestring}`);
-        return yield this.getServerTVProgramAsync(instance, widgetID, datestring, channelfilter);
+        return yield this.getServerTVProgramAsync(instance, widgetID, datestring, channelfilter, tvprogram_oid);
       });
     },
     calcDate: function(datum) {

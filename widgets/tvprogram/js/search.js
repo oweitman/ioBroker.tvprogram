@@ -1,9 +1,12 @@
 /* global vis, $ */
+import { translateWidget } from './widget-i18n.js';
+
 export default {
     visTvprogram: null,
     bound: {},
     searchdata: [],
     searchresult: [],
+    sourceRevision: {},
     createWidget: async function (widgetID, view, data, style) {
         const $div = $(`#${widgetID}`);
         // if nothing found => wait
@@ -22,6 +25,8 @@ export default {
         if (!tvprogram_oid && !instance) {
             return;
         }
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
+        const translate = name => translateWidget(`tvprogram_search_${name}`, navigator.language);
 
         const backgroundColor = this.visTvprogram.realBackgroundColor($(`#${widgetID}`)[0]);
         if (this.visTvprogram.checkStyle('background-color', $(`#${widgetID}`)[0].style.cssText) == '') {
@@ -65,29 +70,33 @@ export default {
         }
 
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-            if (!vis.editMode) {
-                this.bound[tvprogram_oid][widgetID] = true;
-                vis.binds['tvprogram'].bindStates(
-                    $div,
-                    [
-                        `${tvprogram_oid}.config`,
-                        `${tvprogram_oid}.favorites`,
-                        `${tvprogram_oid}.channelfilter`,
-                        `${tvprogram_oid}.optchnlogopath`,
-                    ],
-                    this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
-                );
-            }
+            this.bound[tvprogram_oid][widgetID] = true;
+            vis.binds['tvprogram'].bindStates(
+                $div,
+                [
+                    `${tvprogram_oid}.config`,
+                    `${tvprogram_oid}.favorites`,
+                    `${tvprogram_oid}.channelfilter`,
+                    `${tvprogram_oid}.cmd`,
+                    `${tvprogram_oid}.optchnlogopath`,
+                ],
+                this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
+            );
         }
-        if (!this.visTvprogram.infos) {
-            this.visTvprogram.infos = await this.visTvprogram.loadServerInfosAsync(instance);
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        if (!sourceData.infos) {
+            sourceData.infos = await this.visTvprogram.loadServerInfosAsync(instance, tvprogram_oid);
         }
-        if (!this.visTvprogram.categories) {
-            this.visTvprogram.categories = await this.visTvprogram.loadCategories(instance, widgetID);
+        if (!sourceData.categories) {
+            sourceData.categories = await this.visTvprogram.loadCategories(instance, widgetID, tvprogram_oid);
         }
-        if (!this.visTvprogram.channels) {
-            this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
+        if (!sourceData.channels) {
+            sourceData.channels = await this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid);
         }
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
 
         if (
             this.visTvprogram.infos == null ||
@@ -109,7 +118,7 @@ export default {
         );
         categoriesoptions = `<option value="" ${
             this.searchdata[tvprogram_oid][widgetID].categoryfilter == '' ? ' selected' : ''
-        }></option>${categoriesoptions}`;
+        }>${translate('all_categories')}</option>${categoriesoptions}`;
 
         $(`#${widgetID}broadcastdlg`).data({
             dialogwidthpercent: dialogwidthpercent,
@@ -172,14 +181,14 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .channel {\n`;
-        text += `   width: ${chnanneliconwidth}px; \n`;
-        text += `   height: ${heightrow}px; \n`;
+        text += `   width: ${chnanneliconwidth}px;\n`;
+        text += `   height: ${heightrow}px;\n`;
         //text += '   padding: 1px; \n';
         text += '   display: inline-flex; \n';
         text += '   align-items: center; \n';
         text += '   justify-content: center; \n';
         text += '   border-width: 0px; \n';
-        text += `   background-color: ${backgroundColor}; \n`;
+        text += `   background-color: ${backgroundColor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .channel-logo {\n`;
@@ -192,9 +201,9 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcast {\n`;
-        text += `   height: ${heightrow}px; \n`;
+        text += `   height: ${heightrow}px;\n`;
         text += '   padding: 3px; \n';
-        text += `   font-size: ${broadcastfontpercent}%; \n`;
+        text += `   font-size: ${broadcastfontpercent}%;\n`;
         text += '   overflow: hidden; \n';
         text += '   width: 100%; \n';
         text += '} \n';
@@ -218,15 +227,15 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected .star svg path {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .broadcastimage {\n`;
-        text += `   height: ${heightrow - 7}px; \n`;
+        text += `   height: ${heightrow - 7}px;\n`;
         text += '   padding-right: 3px; \n';
         text += '   float: left; \n';
         text += '} \n';
@@ -306,7 +315,7 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += '</style> \n';
@@ -329,24 +338,24 @@ export default {
         text += `  <form data-instance="${instance}" data-dp="${tvprogram_oid}" data-widgetid="${
             widgetID
         }" data-maxresults="${maxresults}" >`;
-        text += '    <label for="tvsearch">Search:';
+        text += `    <label for="tvsearch">${translate('search')}:`;
         text += `      <input name="tvsearch" type="text" id="tvsearch" value="${
             this.searchdata[tvprogram_oid][widgetID].textfilter
-        }" placeholder="Search">`;
+        }" placeholder="${translate('search')}">`;
         text += '    </label>';
-        text += '    <label for="tvfrom">From:';
+        text += `    <label for="tvfrom">${translate('from')}:`;
         text += `      <input name="tvfrom" autocomplete="off"  type="date" id="tvfrom" min="${
             this.visTvprogram.infos.tvprogram[0]
         }" max="${this.visTvprogram.infos.tvprogram[this.visTvprogram.infos.tvprogram.length - 1]}" value="${
             this.searchdata[tvprogram_oid][widgetID].datefrom
         }">`;
         text += '    </label>';
-        text += '    <label for="tvcategory">Category:';
+        text += `    <label for="tvcategory">${translate('category')}:`;
         text += '      <select name="tvcategory" id="tvcategory" >';
         text += categoriesoptions;
         text += '      </select>';
         text += '    </label>';
-        text += '  <button>Search</Search>';
+        text += `  <button type="submit">${translate('search')}</button>`;
         text += '  </form>';
 
         $(`#${widgetID} .tv-form`).html(text);
@@ -360,17 +369,20 @@ export default {
                 return;
             }
             const channel = this.visTvprogram.channels.find(ch => ch.id == event.channel);
+            if (!channel) {
+                return;
+            }
             favhighlight = favorites.indexOf(event.title) > -1;
             viewdate = event.airDate;
             text += '    <ul class="tv-row">';
             text += '       <li class="tv-item channel">';
             text += `          <img loading="lazy" decoding="async"
-                                        data-instance="${instance}" 
-                                        data-channelid="${channel.channelId}" 
-                                        data-dp="${tvprogram_oid}" 
-                                        data-instance="${instance}" 
+                                        data-instance="${instance}"
+                                        data-channelid="${channel.channelId}"
+                                        data-dp="${tvprogram_oid}"
+                                        data-instance="${instance}"
                                         src="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
-                                        alt="" class="channel-logo"  
+                                        alt="" class="channel-logo"
                                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
             text += '       </li>';
             text += '       <li class="tv-item broadcast">';
@@ -415,6 +427,7 @@ export default {
         const el = evt.target;
         const instance = el.dataset.instance || '';
         const tvprogram_oid = el.dataset.dp || '';
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
         evt.preventDefault();
         const isearch = $(el).find('[name="tvsearch"]').val();
         const icategory = $(el).find('[name="tvcategory"]').val();
@@ -465,11 +478,18 @@ export default {
             categoryfilter: icategory == '' ? [] : [parseInt(icategory)],
             textfilter: isearch,
             maxresults: this.searchdata[tvprogram_oid][widgetID].maxresults,
+            tvprogram_oid,
         };
         if (isearch == '' && icategory == '') {
             return false;
         }
-        this.searchresult[tvprogram_oid][widgetID] = await this.visTvprogram.getServerBroadcastFindAsync(instance, obj);
+        const result = await this.visTvprogram.getServerBroadcastFindAsync(instance, obj);
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return false;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
+        this.searchresult[tvprogram_oid] ||= {};
+        this.searchresult[tvprogram_oid][widgetID] = result;
         this.createWidget(widgetID, view, data, style);
     },
     parseDatestring: function (datestring) {
@@ -479,6 +499,15 @@ export default {
     },
     onChange: function (widgetID, view, data, style, tvprogram_oid, e, newVal) {
         const dp = e.type.split('.');
+        if (dp[3] == 'cmd' && dp[4] == 'val' && newVal?.split('|')[1] == 'source') {
+            const sourceIdentity = newVal.split('|')[2];
+            this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+            this.visTvprogram.invalidateSourceData(tvprogram_oid, sourceIdentity, newVal.split('|')[3]);
+            delete this.searchresult[tvprogram_oid];
+            delete this.searchdata[tvprogram_oid];
+            this.createWidget(widgetID, view, data, style);
+            return;
+        }
         if (
             (dp[3] == 'config' ||
                 dp[3] == 'favorites' ||

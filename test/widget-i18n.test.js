@@ -44,4 +44,21 @@ describe('Widget translations bundle', () => {
         expect(bundle).not.to.include('widgets/tvprogram/myi18n/translations.json');
         expect(bundle).to.include('tvprogram_channel_dialog_title');
     });
+
+    it('contains every search form text in every widget language', () => {
+        const translations = JSON.parse(fs.readFileSync(path.join(widgetRoot, 'myi18n', 'translations.json'), 'utf8'));
+        const languages = Object.keys(translations.tvprogram_oid).sort();
+
+        for (const name of ['search', 'from', 'category', 'all_categories']) {
+            const values = translations[`tvprogram_search_${name}`];
+            expect(values, name).to.be.an('object');
+            expect(Object.keys(values).sort(), name).to.deep.equal(languages);
+            expect(Object.values(values).every(Boolean), name).to.equal(true);
+        }
+
+        const source = fs.readFileSync(path.join(widgetRoot, 'js', 'search.js'), 'utf8');
+        expect(source).not.to.include('>Search:');
+        expect(source).not.to.include('>From:');
+        expect(source).not.to.include('>Category:');
+    });
 });

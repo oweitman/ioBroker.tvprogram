@@ -91,5 +91,8 @@
   "Uruguay": "Уругвай",
   "Venezuela": "Венесуэла",
   "Zimbabwe": "Зимбабве",
-  "IPTV-EPG.org": "IPTV-EPG.org"
+  "IPTV-EPG.org": "IPTV-EPG.org",
+  "TV name": "Название телевизора",
+  "Data point": "Точка данных",
+  "TV names must result in unique data points": "Названия телевизоров должны создавать уникальные точки данных"
 }

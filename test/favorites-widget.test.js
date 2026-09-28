@@ -9,6 +9,7 @@ describe('Favorites widget', () => {
         const originalJQuery = global.$;
         let markup = '';
         let requests = 0;
+        let boundStates;
         const now = Date.now();
         const event = title => ({
             id: requests,
@@ -27,6 +28,7 @@ describe('Favorites widget', () => {
             },
         };
         global.$ = () => fakeJQuery;
+        const sourceData = {};
         global.vis = {
             editMode: true,
             language: 'en',
@@ -34,10 +36,17 @@ describe('Favorites widget', () => {
                 tvprogram: {
                     getTvprogramId: () => 'tvprogram.0.tv1',
                     getInstance: () => 'tvprogram.0',
+                    bindStates: (_element, states) => {
+                        boundStates = states;
+                    },
                     realBackgroundColor: () => '#fff',
                     checkStyle: () => '',
                     getConfigFavorites: () => ['News'],
                     channels: null,
+                    useSourceData: function () {
+                        this.channels = sourceData.channels;
+                        return sourceData;
+                    },
                     loadChannels: async () => [{ id: 1, channelId: 'test', name: 'Test' }],
                     getFavoritesDataAsync: async () => [event(++requests === 1 ? 'First' : 'Updated')],
                     getChannelLogo: () => '/test.png',
@@ -49,6 +58,7 @@ describe('Favorites widget', () => {
             await widget.createWidget('fav1', '', { tvprogram_oid: 'tvprogram.0.tv1' }, {});
             expect(markup).to.include('First');
             expect(markup).to.include('/test.png');
+            expect(boundStates).to.include('tvprogram.0.tv1.cmd');
             await widget.createWidget('fav1', '', { tvprogram_oid: 'tvprogram.0.tv1' }, {});
             expect(markup).to.include('Updated');
             expect(markup).not.to.include('First');
@@ -86,6 +96,7 @@ describe('Favorites widget', () => {
             },
         };
         global.$ = () => fakeJQuery;
+        const sourceData = { channels: events.map(event => ({ id: event.channel })) };
         global.vis = {
             editMode: false,
             language: 'en',
@@ -101,6 +112,10 @@ describe('Favorites widget', () => {
                     getConfigFavorites: () => ['News'],
                     getConfigChannelfilter: () => selection,
                     channels: events.map(event => ({ id: event.channel })),
+                    useSourceData: function () {
+                        this.channels = sourceData.channels;
+                        return sourceData;
+                    },
                     getFavoritesDataAsync: async () => events,
                     getChannelLogo: () => '',
                     compareDate: () => false,

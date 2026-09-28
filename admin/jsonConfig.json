@@ -9,117 +9,410 @@
       "type": "panel",
       "label": "Settings",
       "items": {
-        "source": {
-          "type": "select",
-          "label": "Programme source",
-          "options": [
-            { "label": "TV für alle", "value": "tvfueralle" },
-            { "label": "IPTV-EPG.org", "value": "iptv-epg" }
-          ],
-          "default": "tvfueralle",
+        "tvconfigs": {
+          "type": "table",
+          "label": "TV configurations",
           "xs": 12,
           "sm": 12,
-          "md": 6,
-          "lg": 4,
-          "xl": 4
-        },
-        "country": {
-          "type": "select",
-          "label": "IPTV-EPG country",
+          "md": 10,
+          "lg": 8,
+          "xl": 8,
+          "allowAddByFilter": false,
+          "uniqueColumns": ["name"],
           "newLine": true,
-          "hidden": "data.source !== 'iptv-epg'",
-          "options": [
-            { "label": "Albania", "value": "AL" },
-            { "label": "Argentina", "value": "AR" },
-            { "label": "Armenia", "value": "AM" },
-            { "label": "Australia", "value": "AU" },
-            { "label": "Austria", "value": "AT" },
-            { "label": "Bahamas", "value": "BS" },
-            { "label": "Belarus", "value": "BY" },
-            { "label": "Belgium", "value": "BE" },
-            { "label": "Bolivia", "value": "BO" },
-            { "label": "Bosnia and Herzegovina", "value": "BA" },
-            { "label": "Brazil", "value": "BR" },
-            { "label": "Bulgaria", "value": "BG" },
-            { "label": "Canada", "value": "CA" },
-            { "label": "Chile", "value": "CL" },
-            { "label": "Colombia", "value": "CO" },
-            { "label": "Costa Rica", "value": "CR" },
-            { "label": "Croatia", "value": "HR" },
-            { "label": "Curacao", "value": "CW" },
-            { "label": "Czech Republic", "value": "CZ" },
-            { "label": "Denmark", "value": "DK" },
-            { "label": "Dominican Republic", "value": "DO" },
-            { "label": "Ecuador", "value": "EC" },
-            { "label": "Egypt", "value": "EG" },
-            { "label": "El Salvador", "value": "SV" },
-            { "label": "Finland", "value": "FI" },
-            { "label": "France", "value": "FR" },
-            { "label": "Georgia", "value": "GE" },
-            { "label": "Germany", "value": "DE" },
-            { "label": "Ghana", "value": "GH" },
-            { "label": "Greece", "value": "GR" },
-            { "label": "Guatemala", "value": "GT" },
-            { "label": "Honduras", "value": "HN" },
-            { "label": "Hong Kong", "value": "HK" },
-            { "label": "Hungary", "value": "HU" },
-            { "label": "Iceland", "value": "IS" },
-            { "label": "India", "value": "IN" },
-            { "label": "Indonesia", "value": "ID" },
-            { "label": "Israel", "value": "IL" },
-            { "label": "Italy", "value": "IT" },
-            { "label": "Jamaica", "value": "JM" },
-            { "label": "Japan", "value": "JP" },
-            { "label": "Latvia", "value": "LV" },
-            { "label": "Lithuania", "value": "LT" },
-            { "label": "Luxembourg", "value": "LU" },
-            { "label": "Malaysia", "value": "MY" },
-            { "label": "Malta", "value": "MT" },
-            { "label": "Mexico", "value": "MX" },
-            { "label": "Montenegro", "value": "ME" },
-            { "label": "Netherlands", "value": "NL" },
-            { "label": "New Zealand", "value": "NZ" },
-            { "label": "Nicaragua", "value": "NI" },
-            { "label": "Nigeria", "value": "NG" },
-            { "label": "Norway", "value": "NO" },
-            { "label": "Panama", "value": "PA" },
-            { "label": "Paraguay", "value": "PY" },
-            { "label": "Peru", "value": "PE" },
-            { "label": "Poland", "value": "PL" },
-            { "label": "Portugal", "value": "PT" },
-            { "label": "Romania", "value": "RO" },
-            { "label": "Russia", "value": "RU" },
-            { "label": "Serbia", "value": "RS" },
-            { "label": "Singapore", "value": "SG" },
-            { "label": "South Africa", "value": "ZA" },
-            { "label": "South Korea", "value": "KR" },
-            { "label": "Spain", "value": "ES" },
-            { "label": "Sweden", "value": "SE" },
-            { "label": "Switzerland", "value": "CH" },
-            { "label": "Taiwan", "value": "TW" },
-            { "label": "Thailand", "value": "TH" },
-            { "label": "Trinidad and Tobago", "value": "TT" },
-            { "label": "Turkey", "value": "TR" },
-            { "label": "Uganda", "value": "UG" },
-            { "label": "Ukraine", "value": "UA" },
-            { "label": "United Kingdom", "value": "GB" },
-            { "label": "United States", "value": "US" },
-            { "label": "Uruguay", "value": "UY" },
-            { "label": "Venezuela", "value": "VE" },
-            { "label": "Zimbabwe", "value": "ZW" }
+          "useCardFor": ["xs", "sm", "md", "lg", "xl"],
+          "titleAttribute": "datapoint",
+          "items": [
+            {
+              "type": "text",
+              "attr": "datapoint",
+              "readOnly": true,
+              "title": "Data point",
+              "defaultFunc": "''",
+              "onChange": {
+                "alsoDependsOn": ["name"],
+                "calculateFunc": "data.datapoint || String(data.name || '').trim().toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]/g, '')"
+              },
+              "xs": 12,
+              "sm": 6,
+              "md": 8,
+              "lg": 8,
+              "xl": 8
+            },
+            {
+              "type": "text",
+              "attr": "name",
+              "title": "TV name",
+              "default": "",
+              "validator": "const clean = value => String(value || '').trim().toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]/g, ''); const id = data.datapoint || clean(data.name); return !!String(data.name || '').trim() && !!id && globalData.tvconfigs.filter(entry => (entry.datapoint || clean(entry.name)) === id).length === 1",
+              "validatorErrorText": "TV names must result in unique data points",
+              "xs": 12,
+              "sm": 6,
+              "md": 8,
+              "lg": 8,
+              "xl": 8
+            },
+            {
+              "type": "select",
+              "title": "Programme source",
+              "options": [
+                {
+                  "label": "TV für alle",
+                  "value": "tvfueralle"
+                },
+                {
+                  "label": "IPTV-EPG.org",
+                  "value": "iptv-epg"
+                }
+              ],
+              "default": "tvfueralle",
+              "xs": 12,
+              "sm": 6,
+              "md": 8,
+              "lg": 8,
+              "xl": 8,
+              "attr": "source"
+            },
+            {
+              "type": "select",
+              "title": "IPTV-EPG country",
+              "xs": 12,
+              "sm": 6,
+              "md": 8,
+              "lg": 8,
+              "xl": 8,
+              "default": "DE",
+              "attr": "country",
+              "hidden": "data.source !== 'iptv-epg'",
+              "options": [
+                {
+                  "label": "Albania",
+                  "value": "AL"
+                },
+                {
+                  "label": "Argentina",
+                  "value": "AR"
+                },
+                {
+                  "label": "Armenia",
+                  "value": "AM"
+                },
+                {
+                  "label": "Australia",
+                  "value": "AU"
+                },
+                {
+                  "label": "Austria",
+                  "value": "AT"
+                },
+                {
+                  "label": "Bahamas",
+                  "value": "BS"
+                },
+                {
+                  "label": "Belarus",
+                  "value": "BY"
+                },
+                {
+                  "label": "Belgium",
+                  "value": "BE"
+                },
+                {
+                  "label": "Bolivia",
+                  "value": "BO"
+                },
+                {
+                  "label": "Bosnia and Herzegovina",
+                  "value": "BA"
+                },
+                {
+                  "label": "Brazil",
+                  "value": "BR"
+                },
+                {
+                  "label": "Bulgaria",
+                  "value": "BG"
+                },
+                {
+                  "label": "Canada",
+                  "value": "CA"
+                },
+                {
+                  "label": "Chile",
+                  "value": "CL"
+                },
+                {
+                  "label": "Colombia",
+                  "value": "CO"
+                },
+                {
+                  "label": "Costa Rica",
+                  "value": "CR"
+                },
+                {
+                  "label": "Croatia",
+                  "value": "HR"
+                },
+                {
+                  "label": "Curacao",
+                  "value": "CW"
+                },
+                {
+                  "label": "Czech Republic",
+                  "value": "CZ"
+                },
+                {
+                  "label": "Denmark",
+                  "value": "DK"
+                },
+                {
+                  "label": "Dominican Republic",
+                  "value": "DO"
+                },
+                {
+                  "label": "Ecuador",
+                  "value": "EC"
+                },
+                {
+                  "label": "Egypt",
+                  "value": "EG"
+                },
+                {
+                  "label": "El Salvador",
+                  "value": "SV"
+                },
+                {
+                  "label": "Finland",
+                  "value": "FI"
+                },
+                {
+                  "label": "France",
+                  "value": "FR"
+                },
+                {
+                  "label": "Georgia",
+                  "value": "GE"
+                },
+                {
+                  "label": "Germany",
+                  "value": "DE"
+                },
+                {
+                  "label": "Ghana",
+                  "value": "GH"
+                },
+                {
+                  "label": "Greece",
+                  "value": "GR"
+                },
+                {
+                  "label": "Guatemala",
+                  "value": "GT"
+                },
+                {
+                  "label": "Honduras",
+                  "value": "HN"
+                },
+                {
+                  "label": "Hong Kong",
+                  "value": "HK"
+                },
+                {
+                  "label": "Hungary",
+                  "value": "HU"
+                },
+                {
+                  "label": "Iceland",
+                  "value": "IS"
+                },
+                {
+                  "label": "India",
+                  "value": "IN"
+                },
+                {
+                  "label": "Indonesia",
+                  "value": "ID"
+                },
+                {
+                  "label": "Israel",
+                  "value": "IL"
+                },
+                {
+                  "label": "Italy",
+                  "value": "IT"
+                },
+                {
+                  "label": "Jamaica",
+                  "value": "JM"
+                },
+                {
+                  "label": "Japan",
+                  "value": "JP"
+                },
+                {
+                  "label": "Latvia",
+                  "value": "LV"
+                },
+                {
+                  "label": "Lithuania",
+                  "value": "LT"
+                },
+                {
+                  "label": "Luxembourg",
+                  "value": "LU"
+                },
+                {
+                  "label": "Malaysia",
+                  "value": "MY"
+                },
+                {
+                  "label": "Malta",
+                  "value": "MT"
+                },
+                {
+                  "label": "Mexico",
+                  "value": "MX"
+                },
+                {
+                  "label": "Montenegro",
+                  "value": "ME"
+                },
+                {
+                  "label": "Netherlands",
+                  "value": "NL"
+                },
+                {
+                  "label": "New Zealand",
+                  "value": "NZ"
+                },
+                {
+                  "label": "Nicaragua",
+                  "value": "NI"
+                },
+                {
+                  "label": "Nigeria",
+                  "value": "NG"
+                },
+                {
+                  "label": "Norway",
+                  "value": "NO"
+                },
+                {
+                  "label": "Panama",
+                  "value": "PA"
+                },
+                {
+                  "label": "Paraguay",
+                  "value": "PY"
+                },
+                {
+                  "label": "Peru",
+                  "value": "PE"
+                },
+                {
+                  "label": "Poland",
+                  "value": "PL"
+                },
+                {
+                  "label": "Portugal",
+                  "value": "PT"
+                },
+                {
+                  "label": "Romania",
+                  "value": "RO"
+                },
+                {
+                  "label": "Russia",
+                  "value": "RU"
+                },
+                {
+                  "label": "Serbia",
+                  "value": "RS"
+                },
+                {
+                  "label": "Singapore",
+                  "value": "SG"
+                },
+                {
+                  "label": "South Africa",
+                  "value": "ZA"
+                },
+                {
+                  "label": "South Korea",
+                  "value": "KR"
+                },
+                {
+                  "label": "Spain",
+                  "value": "ES"
+                },
+                {
+                  "label": "Sweden",
+                  "value": "SE"
+                },
+                {
+                  "label": "Switzerland",
+                  "value": "CH"
+                },
+                {
+                  "label": "Taiwan",
+                  "value": "TW"
+                },
+                {
+                  "label": "Thailand",
+                  "value": "TH"
+                },
+                {
+                  "label": "Trinidad and Tobago",
+                  "value": "TT"
+                },
+                {
+                  "label": "Turkey",
+                  "value": "TR"
+                },
+                {
+                  "label": "Uganda",
+                  "value": "UG"
+                },
+                {
+                  "label": "Ukraine",
+                  "value": "UA"
+                },
+                {
+                  "label": "United Kingdom",
+                  "value": "GB"
+                },
+                {
+                  "label": "United States",
+                  "value": "US"
+                },
+                {
+                  "label": "Uruguay",
+                  "value": "UY"
+                },
+                {
+                  "label": "Venezuela",
+                  "value": "VE"
+                },
+                {
+                  "label": "Zimbabwe",
+                  "value": "ZW"
+                }
+              ]
+            }
           ],
-          "default": "DE",
-          "xs": 12,
-          "sm": 12,
-          "md": 6,
-          "lg": 4,
-          "xl": 4
+          "default": [
+            {
+              "datapoint": "tv1",
+              "name": "TV 1",
+              "source": "tvfueralle",
+              "country": "DE"
+            }
+          ]
         },
         "loadTime": {
           "type": "text",
           "label": "IPTV-EPG download time (HH:mm, plus 0–60 minutes)",
           "newLine": true,
-          "hidden": "data.source !== 'iptv-epg'",
           "validator": "!data.loadTime || /^([01]\\d|2[0-3]):[0-5]\\d$/.test(data.loadTime)",
           "default": "03:30",
           "xs": 12,
@@ -127,18 +420,6 @@
           "md": 6,
           "lg": 4,
           "xl": 4
-        },
-        "tvcount": {
-          "type": "number",
-          "newLine": true,
-          "min": 1,
-          "xs": 12,
-          "sm": 12,
-          "md": 6,
-          "lg": 4,
-          "xl": 4,
-          "default": 1,
-          "label": "TV configurations"
         }
       }
     }

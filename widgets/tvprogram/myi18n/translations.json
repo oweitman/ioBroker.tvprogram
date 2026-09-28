@@ -264,5 +264,17 @@
         "pl": "Maksymalne wyniki",
         "uk": "Максимальний результат",
         "zh-cn": "Max. results"
+    },
+    "tvprogram_search_search": {
+        "en": "Search", "de": "Suchen", "ru": "Поиск", "pt": "Pesquisar", "nl": "Zoeken", "fr": "Rechercher", "it": "Cerca", "es": "Buscar", "pl": "Szukaj", "uk": "Пошук", "zh-cn": "搜索"
+    },
+    "tvprogram_search_from": {
+        "en": "From", "de": "Ab", "ru": "Начиная с", "pt": "A partir de", "nl": "Vanaf", "fr": "À partir du", "it": "A partire da", "es": "Desde", "pl": "Od", "uk": "Починаючи з", "zh-cn": "开始日期"
+    },
+    "tvprogram_search_category": {
+        "en": "Category", "de": "Kategorie", "ru": "Категория", "pt": "Categoria", "nl": "Categorie", "fr": "Catégorie", "it": "Categoria", "es": "Categoría", "pl": "Kategoria", "uk": "Категорія", "zh-cn": "类别"
+    },
+    "tvprogram_search_all_categories": {
+        "en": "All categories", "de": "Alle Kategorien", "ru": "Все категории", "pt": "Todas as categorias", "nl": "Alle categorieën", "fr": "Toutes les catégories", "it": "Tutte le categorie", "es": "Todas las categorías", "pl": "Wszystkie kategorie", "uk": "Усі категорії", "zh-cn": "所有类别"
     }
 }

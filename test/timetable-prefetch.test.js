@@ -3,6 +3,73 @@
 const { expect } = require('chai');
 
 describe('Timetable day preloading', () => {
+    it('skips programme rows whose channel is not part of the active source', async () => {
+        const timetable = (await import('../widgets/tvprogram/js/time1.js')).default;
+        timetable.visTvprogram = { channels: [] };
+
+        const result = timetable.getBroadcasts4Channel(
+            { channel: 42, events: [{ title: 'Stale programme' }] },
+            'widget1',
+            'view1',
+            '2026-09-28',
+            'tvprogram.0.tv1',
+            'tvprogram.0',
+        );
+
+        expect(result).to.deep.equal([]);
+    });
+
+    it('reloads the changed TV source and retains caches of other TVs', async () => {
+        const timetable = (await import('../widgets/tvprogram/js/time1.js')).default;
+        const originalWindow = global.window;
+        const invalidated = [];
+        const originalCreateWidget = timetable.createWidget;
+        timetable.tvprogram = {
+            'tvprogram.0.tv1:tvprogram.0:2026-09-28:1': [{ title: 'Old source' }],
+            'tvprogram.0.tv2:tvprogram.0:2026-09-28:2': [{ title: 'Other TV' }],
+        };
+        timetable.pending = {
+            'tvprogram.0.tv1:tvprogram.0:2026-09-29:1': { promise: Promise.resolve([]), epoch: 0 },
+        };
+        timetable.cacheEpoch = {
+            'tvprogram.0.tv1:tvprogram.0:2026-09-29:1': 0,
+        };
+        timetable.visTvprogram = {
+            invalidateSourceData: oid => invalidated.push(oid),
+            getInstanceInfo: () => ['tvprogram.0', 'tvprogram.0.tv1'],
+        };
+        timetable.prefetchSchedule = {};
+        timetable.sourceRevision = { 'tvprogram.0.tv1': 4 };
+        global.window = { clearTimeout: () => {} };
+        let reloads = 0;
+        timetable.createWidget = async () => {
+            reloads++;
+        };
+
+        try {
+            await timetable.onChange(
+                'widget1',
+                'view1',
+                { tvprogram_oid: 'tvprogram.0.tv1.cmd' },
+                {},
+                'tvprogram.0',
+                { type: 'tvprogram.0.tv1.cmd.val' },
+                'new|source|iptv-epg:de',
+            );
+
+            expect(invalidated).to.deep.equal(['tvprogram.0.tv1']);
+            expect(timetable.sourceRevision['tvprogram.0.tv1']).to.equal(5);
+            expect(reloads).to.equal(1);
+            expect(timetable.tvprogram).not.to.have.property('tvprogram.0.tv1:tvprogram.0:2026-09-28:1');
+            expect(timetable.tvprogram).to.have.property('tvprogram.0.tv2:tvprogram.0:2026-09-28:2');
+            expect(timetable.pending).not.to.have.property('tvprogram.0.tv1:tvprogram.0:2026-09-29:1');
+            expect(timetable.cacheEpoch['tvprogram.0.tv1:tvprogram.0:2026-09-29:1']).to.equal(1);
+        } finally {
+            timetable.createWidget = originalCreateWidget;
+            global.window = originalWindow;
+        }
+    });
+
     it('shares an active day request and caches only current data', async () => {
         const timetable = (await import('../widgets/tvprogram/js/time1.js')).default;
         timetable.tvprogram = {};

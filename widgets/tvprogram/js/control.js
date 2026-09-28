@@ -4,6 +4,7 @@ export default {
     visTvprogram: null,
     bound: {},
     programdata: {},
+    sourceRevision: {},
 
     favorites: undefined,
     timer: {},
@@ -24,8 +25,18 @@ export default {
         if (!tvprogram_oid && !instance) {
             return;
         }
-        this.visTvprogram.categories = await this.visTvprogram.loadCategories(instance, widgetID);
-        this.visTvprogram.channels = await this.visTvprogram.loadChannels(instance, widgetID);
+        const sourceRevision = this.sourceRevision[tvprogram_oid] || 0;
+        const sourceData = this.visTvprogram.useSourceData(tvprogram_oid);
+        const [categories, channels] = await Promise.all([
+            this.visTvprogram.loadCategories(instance, widgetID, tvprogram_oid),
+            this.visTvprogram.loadChannels(instance, widgetID, tvprogram_oid),
+        ]);
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return;
+        }
+        sourceData.categories = categories;
+        sourceData.channels = channels;
+        this.visTvprogram.useSourceData(tvprogram_oid);
         if (this.visTvprogram.channels.length == 0 || this.visTvprogram.categories.length == 0) {
             return;
         }
@@ -50,12 +61,18 @@ export default {
             this.programdata[tvprogram_oid] = {};
         }
         let startDate = this.parseTime(time);
-        this.programdata[tvprogram_oid][widgetID] = await this.visTvprogram.getServerBroadcastRangeAsync(
+        const program = await this.visTvprogram.getServerBroadcastRangeAsync(
             instance,
             channelfilter,
             startDate,
             startDate,
+            tvprogram_oid,
         );
+        if ((this.sourceRevision[tvprogram_oid] || 0) !== sourceRevision) {
+            return;
+        }
+        this.visTvprogram.useSourceData(tvprogram_oid);
+        this.programdata[tvprogram_oid][widgetID] = program;
 
         if (!this.bound[tvprogram_oid]) {
             this.bound[tvprogram_oid] = {};
@@ -65,19 +82,18 @@ export default {
         }
 
         if (tvprogram_oid && !this.bound[tvprogram_oid][widgetID]) {
-            if (!vis.editMode) {
-                this.bound[tvprogram_oid][widgetID] = true;
-                vis.binds['tvprogram'].bindStates(
-                    $div,
-                    [
-                        `${tvprogram_oid}.config`,
-                        `${tvprogram_oid}.favorites`,
-                        `${tvprogram_oid}.channelfilter`,
-                        `${tvprogram_oid}.optchnlogopath`,
-                    ],
-                    this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
-                );
-            }
+            this.bound[tvprogram_oid][widgetID] = true;
+            vis.binds['tvprogram'].bindStates(
+                $div,
+                [
+                    `${tvprogram_oid}.config`,
+                    `${tvprogram_oid}.favorites`,
+                    `${tvprogram_oid}.channelfilter`,
+                    `${tvprogram_oid}.cmd`,
+                    `${tvprogram_oid}.optchnlogopath`,
+                ],
+                this.onChange.bind(this, widgetID, view, data, style, tvprogram_oid),
+            );
         }
 
         const heightrow = parseInt(data.tvprogram_heightRow) || 35;
@@ -140,14 +156,14 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .channel {\n`;
-        text += `   width: ${chnanneliconwidth}px; \n`;
-        text += `   height: ${heightrow}px; \n`;
+        text += `   width: ${chnanneliconwidth}px;\n`;
+        text += `   height: ${heightrow}px;\n`;
         //text += '   padding: 1px; \n';
         text += '   display: inline-flex; \n';
         text += '   align-items: center; \n';
         text += '   justify-content: center; \n';
         text += '   border-width: 0px; \n';
-        text += `   background-color: ${backgroundColor}; \n`;
+        text += `   background-color: ${backgroundColor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .channel-logo {\n`;
@@ -160,9 +176,9 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcast {\n`;
-        text += `   height: ${heightrow}px; \n`;
+        text += `   height: ${heightrow}px;\n`;
         text += '   padding: 3px; \n';
-        text += `   font-size: ${broadcastfontpercent}%; \n`;
+        text += `   font-size: ${broadcastfontpercent}%;\n`;
         text += '   overflow: hidden; \n';
         text += '   width: 100%; \n';
         text += '} \n';
@@ -186,11 +202,11 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected .star svg path {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += `#${widgetID} .broadcastimage {\n`;
@@ -277,7 +293,7 @@ export default {
         text += '} \n';
 
         text += `#${widgetID} .broadcastelement.selected .star svg path, #${widgetID}broadcastdlg .star.selected {\n`;
-        text += `   color: ${highlightcolor}; \n`;
+        text += `   color: ${highlightcolor};\n`;
         text += '} \n';
 
         text += '</style> \n';
@@ -303,17 +319,20 @@ export default {
             ch.events.map(event => {
                 let viewdate = event.airDate;
                 const channel = this.visTvprogram.channels.find(ch => ch.id == event.channel);
+                if (!channel) {
+                    return;
+                }
                 favhighlight = favorites.indexOf(event.title) > -1;
                 text += '    <ul class="tv-row">';
                 text += '       <li class="tv-item channel">';
                 text += `          <img loading="lazy" decoding="async"
-                        data-instance="${instance}" 
-                        data-channelid="${channel.channelId}" 
+                        data-instance="${instance}"
+                        data-channelid="${channel.channelId}"
                         data-image-id="${event.id}"
-                        data-dp="${tvprogram_oid}" 
+                        data-dp="${tvprogram_oid}"
                         data-logo-url="${this.visTvprogram.getChannelLogo(channel, tvprogram_oid)}"
-                        alt="" 
-                        class="channel-logo"  
+                        alt=""
+                        class="channel-logo"
                         onclick="vis.binds.tvprogram.onclickChannelSwitch(this,event)">`;
                 text += '       </li>';
                 text +=
@@ -388,6 +407,14 @@ export default {
     },
     onChange: function (widgetID, view, data, style, tvprogram_oid, e, newVal) {
         const dp = e.type.split('.');
+        if (dp[3] == 'cmd' && dp[4] == 'val' && newVal?.split('|')[1] == 'source') {
+            const sourceIdentity = newVal.split('|')[2];
+            this.sourceRevision[tvprogram_oid] = (this.sourceRevision[tvprogram_oid] || 0) + 1;
+            this.visTvprogram.invalidateSourceData(tvprogram_oid, sourceIdentity, newVal.split('|')[3]);
+            delete this.programdata[tvprogram_oid];
+            this.createWidget(widgetID, view, data, style);
+            return;
+        }
         if (
             (dp[3] == 'config' || dp[3] == 'favorites' || dp[3] == 'channelfilter' || dp[3] == 'show') &&
             dp[4] == 'val'
