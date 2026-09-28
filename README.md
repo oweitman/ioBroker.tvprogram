@@ -301,8 +301,7 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 6.0.0 (2026-09-28)
 
 - improve and extend translation
 - improve configuration dialog
@@ -330,12 +329,6 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
 
 - update dependencies
 - improve error handling
-
-### 4.0.2 (2026-01-27)
-
-- improve position of dialogs
-- reduce requests to data provider
-- test remove node 18,extend to node 24
 
 ## License
 

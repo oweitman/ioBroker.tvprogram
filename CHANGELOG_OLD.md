@@ -1,4 +1,10 @@
 # Older changes
+## 4.0.2 (2026-01-27)
+
+- improve position of dialogs
+- reduce requests to data provider
+- test remove node 18,extend to node 24
+
 ## 4.0.0 (2025-01-21)
 
 - Breaking Change. fix marker position with flexible width of channel logos. In each widget the property "width channel logo px" have to be set to approbiate width.

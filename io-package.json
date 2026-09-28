@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "5.0.1",
+    "version": "6.0.0",
     "news": {
       "6.0.0": {
         "en": "Improve data management and more",
@@ -121,8 +121,13 @@
       "zh-cn": "该适配器定期轮询有关电视节目的信息。",
       "uk": "Цей адаптер регулярно опитує інформацію про телевізійну програму. Дані можуть відображатися в різних віджетах"
     },
-    "authors": ["oweitman <oweitman@gmx.de>"],
-    "keywords": ["TV", "programm"],
+    "authors": [
+      "oweitman <oweitman@gmx.de>"
+    ],
+    "keywords": [
+      "TV",
+      "programm"
+    ],
     "licenseInformation": {
       "type": "free",
       "license": "MIT"
@@ -134,7 +139,10 @@
     "readme": "https://github.com/oweitman/ioBroker.tvprogram/blob/master/README.md",
     "loglevel": "info",
     "tier": 3,
-    "restartAdapters": ["vis", "vis-2"],
+    "restartAdapters": [
+      "vis",
+      "vis-2"
+    ],
     "mode": "daemon",
     "messagebox": true,
     "type": "misc-data",
