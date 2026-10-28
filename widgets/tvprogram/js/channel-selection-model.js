@@ -75,6 +75,22 @@ export function matchingChannels(channels, query) {
 }
 
 /**
+ * Limit a filtered channel list to the configured page size and clamp the requested page.
+ *
+ * @param {object[]} channels - All matching channels.
+ * @param {number} requestedPage - Zero-based page.
+ * @param {number|string} pageSize - Channels per page; invalid values default to 100.
+ * @returns {{channels: object[], page: number, pageCount: number}} Visible page.
+ */
+export function channelPage(channels, requestedPage, pageSize = 100) {
+    const size = Math.floor(Number(pageSize));
+    const limit = Number.isFinite(size) && size > 0 ? size : 100;
+    const pageCount = Math.max(1, Math.ceil(channels.length / limit));
+    const page = Math.max(0, Math.min(requestedPage, pageCount - 1));
+    return { channels: channels.slice(page * limit, (page + 1) * limit), page, pageCount };
+}
+
+/**
  * Keep a readable widget text color when the configured colors lack contrast.
  *
  * @param {string} foreground - Widget text color.

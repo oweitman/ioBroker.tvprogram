@@ -104,6 +104,19 @@
     margin-left: auto;
 }
 
+.tvp-channel-pagination {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.tvp-channel-pagination button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
 .tvp-channel-action:hover,
 .tvp-channel-sort:hover,
 .tvp-channel-toggle:hover {

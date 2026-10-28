@@ -342,7 +342,7 @@
   });
 
   // ../package.json
-  var version = "6.0.0";
+  var version = "6.1.0";
 
   // tvprogram/myi18n/translations.json
   var translations_default = {
@@ -462,6 +462,19 @@
       pl: "Pozycja znacznika od prawego %",
       uk: "\u041F\u043E\u0437\u0438\u0446\u0456\u044F \u043C\u0430\u0440\u043A\u0435\u0440\u0430 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u0443 \u0432\u0456\u0434\u0441\u043E\u0442\u043A\u0430\u0445",
       "zh-cn": "Marker position from right %"
+    },
+    tvprogram_channelpagesize: {
+      en: "Channels per page in channel selection",
+      de: "Sender pro Seite in der Senderauswahl",
+      ru: "\u041A\u0430\u043D\u0430\u043B\u043E\u0432 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435 \u0432\u044B\u0431\u043E\u0440\u0430",
+      pt: "Canais por p\xE1gina na sele\xE7\xE3o de canais",
+      nl: "Zenders per pagina in de zenderselectie",
+      fr: "Cha\xEEnes par page dans la s\xE9lection des cha\xEEnes",
+      it: "Canali per pagina nella selezione dei canali",
+      es: "Canales por p\xE1gina en la selecci\xF3n de canales",
+      pl: "Kana\u0142y na stron\u0119 w wyborze kana\u0142\xF3w",
+      uk: "\u041A\u0430\u043D\u0430\u043B\u0456\u0432 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u0446\u0456 \u0432\u0438\u0431\u043E\u0440\u0443",
+      "zh-cn": "\u9891\u9053\u9009\u62E9\u4E2D\u6BCF\u9875\u7684\u9891\u9053\u6570"
     },
     tvprogram_dialogwidthpercent: {
       en: "Dialog width %",
@@ -800,6 +813,58 @@
       pl: "Kategoria",
       uk: "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0456\u044F",
       "zh-cn": "\u7C7B\u522B"
+    },
+    tvprogram_channel_dialog_first_page: {
+      en: "First page",
+      de: "Erste Seite",
+      ru: "\u041F\u0435\u0440\u0432\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430",
+      pt: "Primeira p\xE1gina",
+      nl: "Eerste pagina",
+      fr: "Premi\xE8re page",
+      it: "Prima pagina",
+      es: "Primera p\xE1gina",
+      pl: "Pierwsza strona",
+      uk: "\u041F\u0435\u0440\u0448\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0430",
+      "zh-cn": "\u9996\u9875"
+    },
+    tvprogram_channel_dialog_previous_page: {
+      en: "Previous page",
+      de: "Vorherige Seite",
+      ru: "\u041F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430",
+      pt: "P\xE1gina anterior",
+      nl: "Vorige pagina",
+      fr: "Page pr\xE9c\xE9dente",
+      it: "Pagina precedente",
+      es: "P\xE1gina anterior",
+      pl: "Poprzednia strona",
+      uk: "\u041F\u043E\u043F\u0435\u0440\u0435\u0434\u043D\u044F \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0430",
+      "zh-cn": "\u4E0A\u4E00\u9875"
+    },
+    tvprogram_channel_dialog_next_page: {
+      en: "Next page",
+      de: "N\xE4chste Seite",
+      ru: "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430",
+      pt: "Pr\xF3xima p\xE1gina",
+      nl: "Volgende pagina",
+      fr: "Page suivante",
+      it: "Pagina successiva",
+      es: "P\xE1gina siguiente",
+      pl: "Nast\u0119pna strona",
+      uk: "\u041D\u0430\u0441\u0442\u0443\u043F\u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0430",
+      "zh-cn": "\u4E0B\u4E00\u9875"
+    },
+    tvprogram_channel_dialog_last_page: {
+      en: "Last page",
+      de: "Letzte Seite",
+      ru: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430",
+      pt: "\xDAltima p\xE1gina",
+      nl: "Laatste pagina",
+      fr: "Derni\xE8re page",
+      it: "Ultima pagina",
+      es: "\xDAltima p\xE1gina",
+      pl: "Ostatnia strona",
+      uk: "\u041E\u0441\u0442\u0430\u043D\u043D\u044F \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0430",
+      "zh-cn": "\u672B\u9875"
     },
     tvprogram_search_all_categories: {
       en: "All categories",
@@ -4213,6 +4278,13 @@
       (channel) => `${channel.name || ""} ${channel.channelId || ""}`.toLocaleLowerCase().includes(needle)
     );
   }
+  function channelPage(channels, requestedPage, pageSize = 100) {
+    const size = Math.floor(Number(pageSize));
+    const limit = Number.isFinite(size) && size > 0 ? size : 100;
+    const pageCount = Math.max(1, Math.ceil(channels.length / limit));
+    const page = Math.max(0, Math.min(requestedPage, pageCount - 1));
+    return { channels: channels.slice(page * limit, (page + 1) * limit), page, pageCount };
+  }
   function dialogTheme(foreground, background) {
     const parse = (value) => {
       const match = /rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,/\s]+([\d.]+))?\s*\)/i.exec(value || "");
@@ -4264,6 +4336,7 @@
     const byId = new Map(channels.map((channel) => [String(channel.id), channel]));
     let selectedIds = selectedOrder(channels, initialIds).map((channel) => channel.id);
     let sortMode = "native";
+    let page = 0;
     const previous = host.querySelector("dialog");
     if (previous == null ? void 0 : previous.open) {
       previous.close();
@@ -4322,7 +4395,21 @@
     const empty = document.createElement("p");
     empty.className = "tvp-channel-empty";
     empty.textContent = text.empty;
-    content.append(activeHeading, activeList, inactiveHeading, inactiveList, empty);
+    const pagination = document.createElement("div");
+    pagination.className = "tvp-channel-pagination";
+    const pageButtons = ["first_page", "previous_page", "next_page", "last_page"].map((name, index2) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "tvp-channel-action";
+      button.textContent = ["|<", "\u2212", "+", ">|"][index2];
+      button.title = translate(name);
+      button.setAttribute("aria-label", button.title);
+      return button;
+    });
+    const pageLabel = document.createElement("span");
+    pageLabel.setAttribute("aria-live", "polite");
+    pagination.append(pageButtons[0], pageButtons[1], pageLabel, pageButtons[2], pageButtons[3]);
+    content.append(activeHeading, activeList, inactiveHeading, pagination, inactiveList, empty);
     const fullscreenButton = document.createElement("button");
     fullscreenButton.type = "button";
     fullscreenButton.className = "tvp-channel-action tvp-channel-fullscreen";
@@ -4467,13 +4554,18 @@
       activeHeading.textContent = `${text.active} (${selectedIds.length})`;
       const active = matchingChannels(selectedOrder(channels, selectedIds), query);
       const inactive = matchingChannels(inactiveOrder(channels, selectedIds, sortMode, locale), query);
+      const paged = channelPage(inactive, page, options.pageSize);
+      page = paged.page;
+      pageLabel.textContent = `${page + 1} / ${paged.pageCount}`;
+      pageButtons[0].disabled = pageButtons[1].disabled = page === 0;
+      pageButtons[2].disabled = pageButtons[3].disabled = page === paged.pageCount - 1;
       inactiveHeading.textContent = `${text.inactive} (${channels.length - selectedIds.length})`;
       const activeCards = document.createDocumentFragment();
       const inactiveCards = document.createDocumentFragment();
       for (const channel of active) {
         activeCards.append(getCard(channel, true));
       }
-      for (const channel of inactive) {
+      for (const channel of paged.channels) {
         inactiveCards.append(getCard(channel, false));
       }
       activeList.replaceChildren(activeCards);
@@ -4504,9 +4596,19 @@
     };
     activeList.addEventListener("click", toggleChannel);
     inactiveList.addEventListener("click", toggleChannel);
-    search.addEventListener("input", render);
+    pageButtons.forEach(
+      (button, index2) => button.addEventListener("click", () => {
+        page = [0, page - 1, page + 1, Number.MAX_SAFE_INTEGER][index2];
+        render();
+      })
+    );
+    search.addEventListener("input", () => {
+      page = 0;
+      render();
+    });
     sortButton.addEventListener("click", () => {
       sortMode = { native: "asc", asc: "desc", desc: "native" }[sortMode];
+      page = 0;
       render();
     });
     fullscreenButton.addEventListener("click", () => {
@@ -4583,6 +4685,7 @@
             markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
             dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
             dialogheightpercent: data.tvprogram_dialogheightpercent / 100 || 0.9,
+            channelpagesize: data.tvprogram_channelpagesize,
             showpictures: data.tvprogram_showpictures || false
           };
         }
@@ -5364,6 +5467,7 @@
         onSave: (ids) => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
         widthPercent: this.measures[widgetID].dialogwidthpercent,
         heightPercent: this.measures[widgetID].dialogheightpercent,
+        pageSize: this.measures[widgetID].channelpagesize,
         background: this.visTvprogram.realBackgroundColor(widget),
         language: navigator.language
       });

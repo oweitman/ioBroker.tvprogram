@@ -7,6 +7,20 @@ const { expect } = require('chai');
 describe('Widget translations bundle', () => {
     const widgetRoot = path.join(__dirname, '..', 'widgets', 'tvprogram');
 
+    it('contains all supported languages for every translation key and keeps the English source in sync', () => {
+        const translations = JSON.parse(fs.readFileSync(path.join(widgetRoot, 'myi18n', 'translations.json'), 'utf8'));
+        const english = JSON.parse(fs.readFileSync(path.join(widgetRoot, 'myi18n', 'en.json'), 'utf8'));
+        const languages = ['en', 'de', 'ru', 'pt', 'nl', 'fr', 'it', 'es', 'pl', 'uk', 'zh-cn'].sort();
+        expect(Object.keys(english).sort()).to.deep.equal(Object.keys(translations).sort());
+        for (const [key, values] of Object.entries(translations)) {
+            expect(Object.keys(values).sort(), key).to.deep.equal(languages);
+            for (const language of languages) {
+                expect(values[language], `${key}: ${language}`).to.be.a('string').and.not.equal('');
+            }
+            expect(english[key], key).to.equal(values.en);
+        }
+    });
+
     it('contains every channel dialog text in every widget language', () => {
         const translations = JSON.parse(fs.readFileSync(path.join(widgetRoot, 'myi18n', 'translations.json'), 'utf8'));
         const languages = Object.keys(translations.tvprogram_oid);

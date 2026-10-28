@@ -116,6 +116,19 @@
         "uk": "Позиція маркера праворуч у відсотках",
         "zh-cn": "Marker position from right %"
     },
+    "tvprogram_channelpagesize": {
+        "en": "Channels per page in channel selection",
+        "de": "Sender pro Seite in der Senderauswahl",
+        "ru": "Каналов на странице выбора",
+        "pt": "Canais por página na seleção de canais",
+        "nl": "Zenders per pagina in de zenderselectie",
+        "fr": "Chaînes par page dans la sélection des chaînes",
+        "it": "Canali per pagina nella selezione dei canali",
+        "es": "Canales por página en la selección de canales",
+        "pl": "Kanały na stronę w wyborze kanałów",
+        "uk": "Каналів на сторінці вибору",
+        "zh-cn": "频道选择中每页的频道数"
+    },
     "tvprogram_dialogwidthpercent": {
         "en": "Dialog width %",
         "de": "Dialogbreite %",
@@ -273,6 +286,18 @@
     },
     "tvprogram_search_category": {
         "en": "Category", "de": "Kategorie", "ru": "Категория", "pt": "Categoria", "nl": "Categorie", "fr": "Catégorie", "it": "Categoria", "es": "Categoría", "pl": "Kategoria", "uk": "Категорія", "zh-cn": "类别"
+    },
+    "tvprogram_channel_dialog_first_page": {
+        "en": "First page", "de": "Erste Seite", "ru": "Первая страница", "pt": "Primeira página", "nl": "Eerste pagina", "fr": "Première page", "it": "Prima pagina", "es": "Primera página", "pl": "Pierwsza strona", "uk": "Перша сторінка", "zh-cn": "首页"
+    },
+    "tvprogram_channel_dialog_previous_page": {
+        "en": "Previous page", "de": "Vorherige Seite", "ru": "Предыдущая страница", "pt": "Página anterior", "nl": "Vorige pagina", "fr": "Page précédente", "it": "Pagina precedente", "es": "Página anterior", "pl": "Poprzednia strona", "uk": "Попередня сторінка", "zh-cn": "上一页"
+    },
+    "tvprogram_channel_dialog_next_page": {
+        "en": "Next page", "de": "Nächste Seite", "ru": "Следующая страница", "pt": "Próxima página", "nl": "Volgende pagina", "fr": "Page suivante", "it": "Pagina successiva", "es": "Página siguiente", "pl": "Następna strona", "uk": "Наступна сторінка", "zh-cn": "下一页"
+    },
+    "tvprogram_channel_dialog_last_page": {
+        "en": "Last page", "de": "Letzte Seite", "ru": "Последняя страница", "pt": "Última página", "nl": "Laatste pagina", "fr": "Dernière page", "it": "Ultima pagina", "es": "Última página", "pl": "Ostatnia strona", "uk": "Остання сторінка", "zh-cn": "末页"
     },
     "tvprogram_search_all_categories": {
         "en": "All categories", "de": "Alle Kategorien", "ru": "Все категории", "pt": "Todas as categorias", "nl": "Alle categorieën", "fr": "Toutes les catégories", "it": "Tutte le categorie", "es": "Todas las categorías", "pl": "Wszystkie kategorie", "uk": "Усі категорії", "zh-cn": "所有类别"

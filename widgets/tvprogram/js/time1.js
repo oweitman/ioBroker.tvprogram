@@ -50,6 +50,7 @@ export default {
                 markerpositionpercent: data.tvprogram_markerpositionpercent / 100 || 0.25,
                 dialogwidthpercent: data.tvprogram_dialogwidthpercent / 100 || 0.9,
                 dialogheightpercent: data.tvprogram_dialogheightpercent / 100 || 0.9,
+                channelpagesize: data.tvprogram_channelpagesize,
                 showpictures: data.tvprogram_showpictures || false,
             };
         }
@@ -888,6 +889,7 @@ export default {
             onSave: ids => this.visTvprogram.setConfigChannelfilter(instance, tvprogram_oid, persistedSelection(ids)),
             widthPercent: this.measures[widgetID].dialogwidthpercent,
             heightPercent: this.measures[widgetID].dialogheightpercent,
+            pageSize: this.measures[widgetID].channelpagesize,
             background: this.visTvprogram.realBackgroundColor(widget),
             language: navigator.language,
         });

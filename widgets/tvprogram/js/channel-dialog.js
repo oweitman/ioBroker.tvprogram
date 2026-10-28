@@ -1,6 +1,6 @@
 /* global document, window */
 import Sortable from 'sortablejs';
-import { dialogTheme, inactiveOrder, matchingChannels, selectedOrder } from './channel-selection-model.js';
+import { channelPage, dialogTheme, inactiveOrder, matchingChannels, selectedOrder } from './channel-selection-model.js';
 import { translateWidget } from './widget-i18n.js';
 
 /**
@@ -36,6 +36,7 @@ export function openChannelDialog(options) {
     const byId = new Map(channels.map(channel => [String(channel.id), channel]));
     let selectedIds = selectedOrder(channels, initialIds).map(channel => channel.id);
     let sortMode = 'native';
+    let page = 0;
 
     const previous = host.querySelector('dialog');
     if (previous?.open) {
@@ -98,7 +99,21 @@ export function openChannelDialog(options) {
     const empty = document.createElement('p');
     empty.className = 'tvp-channel-empty';
     empty.textContent = text.empty;
-    content.append(activeHeading, activeList, inactiveHeading, inactiveList, empty);
+    const pagination = document.createElement('div');
+    pagination.className = 'tvp-channel-pagination';
+    const pageButtons = ['first_page', 'previous_page', 'next_page', 'last_page'].map((name, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'tvp-channel-action';
+        button.textContent = ['|<', '−', '+', '>|'][index];
+        button.title = translate(name);
+        button.setAttribute('aria-label', button.title);
+        return button;
+    });
+    const pageLabel = document.createElement('span');
+    pageLabel.setAttribute('aria-live', 'polite');
+    pagination.append(pageButtons[0], pageButtons[1], pageLabel, pageButtons[2], pageButtons[3]);
+    content.append(activeHeading, activeList, inactiveHeading, pagination, inactiveList, empty);
     const fullscreenButton = document.createElement('button');
     fullscreenButton.type = 'button';
     fullscreenButton.className = 'tvp-channel-action tvp-channel-fullscreen';
@@ -248,13 +263,18 @@ export function openChannelDialog(options) {
         activeHeading.textContent = `${text.active} (${selectedIds.length})`;
         const active = matchingChannels(selectedOrder(channels, selectedIds), query);
         const inactive = matchingChannels(inactiveOrder(channels, selectedIds, sortMode, locale), query);
+        const paged = channelPage(inactive, page, options.pageSize);
+        page = paged.page;
+        pageLabel.textContent = `${page + 1} / ${paged.pageCount}`;
+        pageButtons[0].disabled = pageButtons[1].disabled = page === 0;
+        pageButtons[2].disabled = pageButtons[3].disabled = page === paged.pageCount - 1;
         inactiveHeading.textContent = `${text.inactive} (${channels.length - selectedIds.length})`;
         const activeCards = document.createDocumentFragment();
         const inactiveCards = document.createDocumentFragment();
         for (const channel of active) {
             activeCards.append(getCard(channel, true));
         }
-        for (const channel of inactive) {
+        for (const channel of paged.channels) {
             inactiveCards.append(getCard(channel, false));
         }
         activeList.replaceChildren(activeCards);
@@ -285,9 +305,19 @@ export function openChannelDialog(options) {
     };
     activeList.addEventListener('click', toggleChannel);
     inactiveList.addEventListener('click', toggleChannel);
-    search.addEventListener('input', render);
+    pageButtons.forEach((button, index) =>
+        button.addEventListener('click', () => {
+            page = [0, page - 1, page + 1, Number.MAX_SAFE_INTEGER][index];
+            render();
+        }),
+    );
+    search.addEventListener('input', () => {
+        page = 0;
+        render();
+    });
     sortButton.addEventListener('click', () => {
         sortMode = { native: 'asc', asc: 'desc', desc: 'native' }[sortMode];
+        page = 0;
         render();
     });
     fullscreenButton.addEventListener('click', () => {

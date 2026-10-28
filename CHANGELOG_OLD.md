@@ -1,4 +1,10 @@
 # Older changes
+## 4.0.4 (2026-03-27)
+
+- update dependencies
+- fix repochecker
+- tranform translation files
+
 ## 4.0.3 (2026-02-27)
 
 - update dependencies

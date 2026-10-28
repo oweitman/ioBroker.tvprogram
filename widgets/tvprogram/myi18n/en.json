@@ -8,6 +8,7 @@
     "tvprogram_broadcastfontpercent": "Broadcast font %",
     "tvprogram_highlightcolor": "Favorite color",
     "tvprogram_markerpositionpercent": "Marker position from right %",
+    "tvprogram_channelpagesize": "Channels per page in channel selection",
     "tvprogram_dialogwidthpercent": "Dialog width %",
     "tvprogram_dialogheightpercent": "Dialog height %",
     "tvprogram_channelname": "With channelname",
@@ -34,5 +35,9 @@
     "tvprogram_search_search": "Search",
     "tvprogram_search_from": "From",
     "tvprogram_search_category": "Category",
+    "tvprogram_channel_dialog_first_page": "First page",
+    "tvprogram_channel_dialog_previous_page": "Previous page",
+    "tvprogram_channel_dialog_next_page": "Next page",
+    "tvprogram_channel_dialog_last_page": "Last page",
     "tvprogram_search_all_categories": "All categories"
 }

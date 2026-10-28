@@ -35,6 +35,33 @@ describe('Timetable channel selection', () => {
         expect(persistedSelection([3, 1])).to.deep.equal([3, 1]);
     });
 
+    it('pages 100 channels at a time and clamps pages after selection changes', async () => {
+        const { channelPage } = await import('../widgets/tvprogram/js/channel-selection-model.js');
+        const all = Array.from({ length: 201 }, (_, id) => ({ id, name: `Channel ${id}` }));
+        expect(channelPage(all, 0).channels).to.deep.equal(all.slice(0, 100));
+        expect(channelPage(all, 1).channels).to.deep.equal(all.slice(100, 200));
+        expect(channelPage(all, Number.MAX_SAFE_INTEGER)).to.deep.equal({ channels: all.slice(200), page: 2, pageCount: 3 });
+        expect(channelPage(all.slice(0, 200), 2).page).to.equal(1);
+        expect(channelPage([], 4)).to.deep.equal({ channels: [], page: 0, pageCount: 1 });
+    });
+
+    it('searches the full list before paginating results', async () => {
+        const { channelPage, matchingChannels } = await import('../widgets/tvprogram/js/channel-selection-model.js');
+        const all = Array.from({ length: 250 }, (_, id) => ({ id, name: `Channel ${id}` }));
+        expect(channelPage(matchingChannels(all, 'Channel 249'), 0).channels).to.deep.equal([all[249]]);
+        expect(channelPage(matchingChannels(all, 'Channel'), 1).channels).to.have.length(100);
+    });
+
+    it('uses the configured page size and defaults invalid sizes to 100', async () => {
+        const { channelPage } = await import('../widgets/tvprogram/js/channel-selection-model.js');
+        const all = Array.from({ length: 250 }, (_, id) => ({ id }));
+        expect(channelPage(all, 1, '25')).to.deep.equal({ channels: all.slice(25, 50), page: 1, pageCount: 10 });
+        expect(channelPage(all, 0, 500).channels).to.have.length(250);
+        for (const invalid of [undefined, '', 0, -1, 'invalid', Infinity]) {
+            expect(channelPage(all, 0, invalid).channels).to.have.length(100);
+        }
+    });
+
     it('preserves readable theme colors and corrects low contrast', async () => {
         const { dialogTheme } = await import('../widgets/tvprogram/js/channel-selection-model.js');
         expect(dialogTheme('rgb(255, 255, 255)', 'rgb(0, 0, 0)').foreground).to.equal('rgb(255, 255, 255)');
