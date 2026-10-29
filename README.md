@@ -320,6 +320,11 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- fix problem with loading channel logos while paging
+
 ### 6.2.0 (2026-10-28)
 
 - Configurable paging mechanism in the channel select dialog

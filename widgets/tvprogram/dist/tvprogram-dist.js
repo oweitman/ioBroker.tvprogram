@@ -342,7 +342,7 @@
   });
 
   // ../package.json
-  var version = "6.1.0";
+  var version = "6.2.0";
 
   // tvprogram/myi18n/translations.json
   var translations_default = {
@@ -4244,6 +4244,102 @@
   Sortable.mount(Remove, Revert);
   var sortable_esm_default = Sortable;
 
+  // tvprogram/js/channel-logo-loader.js
+  function createChannelLogoLoader(root, browser) {
+    const active = /* @__PURE__ */ new Map();
+    const finished = /* @__PURE__ */ new WeakSet();
+    let queue = [];
+    let closed = false;
+    const pump = () => {
+      while (!closed && active.size < 4 && queue.length) {
+        const image = queue.shift();
+        if (!(image == null ? void 0 : image.logoRequest) || !root.contains(image) || finished.has(image) || active.has(image)) {
+          continue;
+        }
+        const { fallback, url } = image.logoRequest;
+        let retryTimer;
+        let retries = 0;
+        const release = () => {
+          browser.clearTimeout(retryTimer);
+          image.onload = image.onerror = null;
+          active.delete(image);
+        };
+        const complete = (success) => {
+          release();
+          finished.add(image);
+          image.hidden = !success;
+          fallback.hidden = success;
+          pump();
+        };
+        active.set(image, () => {
+          release();
+          image.removeAttribute("src");
+        });
+        image.onload = () => complete(true);
+        image.onerror = () => {
+          if (retries++ === 0) {
+            image.removeAttribute("src");
+            retryTimer = browser.setTimeout(() => {
+              image.src = url;
+            }, 1500);
+          } else {
+            complete(false);
+          }
+        };
+        image.src = url;
+      }
+    };
+    const observer = browser.IntersectionObserver ? new browser.IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && root.contains(entry.target)) {
+            observer == null ? void 0 : observer.unobserve(entry.target);
+            queue.push(
+              /** @type {ChannelLogo} */
+              entry.target
+            );
+          }
+        }
+        pump();
+      },
+      { root, rootMargin: "200px" }
+    ) : null;
+    return {
+      refresh() {
+        observer == null ? void 0 : observer.disconnect();
+        queue = [];
+        for (const [image, cancel] of active) {
+          if (!root.contains(image)) {
+            cancel();
+          }
+        }
+        for (
+          const image of
+          /** @type {NodeListOf<ChannelLogo>} */
+          root.querySelectorAll(".tvp-channel-logo")
+        ) {
+          if (!image.logoRequest || finished.has(image) || active.has(image)) {
+            continue;
+          }
+          if (observer) {
+            observer.observe(image);
+          } else {
+            queue.push(image);
+          }
+        }
+        pump();
+      },
+      close() {
+        closed = true;
+        observer == null ? void 0 : observer.disconnect();
+        queue = [];
+        for (const cancel of active.values()) {
+          cancel();
+        }
+      }
+    };
+  }
+
   // tvprogram/js/channel-selection-model.js
   function nativeOrder(channels) {
     return channels.map((channel, index2) => ({ channel, index: index2 })).sort((a, b) => {
@@ -4424,52 +4520,7 @@
     dialog.append(header, controls, content);
     host.append(dialog);
     const cards = /* @__PURE__ */ new Map();
-    const imageQueue = [];
-    let imageLoads = 0;
-    let closed = false;
-    const loadImages = () => {
-      while (!closed && imageLoads < 4 && imageQueue.length) {
-        const { image, fallback, url } = imageQueue.shift();
-        imageLoads++;
-        let attempts = 0;
-        const complete = (success) => {
-          if (!success) {
-            image.hidden = true;
-            fallback.hidden = false;
-          }
-          imageLoads--;
-          loadImages();
-        };
-        image.onload = () => complete(true);
-        image.onerror = () => {
-          if (++attempts === 1 && !closed) {
-            image.removeAttribute("src");
-            window.setTimeout(() => {
-              if (closed) {
-                complete(false);
-              } else {
-                image.src = url;
-              }
-            }, 1500);
-          } else {
-            complete(false);
-          }
-        };
-        image.src = url;
-      }
-    };
-    const observer = typeof window.IntersectionObserver === "undefined" ? null : new window.IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            observer.unobserve(entry.target);
-            imageQueue.push(entry.target.logoRequest);
-          }
-        }
-        loadImages();
-      },
-      { root: content, rootMargin: "200px" }
-    );
+    const logoLoader = createChannelLogoLoader(content, window);
     const makeCard = (channel, selected) => {
       const card = document.createElement("li");
       card.className = `tvp-channel-card${selected ? " is-selected" : ""}`;
@@ -4488,7 +4539,7 @@
       const image = document.createElement("img");
       image.className = "tvp-channel-logo";
       image.alt = "";
-      image.loading = "lazy";
+      image.loading = "eager";
       image.draggable = false;
       const fallback = document.createElement("span");
       fallback.className = "tvp-channel-logo-fallback";
@@ -4497,12 +4548,6 @@
       const url = getLogo(channel);
       if (url) {
         image.logoRequest = { image, fallback, url };
-        if (observer) {
-          observer.observe(image);
-        } else {
-          imageQueue.push(image.logoRequest);
-          loadImages();
-        }
       } else {
         image.hidden = true;
         fallback.hidden = false;
@@ -4570,6 +4615,7 @@
       }
       activeList.replaceChildren(activeCards);
       inactiveList.replaceChildren(inactiveCards);
+      logoLoader.refresh();
       empty.hidden = active.length + inactive.length > 0;
       updateSortButton();
     };
@@ -4623,9 +4669,7 @@
     dialog.addEventListener(
       "close",
       () => {
-        closed = true;
-        observer == null ? void 0 : observer.disconnect();
-        imageQueue.length = 0;
+        logoLoader.close();
         sortable.destroy();
         if (host.contains(dialog)) {
           dialog.remove();

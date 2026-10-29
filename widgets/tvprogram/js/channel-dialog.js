@@ -1,5 +1,6 @@
 /* global document, window */
 import Sortable from 'sortablejs';
+import { createChannelLogoLoader } from './channel-logo-loader.js';
 import { channelPage, dialogTheme, inactiveOrder, matchingChannels, selectedOrder } from './channel-selection-model.js';
 import { translateWidget } from './widget-i18n.js';
 
@@ -129,55 +130,7 @@ export function openChannelDialog(options) {
     host.append(dialog);
 
     const cards = new Map();
-    const imageQueue = [];
-    let imageLoads = 0;
-    let closed = false;
-    const loadImages = () => {
-        while (!closed && imageLoads < 4 && imageQueue.length) {
-            const { image, fallback, url } = imageQueue.shift();
-            imageLoads++;
-            let attempts = 0;
-            const complete = success => {
-                if (!success) {
-                    image.hidden = true;
-                    fallback.hidden = false;
-                }
-                imageLoads--;
-                loadImages();
-            };
-            image.onload = () => complete(true);
-            image.onerror = () => {
-                if (++attempts === 1 && !closed) {
-                    image.removeAttribute('src');
-                    window.setTimeout(() => {
-                        if (closed) {
-                            complete(false);
-                        } else {
-                            image.src = url;
-                        }
-                    }, 1500);
-                } else {
-                    complete(false);
-                }
-            };
-            image.src = url;
-        }
-    };
-    const observer =
-        typeof window.IntersectionObserver === 'undefined'
-            ? null
-            : new window.IntersectionObserver(
-                  entries => {
-                      for (const entry of entries) {
-                          if (entry.isIntersecting) {
-                              observer.unobserve(entry.target);
-                              imageQueue.push(entry.target.logoRequest);
-                          }
-                      }
-                      loadImages();
-                  },
-                  { root: content, rootMargin: '200px' },
-              );
+    const logoLoader = createChannelLogoLoader(content, window);
     const makeCard = (channel, selected) => {
         const card = document.createElement('li');
         card.className = `tvp-channel-card${selected ? ' is-selected' : ''}`;
@@ -196,7 +149,7 @@ export function openChannelDialog(options) {
         const image = document.createElement('img');
         image.className = 'tvp-channel-logo';
         image.alt = '';
-        image.loading = 'lazy';
+        image.loading = 'eager';
         image.draggable = false;
         const fallback = document.createElement('span');
         fallback.className = 'tvp-channel-logo-fallback';
@@ -205,12 +158,6 @@ export function openChannelDialog(options) {
         const url = getLogo(channel);
         if (url) {
             image.logoRequest = { image, fallback, url };
-            if (observer) {
-                observer.observe(image);
-            } else {
-                imageQueue.push(image.logoRequest);
-                loadImages();
-            }
         } else {
             image.hidden = true;
             fallback.hidden = false;
@@ -279,6 +226,7 @@ export function openChannelDialog(options) {
         }
         activeList.replaceChildren(activeCards);
         inactiveList.replaceChildren(inactiveCards);
+        logoLoader.refresh();
         empty.hidden = active.length + inactive.length > 0;
         updateSortButton();
     };
@@ -332,9 +280,7 @@ export function openChannelDialog(options) {
     dialog.addEventListener(
         'close',
         () => {
-            closed = true;
-            observer?.disconnect();
-            imageQueue.length = 0;
+            logoLoader.close();
             sortable.destroy();
             if (host.contains(dialog)) {
                 dialog.remove();
