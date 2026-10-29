@@ -1,4 +1,9 @@
 # Older changes
+## 5.0.0 (2026-09-23)
+
+- Comprehensive revision
+- New data source added
+
 ## 4.0.4 (2026-03-27)
 
 - update dependencies

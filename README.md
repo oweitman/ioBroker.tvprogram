@@ -320,8 +320,7 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 6.2.1 (2026-10-29)
 
 - fix problem with loading channel logos while paging
 
@@ -346,11 +345,6 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
 ### 5.0.1 (2026-09-23)
 
 - fix tests
-
-### 5.0.0 (2026-09-23)
-
-- Comprehensive revision
-- New data source added
 
 ## License
 

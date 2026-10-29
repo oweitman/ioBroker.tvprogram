@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "6.2.0",
+    "version": "6.2.1",
     "news": {
+      "6.2.1": {
+        "en": "fix problem with loading channel logos while paging",
+        "de": "Problem beim Laden von Kanallogos beim Pagen behoben",
+        "ru": "исправить проблему с загрузкой логотипов каналов во время пейджинга",
+        "pt": "corrija o problema de carregar logos de canais ao paginar",
+        "nl": "probleem oplossen met het laden van kanaallogo's tijdens paging",
+        "fr": "résoudre le problème de chargement des logos des chaînes",
+        "it": "risolvere il problema dei loghi dei canali",
+        "es": "solucionar el problema al cargar los logotipos de los canales",
+        "pl": "rozwiązać problem z ładowaniem logo kanałów podczas stronicowania",
+        "uk": "виправлення проблеми з завантаженням логотипів каналів під час підкачки",
+        "zh-cn": "修复寻呼时加载频道徽标的问题"
+      },
       "6.2.0": {
         "en": "Configurable paging mechanism in the channel select dialog",
         "de": "Konfigurierbarer Paging-Mechanismus im Kanalauswahldialog",
@@ -80,19 +93,6 @@
         "pl": "aktualizacji zależności\npoprawić obsługę błędów",
         "uk": "оновлення залежності\nполіпшення обробки помилок",
         "zh-cn": "更新依赖关系\n改进错误处理"
-      },
-      "4.0.2": {
-        "en": "improve position of dialogs\nreduce requests to data provider\ntest remove node 18,extend to node 24",
-        "de": "die position der dialoge verbessern\nanfragen an den datenanbieter reduzieren\ntest entfernen node 18,extend to node 24",
-        "ru": "улучшение позиции диалогов\nуменьшение запросов к поставщику данных\nтест удалить узел 18, расширить узел 24",
-        "pt": "melhorar a posição das janelas\nreduzir os pedidos ao fornecedor de dados\nteste remover o nó 18, extend ao nó 24",
-        "nl": "de positie van de dialogen verbeteren\nverzoeken aan dataprovider verminderen\ntest verwijder node 18, extend naar node 24",
-        "fr": "améliorer la position des dialogues\nréduire les demandes adressées au fournisseur de données\ntest enlever le noeud 18,extendre au noeud 24",
-        "it": "migliorare la posizione delle finestre di dialogo\nridurre le richieste al fornitore di dati\nprova rimuovere nodo 18, estend to node 24",
-        "es": "mejorar la posición de los diálogos\nreducir las solicitudes al proveedor de datos\nprueba eliminar nodo 18,extender a nodo 24",
-        "pl": "poprawić pozycję dialogów\nzmniejszyć liczbę wniosków do dostawcy danych\ntest usunąć węzeł 18, rozszerzyć na węzeł 24",
-        "uk": "поліпшення положення діалогів\nзменшити запити до постачальника даних\ntest remove node 18,потенд в вузол 24",
-        "zh-cn": "改善对话框的位置\n减少向数据提供者提出的请求\n测试去除节点 18, 延伸至节点 24"
       }
     },
     "titleLang": {
