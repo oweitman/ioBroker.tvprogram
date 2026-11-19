@@ -10,6 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 const tvprogramrequire = require(`${__dirname}/lib/tvprogramserver.js`);
+const { COMMANDS, HELP } = require('./lib/help');
 let tvprogramserver;
 
 class Tvprogram extends utils.Adapter {
@@ -85,6 +86,12 @@ class Tvprogram extends utils.Adapter {
         }
     }
     onMessage(obj) {
+        if (obj?.command === 'help') {
+            if (obj.callback) {
+                this.sendTo(obj.from, obj.command, { help: HELP, commands: COMMANDS }, obj.callback);
+            }
+            return;
+        }
         if (typeof obj === 'object' && obj.message) {
             tvprogramserver.processMessages(obj);
         }
