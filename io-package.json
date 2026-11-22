@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tvprogram",
-    "version": "6.2.1",
+    "version": "6.2.2",
     "news": {
+      "6.2.2": {
+        "en": "Added the message \"help\": a description of all messages for AI agents (e.g. pi-agent), and common.supportedMessages.help",
+        "de": "Nachricht „help“ hinzugefügt: Beschreibung aller Nachrichten für KI-Agenten (z. B. pi-agent) und common.supportedMessages.Help",
+        "ru": "Добавлено сообщение «help»: описание всех сообщений для агентов искусственного интеллекта (например, pi-agent) и common.supportedMessages.help",
+        "pt": "Adicionou a mensagem “help”: uma descrição de todas as mensagens dos agentes de IA (p. ex. pi-agent) e common.supportedMessages.help",
+        "nl": "Het bericht „help” toegevoegd: een beschrijving van alle berichten voor AI-agenten (bijv. pi-agent) en Common.SupportedMessages.help",
+        "fr": "Ajout du message « help » : description de tous les messages des agents IA (p.ex. pi-agent) et common.supportedMessages.help",
+        "it": "Aggiunto «help»: una descrizione di tutti i messaggi per gli agenti AI (ad es. pi-agent) e common.supportedmessages.help",
+        "es": "Añadió el mensaje «help»: una descripción de todos los mensajes de los agentes de IA (p. ej. pi-agent) y common.SupportedMessages.Help",
+        "pl": "Dodano komunikat „help”: opis wszystkich wiadomości dla agentów AI (np. pi-agent) oraz common.supportedMessages.help",
+        "uk": "Додано повідомлення «help»: опис всіх повідомлень для агентів AI (наприклад, pi-agent) та common.supportedMessages.help",
+        "zh-cn": "添加了 “帮助” 消息：对 AI 代理（例如 pi-agent）的所有消息的描述，以及 common.supportedMessages.Help"
+      },
       "6.2.1": {
         "en": "fix problem with loading channel logos while paging",
         "de": "Problem beim Laden von Kanallogos beim Pagen behoben",
@@ -80,19 +93,6 @@
         "pl": "aktualizacji zależności\nfix repochecker\ntransformowanie plików tłumaczeniowych",
         "uk": "оновлення залежності\nвиправити repochecker\njavascript licenses api веб-сайт",
         "zh-cn": "更新依赖关系\n固定重检查器\n tranform 翻译文件"
-      },
-      "4.0.3": {
-        "en": "update dependencies\nimprove error handling",
-        "de": "aktualisierung der abhängigkeiten\nverbesserung der fehlerbehandlung",
-        "ru": "обновление зависимостей\nулучшение обработки ошибок",
-        "pt": "atualizar dependências\nmelhorar o tratamento de erros",
-        "nl": "afhankelijkheden bijwerken\nverbetering van de foutafhandeling",
-        "fr": "mettre à jour les dépendances\naméliorer la gestion des erreurs",
-        "it": "aggiornamento dipendenze\nmigliorare la gestione degli errori",
-        "es": "dependencias de actualización\nmejorar el manejo de errores",
-        "pl": "aktualizacji zależności\npoprawić obsługę błędów",
-        "uk": "оновлення залежності\nполіпшення обробки помилок",
-        "zh-cn": "更新依赖关系\n改进错误处理"
       }
     },
     "titleLang": {

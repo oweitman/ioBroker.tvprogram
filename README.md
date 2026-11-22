@@ -324,7 +324,7 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 6.2.2 (2026-11-22)
 
 - (@GermanBluefox) Added the message "help": a description of all messages for AI agents (e.g. pi-agent), and common.supportedMessages.help
 
@@ -349,10 +349,6 @@ All longer examples are maintained in [docs/EXAMPLES.md](docs/EXAMPLES.md):
 - improve seperation of data
 - Improving the management of the selected channels
 - reduce amount of data transfered to widgets
-
-### 5.0.1 (2026-09-23)
-
-- fix tests
 
 ## License
 

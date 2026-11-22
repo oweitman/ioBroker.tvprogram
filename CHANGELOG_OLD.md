@@ -1,4 +1,8 @@
 # Older changes
+## 5.0.1 (2026-09-23)
+
+- fix tests
+
 ## 5.0.0 (2026-09-23)
 
 - Comprehensive revision
